@@ -124,7 +124,8 @@ const config = {
       },
       prism: {
         theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        darkTheme: require('prism-react-renderer/themes/paleNight'),
+        // darkTheme: darkCodeTheme,
       },
     }),
 };

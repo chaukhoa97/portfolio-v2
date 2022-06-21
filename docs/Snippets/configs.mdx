@@ -1,0 +1,62 @@
+---
+title: 'Configs'
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Prettier
+
+```json
+{
+  "semi": false,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "useTabs": false,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "printWidth": 80,
+  "overrides": [
+    {
+      "files": ["framework/saleor/**/*"],
+      "options": {
+        "printWidth": 120
+      }
+    }
+  ]
+}
+```
+
+### Eslint
+
+  Ở `.eslintrc`: `extends` dùng các `config-name` dc lấy từ các
+  `eslint-config-<config-name>` trong file `package.json`
+
+<Tabs>
+  <TabItem value="package.json" label="package.json" default>
+
+  ```json title="package.json"
+  ...
+  { 
+    "devDependencies": {
+      "eslint-config-next": "^11.0.1",
+      "eslint-config-prettier": "^8.3.0",
+    }
+  }
+  ```
+
+  </TabItem>
+  <TabItem value=".eslintrc" label=".eslintrc">
+
+  ```json title=".eslintrc"
+  {
+    "extends": ["next", "prettier"],
+    "rules": {
+      "react/no-unescaped-entities": "off"
+    }
+  }
+  ```
+
+  </TabItem>
+</Tabs>
+
+### Husky
