@@ -1,0 +1,105 @@
+---
+title: 'Configs'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+### Start
+
+```bash
+npm install --save-dev --save-exact prettier
+
+npm install eslint --save-dev
+npm init @eslint/config
+
+npm install husky --save-dev
+
+npm install --save-dev lint-staged
+```
+
+### Prettier
+
+```json title=".prettierrc"
+{
+  "semi": false,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "useTabs": false,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "printWidth": 80,
+  "overrides": [
+    {
+      "files": ["framework/saleor/**/*"],
+      "options": {
+        "printWidth": 120
+      }
+    }
+  ]
+}
+```
+
+### Eslint
+
+Ở `.eslintrc`: `extends` dùng các `config-name` dc lấy từ các
+`eslint-config-<config-name>` trong file `package.json`
+
+<Tabs>
+  <TabItem value="package.json" label="package.json" default>
+
+```json
+{
+  "devDependencies": {
+    "eslint-config-next": "^11.0.1",
+    "eslint-config-prettier": "^8.3.0"
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value=".eslintrc" label=".eslintrc">
+
+```json
+{
+  "extends": ["next", "prettier"],
+  "rules": {
+    "react/no-unescaped-entities": "off"
+  }
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Husky & lint-staged
+
+<Tabs>
+  <TabItem value="package.json" label="package.json">
+
+```json
+{
+  "devDependencies": {
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3"
+  },
+  "lint-staged": {
+    "*.+(js|jsx|ts|tsx)": ["eslint --fix"],
+    "*.+(js|jsx|ts|tsx|json|css|md|mdx)": ["prettier --write"]
+  }
+}
+```
+
+  </TabItem>
+
+  <TabItem value=".husky/pre-commit" label=".husky/pre-commit" default>
+
+```title=".husky/pre-commit"
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npx --no-install lint-staged
+```
+
+  </TabItem>
+</Tabs>
