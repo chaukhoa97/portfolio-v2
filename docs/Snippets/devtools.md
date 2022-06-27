@@ -1,5 +1,5 @@
 ---
-title: 'Devtools stuff'
+title: 'Devtools'
 ---
 
 ### Browser debug
@@ -7,8 +7,8 @@ title: 'Devtools stuff'
 ```js
 // Gõ in console tab -> Hover rồi đợi 3s -> Browser pause -> debug
 setTimeout(function () {
-  debugger;
-}, 3000);
+  debugger
+}, 3000)
 ```
 
 ```css
@@ -23,17 +23,17 @@ setTimeout(function () {
 //! Always have a code debugging in Chrome wrapped by a {}
 {
   function main() {
-    const s = foo();
-    bar(s);
+    const s = foo()
+    bar(s)
   }
 
   function foo() {
-    return 'hi';
+    return 'hi'
   }
 
   function bar(s) {
-    const t = s + foo(); //* Debugger is currently here
-    return t;
+    const t = s + foo() //* Debugger is currently here
+    return t
   }
 }
 ```

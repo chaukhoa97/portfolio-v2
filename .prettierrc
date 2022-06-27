@@ -1,13 +1,4 @@
-<<<<<<<< HEAD:docs/Snippets/configs.md
----
-title: 'Configs'
----
 
-### Prettier
-
-```json
-========
->>>>>>>> 43502995947b50539de75fb57a19772f2f185292:.prettierrc
 {
   "semi": false,
   "singleQuote": true,
@@ -25,15 +16,3 @@ title: 'Configs'
     }
   ]
 }
-<<<<<<<< HEAD:docs/Snippets/configs.md
-```
-
-### Eslint
-
-```json
-
-```
-
-### Husky
-========
->>>>>>>> 43502995947b50539de75fb57a19772f2f185292:.prettierrc

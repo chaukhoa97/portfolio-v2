@@ -19,20 +19,20 @@ title: 'React Terms'
    ```tsx
    // Declaring type of props
    type AppProps = {
-     message: string;
-   }; /* use `interface` if exporting so that consumers can extend */
+     message: string
+   } /* use `interface` if exporting so that consumers can extend */
    const App = ({ message = 'default mess' }: AppProps): JSX.Element => (
      <div>{message}</div>
-   );
+   )
    ```
 
 4. **State**: State is like a component’s memory. **It lets a component keep track of some information and change it in response to interactions**. For example, a Button might keep track of isHovered state.
 
-```jsx
-// 2 Component đều có props.name & props.children
-const C1 = ({ name, children }) => <div id={name}>{children}</div>;
-const C2 = (props) => <div id={props.name}>{props.children}</div>;
-```
+   ```jsx
+   // 2 Component đều có props.name & props.children
+   const C1 = ({ name, children }) => <div id={name}>{children}</div>
+   const C2 = (props) => <div id={props.name}>{props.children}</div>
+   ```
 
 ### Other Terms
 
