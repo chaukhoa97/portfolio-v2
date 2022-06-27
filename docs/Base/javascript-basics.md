@@ -11,7 +11,7 @@ Gọi hàm khi có sự kiện xảy ra, thực hiện bất đồng bộ.
 Các hàm async vào `Call stack` thì dc di chuyển qua `Web api`. Ở `Web api` chạy async xong thì push callback vào `Task queue`.  
 **Event Loop**: Khi `Call stack` trống thì `Task queue` đưa event vào `Call stack` theo kiểu **FIFO**.
 
-### `Closure` bao gồm: Function và References tới các biến ở outer scope của function đó (Lexical Environment). Trong JS, closures của 1 function dc tạo ra ở thời điểm declare function đó.
+### `Closure` bao gồm: Function và References tới các biến ở outer scope của function đó (Lexical Environment). Trong JS, closures của 1 function dc tạo ra ở thời điểm declare function đó
 
 ```js
 function f1() {
@@ -30,7 +30,7 @@ f3(); // 4
 console.log(x); // ReferenceError: Biến x chỉ dc sử dụng trong f1
 ```
 
-### `Hoisting`: Là quá trình đưa các khai báo (declaration) hàm/biến lên trên đầu trang, nó được thực hiện tự động bởi JavaScript Engine.
+### `Hoisting`: Là quá trình đưa các khai báo (declaration) hàm/biến lên trên đầu trang, nó được thực hiện tự động bởi JavaScript Engine
 
 ```js
 add(3, 4); //* returns 7
@@ -49,7 +49,7 @@ let y; // console.log(y) -> ERROR
 const z; // ERROR ngay bước init
 ```
 
-### Shallow Copy vs Deep Copy:
+### Shallow Copy vs Deep Copy
 
 ```js
 var obj = [{ a: 1 }, { b: 2 }]; // _isEqual -> true; == -> false
@@ -110,5 +110,5 @@ const obj = { key1: 'foo' }; // error - re-declaring
   - `Falsy || expr` -> expr
   - `null/undefined` ?? expr -> expr
 - `==` - chỉ so value -> null == undefined vs `===` - so luôn cả type
-- ![](https://imgur.com/SsK9doN.png)
+- ![Object.freeze vs .seal vs .preventExtensions ](https://imgur.com/SsK9doN.png)
 - [Sự khác biệt map và weakmap](https://kieblog.vn/javascript-su-khac-biet-map-va-weakmap/)

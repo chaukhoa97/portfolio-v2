@@ -2,13 +2,13 @@
 title: 'UI/UX Stuff'
 ---
 
-### Typical parts of a website:
+### Typical parts of a website
 
 - **Accordion/Disclosure/Collapse**: Click đóng/mở nội dung như FAQ.
 
-![](https://imgur.com/MyJJ16E.png)
+![Typical parts of a website](https://imgur.com/MyJJ16E.png)
 
-### Header-Content Font pairs:
+### Header-Content Font pairs
 
 - **Impact**: Oswald - Quattrocento
 - **Multifunction**: Raleway - Roboto
@@ -16,7 +16,7 @@ title: 'UI/UX Stuff'
 - **Serious**: Playfair Display - Fauna one
 - **Impact**: Alfa Slab - Open Sans
 
-### Photoshop:
+### Photoshop
 
 - Hiện duy nhất layer đó: Alt+click vào con mắt.
 - Tìm font: Press T (Type tool) rồi click vào chữ.

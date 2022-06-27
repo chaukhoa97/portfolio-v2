@@ -5,7 +5,7 @@ title: 'Other Terms'
 ### Headless CMS vs Traditional CMS
 
 - **Traditional CMS**: Content -> Content Delivery Template -> Web pages
-- **Headless CMS** (Strapi/Ghost): Content -> Raw JSON Data -> Any plaform (TV, Smart watch, mobile, etc.)
+- **Headless CMS** (Sanity/Strapi): Content -> Raw JSON Data -> Any plaform (TV, Smart watch, mobile, etc.)
 
 ### Nodejs & Express
 

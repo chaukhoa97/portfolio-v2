@@ -72,7 +72,7 @@ Cả 3 đều integrate changes from one branch into another branch
 1. **Tìm lại ID của commit/stash cũ**:  
    `git fsck --unreachable | grep commit | cut -d" " -f3 | xargs git log --merges --no-walk --grep=WIP`  
    Thay "WIP" ở cuối by a part of the title của stash/commit
-2. **Thử version cũ hơn của pj (Detached HEAD)**: `git checkout -b test-branch 56a4e5c08 --index.js` - Tạo nhánh mới từ <commit-id 56a4e5c08> -> do anything... -> `git checkout master` + `git branch -d test-branch`
+2. **Thử version cũ hơn của pj (Detached HEAD)**: `git checkout -b test-branch 56a4e5c08 --index.js` - Tạo nhánh mới từ `commit-id 56a4e5c08` -> do anything... -> `git checkout master` + `git branch -d test-branch`
 
 ### ETC
 

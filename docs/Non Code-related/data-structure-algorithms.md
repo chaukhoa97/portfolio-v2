@@ -16,7 +16,7 @@ title: 'DS & Algorithms'
 
   ={'>'} Nếu dùng Data Structure này để truy cập item theo index, hay chỉ thêm/xóa item ở cuối thì nên dùng array.
 
-### Others:
+### Others
 
 - **Linked List**: Phân bố bất kỳ đâu trong memory (không liền kề nhau như Array).
 - **Stacks**: LIFO -{'>'} **Callstack**: The last invoked fn will be popped out when it returns something.

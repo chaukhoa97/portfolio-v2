@@ -33,11 +33,11 @@ If the parent height is not specified explicitly (i.e., it depends on content he
 - `box-sizing: border-box` : Width/Height = `Content` + `Padding` + `Border`.
 - `box-sizing: content-box` : Width/Height = `Content` -> `Padding` & `Border` làm width to hơn so với ý muốn.
 
-### Display: `flex`, `grid`, `none` ...
+### Display: `flex`, `grid`, `none`
 
 - `inline`(span): ignore `width` & `height`, accept `margin` & `padding` but only push other elements horizontally away, not vertically.
 - `inline-block`(button, select, input): Similar to inline, but `width` & `height` are accepted.
-  ![](https://i0.wp.com/css-tricks.com/wp-content/uploads/2011/09/inline-block.png?w=526&ssl=1)
+  ![inline-block](https://i0.wp.com/css-tricks.com/wp-content/uploads/2011/09/inline-block.png?w=526&ssl=1)
 - `block`(div, h3, p): Take up as much horizontal space as they can.
 
 ### Position: `fixed`, `sticky`(`relative` + `fixed`), `static`

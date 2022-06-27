@@ -20,6 +20,7 @@ title: 'SASS'
   ```
 
 - Extend: Ko dùng variable -> hợp cho static style, file css ra cũng gọn hơn.
+
   ```scss
   .error {
     border: 1px #f00;

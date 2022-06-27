@@ -16,5 +16,5 @@ title: 'Redux'
 
 4. Redux store dựa theo type của Action object để gọi reducerFn tương ứng và Update Store data dựa theo storeState & payload.
 
-![](https://i.imgur.com/UFZ1opQ.png)
-![](https://i.imgur.com/Wtx9WvJ.png)
+![Core Redux Concepts](https://i.imgur.com/UFZ1opQ.png)
+![Where should our logic code go?](https://i.imgur.com/Wtx9WvJ.png)

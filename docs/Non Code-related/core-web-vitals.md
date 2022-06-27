@@ -4,21 +4,20 @@ title: 'Core Web Vitals'
 
 ### Largest Contentful Paint (LCP)
 
-LCP measures the time it takes to get the largest element on the page visible within the viewport. This could be a large text block, video, or image that takes up the primary real estate on the page.  
--> LCP measures the **loading performance** of a web page.
+**LCP** measures the time it takes to get the largest element on the page visible within the viewport. This could be a large text block, video, or image that takes up the primary real estate on the page.  
+***LCP** measures the **loading performance** of a web page.  
 
-    Note: This is not First Contentful Paint (FCP), which measures the time from
-    when the page begins to load to when the first element is rendered on screen.
+*Note: This is not First Contentful Paint (FCP), which measures the time from when the page begins to load to when the first element is rendered on screen.*
 
 ### First Input Delay (FID) == Total Blocking Time
 
-FID measures the **interactivity** of a web page.
+**FID** measures the **interactivity** of a web page.
 
 ### Cumulative Layout Shift (CLS)
 
-CLS occurs when elements have been shifted after initially being rendered by the DOM. Ex: A `button` is rendered after the `text block`, causing the `text` to shift downward.  
--> CLS measure your site’s **overall layout stability**
-![](https://nextjs.org/static/images/learn/seo/cls-example.png)
+**CLS** occurs when elements have been shifted after initially being rendered by the DOM. Ex: A `button` is rendered after the `text block`, causing the `text` to shift downward.  
+-> **CLS** measure your site’s **overall layout stability**
+![Cumulative Layout Shift (CLS)](https://nextjs.org/static/images/learn/seo/cls-example.png)
 
 ### How to improve [Lighthouse Core web vitals](https://web.dev/performance-scoring/#lighthouse-8)
 
@@ -45,7 +44,7 @@ import Image from `next/image`
 />
 ```
 
-#### [Dynamic Import for Components](https://nextjs.org/learn/seo/improve/dynamic-import-components): Dynamically render React component that is not needed on the initial page load.
+#### [Dynamic Import for Components](https://nextjs.org/learn/seo/improve/dynamic-import-components): Dynamically render React component that is not needed on the initial page load
 
 ```jsx
 import dynamic from 'next/dynamic';

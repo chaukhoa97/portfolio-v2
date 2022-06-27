@@ -22,11 +22,11 @@ File JSON có dạng:
 }
 ```
 
-![](https://nextjs.org/static/images/learn/data-fetching/static-generation.png)
+![Static-site Generation](https://nextjs.org/static/images/learn/data-fetching/static-generation.png)
 
 #### [Incremental Static Regeneration](https://vercel.com/docs/concepts/next.js/incremental-static-regeneration) `(revalidate: 60)`
 
-![](https://vercel.com/_next/image?url=%2Fdocs-proxy%2Fstatic%2Fdocs%2Fconcepts%2Fnext.js%2Fisr%2Fregeneration.png&w=1080&q=75)
+![Incremental Static Regeneration](https://vercel.com/_next/image?url=%2Fdocs-proxy%2Fstatic%2Fdocs%2Fconcepts%2Fnext.js%2Fisr%2Fregeneration.png&w=1080&q=75)
 Tạo Paths with ISR: Đẻ 100 most popular products từ `getStaticPaths`, user request product khác thì kẹp thêm `fallback`: `true`(`router.isFallback?loading...`) hoặc `'blocking'` (bắt đầu load trang bằng SSR).
 
 1. The initial request to the product page will show the cached page(just like SSG)
@@ -39,11 +39,11 @@ Tạo Paths with ISR: Đẻ 100 most popular products từ `getStaticPaths`, use
 
 Khi user request, `getServerSideProps` ko tạo HTML ở build time như SSG mà chỉ tạo file JSON(format giống như trên) làm prop cho page componnent, từ đó render ra trang HTML và trả về cho client.
 
-![](https://nextjs.org/static/images/learn/data-fetching/server-side-rendering.png)
+![Server-side Rendering](https://nextjs.org/static/images/learn/data-fetching/server-side-rendering.png)
 
 ### Client-side Rendering
 
-![](https://nextjs.org/static/images/learn/data-fetching/client-side-rendering.png)
+![Client-side Rendering](https://nextjs.org/static/images/learn/data-fetching/client-side-rendering.png)
 
 ```jsx
 useEffect(() => {
