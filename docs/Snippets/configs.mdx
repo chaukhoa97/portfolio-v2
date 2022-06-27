@@ -1,13 +1,26 @@
 ---
-title: "Configs"
+title: 'Configs'
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+### Start
+
+```bash
+npm install --save-dev --save-exact prettier
+
+npm install eslint --save-dev
+npm init @eslint/config
+
+npm install husky --save-dev
+
+npm install --save-dev lint-staged
+```
 
 ### Prettier
 
-```json
+```json title=".prettierrc"
 {
   "semi": false,
   "singleQuote": true,
@@ -35,7 +48,7 @@ import TabItem from "@theme/TabItem";
 <Tabs>
   <TabItem value="package.json" label="package.json" default>
 
-```json title="package.json"
+```json
 {
   "devDependencies": {
     "eslint-config-next": "^11.0.1",
@@ -47,7 +60,7 @@ import TabItem from "@theme/TabItem";
   </TabItem>
   <TabItem value=".eslintrc" label=".eslintrc">
 
-```json title=".eslintrc"
+```json
 {
   "extends": ["next", "prettier"],
   "rules": {
@@ -64,7 +77,7 @@ import TabItem from "@theme/TabItem";
 <Tabs>
   <TabItem value="package.json" label="package.json">
 
-```json title="package.json"
+```json
 {
   "devDependencies": {
     "husky": "^8.0.1",
