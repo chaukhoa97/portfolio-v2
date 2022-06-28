@@ -19,7 +19,7 @@ Cả 3 đều integrate changes from one branch into another branch
 
 - `git checkout feature` + `git merge main`
   - **Nếu hủy**: `git merge --abort`
-  - **Fix conflict** -> add. -> `git merge --continue` -> Sửa message ở màn hình _interactive_ -> :wq
+  - **Fix conflict** &rarr; add. &rarr; `git merge --continue` &rarr; Sửa message ở màn hình _interactive_ &rarr; :wq
 - `git rebase` syntax giống hệt: Chỉ nên sử dụng trên nhánh **feature**, không nên dùng ở nhánh **master**
 
 - `git cherry-pick <commit-id>`: Nhánh **feature** có commit _F1_ và _F2_. Ở nhánh **master**:
@@ -46,7 +46,7 @@ Cả 3 đều integrate changes from one branch into another branch
 
 ### Reset
 
-- `git reset --(soft / mixed / hard) (HEAD~1 / <commit-id>)` -> Về stage/local/xóa luôn.
+- `git reset --(soft / mixed / hard) (HEAD~1 / <commit-id>)` &rarr; Về stage/local/xóa luôn.
 - `git status (<file-name>)`: Xem trạng thái (local, staging hay đã commit) cả nhánh (hoặc file-name).
 - `reset` vs `revert`: `revert` chỉ undo riêng 1 commit `X`, còn `reset` back về luôn commit đó luôn (undo hết ~ commit sau `X`).
 
@@ -72,10 +72,10 @@ Cả 3 đều integrate changes from one branch into another branch
 1. **Tìm lại ID của commit/stash cũ**:  
    `git fsck --unreachable | grep commit | cut -d" " -f3 | xargs git log --merges --no-walk --grep=WIP`  
    Thay "WIP" ở cuối by a part of the title của stash/commit
-2. **Thử version cũ hơn của pj (Detached HEAD)**: `git checkout -b test-branch 56a4e5c08 --index.js` - Tạo nhánh mới từ `commit-id 56a4e5c08` -> do anything... -> `git checkout master` + `git branch -d test-branch`
+2. **Thử version cũ hơn của pj (Detached HEAD)**: `git checkout -b test-branch 56a4e5c08 --index.js` - Tạo nhánh mới từ `commit-id 56a4e5c08` &rarr; do anything... &rarr; `git checkout master` + `git branch -d test-branch`
 
 ### ETC
 
-- **Xóa file**: `git rm *.ts (--cached)` -> Xóa file (khỏi stage).
+- **Xóa file**: `git rm *.ts (--cached)` &rarr; Xóa file (khỏi stage).
 
-- **Vim**: `ESC : W Q` -> Save & Quit.
+- **Vim**: `ESC : W Q` &rarr; Save & Quit.

@@ -6,7 +6,7 @@ title: 'SASS'
 
 - Variable: `$sm: 576px`
 
-- Mixin: Có thể dùng variable -> hợp với flexible style, như ở đây là phụ thuộc vào variable `$bgColor`, bù lại file css ra sẽ dài hơn.
+- Mixin: Có thể dùng variable &rarr; hợp với flexible style, như ở đây là phụ thuộc vào variable `$bgColor`, bù lại file css ra sẽ dài hơn.
 
   ```scss
   @mixin error($bgColor) {
@@ -19,7 +19,7 @@ title: 'SASS'
   }
   ```
 
-- Extend: Ko dùng variable -> hợp cho static style, file css ra cũng gọn hơn.
+- Extend: Ko dùng variable &rarr; hợp cho static style, file css ra cũng gọn hơn.
 
   ```scss
   .error {

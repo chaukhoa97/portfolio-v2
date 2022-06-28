@@ -6,7 +6,7 @@ title: 'Common CSS Bugs'
 
 **A flex item cannot be smaller than the size of its content along the main axis.**
 
-Mặc định các flex item sẽ có `min-width/min-height: auto` -> Sửa thành `0` hoặc `overflow: hidden`.
+Mặc định các flex item sẽ có `min-width/min-height: auto` &rarr; Sửa thành `0` hoặc `overflow: hidden`.
 _Có thể fix lỗi Swiper tràn width bằng cách trên_
 
 ```css

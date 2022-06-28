@@ -6,8 +6,8 @@ title: 'CSS Basics'
 
 1. `flex-grow` - MAX: Chỉ định tỷ lệ kích thước to nhất mà phần tử nên có so với các phần tử còn lại.
 
-   - **(Default)** `0`: Kích thước của các phần tử sẽ khớp với nội dung bên trong -> có thể ko lắp đầy hết `Parent`.
-   - `> 1`: Ví dụ có 2 phần tử: Child1: `grow: 1`, Child2: `grow: 3` -> Cả 2 sẽ lấp đầy `Parent` nhưng Child2 sẽ chiếm nhiều hơn.
+   - **(Default)** `0`: Kích thước của các phần tử sẽ khớp với nội dung bên trong &rarr; có thể ko lắp đầy hết `Parent`.
+   - `> 1`: Ví dụ có 2 phần tử: Child1: `grow: 1`, Child2: `grow: 3` &rarr; Cả 2 sẽ lấp đầy `Parent` nhưng Child2 sẽ chiếm nhiều hơn.
 
 2. `flex-shrink` - MIN: Kích thước nhỏ nhất mà phần tử nên có. Giá trị càng lớn thì phần tử càng nhỏ.
 
@@ -21,7 +21,7 @@ title: 'CSS Basics'
 
 #### More ab flex-container
 
-An initial setting of a Flex container is `align-items: stretch` -> Flex items will take up the full height of the Flex container.  
+An initial setting of a Flex container is `align-items: stretch` &rarr; Flex items will take up the full height of the Flex container.  
 If a child has a height specified (e.g. `height: 100%`), then it will ignore the `align-items: stretch` coming from the parent. For the `stretch` default to work, the child's height must compute to `auto`.
 
 #### Percentage Height to an item (`height: x%`)
@@ -31,7 +31,7 @@ If the parent height is not specified explicitly (i.e., it depends on content he
 ### Box model: [Content + (Padding + Border)] + Margin
 
 - `box-sizing: border-box` : Width/Height = `Content` + `Padding` + `Border`.
-- `box-sizing: content-box` : Width/Height = `Content` -> `Padding` & `Border` làm width to hơn so với ý muốn.
+- `box-sizing: content-box` : Width/Height = `Content` &rarr; `Padding` & `Border` làm width to hơn so với ý muốn.
 
 ### Display: `flex`, `grid`, `none`
 
@@ -60,8 +60,9 @@ If the parent height is not specified explicitly (i.e., it depends on content he
 - **Unit**: px vw vh rem em %
 
 - ```css
-  div{
-    transform: translateX(100px) -> transistion: width 2s, transform 1s ease
+  div {
+    transform: translateX(100px) &rarr;
+    transistion: width 2s, transform 1s ease;
   }
   ```
 

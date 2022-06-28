@@ -36,6 +36,6 @@ title: 'HTML <head>'
 
 - `meta googlebot`(line **17**): Use this tag if you want to have a separate rule for Googlebot, and a general one for the rest of the search bots.
 
-- `canonical`(line **21**): Content của `example.com/products/phone` trùng với `example.com/phone` -> Chọn link này để Google ko crawl trùng
+- `canonical`(line **21**): Content của `example.com/products/phone` trùng với `example.com/phone` &rarr; Chọn link này để Google ko crawl trùng
 
 - Semantic: `section(A group of content, typically with a heading)`, `header, nav, main, footer, aside`, article, address, figure.

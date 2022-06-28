@@ -38,7 +38,7 @@ Vd2: Một JSON object bao gồm 2 cặp key - value - > Value của mỗi cặp
 }
 ```
 
-Vd3: Một JSON object bao gồm 2 cặp key - value - > Value của mỗi cặp là một array -> Mỗi array bao gồm 2 JSON object - > Mỗi object bao gồm 2 cặp key - value
+Vd3: Một JSON object bao gồm 2 cặp key - value - > Value của mỗi cặp là một array &rarr; Mỗi array bao gồm 2 JSON object - > Mỗi object bao gồm 2 cặp key - value
 
 ```json
 {

@@ -1,0 +1,24 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "git add .",
+      "type": "shell",
+      "command": "git add ."
+    },
+    {
+      "label": "git commit --amend --no-edit",
+      "type": "shell",
+      "command": "git commit --amend --no-edit",
+      "dependsOn": ["git add ."],
+      "dependsOrder": "sequence"
+    },
+    {
+      "label": "Amend",
+      "type": "shell",
+      "command": "git push --force",
+      "dependsOn": ["git commit --amend --no-edit"],
+      "dependsOrder": "sequence"
+    }
+  ]
+}

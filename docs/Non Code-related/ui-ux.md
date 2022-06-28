@@ -20,10 +20,10 @@ title: 'UI/UX Stuff'
 
 - Hiện duy nhất layer đó: Alt+click vào con mắt.
 - Tìm font: Press T (Type tool) rồi click vào chữ.
-- Tìm font và color đầy đủ: Right click vào layer -> copy css.
+- Tìm font và color đầy đủ: Right click vào layer &rarr; copy css.
 - Tách & export phần được chọn:
   - Make your selection
-  - Edit -> Copy Merged
-  - File -> New (Photoshop should automatically suggest a new canvas size to match the selection size)
-  - Edit -> Paste
-  - File -> Save As (PNG)
+  - Edit &rarr; Copy Merged
+  - File &rarr; New (Photoshop should automatically suggest a new canvas size to match the selection size)
+  - Edit &rarr; Paste
+  - File &rarr; Save As (PNG)

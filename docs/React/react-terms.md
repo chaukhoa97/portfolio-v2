@@ -34,12 +34,21 @@ title: 'React Terms'
    const C2 = (props) => <div id={props.name}>{props.children}</div>
    ```
 
+### Key in Array of Items
+
+Để React biết dc item nào dc thêm/sửa/xóa để ko re-render thừa thãi.  
+A good rule of thumb is that elements inside the `map()` call need keys.
+
+Key của 1 element trong 1 array là thứ có giá trị riêng biệt với các element khác (siblings) của nó:
+
+1. **ID** của element từ dữ liệu.
+2. **Value** của element từ dữ liệu.
+3. Tệ nhất: Dùng **index** của element trong array.
+
 ### Other Terms
 
 - **Mount/Unmount**: Adding/Removing nodes to the DOM
+
 - **Render**: Đưa vào/Thay đổi node ở trong DOM, nghĩa là với lần đầu đưa vào sẽ tương đương với Mount, những lần sau, khi state của component thay đổi, sẽ dc render lại (re-render) nhưng không phải là Mount (vì ko add thêm nodes vào DOM)
 
 - **Fragment**: `<Fragment key = ...>` - thêm key vào dc so với chỉ dùng `<>`
-- **Reason why component doesnt update when its props change:**
-  1. The props weren't updated correctly via setState (WRONG: props.title ='a') (RIGHT: setTitle('a') )
-  2. The reference to the prop stayed the same

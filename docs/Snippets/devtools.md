@@ -5,7 +5,7 @@ title: 'Devtools'
 ### Browser debug
 
 ```js
-// Gõ in console tab -> Hover rồi đợi 3s -> Browser pause -> debug
+// Gõ in console tab &rarr; Hover rồi đợi 3s &rarr; Browser pause &rarr; debug
 setTimeout(function () {
   debugger
 }, 3000)
