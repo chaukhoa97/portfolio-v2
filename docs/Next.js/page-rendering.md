@@ -1,5 +1,5 @@
 ---
-title: "Page Rendering"
+title: 'Page Rendering'
 ---
 
 ### [Static-site Generation](https://nextjs.org/docs/basic-features/pages#static-generation-recommended)
@@ -51,7 +51,7 @@ export async function getStaticPaths() {
     params: { id: product.id },
   }))
 
-  return { paths, fallback: "blocking" } // hoặc `fallback: true`
+  return { paths, fallback: 'blocking' } // hoặc `fallback: true`
 }
 ```
 
@@ -79,8 +79,8 @@ Cách cơ bản nhất là sử dụng [`useEffect` để fetch data về ở Cl
 Nên kẹp chung với [TanStack Query](https://github.com/TanStack/query/releases) hoặc [Vercel SWR](https://github.com/vercel/swr/releases).
 
 - Important for the user to see most up-to-date data.
-- Không cần SEO (usually personalized content).
-- Có thể cho người dùng thấy layout trước (Skeleton) so với `SSR`.  
+- Có thể cho người dùng thấy layout trước (Skeleton) so với `SSR`.
+- SEO tệ (do k có pre-render), usually used for personalized content.
   &rarr; Dùng cho những page như: Dashboard, Cart, ...
 
 ![Client-side Rendering](https://nextjs.org/static/images/learn/data-fetching/client-side-rendering.png)
