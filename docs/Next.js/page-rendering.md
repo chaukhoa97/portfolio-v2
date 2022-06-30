@@ -1,5 +1,5 @@
 ---
-title: 'Page Rendering'
+title: "Page Rendering"
 ---
 
 ### [Static-site Generation](https://nextjs.org/docs/basic-features/pages#static-generation-recommended)
@@ -51,7 +51,7 @@ export async function getStaticPaths() {
     params: { id: product.id },
   }))
 
-  return { paths, fallback: 'blocking' } // hoặc `fallback: true`
+  return { paths, fallback: "blocking" } // hoặc `fallback: true`
 }
 ```
 
@@ -68,7 +68,7 @@ Use case: Đẻ 1000 most popular products từ `getStaticPaths`
 
 - Important for the user to see most up-to-date data.
 - SEO is critical.
-- TTFB chậm hơn `CSR`, nhưng tổng thể sau cùng thì load nhanh hơn (ko đáng kể).  
+- TTFB chậm nhất (do Server phải Generate lại page rồi mới gửi lại cho user), nhưng tổng thể sau cùng thì load nhanh hơn `CSR` (ko đáng kể).  
   &rarr; Dùng cho những page từ input người dùng: Search result ...
 
 ![Server-side Rendering](https://nextjs.org/static/images/learn/data-fetching/server-side-rendering.png)

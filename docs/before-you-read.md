@@ -12,6 +12,6 @@ As my coding journey goes on they have started to become unmanageable and it mes
 
 :::note
 
-All of the docs are intended for my quick reference, so all of them are neither well written nor 100% English. It's better for you to ignore them.
+All of the docs are intended for my quick reference, so all of them are neither well written nor English. You should ignore them.
 
 :::
