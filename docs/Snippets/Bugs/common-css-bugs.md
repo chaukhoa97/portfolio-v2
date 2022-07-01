@@ -15,7 +15,7 @@ _Có thể fix lỗi Swiper tràn width bằng cách trên_
 }
 
 .children {
-  min-width: auto;
+  min-width: 0;
   /* hoặc */
   overflow: hidden;
 }
