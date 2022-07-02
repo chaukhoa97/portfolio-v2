@@ -13,7 +13,8 @@ const config = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  // favicon: 'img/favicon2.ico',
+  favicon: 'img/pepe.gif',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -35,13 +36,9 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -57,7 +54,8 @@ const config = {
         title: 'Finn Chau',
         logo: {
           alt: 'Finn Chau Logo',
-          src: 'img/docusaurus.png',
+          // src: 'img/logo2.png',
+          src: 'img/pepe.gif',
         },
         items: [
           {
@@ -71,18 +69,18 @@ const config = {
       },
       footer: {
         style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Before you read',
-                to: '/docs/before-you-read',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} Finn Chau's Personal page. Built with Docusaurus.`,
+        // links: [
+        //   {
+        //     title: 'Docs',
+        //     items: [
+        //       {
+        //         label: 'Before you read',
+        //         to: '/docs/before-you-read',
+        //       },
+        //     ],
+        //   },
+        // ],
+        copyright: `Copyright © ${new Date().getFullYear()} Finn Chau's personal page. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
