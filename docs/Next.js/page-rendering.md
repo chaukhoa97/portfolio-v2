@@ -32,7 +32,7 @@ Cho phép create/update static pages sau khi đã `next build`. Khi gặp 1 tron
 
 Dùng cho những page có content dc update thường xuyên but it's not important for the user to see most up-to-date data: Blog, Product Detail, ...
 
-#### First case - by `getStaticProps revalidate`
+#### First case - by `getStaticProps` using `revalidate`
 
 ![ISG by `getStaticProps`](https://vercel.com/_next/image?url=%2Fdocs-proxy%2Fstatic%2Fdocs%2Fconcepts%2Fnext.js%2Fisr%2Fregeneration.png&w=1080&q=75)
 
@@ -42,7 +42,7 @@ Dùng cho những page có content dc update thường xuyên but it's not impor
 4. After the 60 second window, the next request will still show the same cached page with old data, but Next.js will now trigger a regeneration of the page in the background.
 5. Once the page has been successfully generated, Next.js will invalidate the cache and show the updated product page. If the background regeneration fails, the old page remains unaltered.
 
-#### Second case - by `getStaticPaths`
+#### Second case - by `getStaticPaths` using `fallback: 'blocking'(preferred)/true`
 
 ```js title="pages/products/[id].js"
 export async function getStaticPaths() {
@@ -64,12 +64,12 @@ Use case: Đẻ 1000 most popular products từ `getStaticPaths`
 
 ### [Server-side Rendering](https://nextjs.org/docs/basic-features/pages#server-side-rendering)
 
-`getServerSideProps` ko tạo HTML ở build time như SSG. Thay vào đó mỗi khi user request, Next.js sẽ tạo file JSON [format giống như trên](#file-json-có-dạng), từ đó render ra trang HTML và trả về cho client.
+`getServerSideProps` ko tạo HTML ở build time như SSG. Thay vào đó mỗi khi user request, Next.js sẽ tạo file JSON [format giống như trên](#file-json-có-dạng), từ đó render ra trang HTML ở server và trả về cho client.
 
 - Important for the user to see most up-to-date data.
 - SEO is critical.
 - TTFB chậm nhất (do Server phải Generate lại page rồi mới gửi lại cho user), nhưng tổng thể sau cùng thì load nhanh hơn `CSR` (ko đáng kể).  
-  &rarr; Dùng cho những page từ input người dùng: Search result ...
+&rarr; Dùng cho những page cần SEO, và content của page dc dựa theo input (Ex: search) từ user: Search result ...
 
 ![Server-side Rendering](https://nextjs.org/static/images/learn/data-fetching/server-side-rendering.png)
 
