@@ -9,7 +9,12 @@ function HomepageHeader() {
   return (
     <header className={styles.header}>
       <img className={styles.avatar} src="img/avatar.png"></img>
-      <h1 className={styles.heading}>Hi, I'm Finn</h1>
+      <h1 className={styles.heading}>
+        Hi, I'm{' '}
+        <span className={styles['highlight-container']}>
+          <span className={styles.highlight}>Finn</span>
+        </span>
+      </h1>
       <p className={styles.subHeading}>
         React.js Developer with a passion in building modern and elegant
         websites
