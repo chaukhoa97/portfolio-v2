@@ -44,6 +44,8 @@ Dùng cho những page có content dc update thường xuyên but it's not impor
 
 #### Second case - by `getStaticPaths` using `fallback: 'blocking'(preferred)/true`
 
+Nếu dùng cách này, khi trên màn hình có ~ `next/<Link>`**(KHÔNG phải `<a>`)** dẫn đến ~ page chưa dc pre-render, Next.js sẽ trigger generate static page cho tất cả các page đó.
+
 ```js title="pages/products/[id].js"
 export async function getStaticPaths() {
   const products = await getTop1000Products()
@@ -57,8 +59,12 @@ export async function getStaticPaths() {
 
 Use case: Đẻ 1000 most popular products từ `getStaticPaths`
 
-- `fallback: blocking` (preferred) – when a request is made to a page that hasn't been generated, Next.js will server-render the page on the first request. Future requests will serve the static file from the cache.
+- `fallback: blocking` (preferred) – when a request is made to a page that hasn't been generated, Next.js will `SSR` the page on the first request and cache it. Future requests will serve the static file from the cache.
 - `fallback: true` – when a request is made to a page that hasn't been generated, Next.js will immediately serve a static page with a loading state on the first request. When the data is finished loading, the page will re-render using this data and be cached. Future requests will serve the static file from the cache.
+
+---
+
+- `fallback: false` - 404 page will be served.
 
 #### [Next.js API route](https://nextjs.org/docs/api-routes/introduction) + [On-demand ISR](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#on-demand-revalidation): Wish list
 
@@ -69,7 +75,7 @@ Use case: Đẻ 1000 most popular products từ `getStaticPaths`
 - Important for the user to see most up-to-date data.
 - SEO is critical.
 - TTFB chậm nhất (do Server phải Generate lại page rồi mới gửi lại cho user), nhưng tổng thể sau cùng thì load nhanh hơn `CSR` (ko đáng kể).  
-&rarr; Dùng cho những page cần SEO, và content của page dc dựa theo input (Ex: search) từ user: Search result ...
+  &rarr; Dùng cho những page cần SEO, và content của page dc dựa theo input (Ex: search) từ user: Search result ...
 
 ![Server-side Rendering](https://nextjs.org/static/images/learn/data-fetching/server-side-rendering.png)
 

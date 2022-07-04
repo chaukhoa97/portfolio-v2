@@ -21,20 +21,21 @@ When you export a function called `getStaticPaths` (Static Site Generation) from
 export const getStaticPaths = async () => {
   // Fetch or do something...
   const paths = [{ params: { id: '1' } }, { params: { id: '2' } }]
-  return { paths, fallback: false }
+  return { paths, fallback: 'blocking' }
 }
 
 // `context` là object có nhiều property (đọc API của `getStaticProps`)
 // Trong đó quan trọng nhất là `params` - Route params for pages using Dynamic routes.
 // [id].jsx -> context = { params: { id: ... }, locales... }
 export const getStaticProps = async (context) => {
-  const { params: { id } } = context
-  const title = `Bài viết số ${id}`
+  const {
+    params: { id },
+  } = context
 
-  // `paths` ở đây ko dùng để lựa các page để pre-render như `getStaticPaths`, mà chỉ để render các Link trong NavBar 
+  // `paths` ở đây KHÔNG dùng để lựa các page để pre-render như `getStaticPaths`, mà chỉ để render các Link trong NavBar
   const paths = [{ params: { id: '3' } }, { params: { id: '4' } }]
 
-    if (!title) {
+  if (!id) {
     return {
       notFound: true,
       // hoặc
@@ -46,29 +47,22 @@ export const getStaticProps = async (context) => {
   }
 
   return {
-    props: {
-      // `id`, `title`, `paths` will be passed to the Page component as props
-      id,
-      title,
-      paths,
-    },
-    revalidate: 60, 
+    props: { id, paths }, // `id`, `paths` will be passed to the Page component as props
+    revalidate: 60,
   }
 }
 
-export default function Page({ id, title, paths }) {
+export default function Page({ id, paths }) {
   return (
     <div className="flex">
       <div className="w-1/4">
         {paths.map((path) => (
           <Link href={path.params.id} key={path.params.id}>
-            <a className="beautiful-link">{path.params.id}</a>
+            <a className="mx-4 text-primary-400">Link {path.params.id}</a>
           </Link>
         ))}
       </div>
-      <div className="w-3/4">
-        {id}, {title}
-      </div>
+      <h3 className="w-3/4 text-3xl">ID: {id}</h3>
     </div>
   )
 }
@@ -76,6 +70,6 @@ export default function Page({ id, title, paths }) {
 
 ### `getServerSideProps`
 
-Run on every request. Syntax giống hệt `getStaticProps`  
+Run on every request. Syntax giống hệt `getStaticProps`
 
 If you export a function called `getServerSideProps` (Server-Side Rendering) from a page, Next.js will pre-render this page on each request using the data returned by `getServerSideProps`.

@@ -2,8 +2,9 @@
 title: 'JavaScript Basics'
 ---
 
-### Callback: _Hàm_ dc truyền qua _argument_
+### Callback
 
+_Hàm_ dc truyền qua _argument_
 Gọi hàm khi có sự kiện xảy ra, thực hiện bất đồng bộ.
 
 ### Event loop
@@ -11,7 +12,9 @@ Gọi hàm khi có sự kiện xảy ra, thực hiện bất đồng bộ.
 Các hàm async vào `Call stack` thì dc di chuyển qua `Web api`. Ở `Web api` chạy async xong thì push callback vào `Task queue`.  
 **Event Loop**: Khi `Call stack` trống thì `Task queue` đưa event vào `Call stack` theo kiểu **FIFO**.
 
-### `Closure` bao gồm: Function và References tới các biến ở outer scope của function đó (Lexical Environment). Trong JS, closures của 1 function dc tạo ra ở thời điểm declare function đó
+### Closure
+
+Bao gồm: Function và References tới các biến ở outer scope của function đó (Lexical Environment). Trong JS, closures của 1 function dc tạo ra ở thời điểm declare function đó
 
 ```js
 function f1() {
@@ -30,7 +33,9 @@ f3() // 4
 console.log(x) // ReferenceError: Biến x chỉ dc sử dụng trong f1
 ```
 
-### `Hoisting`: Là quá trình đưa các khai báo (declaration) hàm/biến lên trên đầu trang, nó được thực hiện tự động bởi JavaScript Engine
+### Hoisting
+
+Là quá trình đưa các khai báo (declaration) hàm/biến lên trên đầu trang, nó được thực hiện tự động bởi JavaScript Engine
 
 ```js
 add(3, 4); //* returns 7
@@ -44,15 +49,15 @@ subtract(7, 4); //! Uncaught TypeError: subtract is not a function
 var subtract = function (num1, num2) {
   return num1 - num2;
 };
-var x; // console.log(x) &rarr; undefined
-let y; // console.log(y) &rarr; ERROR
+var x; // console.log(x) -> undefined
+let y; // console.log(y) -> ERROR
 const z; // ERROR ngay bước init
 ```
 
 ### Shallow Copy vs Deep Copy
 
 ```js
-var obj = [{ a: 1 }, { b: 2 }] // _isEqual &rarr; true; == &rarr; false
+var obj = [{ a: 1 }, { b: 2 }]
 var shallow = _.clone(obj)
 console.log(shallow[0] === obj[0]) // => true
 var deep = _.cloneDeep(obj)

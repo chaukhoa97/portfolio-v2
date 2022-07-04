@@ -4,22 +4,23 @@ title: 'Devtools'
 
 ### Browser debug
 
-```js
-// Gõ in console tab &rarr; Hover rồi đợi 3s &rarr; Browser pause &rarr; debug
+```js title='devtools console tab'
+// Gõ in console tab; Hover rồi đợi 3s; Browser pause; Inspect & debug
 setTimeout(function () {
   debugger
 }, 3000)
 ```
 
-```css
-<!-- Thấy dc thằng nào overflow -- > * {
+```css title='main.css'
+/* Thấy dc thằng nào overflow */
+* {
   outline: 1px solid #f00 !important;
 }
 ```
 
 ### JavaScript Debug
 
-```js
+```js title='devtools console tab'
 //! Always have a code debugging in Chrome wrapped by a {}
 {
   function main() {
