@@ -13,6 +13,6 @@ String(100 + 23)
 
 ```js
 Number('99 88') // returns NaN
-parseFloat('12.34') // String &rarr; Float
-parseInt('12.34') // String &rarr; Int
+parseFloat('12.34') // String -> Float
+parseInt('12.34') // String -> Int
 ```

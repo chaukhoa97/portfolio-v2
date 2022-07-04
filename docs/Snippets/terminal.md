@@ -13,8 +13,8 @@ npm i
 ### Node version manager
 
 ```shell
-nvm i 10.24.1
-nvm use 10.24.1
+nvm install 14
+nvm use 14.19.3
 nvm list
 nvm use newest
 node -v

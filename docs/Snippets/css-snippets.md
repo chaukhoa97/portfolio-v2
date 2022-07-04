@@ -9,7 +9,7 @@ title: 'CSS Snippets'
   // Ở đây thì mới chỉ là topleft corner của item nằm ở center của container
   top: 50%;
   left: 50%;
-  // &rarr; cần transform theo item size để hoàn toàn center item theo container
+  // -> cần transform theo item size để hoàn toàn center item theo container
   transform: translate(-50%, -50%);
   position: relative;
 }
