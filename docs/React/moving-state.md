@@ -21,8 +21,8 @@ const Parent = () => {
 ```
 
 ```jsx
-const Children = () => {
+const Children = ({ onChildrenButtonClick }) => {
   const childrenData = 10
-  return <button onClick={() => props.onChildrenButtonClick(childrenData)} />
+  return <button onClick={() => onChildrenButtonClick(childrenData)} />
 }
 ```
