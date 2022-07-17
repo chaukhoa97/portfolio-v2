@@ -55,6 +55,8 @@ const Parent = () => {
 
 ### Portal
 
+Common use case: When the child components need to visually break out of the parent container.
+
 ```jsx
 import { createPortal } from 'react-dom'
 const MyComponent = () => {

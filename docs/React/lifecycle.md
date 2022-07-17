@@ -4,8 +4,8 @@ title: 'Lifecycle'
 
 ### React re-render component khi
 
-- State (including updates from custom hooks your component consumes) change.
-- Any [**Props** / **ContextValue** consumed by your component] changes.
+- Any **State** of the component change(including state updates from the **Custom hooks** your component consumes).
+- Any [**Prop** / **ContextValue** consumed by your component] changes.
 - Parent của component re-render (trừ `React.memo`).
 
 ### Lifecycle
