@@ -2,24 +2,6 @@
 title: 'React Snippets'
 ---
 
-### Async function in `useEffect`
-
-```jsx
-function App() {
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await fetch('https://jsonplaceholder.typicode.com/todos/1')
-      setCount(await result.json().userId)
-    }
-    fetchData()
-  }, [])
-
-  return <div>{loading ? 'Loading...' : count}</div>
-}
-```
-
 ### Show obj ra page
 
 ```jsx

@@ -1,5 +1,5 @@
 ---
-title: 'JavaScript Basics'
+title: 'Basis'
 ---
 
 ### Callback
@@ -72,7 +72,7 @@ console.log(deep[0] === obj[0]) // => false
 |  Let  |      Block      | ✔️(must be initialized) |     ❌     |   ❌   |
 | Const |      Block      |   ✔️(not initialized)   |     ❌     |   ✔️   |
 
-- **const property update**:
+Example:
 
 ```js
 const obj = {}
@@ -102,18 +102,22 @@ const obj = { key1: 'foo' } // error - re-declaring
   - Ít dùng: symbol; bigint
 
 - **Reference**:
+
   - object; array (typeof Object/Array === “object”)
   - function (typeof Function === “function")
   - Ít dùng: date; regexp; error;
 
+- **Falsy values**: `0, “”, false, null, undefined, NaN`
+
+### Operator
+
+- **Optional Chaning**: `?.`: Nếu ko có, dừng lại và trả về `undefined`
+- **Nullish coalescing**: `??`: Tương tự `OR`
+  - `[0/""/false/NaN] ?? expr` &rarr; Vế trái
+  - `null/undefined ?? expr` &rarr; expr
+
 ### ETC
 
-- **Optional Chaning**: `?.` - nếu ko có, dừng lại và trả về undefined
-- **Falsy values**: `0, “”, false, null, undefined, NaN`
-- **Nullish coalescing**: `??`
-  - `Truthy && expr` &rarr; expr
-  - `Falsy || expr` &rarr; expr
-  - `null/undefined` ?? expr &rarr; expr
 - `==` - chỉ so value &rarr; null == undefined vs `===` - so luôn cả type
 - ![Object.freeze vs .seal vs .preventExtensions ](https://imgur.com/SsK9doN.png)
 - [Sự khác biệt map và weakmap](https://kieblog.vn/javascript-su-khac-biet-map-va-weakmap/)

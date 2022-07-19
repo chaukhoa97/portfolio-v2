@@ -1,5 +1,5 @@
 ---
-title: 'CSS Basics'
+title: 'Basis'
 ---
 
 ### Flexbox: Main(`justify-content`)/Cross(`align-items`) Axis
@@ -18,15 +18,6 @@ title: 'CSS Basics'
    - Không set `width` cho flex-item, chỉ nên set `flex-basis` cho nó.
    - **(Default)** `auto`: Dc tính toán theo nội dung và các phần tử khác.
    - `1000px`: Trình duyệt sẽ hiểu là "Hãy cố gắng dành ra `1000px` cho phần tử này". Cái này còn phụ thuộc vào nội dung của những phần tử khác - Nếu nội dung mấy phần tử khác mà to quá thì cũng chịu.
-
-#### More ab flex-container
-
-An initial setting of a Flex container is `align-items: stretch` &rarr; Flex items will take up the full height of the Flex container.  
-If a child has a height specified (e.g. `height: 100%`), then it will ignore the `align-items: stretch` coming from the parent. For the `stretch` default to work, the child's height must compute to `auto`.
-
-#### Percentage Height to an item (`height: x%`)
-
-If the parent height is not specified explicitly (i.e., it depends on content height) and this element is not absolutely positioned, the `height: x%` computes to `auto`.
 
 ### Box model: [Content + (Padding + Border)] + Margin
 
