@@ -1,0 +1,172 @@
+---
+title: 'State'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+## Props, State & Context
+
+These are 3 kinds of inputs that you can read while rendering. **You should always treat these inputs as read-only.**
+
+### Props
+
+The object passed to the function component, **included children**. Props are like arguments you pass to a function. **They let a parent component pass data to a child component and customize its appearance**. For example, a `Form` can pass a `color` prop to a `Button`.
+
+### State
+
+State is like a component’s memory. **It lets a component keep track of some information and change it in response to interactions**. For example, a `Button` might keep track of `isHovered` state.
+
+### Context
+
+Context lets components pass information deep down without explicitly passing props.
+
+<Tabs>
+  <TabItem value="NumberContext.js" label="NumberContext.js" default>
+
+```js
+import { createContext, useContext } from 'react'
+
+const NumberContext = createContext({ num: 0, fn: () => {} }) // B1: Create Context, ko có gì thì set = null
+
+export default NumberContext
+
+// B1': Export Hook that returns Context value to use in component -> Clean code
+export const useNumberContext = () => {
+  const { num, fn } = useContext(NumberContext)
+  return { num, fn }
+}
+```
+
+  </TabItem>
+  <TabItem value="Section.js" label="Section.js">
+
+```js
+import NumberContext from './NumberContext'
+
+// B2: Provide Context
+export default Section = ({ onClick }) => (
+  // To update context, you need to combine it with state.
+  const [value, setValue] = useState(0)
+
+  return (
+    <NumberContext.Provider value={{ num: value, fn: onClick }}>
+      {children}
+    </NumberContext.Provider>
+  );
+)
+```
+
+  </TabItem>
+  <TabItem value="Heading.js" label="Heading.js">
+
+```js
+import { useContext } from 'react'
+import NumberContext from './NumberContext'
+
+// B3: Use Context
+const { num, fn } = useContext(NumberContext)
+// Hoặc
+const { num, fn } = useNumberContext() // Từ B1'
+```
+
+  </TabItem>
+</Tabs>
+
+_Read more: [Kết hợp giữa `useReducer` và `Context` để manage **wide** sate](https://beta.reactjs.org/learn/scaling-up-with-reducer-and-context)_
+
+## Mutable State (Object & Array)
+
+[You should treat all state (including these 2) as immutable!](#props-state--context)  
+Instead of mutating an object, create a new version of it, and trigger a re-render by setting state to it.
+
+### Object
+
+```jsx
+const [person, setPerson] = useState({
+  name: 'Niki de Saint Phalle',
+  artwork: {
+    title: 'Blue Nana',
+    city: 'Hamburg',
+    image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+  },
+})
+
+person.artwork.city = 'New Delhi' // ❌: Don't mutate state
+
+// ✅: Create a new object and set the state to it
+// If you want to update a nested property, you’ll have to use it more than once (bc `...` spread is "shallow" - it only copies things one level deep)
+const nextArtwork = { ...person.artwork, city: 'New Delhi' }
+const nextPerson = { ...person, artwork: nextArtwork }
+setPerson(nextPerson)
+```
+
+### Array
+
+|                                                                                                     | Avoid (mutates the array)           | Prefer (returns a new array)                                                                                               |
+| --------------------------------------------------------------------------------------------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| [Adding](https://beta.reactjs.org/learn/updating-arrays-in-state#adding-to-an-array)                | `push`, `unshift`                   | `concat`, `[...arr]` spread syntax                                                                                         |
+| [Removing](https://beta.reactjs.org/learn/updating-arrays-in-state#removing-from-an-array)          | `pop`, `shift`, `splice`            | `filter`, `slice`                                                                                                          |
+| [Replacing](https://beta.reactjs.org/learn/updating-arrays-in-state#replacing-items-in-an-array)    | `splice`, `arr[i] = ...` assignment | `map`                                                                                                                      |
+| [Sorting](https://beta.reactjs.org/learn/updating-arrays-in-state#making-other-changes-to-an-array) | `sort`, `reverse`                   | Copy the array first ([example](https://beta.reactjs.org/learn/updating-arrays-in-state#making-other-changes-to-an-array)) |
+
+#### Example: Inserting _at any position_ to an array
+
+```jsx
+const [artists, setArtists] = useState([])
+
+function handleClick() {
+  const insertAt = 1 // Could be any index
+  const nextArtists = [
+    // Items before the insertion point:
+    ...artists.slice(0, insertAt),
+    // New item:
+    { id: nextId++, name: name },
+    // Items after the insertion point:
+    ...artists.slice(insertAt),
+  ]
+  setArtists(nextArtists)
+}
+```
+
+## Managing State
+
+### Preserving state
+
+**Same component (`<section>`, `<p>`)+ Same position (`1st`, `2nd` element of the parent) &rarr; Preserves state.** It means the structure of your tree needs to “match up” from one render to another.
+
+![Preserving state](https://beta.reactjs.org/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fpreserving_state_diff_same_pt1.dark.png&w=828&q=75)
+
+### Resetting state at the same position
+
+```jsx
+// These 2 share the state
+{
+  isPlayerA ? <Counter person="Taylor" /> : <Counter person="Sarah" />
+}
+```
+
+#### Option 1: Rendering a component in different positions
+
+```jsx
+// These 2 won't share the state!
+{
+  isPlayerA && <Counter person="Taylor" />
+}
+{
+  !isPlayerA && <Counter person="Sarah" />
+}
+```
+
+#### Option 2: Resetting state with a key
+
+```jsx
+// These 2 won't share the state!
+{
+  isPlayerA ? (
+    <Counter key="Taylor" person="Taylor" />
+  ) : (
+    <Counter key="Sarah" person="Sarah" />
+  )
+}
+```

@@ -1,7 +1,40 @@
 ---
 title: 'Type vs Interface'
-category: 'Typescript'
 ---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+## Use Interface until You Need Type
+
+`type` ko declare thêm vào dc, còn `interface` thì có -> dùng `interface` cho public API để người dùng tự thêm vào. Cân nhắc dùng `type` cho _Props_ hay _State_ vì nó nhất quán và ràng buộc hơn.
+
+<Tabs>
+  <TabItem value="Interface" label="Interface" default>
+
+```ts
+interface Customer {
+  id: number
+}
+interface Customer {
+  name: string // ✅ Customer = { id: number, name: string }
+}
+```
+
+  </TabItem>
+  <TabItem value="Type" label="Type">
+
+```ts
+type Customer = {
+  id: number
+}
+type Customer = {
+  name: string // ❌ Error: Duplicate identifier 'Customer'
+}
+```
+
+  </TabItem>
+</Tabs>
 
 | Aspect                                          | Type | Interface |
 | ----------------------------------------------- | :--: | :-------: |

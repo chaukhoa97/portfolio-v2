@@ -2,6 +2,8 @@
 title: 'Basis'
 ---
 
+## Terms
+
 ### Callback
 
 _Hàm_ dc truyền qua _argument_
@@ -54,16 +56,6 @@ let y; // console.log(y) -> ERROR
 const z; // ERROR ngay bước init
 ```
 
-### Shallow Copy vs Deep Copy
-
-```js
-var obj = [{ a: 1 }, { b: 2 }]
-var shallow = _.clone(obj)
-console.log(shallow[0] === obj[0]) // => true
-var deep = _.cloneDeep(obj)
-console.log(deep[0] === obj[0]) // => false
-```
-
 ### var let const
 
 |       |      Scope      |  Hoisting + Init value  | Re-declare | Update |
@@ -93,7 +85,7 @@ obj = { key1: 'foo' } // error - re-assigning
 const obj = { key1: 'foo' } // error - re-declaring
 ```
 
-### Types
+## Types
 
 - **Primitive**:
 
@@ -109,14 +101,14 @@ const obj = { key1: 'foo' } // error - re-declaring
 
 - **Falsy values**: `0, “”, false, null, undefined, NaN`
 
-### Operator
+## Operator
 
 - **Optional Chaning**: `?.`: Nếu ko có, dừng lại và trả về `undefined`
 - **Nullish coalescing**: `??`: Tương tự `OR`
   - `[0/""/false/NaN] ?? expr` &rarr; Vế trái
   - `null/undefined ?? expr` &rarr; expr
 
-### ETC
+## ETC
 
 - `==` - chỉ so value &rarr; null == undefined vs `===` - so luôn cả type
 - ![Object.freeze vs .seal vs .preventExtensions ](https://imgur.com/SsK9doN.png)

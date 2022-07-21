@@ -2,7 +2,7 @@
 title: 'Data Flow'
 ---
 
-- **Moving State down**:
+## Moving State down
 
 ```jsx
 const Parent = () => {
@@ -11,18 +11,40 @@ const Parent = () => {
 }
 ```
 
-- **Lifting Content up**:
+## Lifting State up
+
+Ở đây, ta đã move state `isActive` của 2 Child (`Panel`) lên Parent (`Accordion`) để có thể phối hợp 2 `Panel` với nhau (chỉ có 1 `Panel` được _active_ tại một thời điểm - thằng này mở thì thằng kia phải đóng). And passing down the event handler to the child allowed the child to change the parent’s state.
 
 ```jsx
-const Parent = () => {
-  const handleChildrenButton = (value) => value + 1
-  return <Children onChildrenButtonClick={handleChildrenButton} />
+export default function Accordion() {
+  const [activeIndex, setActiveIndex] = useState(0)
+  return (
+    <>
+      <h2>Almaty, Kazakhstan</h2>
+      <Panel
+        title="About"
+        isActive={activeIndex === 0}
+        onShow={() => setActiveIndex(0)}
+      >
+        Bla bla
+      </Panel>
+      <Panel
+        title="Etymology"
+        isActive={activeIndex === 1}
+        onShow={() => setActiveIndex(1)}
+      >
+        Bla bla
+      </Panel>
+    </>
+  )
 }
-```
 
-```jsx
-const Children = ({ onChildrenButtonClick }) => {
-  const childrenData = 10
-  return <button onClick={() => onChildrenButtonClick(childrenData)} />
+function Panel({ title, children, isActive, onShow }) {
+  return (
+    <section className="panel">
+      <h3>{title}</h3>
+      {isActive ? <p>{children}</p> : <button onClick={onShow}>Show</button>}
+    </section>
+  )
 }
 ```
