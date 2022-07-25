@@ -162,8 +162,9 @@ const selectedRef = useRef(null)
 
 ## `useState` & `useReducer`
 
-[So sánh `useState` & `useReducer`](https://beta.reactjs.org/learn/extracting-state-logic-into-a-reducer#comparing-usestate-and-usereducer).
 Usage: Both are used to manage Narrow State. `useReducer` dùng cho ~ Narrow State mà có nhiều case.
+
+_[So sánh `useState` & `useReducer`](https://beta.reactjs.org/learn/extracting-state-logic-into-a-reducer#comparing-usestate-and-usereducer)._
 
 ### `useState`
 
@@ -187,6 +188,8 @@ const [count, setCount] = useState(() => computeExpensiveValue(a,b));
   +5
 </button>
 ```
+
+_[Demo CodeSanbox](https://codesandbox.io/s/state-as-snapshot-dtklvu?file=/App.js)_
 
 ### `useReducer`
 
