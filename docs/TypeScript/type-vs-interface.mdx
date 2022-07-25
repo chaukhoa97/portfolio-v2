@@ -13,11 +13,15 @@ import TabItem from '@theme/TabItem'
   <TabItem value="Interface" label="Interface" default>
 
 ```ts
-interface Customer {
-  id: number
+interface Person {
+  // Có 2 cách để định nghĩa một method trong một interface
+  log1?(message: string): void // Method declaration
+  log2?: (message: string) => void // Function in Property declaration
 }
-interface Customer {
-  name: string // ✅ Customer = { id: number, name: string }
+interface Person {
+  log1?(message: number): void // ✅: Có thể override Interface's method
+  log2?: (message: number) => void // ❌: Nhưng ko thể override Interface's property
+  anotherProp: string
 }
 ```
 

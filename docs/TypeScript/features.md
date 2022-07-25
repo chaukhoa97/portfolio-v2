@@ -8,18 +8,6 @@ title: 'Features'
 console.log(x as number)
 ```
 
-## Intersection
-
-```ts
-type Customer = Identity & { gender: string }
-```
-
-```ts
-interface Customer extends Identity {
-  gender: string
-}
-```
-
 ## Generic Constraint
 
 ```ts
@@ -58,5 +46,20 @@ interface JD {
   // An index signature property type must be either ‘string’ or ‘number’
   [index: string]: any //* JD can have any number of properties with `any` type
   1: string // typeof jd[1] = string
+}
+```
+
+## Intersection
+
+```ts
+type Identity = {
+  name: string
+}
+interface Contact {
+  email: string
+}
+type Customer = Identity & Contact & { gender: string } // type cũng có thể dc tạo từ 2 interface intersection
+interface Customer2 extends Identity, Contact {
+  gender: string
 }
 ```
