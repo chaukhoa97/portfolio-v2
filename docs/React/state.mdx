@@ -5,7 +5,7 @@ title: 'State'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-## Props, State & Context
+## Pre-existing Variable
 
 These are 3 kinds of inputs that you can read while rendering. **You should always treat these inputs as read-only.**
 
@@ -75,10 +75,33 @@ const { num, fn } = useNumberContext() // Từ B1'
 
 _Read more: [Kết hợp giữa `useReducer` và `Context` để manage **wide** sate](https://beta.reactjs.org/learn/scaling-up-with-reducer-and-context)_
 
-## Mutable State (Object & Array)
+### Local mutation
 
-[You should treat all state (including these 2) as immutable!](#props-state--context)  
-Instead of mutating an object, create a new version of it, and trigger a re-render by setting state to it.
+Pure functions don’t mutate variables outside of the function’s scope or objects that were created before the call — that makes them impure!  
+However, **it’s completely fine to change variables and objects that you’ve _just_ created while rendering**. In this example, you create an `[]` array, assign it to a `cups` variable, and then `push` a dozen cups into it:
+
+```jsx
+function Cup({ guest }) {
+  return <h2>Tea cup for guest #{guest}</h2>
+}
+
+export default function TeaGathering() {
+  let cups = []
+  for (let i = 1; i <= 12; i++) {
+    cups.push(<Cup key={i} guest={i} />)
+  }
+  return cups
+}
+```
+
+If the `cups` variable or the `[]` array were created outside the `TeaGathering` function, this would be a huge problem! You would be changing a preexisting object by pushing items into that array.  
+However, it’s fine because you’ve created them **during the same _render_ ([_render_ nghĩa là call Component function - ở đây là call `TeaGathering`](lifecycle.md#step-1-react-trigger-render-initial-hoặc-re-render-component), với mỗi lần call thì `cups` dc tạo lại trong lần call đấy)**. No code outside of `TeaGathering` will ever know that this happened. This is called **“local mutation”** — it’s like your component’s little secret.
+
+## Object & Array
+
+> [You should treat _Pre-existing Variable_ as immutable!](#pre-existing-variable)
+
+Instead of mutating an object/array, create a new version of it, and trigger a re-render by setting state to it.
 
 ### Object
 

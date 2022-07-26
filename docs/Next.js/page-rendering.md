@@ -2,15 +2,13 @@
 title: 'Page Rendering'
 ---
 
-### [Static-site Generation](https://nextjs.org/docs/basic-features/pages#static-generation-recommended)
+## [Static-site Generation](https://nextjs.org/docs/basic-features/pages#static-generation-recommended)
 
 **SSG** is the pre-rendering method that generates the HTML at build time. The pre-rendered HTML is then reused on each request.
 
 Ngoài đẻ HTML ra, SSG còn đẻ ra 1 file `JSON` là kq dc return từ `getStaticProps`. Khi navigate sang ~ `<Page>` dc pre-render, Next.js sẽ lấy file `JSON` này làm prop cho ~ `<Page>` đó. As a result, client-side page transitions will **NOT** call `getStaticProps` vì đã có sẵn JSON mà dùng rồi.
 
-Dùng cho những page có content ít/kbh thay đổi: FAQ, Policy, ...
-
-#### File JSON có dạng
+File `JSON` có dạng:
 
 ```json
 {
@@ -24,15 +22,21 @@ Dùng cho những page có content ít/kbh thay đổi: FAQ, Policy, ...
 }
 ```
 
+### Usage
+
+Dùng cho những page có content ít/kbh thay đổi: FAQ, Policy, ...
+
 ![Static-site Generation](https://nextjs.org/static/images/learn/data-fetching/static-generation.png)
 
-### [Incremental Static Regeneration](https://vercel.com/docs/concepts/next.js/incremental-static-regeneration)
+## [Incremental Static Regeneration](https://vercel.com/docs/concepts/next.js/incremental-static-regeneration)
 
-Cho phép create/update static pages sau khi đã `next build`. Khi gặp 1 trong 2 case dưới đây, Next.js sẽ trigger generate static page ở server.
+### Usage
 
 Dùng cho những page có content dc update thường xuyên but it's not important for the user to see most up-to-date data: Blog, Product Detail, ...
 
-#### First case - by `getStaticProps` using `revalidate`
+Cho phép create/update static pages sau khi đã `next build`. Khi gặp 1 trong 2 case dưới đây, Next.js sẽ trigger generate static page ở server.
+
+### First case - by `getStaticProps` using `revalidate`
 
 ![ISG by `getStaticProps`](https://vercel.com/_next/image?url=%2Fdocs-proxy%2Fstatic%2Fdocs%2Fconcepts%2Fnext.js%2Fisr%2Fregeneration.png&w=1080&q=75)
 
@@ -42,7 +46,7 @@ Dùng cho những page có content dc update thường xuyên but it's not impor
 4. After the 60 second window, the next request will still show the same cached page with old data, but Next.js will now trigger a regeneration of the page in the background.
 5. Once the page has been successfully generated, Next.js will invalidate the cache and show the updated product page. If the background regeneration fails, the old page remains unaltered.
 
-#### Second case - by `getStaticPaths` using `fallback: 'blocking'(preferred)/true`
+### Second case - by `getStaticPaths` using `fallback: 'blocking'(preferred)/true`
 
 Nếu dùng cách này, khi trên màn hình có ~ `next/<Link>`**(KHÔNG phải `<a>`)** dẫn đến ~ page chưa dc pre-render, Next.js sẽ trigger generate static page cho tất cả các page đó.
 
@@ -59,18 +63,20 @@ export async function getStaticPaths() {
 
 Use case: Đẻ 1000 most popular products từ `getStaticPaths`
 
-- `fallback: blocking` (preferred) – when a request is made to a page that hasn't been generated, Next.js will `SSR` the page on the first request and cache it. Future requests will serve the static file from the cache.
-- `fallback: true` – when a request is made to a page that hasn't been generated, Next.js will immediately serve a static page with a loading state on the first request. When the data is finished loading, the page will re-render using this data and be cached. Future requests will serve the static file from the cache.
+- `fallback: blocking` **_(preferred)_** – when a request is made to a page that hasn't been generated, Next.js will `SSR` the page on the first request and cache it. Future requests will serve the static file from the cache.
+- `fallback: true` _(gõ URL thay vì click vào `<Link>` sẽ dính error)_– when a request is made to a page that hasn't been generated, Next.js will immediately serve a static page with a loading state on the first request. When the data is finished loading, the page will re-render using this data and be cached. Future requests will serve the static file from the cache.
 
 ---
 
 - `fallback: false` - 404 page will be served.
 
-#### [Next.js API route](https://nextjs.org/docs/api-routes/introduction) + [On-demand ISR](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#on-demand-revalidation): Wish list
+### [Next.js API route](https://nextjs.org/docs/api-routes/introduction) + [On-demand ISR](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#on-demand-revalidation): Wish list
 
-### [Server-side Rendering](https://nextjs.org/docs/basic-features/pages#server-side-rendering)
+## [Server-side Rendering](https://nextjs.org/docs/basic-features/pages#server-side-rendering)
 
 `getServerSideProps` ko tạo HTML ở build time như SSG. Thay vào đó mỗi khi user request, Next.js sẽ tạo file JSON [format giống như trên](#file-json-có-dạng), từ đó render ra trang HTML ở server và trả về cho client.
+
+### Usage
 
 - Important for the user to see most up-to-date data.
 - SEO is critical.
@@ -79,10 +85,12 @@ Use case: Đẻ 1000 most popular products từ `getStaticPaths`
 
 ![Server-side Rendering](https://nextjs.org/static/images/learn/data-fetching/server-side-rendering.png)
 
-### [Client-side Rendering](https://nextjs.org/docs/basic-features/data-fetching/client-side)
+## [Client-side Rendering](https://nextjs.org/docs/basic-features/data-fetching/client-side)
 
 Cách cơ bản nhất là sử dụng [`useEffect` để fetch data về ở Client](../Snippets//react-snippets.md/#async-function-in-useeffect).  
 Nên kẹp chung với [TanStack Query](https://github.com/TanStack/query/releases) hoặc [Vercel SWR](https://github.com/vercel/swr/releases).
+
+### Usage
 
 - Important for the user to see most up-to-date data.
 - Có thể cho người dùng thấy layout trước (Skeleton) so với `SSR`.
@@ -91,6 +99,6 @@ Nên kẹp chung với [TanStack Query](https://github.com/TanStack/query/releas
 
 ![Client-side Rendering](https://nextjs.org/static/images/learn/data-fetching/client-side-rendering.png)
 
-### Summary
+## Summary
 
 ![Page-rendering ways conclusion](https://cdn.sanity.io/images/0lu0ii6t/production/e3c1bae9a50f0cf6a05be7661400d7deccf06dbb-1920x2200.jpg?w=1536&fm=webp&fit=min&auto=format)

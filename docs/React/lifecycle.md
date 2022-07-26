@@ -6,10 +6,9 @@ title: 'Lifecycle'
 
 ## Step 1: React trigger render (`initial` hoặc `re-render`) Component
 
-During render, React calls your Component function to figure out what should be on the screen. React trigger render when:
+During render, React _calls your **Component function**_ to figure out what should be on the screen. React trigger render when:
 
-- Any **State** of the component change(including state updates from the **Custom hooks** your component consumes).
-- Any [**Prop** / **ContextValue** consumed by your component] changes.
+- Any of these change: **State**(including state updates from the _Custom hooks_ your component consumes), **Prop**, **ContextValue** consumed by your Component.
 - Parent của Component re-render (trừ `React.memo`).
 
 ## Step 2: React commits changes to the DOM
