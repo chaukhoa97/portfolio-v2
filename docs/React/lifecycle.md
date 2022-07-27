@@ -18,7 +18,7 @@ After rendering (calling) your components, React will applies changes the DOM.
 - For the initial render, React will use the [`appendChild()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) DOM API to put all the DOM nodes it has created on screen.
 - For re-renders, React will apply the minimal necessary operations (calculated while rendering!) to make the DOM match the latest rendering output, which means React only changes the DOM nodes if there’s a difference between renders.
 
-After React commits changes to the DOM, it will run your [Effects](./hooks.md#useeffect). If your Effect _also_ immediately updates the state, this restarts the whole process from scratch!
+After React commits changes to the DOM, it will run your [Effects](./hooks#effect-vs-side-effect) because this is a good time to synchronize the React components with some external system. If your Effect _also_ immediately updates the state, this restarts the whole process from scratch!
 
 ## Epilogue: Browser paint
 

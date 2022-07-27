@@ -2,58 +2,16 @@
 title: 'Hooks'
 ---
 
-## Optimize
-
-### `useCallback`
-
-Memoize **function**. Khi Component re-render, function trong `useCallback` sẽ ko re-create lại.
-
-### `useMemo`
-
-Memoize **value trả về từ function**. Dùng để chỉ re-render Component khi dependency thay đổi (giống `React.memo`) / Function tạo value quá phức tạp (ex: Sort, fetch,...).
-
-> `useCallback(fn, deps)` = `useMemo(() => fn, deps)`
-
-### `React.memo`
-
-Chỉ re-render component dc wrap bởi `React.memo` khi props của component thay đổi &rarr; Khi wrap `React.memo` ở các high level component &rarr; các component ở dưới cũng sẽ ko bị re-render.
-
-```jsx
-const Parent = () => {
-  //1. Parent re-render, cachedFn do có useCallback ko bị create lại.
-  const cachedFn = useCallback(() => 'Some value', [])
-  //2. prop của Children là cachedFn ko bị create lại...
-  return <Children onClick={cachedFn} />
-}
-export default Parent
-```
-
-```jsx
-const Children = ({ expensiveFn }) => {
-  const uncachedValue = computeExpensiveValue(a, b) // Create lại mỗi lần Children re-render
-  const cachedValue = useMemo(() => computeExpensiveValue(a, b), [a, b])
-
-  return (
-    <>
-      {/* Khi `uncachedValue` thay đổi, hoặc bản thân `uncachedValue` là ref value, thì Kid1 sẽ re-render */}
-      <Kid1 value={uncachedValue} />
-      {/* Chỉ khi `cachedValue` thay đổi thì Kid2 mới re-render */}
-      <Kid2 value={cachedValue} />
-    </>
-  )
-}
-//3. Children dc bọc bởi React.memo sẽ ko re-render khi Parent re-render (do prop là cachedFn ko đổi)
-export default React.memo(Children)
-```
-
 ## `useRef`
 
 ### Usage
 
-Thường dùng cho ~ trường hợp phải giao tiếp với các external API - often a browser API that won’t impact the appearance of the component (`focus`, `scrollIntoView`). **You should only use them when you have to “step outside React".**
+You should only use them when you have to “step outside React"
 
-- Storing and manipulating DOM elements
-- Storing other value that aren't necessary to calculate the JSX, thường là `timeoutId`. Example về **Debounce** button:
+- Communicate with external APIs - often a browser API that won’t impact the appearance of the component (`focus`, `scrollIntoView`) &rarr; Storing and manipulating DOM elements.
+
+- Storing and persisting other values that only needed by event handlers and changing it doesn’t require a re-render (it's NOT necessary for calculating the JSX), e.g. `timeoutId`, user input.  
+  _Example về Debounce button sử dụng `ref`:_
 
   ```jsx
   const timeoutRef = useRef(null);
@@ -105,11 +63,11 @@ function MyComponent() {
 
 :::note
 
-Vì vậy, value used for rendering thì dùng `useState`. Còn những thứ only needed by event handlers and changing it doesn’t require a re-render (Ex: input người dùng) thì dùng `useRef`. Những thứ constant ko show thì dùng `JS variable` như bình thường.
+Vì vậy, value used for rendering thì dùng `useState`. Còn những thứ only needed by event handlers and changing it doesn’t require a re-render (Ex: user input, timeoutId) thì dùng `useRef`. Những thứ constant ko show thì dùng `JS variable` như bình thường.
 
 :::
 
-### Controlled vs Uncontrolled Component with `useRef`
+### Snippet: Controlled vs Uncontrolled Component with `useRef`
 
 ```jsx title='Controlled.jsx'
 // State của <input> do React quản lý
@@ -125,7 +83,7 @@ const termRef = useRef()
 <input ref={termRef} type="text" />
 ```
 
-### Mimic `componentDidMount` & `componentDidUpdate` with `useRef`
+### Snippet: Mimic `componentDidMount` & `componentDidUpdate` with `useRef`
 
 ```jsx
 const mounted = useRef()
@@ -141,7 +99,7 @@ useEffect(() => {
 
 [Read more](https://codesandbox.io/s/componentdidmount-componentdidupdate-with-useref-8vw622?file=/StoryTray.js)
 
-### One ref for a list of elements
+### Snippet: One `ref` for a list of elements
 
 ```jsx
 const [index, setIndex] = useState(0)
@@ -160,7 +118,124 @@ const selectedRef = useRef(null)
 }
 ```
 
+## `useEffect`
+
+### "Effect" vs "side effect"
+
+:::info
+
+Capitalized “Effect” refers to the React-specific definition above, i.e. a side effect caused by rendering. To refer to the broader programming concept, we’ll say “side effect”.
+
+:::
+There are 2 types of logic inside React components:
+
+- Rendering code MUST be pure. This is where you take the props and state, transform them, and return the JSX.
+- Event handlers can contain "side effects" (they change the program's state) that are caused by a specific user action (Ex: button click).
+
+"Effects" refers to _side effects_ caused by rendering itself, rather than by a particular event, thus can't be handled by event handlers.  
+For example, sending a message in the chat is an _Event_ because it is directly caused by the user clicking a specific button. However, setting up a server connection is an _Effect_ because it needs to happen regardless of which interaction caused the component to appear.
+
+### Usage
+
+Some components need to synchronize with external systems (like network or a third-party library). For example, you might want to control a non-React component based on the React state, set up a server connection, or send an analytics log when a component appears on the screen.  
+ _Effects_ let you run some code after rendering so that you can synchronize your component with some system outside of React.
+
+### You might not need an Effect to transform data for rendering or handle user events
+
+- [If you can calculate something during render, you don’t need an Effect.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#updating-state-based-on-props-or-state)
+- [To cache expensive calculations, add `useMemo` instead of `useEffect`.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#caching-expensive-calculations)
+- [To reset the state of an entire component tree, pass a different `key` to it.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#resetting-all-state-when-a-prop-changes)
+- [To reset a particular bit of state in response to a prop change, set it during rendering.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes)
+- [Code that needs to run because a component was _displayed_ should be in Effects, the rest should be in events.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#sharing-logic-between-event-handlers)
+- [If you need to update the state of several components, it’s better to do it during a single event.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#sending-a-post-request)
+- [Whenever you try to synchronize state variables in different components, consider lifting state up.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#passing-data-to-the-parent)
+- [You can fetch data with Effects, but you need to implement cleanup to avoid race conditions.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#subscribing-to-an-external-store)
+
+### Snippet: Async & Cleanup in `useEffect`
+
+```jsx
+function App() {
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    const connect = async () => {
+      const result = await fetch('https://jsonplaceholder.typicode.com/todos/1')
+      setCount(await result.json().userId)
+    }
+    connect()
+    return () => {
+      disconnect()
+    }
+  }, [])
+
+  return <div>{loading ? 'Loading...' : count}</div>
+}
+```
+
+### Snippet: Logic only run 1 time in `useEffect`
+
+```jsx
+let didInit = false
+function App() {
+  useEffect(() => {
+    if (!didInit) {
+      didInit = true
+      // ✅ Only runs once per app load
+      loadDataFromLocalStorage()
+      checkAuthToken()
+    }
+  }, [])
+  // ...
+}
+```
+
+## Optimize
+
+### `useCallback`
+
+Memoize **function**. Khi Component re-render, function trong `useCallback` sẽ ko re-create lại.
+
+### `useMemo`
+
+Memoize **value trả về từ function**. Dùng để chỉ re-render Component khi dependency thay đổi (giống `React.memo`) / Function tạo value quá phức tạp (ex: Sort, fetch,...).
+
+> `useCallback(fn, deps)` = `useMemo(() => fn, deps)`
+
+### `React.memo`
+
+Chỉ re-render component dc wrap bởi `React.memo` khi props của component thay đổi &rarr; Khi wrap `React.memo` ở các high level component &rarr; các component ở dưới cũng sẽ ko bị re-render.
+
+```jsx
+const Parent = () => {
+  //1. Parent re-render, cachedFn do có useCallback ko bị create lại.
+  const cachedFn = useCallback(() => 'Some value', [])
+  //2. prop của Children là cachedFn ko bị create lại...
+  return <Children onClick={cachedFn} />
+}
+export default Parent
+```
+
+```jsx
+const Children = ({ expensiveFn }) => {
+  const uncachedValue = computeExpensiveValue(a, b) // Create lại mỗi lần Children re-render
+  const cachedValue = useMemo(() => computeExpensiveValue(a, b), [a, b])
+
+  return (
+    <>
+      {/* Khi `uncachedValue` thay đổi, hoặc bản thân `uncachedValue` là ref value, thì Kid1 sẽ re-render */}
+      <Kid1 value={uncachedValue} />
+      {/* Chỉ khi `cachedValue` thay đổi thì Kid2 mới re-render */}
+      <Kid2 value={cachedValue} />
+    </>
+  )
+}
+//3. Children dc bọc bởi React.memo sẽ ko re-render khi Parent re-render (do prop là cachedFn ko đổi)
+export default React.memo(Children)
+```
+
 ## `useState` & `useReducer`
+
+### Usage & Comparison
 
 Usage: Both are used to manage Narrow State. `useReducer` dùng cho ~ Narrow State mà có nhiều case.
 
@@ -213,7 +288,7 @@ function ReducerExample() {
     data: '',
   })
   const getInfo = () => {
-    dispatch({ type: 'loading' }) // info = `state` line 6 = { loading: true, data: "", type: "loading" }
+    dispatch({ type: 'loading' }) // info = `state` line 3 = { loading: true, data: "", type: "loading" }
     setTimeout(() => {
       fetch('https://jsonplaceholder.typicode.com/todos/1')
         .then((response) => response.json())
@@ -230,58 +305,6 @@ function ReducerExample() {
 }
 
 export default ReducerExample
-```
-
-## `useEffect`
-
-Usage: [Side effect](https://beta.reactjs.org/learn/synchronizing-with-effects#what-are-effects-and-how-are-they-different-from-events).  
-You might not need an Effect to transform data for rendering or handle user events:
-
-- [If you can calculate something during render, you don’t need an Effect.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#updating-state-based-on-props-or-state)
-- [To cache expensive calculations, add `useMemo` instead of `useEffect`.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#caching-expensive-calculations)
-- [To reset the state of an entire component tree, pass a different `key` to it.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#resetting-all-state-when-a-prop-changes)
-- [To reset a particular bit of state in response to a prop change, set it during rendering.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes)
-- [Code that needs to run because a component was _displayed_ should be in Effects, the rest should be in events.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#sharing-logic-between-event-handlers)
-- [If you need to update the state of several components, it’s better to do it during a single event.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#sending-a-post-request)
-- [Whenever you try to synchronize state variables in different components, consider lifting state up.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#passing-data-to-the-parent)
-- [You can fetch data with Effects, but you need to implement cleanup to avoid race conditions.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#subscribing-to-an-external-store)
-
-### Snippet: Async & Cleanup in `useEffect`
-
-```jsx
-function App() {
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    const connect = async () => {
-      const result = await fetch('https://jsonplaceholder.typicode.com/todos/1')
-      setCount(await result.json().userId)
-    }
-    connect()
-    return () => {
-      disconnect()
-    }
-  }, [])
-
-  return <div>{loading ? 'Loading...' : count}</div>
-}
-```
-
-### Snippet: Logic only run 1 time in `useEffect`
-
-```jsx
-let didInit = false
-function App() {
-  useEffect(() => {
-    if (!didInit) {
-      didInit = true
-      // ✅ Only runs once per app load
-      loadDataFromLocalStorage()
-      checkAuthToken()
-    }
-  }, [])
-  // ...
-}
 ```
 
 ## [`useContext`](./state#context) / [Redux](./redux.md)
