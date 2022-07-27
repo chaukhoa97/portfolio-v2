@@ -1,5 +1,5 @@
 ---
-title: 'Built-in Functions'
+title: 'Data fetching Functions'
 ---
 
 ### `getStaticProps` + `getStaticPaths`

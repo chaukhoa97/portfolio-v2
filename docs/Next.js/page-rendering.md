@@ -4,9 +4,16 @@ title: 'Page Rendering'
 
 ## [Static-site Generation](https://nextjs.org/docs/basic-features/pages#static-generation-recommended)
 
-**SSG** is the pre-rendering method that generates the HTML at build time. The pre-rendered HTML is then reused on each request.
+### Usage
 
-Ngoài đẻ HTML ra, SSG còn đẻ ra 1 file `JSON` là kq dc return từ `getStaticProps`. Khi navigate sang ~ `<Page>` dc pre-render, Next.js sẽ lấy file `JSON` này làm prop cho ~ `<Page>` đó. As a result, client-side page transitions will **NOT** call `getStaticProps` vì đã có sẵn JSON mà dùng rồi.
+Dùng cho những page có content ít/kbh thay đổi: FAQ, Policy, ...
+
+### Introduction
+
+![Static-site Generation](https://nextjs.org/static/images/learn/data-fetching/static-generation.png)
+
+**SSG** is the pre-rendering method that generates the HTML at build time. The pre-rendered HTML is then reused on each request.  
+It also generates a JSON file.
 
 File `JSON` có dạng:
 
@@ -22,11 +29,16 @@ File `JSON` có dạng:
 }
 ```
 
-### Usage
+### `next/link` with JSON
 
-Dùng cho những page có content ít/kbh thay đổi: FAQ, Policy, ...
+Khi navigate bằng `next/link` sang ~ _SSG Page (no SSR)_, Next.js sẽ thực hiện _Client-side route transition_ (Page transition are handled by JS, similar to a SPA) bằng cách lấy file JSON này làm `prop` cho `PageComponent`. Thus any `<Link />` **in the viewport** (initially or through scroll) will be generated & prefetched by default.  
+Although SSG generate 2 file là HTML và JSON, tuy nhiên lúc prefetch thì chỉ có file JSON được prefetch để dùng cho Client-side routing.
 
-![Static-site Generation](https://nextjs.org/static/images/learn/data-fetching/static-generation.png)
+:::danger
+
+Ở đây ko fetch pre-rendered HTML, mà chỉ fetch JSON cho Client-side route transition
+
+:::
 
 ## [Incremental Static Regeneration](https://vercel.com/docs/concepts/next.js/incremental-static-regeneration)
 
@@ -70,7 +82,9 @@ Use case: Đẻ 1000 most popular products từ `getStaticPaths`
 
 - `fallback: false` - 404 page will be served.
 
-### [Next.js API route](https://nextjs.org/docs/api-routes/introduction) + [On-demand ISR](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#on-demand-revalidation): Wish list
+### [On-demand ISR](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#on-demand-revalidation)
+
+Pending...
 
 ## [Server-side Rendering](https://nextjs.org/docs/basic-features/pages#server-side-rendering)
 

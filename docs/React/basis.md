@@ -8,7 +8,6 @@ title: 'Basis'
 
 ### Other Terms
 
-- **Client-side navigation**: Page transition are handled by JavaScript.
 - **Lazy load**: Images are only loaded when they enter the viewport.
 
 ## Events
