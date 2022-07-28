@@ -2,14 +2,14 @@
 title: 'With React'
 ---
 
-## Defaut props
+## Defaut `props`
 
 ```tsx
 type GreetProps = { age?: number };
 const Greet = ({ age = 21 }: GreetProps) => ...
 ```
 
-## PropsWithChildren
+## `PropsWithChildren`
 
 ```tsx
 import { PropsWithChildren } from 'react'
@@ -37,7 +37,8 @@ Ko dc return gì về ngoại trừ `void` / `Destructor`
 ### `useRef`
 
 ```tsx
-// If possible, prefer as specific as possible. For example, `HTMLDivElement` is better than `HTMLElement` and way better than `Element`.
+// If possible, prefer as specific as possible.
+// For example, `HTMLDivElement` is better than `HTMLElement` and way better than `Element`.
 const divRef = useRef<HTMLDivElement>(null)
 return <div ref={divRef}>etc</div>
 ```

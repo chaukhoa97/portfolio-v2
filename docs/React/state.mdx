@@ -5,9 +5,9 @@ title: 'State'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-## Pre-existing Variable
+## Pre-existing _inputs_
 
-These are 3 kinds of inputs that you can read while rendering. **You should always treat these inputs as read-only.**
+These are 3 kinds of "inputs" that you can read while rendering. **You should always treat these inputs as read-only.**
 
 ### Props
 
@@ -97,7 +97,7 @@ export default function TeaGathering() {
 If the `cups` variable or the `[]` array were created outside the `TeaGathering` function, this would be a huge problem! You would be changing a preexisting object by pushing items into that array.  
 However, it’s fine because you’ve created them **during the same _render_ ([_render_ nghĩa là call Component function - ở đây là call `TeaGathering`](lifecycle.md#step-1-react-trigger-render-initial-hoặc-re-render-component), với mỗi lần call thì `cups` dc tạo lại trong lần call đấy)**. No code outside of `TeaGathering` will ever know that this happened. This is called **“local mutation”** — it’s like your component’s little secret.
 
-## Object & Array
+## Object & Array inputs
 
 > [You should treat _Pre-existing Variable_ as immutable!](#pre-existing-variable)
 
