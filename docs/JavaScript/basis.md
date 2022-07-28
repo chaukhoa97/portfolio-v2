@@ -6,13 +6,34 @@ title: 'Basis'
 
 ### Callback
 
-_Hàm_ dc truyền qua _argument_
+_Hàm_ dc truyền qua _argument_  
 Gọi hàm khi có sự kiện xảy ra, thực hiện bất đồng bộ.
 
 ### Event loop
 
-Các hàm async vào `Call stack` thì dc di chuyển qua `Web api`. Ở `Web api` chạy async xong thì push callback vào `Task queue`.  
-**Event Loop**: Khi `Call stack` trống thì `Task queue` đưa event vào `Call stack` theo kiểu **FIFO**.
+![Event loop](https://i.imgur.com/E1AuR7A.png)
+
+1. Synchronous execute the script until the **Call Stack** (LIFO) is empty. Các hàm _async_ vào **Call stack** thì dc di chuyển qua **Web api**. Ở **Web api** chạy async xong thì push callback vào **Task Queue**/**Microtask Queue**.
+
+2. Select the oldest finished one from **Microtask Queue** (`Promise`) to push into **Call Stack** and execute it. Repeat until the **Microtask Queue** is empty.
+   This is the _Event Loop_.
+
+3. Do the same like step 2 with **Task Queue** (`setTimeout`).
+
+Test this snippet [here](https://www.jsv9000.app/)
+
+```js
+setTimeout(function a() {}, 500)
+setTimeout(function b() {}, 0)
+fetch('https://www.google.com').then(function c() {})
+Promise.resolve().then(function d() {})
+Promise.reject().catch(function e() {})
+function f() {
+  g()
+}
+function g() {}
+f()
+```
 
 ### Closure
 
@@ -29,7 +50,7 @@ function f1() {
     return x
   }
 }
-const f3 = f1() // execute f1() returns f2 &rarr; những biến ở outer scope của f2 sẽ dc giữ lại.
+const f3 = f1() // execute `f1` returns `f2` -> những biến ở outer scope của f2 sẽ dc giữ lại.
 f3() // 2
 f3() // 4
 console.log(x) // ReferenceError: Biến x chỉ dc sử dụng trong f1

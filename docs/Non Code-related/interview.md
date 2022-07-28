@@ -37,8 +37,8 @@ All docs
 
 ### Docs
 
-- [Basis](../JavaScript/basis.md)
-- Folder JS Archive
+- All docs
+- [Array and Object methods](../Snippets/array-object-methods.mdx)
 
 ## Next.js
 

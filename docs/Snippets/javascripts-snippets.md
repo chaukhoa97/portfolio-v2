@@ -2,14 +2,14 @@
 title: 'JavaScript Snippets'
 ---
 
-### Dynamic object key
+## Dynamic object key
 
 ```jsx
 const { name, id } = event.target
 setSearchParams({ [name]: id })
 ```
 
-### Measure function runtime
+## Measure function runtime
 
 ```js
 console.time('filter array')
@@ -17,7 +17,7 @@ const visibleTodos = getFilteredTodos(todos, filter)
 console.timeEnd('filter array')
 ```
 
-### Scroll to top
+## Scroll to top
 
 ```jsx
 const handleScrollTop = () => {
@@ -25,7 +25,14 @@ const handleScrollTop = () => {
 }
 ```
 
-### Shallow Copy vs Deep Copy
+## Move array item to last position
+
+```js
+array.push(array.splice(index, 1)[0]) // Already know the index of the item to move
+array.push(array.splice(array.indexOf(element), 1)[0]) // If you don't have the index, and only the element
+```
+
+## Shallow Copy vs Deep Copy
 
 ```js
 var obj = [{ a: 1 }, { b: 2 }]
@@ -33,4 +40,44 @@ var shallow = _.clone(obj)
 console.log(shallow[0] === obj[0]) // => true
 var deep = _.cloneDeep(obj)
 console.log(deep[0] === obj[0]) // => false
+```
+
+## Delete Reference value
+
+```js
+let arr1 = [1, 2]
+const arr2 = arr1
+// ❌ Xóa arr1 dính luôn arr2
+arr1.length = 0 // arr2 = []
+arr1.splice(0, arr1.length) // arr2 = []
+// ✅ Xóa arr1 ko ảnh hưởng đến arr2
+arr1 = [] // arr2 = [1, 2];
+```
+
+## Destructing
+
+```ts
+const {
+  data: {
+    plans,
+    plans: [plan1, plan2],
+  },
+} = {
+  data: {
+    plans: [
+      { a: 1, b: 2 },
+      { a: 3, b: 4 },
+    ],
+  },
+}
+```
+
+## Date Time
+
+```js
+Date.now() // Returns numbers. Faster than new Date().getTime()
+const eventTime = new Date() // Tue Nov 16 2021 23:37:35 GMT+0700 (Indochina Time)
+eventTime.toLocaleString() // 11/16/2021, 11:37:35 PM
+eventTime.toLocaleDateString() // 11/16/2021
+eventTime.toLocaleTimeString() // 11:37:35 PM
 ```

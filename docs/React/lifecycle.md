@@ -11,6 +11,36 @@ During render, React _calls your **Component function**_ to figure out what shou
 - Any of these change: **State**(including state updates from the _Custom hooks_ your component consumes), **Prop**, **ContextValue** consumed by your Component.
 - Parent của Component re-render (trừ `React.memo`).
 
+:::caution
+
+You must not declare nested components in your Component function because they can be redefined when Parent re-render
+
+:::
+
+```jsx
+// ✅ Tách Child ra ngoài
+const Child = ({ onClick }) => {
+  return <button onClick={onClick}>+</button>
+}
+
+const Parent = () => {
+  const [count, setCount] = useState(0)
+  const handleClick = () => setCount(count + 1)
+
+  // ❌ Nested Component
+  const NestChild = ({ onClick }) => {
+    return <button onClick={onClick}>+</button>
+  }
+
+  return (
+    <>
+      <Child onClick={handleClick} />
+      <NestChild onClick={handleClick} />
+    </>
+  )
+}
+```
+
 ## Step 2: React commits changes to the DOM
 
 After rendering (calling) your components, React will applies changes the DOM.

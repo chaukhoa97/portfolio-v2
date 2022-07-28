@@ -1,0 +1,169 @@
+---
+title: 'Async'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+## Axios vs Fetch
+
+Fetch phải tốn thêm 1 lần `.json()`, ngoài ra trong các lệnh như POST, PATCH,... phải convert data bằng `JSON.stringify`. Fetch thì phải check `response.ok` rồi mới `catch` error còn Axios thì `catch` trực tiếp luôn.
+
+<Tabs>
+  <TabItem value="GET" label="GET" default>
+
+```js
+fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then((res) => res.json())
+  .then((res) => {
+    if (!res.ok) throw Error(res.status)
+    return res.json()
+  })
+  .then((data) => console.log(data))
+  .catch((err) => console.log(err))
+
+axios
+  .get('https://jsonplaceholder.typicode.com/todos/1')
+  .then((res) => console.log(res.data))
+  .catch((err) => console.log(err))
+```
+
+  </TabItem>
+
+  <TabItem value="POST" label="POST">
+
+```js
+fetch('https://jsonplaceholder.typicode.com/posts', {
+  method: 'POST',
+  body: JSON.stringify({
+    email: '@gmail.com',
+  }),
+})
+  .then((res) => {
+    if (!res.ok) throw Error(res.status)
+    return res.json()
+  })
+  .then((data) => console.log(data))
+  .catch((err) => console.log(err))
+
+axios
+  .post('https://jsonplaceholder.typicode.com/posts', {
+    email: '@gmail.com',
+  })
+  .then((res) => console.log(res.data))
+  .catch((error) => console.log(error))
+```
+
+  </TabItem>
+
+  <TabItem value="PUT" label="PUT">
+
+```js
+fetch('https://jsonplaceholder.typicode.com/posts/1', {
+  method: 'PUT',
+  body: JSON.stringify({
+    id: 1,
+    title: 'foo',
+    body: 'bar',
+    userId: 1,
+  }),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+  },
+})
+  .then((res) => res.json())
+  .then((data) => console.log(data))
+```
+
+  </TabItem>
+
+  <TabItem value="PATCH" label="PATCH">
+
+```js
+fetch('https://jsonplaceholder.typicode.com/posts/1', {
+  method: 'PATCH',
+  body: JSON.stringify({
+    title: 'Vip pro',
+  }),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+  },
+})
+  .then((res) => res.json())
+  .then((data) => console.log(data))
+```
+
+  </TabItem>
+
+  <TabItem value="Concurrent" label="Concurrent">
+
+```js
+Promise.all([
+  fetch('https://jsonplaceholder.typicode.com/posts/1'),
+  fetch('https://jsonplaceholder.typicode.com/posts/2'),
+]).then((responses) =>
+  responses.forEach(async (res) => {
+    const data = await res.json()
+    console.log(data)
+  }),
+)
+
+Promise.all([
+  axios.get('https://jsonplaceholder.typicode.com/posts/1'),
+  axios.get('https://jsonplaceholder.typicode.com/posts/2'),
+]).then((responses) => responses.forEach((res) => console.log(res.data)))
+```
+
+  </TabItem>
+
+</Tabs>
+
+## `Promise.all` vs `Promise.race`
+
+```js
+Promise.all([oneSec, twoSecs]).then((messages) => {
+  console.log(messages) // ["oneSec", "twoSecs"]
+})
+
+Promise.race([oneSec, twoSecs]).then((message) => {
+  console.log(message) // oneSec
+})
+```
+
+## Basis
+
+```js
+// Async function always return a promise. If not, it will be wrapped in a Promise
+async function foo() {
+  return 1
+} // Equalivent to...
+function foo2() {
+  return Promise.resolve(1)
+}
+
+function oneSec(a) {
+  return new Promise((resolve, reject) => {
+    // We call resolve() when what we do WAS succesful and reject() when it was failed
+    if (a === 1) setTimeout(() => resolve('Ok bro'), 1000)
+    else reject(new RangeError('Lỗi: a !== 1'))
+  })
+}
+
+oneSec(2)
+  .then(
+    // Thông thường .then() chỉ cần 1 param - hàm resolve là đủ, không cần param thứ 2 - hàm reject, trừ những lỗi phải dc xử lý ngay lập tức.
+    (resolveValue) => console.log(resolveValue), //* resolveValue ở đây là giá trị resolve của Promise được gọi - ở đây là hàm `setTimeout`
+    // ,(rejectValue) => { doing something to deal with the error immediately }
+  )
+  .catch((err) => console.log(err.name, err.message))
+
+// Await
+async function asyncCall() {
+  try {
+    const result = await oneSec(1)
+    console.log(result)
+  } catch (err) {
+    console.log(err)
+  }
+}
+```
