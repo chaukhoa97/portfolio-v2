@@ -2,25 +2,22 @@
 title: 'Basis'
 ---
 
-## Terms
+## Callback
 
-### Callback
+_Hàm_ dc truyền qua _argument_.
+Usage: Gọi hàm khi có sự kiện xảy ra, thực hiện bất đồng bộ.
 
-_Hàm_ dc truyền qua _argument_  
-Gọi hàm khi có sự kiện xảy ra, thực hiện bất đồng bộ.
-
-### Event loop
-
-![Event loop](https://i.imgur.com/E1AuR7A.png)
+## Event loop
 
 1. Synchronous execute the script until the **Call Stack** (LIFO) is empty. Các hàm _async_ vào **Call stack** thì dc di chuyển qua **Web api**. Ở **Web api** chạy async xong thì push callback vào **Task Queue**/**Microtask Queue**.
 
-2. Select the oldest finished one from **Microtask Queue** (`Promise`) to push into **Call Stack** and execute it. Repeat until the **Microtask Queue** is empty.
-   This is the _Event Loop_.
+2. Select the oldest callback from **Microtask Queue** (`Promise`) to push into **Call Stack** and execute it. Repeat until the **Microtask Queue** is empty. This is the **Event Loop**.
 
 3. Do the same like step 2 with **Task Queue** (`setTimeout`).
 
-Test this snippet [here](https://www.jsv9000.app/)
+![Event loop](https://i.imgur.com/E1AuR7A.png)
+
+### Example: Test this snippet [here](https://www.jsv9000.app/)
 
 ```js
 setTimeout(function a() {}, 500)
@@ -35,9 +32,10 @@ function g() {}
 f()
 ```
 
-### Closure
+## Closure
 
-Bao gồm: Function và References tới các biến ở outer scope của function đó (Lexical Environment). Trong JS, closures của 1 function dc tạo ra ở thời điểm declare function đó
+Is the combination of a **Function** and its **Lexical environment** (_references_ to any other data from the outer scope that the function depends on). You can think of a function to have its own **"private"** variable.  
+Closures của 1 function dc tạo ra ngay tại thời điểm declare function đó.
 
 ```js
 function f1() {
@@ -50,24 +48,38 @@ function f1() {
     return x
   }
 }
-const f3 = f1() // execute `f1` returns `f2` -> những biến ở outer scope của f2 sẽ dc giữ lại.
-f3() // 2
-f3() // 4
-console.log(x) // ReferenceError: Biến x chỉ dc sử dụng trong f1
+const result = f1() // execute `f1` returns `f2` -> những biến ở outer scope của f2 sẽ dc giữ lại.
+result() // 2
+result() // 4
+console.log(x) // ❌ ReferenceError: Biến x chỉ dc sử dụng trong f1
 ```
 
-### Hoisting
+### Tricky example
+
+```js
+// When using `var` in a `for` loop, the variable is hoisted to Global Scope.
+for (var i = 0; i < 3; i++) {
+  // There are 3 different `log` declaration here, which means there are 3 different Closures
+  // With `var`, all 3 `log` access to the same global variable `i`, which after the loop, is 3.
+  // With `let`, there is a different `i` in each `for` loop since it's Block Scope
+  // and each `log` access to its own `i` (`i` is a part of `log` Closure).
+  const log = () => console.log(i)
+  setTimeout(log, 0)
+}
+```
+
+## Hoisting
 
 Là quá trình đưa các khai báo (declaration) hàm/biến lên trên đầu trang, nó được thực hiện tự động bởi JavaScript Engine
 
 ```js
 add(3, 4); //* returns 7
-// Function declaretion &rarr; hoisting lên đầu
+// Function declaretion -> hoisting lên đầu
 function add(num1, num2) {
   return num1 + num2;
 }
 
-//* Function expression &rarr; ko hoisting
+//* Function expression -> ko hoisting
 subtract(7, 4); //! Uncaught TypeError: subtract is not a function
 var subtract = function (num1, num2) {
   return num1 - num2;
@@ -77,7 +89,7 @@ let y; // console.log(y) -> ERROR
 const z; // ERROR ngay bước init
 ```
 
-### var let const
+## var let const
 
 |       |      Scope      |  Hoisting + Init value  | Re-declare | Update |
 | :---: | :-------------: | :---------------------: | :--------: | :----: |

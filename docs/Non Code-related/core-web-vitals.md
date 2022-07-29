@@ -2,7 +2,7 @@
 title: 'Core Web Vitals'
 ---
 
-### Largest Contentful Paint (LCP)
+## Largest Contentful Paint (LCP)
 
 **LCP** measures the time it takes to get the largest element on the page visible within the viewport. This could be a large text block, video, or image that takes up the primary real estate on the page.
 
@@ -10,11 +10,11 @@ title: 'Core Web Vitals'
 
 _Note: This is not `First Contentful Paint (FCP)`, which measures the time from when the page begins to load to when the first element is rendered on screen._
 
-### First Input Delay (FID) == Total Blocking Time
+## First Input Delay (FID) == Total Blocking Time
 
 **FID** measures the **interactivity** of a web page.
 
-### Cumulative Layout Shift (CLS)
+## Cumulative Layout Shift (CLS)
 
 **CLS** occurs when elements have been shifted after initially being rendered by the DOM. Ex: A `button` is rendered after the `text block`, causing the `text` to shift downward.
 
@@ -22,15 +22,13 @@ _Note: This is not `First Contentful Paint (FCP)`, which measures the time from 
 
 ![Cumulative Layout Shift (CLS)](https://nextjs.org/static/images/learn/seo/cls-example.png)
 
-### How to improve [Lighthouse Core Web Vitals](https://web.dev/performance-scoring/#lighthouse-8)
+## How to improve [Lighthouse Core Web Vitals](https://web.dev/performance-scoring/#lighthouse-8)
 
-#### [next/image](https://nextjs.org/docs/basic-features/image-optimization)
+### [`next/image`](https://nextjs.org/docs/basic-features/image-optimization)
 
-```js
-import Image from `next/image`
-```
+**Lazy load**: Images are only loaded when they enter the viewport.
 
-#### [Dynamic Import](https://nextjs.org/docs/advanced-features/dynamic-import)
+### [Dynamic Import](https://nextjs.org/docs/advanced-features/dynamic-import)
 
 ```jsx
 <input
@@ -47,7 +45,9 @@ import Image from `next/image`
 />
 ```
 
-#### [Dynamic Import for Components](https://nextjs.org/learn/seo/improve/dynamic-import-components): Dynamically render React component that is not needed on the initial page load
+### [Dynamic Import for Components](https://nextjs.org/learn/seo/improve/dynamic-import-components)
+
+Dynamically render React component that is not needed on the initial page load
 
 ```jsx
 import dynamic from 'next/dynamic'
@@ -60,7 +60,7 @@ isModalOpen && (
 )
 ```
 
-#### [Optimizing Third-Party Scripts](https://nextjs.org/learn/seo/improve/third-party-scripts)
+### [Optimizing Third-Party Scripts](https://nextjs.org/learn/seo/improve/third-party-scripts)
 
 **Loading `script` early can delay page content to start render**
 &rarr; With the Next.js `Script` component, you can add it anywhere in the component without needing to use `next/head`:

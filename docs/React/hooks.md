@@ -83,22 +83,6 @@ const termRef = useRef()
 <input ref={termRef} type="text" />
 ```
 
-### Snippet: Mimic `componentDidMount` & `componentDidUpdate` with `useRef`
-
-```jsx
-const mounted = useRef()
-useEffect(() => {
-  if (!mounted.current) {
-    // do componentDidMount logic
-    mounted.current = true
-  } else {
-    // do componentDidUpdate logic
-  }
-})
-```
-
-[Read more](https://codesandbox.io/s/componentdidmount-componentdidupdate-with-useref-8vw622?file=/StoryTray.js)
-
 ### Snippet: One `ref` for a list of elements
 
 ```jsx
@@ -151,7 +135,17 @@ Some components need to synchronize with external systems (like network or a thi
 - [Whenever you try to synchronize state variables in different components, consider lifting state up.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#passing-data-to-the-parent)
 - [You can fetch data with Effects, but you need to implement cleanup to avoid race conditions.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#subscribing-to-an-external-store)
 
-### Snippet: Async & Cleanup in `useEffect`
+### How it runs
+
+- **Mounting**: Render &rarr; Commit &rarr; `useEffectCode`
+- **Updating**: Render &rarr; Commit &rarr; `cleanUp` &rarr; `useEffectCode`
+- **Unmounting**: `cleanUp`
+
+:::note
+
+_Mount/Unmount_ means Adding/Removing nodes to the DOM
+
+:::
 
 ```jsx
 function App() {
@@ -166,28 +160,20 @@ function App() {
     return () => {
       disconnect()
     }
+    // If dependency is an empty array, code in useEffect will run only on mount
+    // and the cleanup fn will be called before unmount.
   }, [])
 
   return <div>{loading ? 'Loading...' : count}</div>
 }
 ```
 
-### Snippet: Logic only run 1 time in `useEffect`
+:::tip
 
-```jsx
-let didInit = false
-function App() {
-  useEffect(() => {
-    if (!didInit) {
-      didInit = true
-      // ✅ Only runs once per app load
-      loadDataFromLocalStorage()
-      checkAuthToken()
-    }
-  }, [])
-  // ...
-}
-```
+- Ko cần cleanup (Chạy rồi thì k cần quan tâm nữa): Gọi API, Tương tác DOM
+- Cần cleanup: setTimeout/Interval, connection to a server/database
+
+:::
 
 ## Optimize
 

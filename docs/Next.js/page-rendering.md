@@ -112,7 +112,3 @@ Nên kẹp chung với [TanStack Query](https://github.com/TanStack/query/releas
   &rarr; Dùng cho những page như: Dashboard, Cart, ...
 
 ![Client-side Rendering](https://nextjs.org/static/images/learn/data-fetching/client-side-rendering.png)
-
-## Summary
-
-![Page-rendering ways conclusion](https://cdn.sanity.io/images/0lu0ii6t/production/e3c1bae9a50f0cf6a05be7661400d7deccf06dbb-1920x2200.jpg?w=1536&fm=webp&fit=min&auto=format)

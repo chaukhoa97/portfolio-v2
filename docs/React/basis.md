@@ -2,14 +2,6 @@
 title: 'Basis'
 ---
 
-## Terms
-
-- **Mount/Unmount**: Adding/Removing nodes to the DOM
-
-### Other Terms
-
-- **Lazy load**: Images are only loaded when they enter the viewport.
-
 ## Events
 
 - [Events propagate upwards (children trước parent sau). Call `e.stopPropagation()` on the first argument to prevent that](https://beta.reactjs.org/learn/responding-to-events#event-propagation).

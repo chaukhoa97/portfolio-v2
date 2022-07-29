@@ -2,11 +2,18 @@
 title: 'Interview'
 ---
 
+## Prerequisite
+
+Introduction and functionalities &rarr; Fundamental concepts and features.
+
 ## React
 
-### Features
+### Introduction
 
-- **What is React?**: React is an open-source front-end JavaScript library that is used for building user interfaces, especially for single-page applications.
+An open-source front-end JavaScript library that is used for building user interfaces, especially for SPA.
+
+#### Features
+
 - **JSX syntax**: Provide us JS functionalities along with HTML like template syntax.
 - **Reusable components**
 - Support **Server-side rendering**
@@ -22,7 +29,11 @@ All docs
 
 ## TypeScript
 
-### Features
+### Introduction
+
+A strongly typed programming language that builds on JavaScript.
+
+#### Features
 
 - _Optional_ static typing.
 - IDEs provide Intellisense for TS, show warnings and errors about any potenial issues in your code even before _Compile time_.
@@ -42,9 +53,12 @@ All docs
 
 ## Next.js
 
-### Features
+### Introduction
 
-- React Framework for Production.
+React Framework for Production.
+
+#### Features
+
 - Built-in Server-side Rendering Support. We can even blend CSR with SSR.
 - File-based Routing.
 - Have Fullstack Capabilities: We can add backend (server side) code into our Next.js app.
@@ -67,3 +81,23 @@ All docs
 
 - [CSS](../CSS/basis.md)
 - [HTML `<head>`](../Non%20Code-related/html-head.md)
+
+## Other
+
+### Libs & Frameworks
+
+- **Storybook**: Tool for building UI components and pages in isolation. It enhances UI development, testing, and documentation.
+- **Tanstack Query**: Asynchronous state management. It gives you declarative, always-up-to-date auto-managed queries and mutations that directly improve both DX and UX.
+- **Node.js**: A JS runtime environment that allow JS to run on the server in addition to running in the browser.
+- **Express**: A Node.js web application framework that provides a robust set of features for building SPA.
+- **Babel**: A JS transcompiler that is mainly used to convert ECMAScript 2015+ code into a backwards compatible version of JS that can be run by older browsers.
+
+### Headless CMS vs Traditional CMS
+
+- **Traditional CMS**: Content &rarr; Content Delivery Template &rarr; Web pages
+- **Headless CMS** (Sanity/Strapi): Content &rarr; Raw JSON Data &rarr; Any plaform (TV, Smart watch, mobile, etc.)
+
+### Declarative vs Imperative
+
+- **Imperative**: Tell machine how to get what I want.
+- **Declarative**: Tell machine what I want.
