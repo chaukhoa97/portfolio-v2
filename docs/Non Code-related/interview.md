@@ -10,7 +10,7 @@ Introduction and functionalities &rarr; Fundamental concepts and features.
 
 ### Introduction
 
-An open-source front-end JavaScript library that is used for building user interfaces, especially for SPA.
+A declarative, efficient, and flexible JavaScript library for building user interfaces.
 
 #### Features
 
@@ -25,7 +25,7 @@ An open-source front-end JavaScript library that is used for building user inter
 
 ### Docs
 
-All docs
+Đọc kỹ hết.
 
 ## TypeScript
 
@@ -41,14 +41,14 @@ A strongly typed programming language that builds on JavaScript.
 
 ### Docs
 
-- All docs
+- Đọc kỹ [Features](../TypeScript/features)
 - Folder TS Archive
 
 ## JavaScript
 
 ### Docs
 
-- All docs
+- Đọc kỹ hết.
 - [Array and Object methods](../Snippets/array-object-methods.mdx)
 
 ## Next.js
@@ -73,7 +73,7 @@ Each generated HTML is associated with minimal JavaScript code necessary for tha
 
 ### Docs
 
-All docs
+Đọc kỹ hết
 
 ## HTML CSS
 
