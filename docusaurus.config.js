@@ -14,7 +14,7 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   // favicon: 'img/favicon2.ico',
-  favicon: 'img/pepe.gif',
+  favicon: 'img/aot.gif',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -55,7 +55,7 @@ const config = {
         logo: {
           alt: 'Finn Chau Logo',
           // src: 'img/logo2.png',
-          src: 'img/pepe.gif',
+          src: 'img/aot.gif',
         },
         items: [
           {

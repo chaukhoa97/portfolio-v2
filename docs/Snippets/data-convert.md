@@ -5,8 +5,7 @@ title: 'Data Convert'
 ### Number to String
 
 ```js
-String(100 + 23)
-;(100 + 23).toString()
+String(100 + 23)(100 + 23).toString()
 ```
 
 ### String to Number
