@@ -38,19 +38,26 @@ title: 'Basis'
 - `absolute`: If a child element has `absolute` then the parent element will xem như child ko có ở đó luôn. Để children absolutely position theo parent thì parent phải có position là `relative` hoặc `absolute`.
 - `relative`: Ở chỗ cũ như `static`, nhưng khác với `static` là bây giờ `left/right/top/bottom/z-index` sẽ hoạt động.
 
-## Pseudo
+## Selector
 
-### Pseudo-class`:` Define a special state of an element
+### [Pseudo-class](https://www.w3schools.com/css/css_pseudo_classes.asp)`:` Define a special state of an element
 
 - `article p:nth-child(2)`: Select every `<p>` that is the second child of its parent (ở đây là article).
 - `article p:nth-of-type(2)`: Select every `<p>` that is the second `<p>` of its parent.
 - `button:active`: Select the button when it is clicked.
 
-### Pseudo-element`::` Style specified parts of an element
+### [Pseudo-element](https://www.w3schools.com/css/css_pseudo_elements.asp)`::` Style specified parts of an element
 
 ```css
 p::before { content: '', color:... }
 ```
+
+### [Reference selector](https://www.w3schools.com/cssref/css_selectors.asp)
+
+- `a[href *= ".com"]`: Select những href **containing** ".com".
+- `#sentence > p`: Các `p` ở tập hợp con **nhỏ hơn 1 bậc** so với id "sentence".
+- `.sentence + p`: MỘT `p` **duy nhất liền sau** kết thúc của class "sentence".
+- `.sentence ~ p`: TẤT CẢ các `p` **liền sau** kết thúc của class "sentence"
 
 ## `transform` & `transistion`
 

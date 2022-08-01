@@ -10,26 +10,6 @@ import TabItem from '@theme/TabItem'
 Fetch phải tốn thêm 1 lần `.json()`, ngoài ra trong các lệnh như POST, PATCH,... phải convert data bằng `JSON.stringify`. Fetch thì phải check `response.ok` rồi mới `catch` error còn Axios thì `catch` trực tiếp luôn.
 
 <Tabs>
-  <TabItem value="GET" label="GET" default>
-
-```js
-fetch('https://jsonplaceholder.typicode.com/todos/1')
-  .then((res) => res.json())
-  .then((res) => {
-    if (!res.ok) throw Error(res.status)
-    return res.json()
-  })
-  .then((data) => console.log(data))
-  .catch((err) => console.log(err))
-
-axios
-  .get('https://jsonplaceholder.typicode.com/todos/1')
-  .then((res) => console.log(res.data))
-  .catch((err) => console.log(err))
-```
-
-  </TabItem>
-
   <TabItem value="POST" label="POST">
 
 ```js
@@ -52,6 +32,26 @@ axios
   })
   .then((res) => console.log(res.data))
   .catch((error) => console.log(error))
+```
+
+  </TabItem>
+  
+  <TabItem value="GET" label="GET" default>
+
+```js
+fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then((res) => res.json())
+  .then((res) => {
+    if (!res.ok) throw Error(res.status)
+    return res.json()
+  })
+  .then((data) => console.log(data))
+  .catch((err) => console.log(err))
+
+axios
+  .get('https://jsonplaceholder.typicode.com/todos/1')
+  .then((res) => console.log(res.data))
+  .catch((err) => console.log(err))
 ```
 
   </TabItem>

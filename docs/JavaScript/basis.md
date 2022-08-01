@@ -93,9 +93,9 @@ const z; // ERROR ngay bước init
 
 |       |      Scope      |  Hoisting + Init value  | Re-declare | Update |
 | :---: | :-------------: | :---------------------: | :--------: | :----: |
-|  Var  | Global/Function |     ✔️ (undefined)      |     ✔️     |   ✔️   |
-|  Let  |      Block      | ✔️(must be initialized) |     ❌     |   ❌   |
-| Const |      Block      |   ✔️(not initialized)   |     ❌     |   ✔️   |
+|  Var  | Global/Function |     ✅ (undefined)      |     ✅     |   ✅   |
+|  Let  |      Block      | ✅(must be initialized) |     ❌     |   ❌   |
+| Const |      Block      |   ✅(not initialized)   |     ❌     |   ✅   |
 
 Example:
 

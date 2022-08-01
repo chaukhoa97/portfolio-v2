@@ -16,6 +16,10 @@ title: 'UI/UX Stuff'
 - **Serious**: Playfair Display - Fauna one
 - **Impact**: Alfa Slab - Open Sans
 
+## Color
+
+![HSL](https://i.imgur.com/tYjLyml)
+
 ## Photoshop
 
 - Hiện duy nhất layer đó: Alt+click vào con mắt.
