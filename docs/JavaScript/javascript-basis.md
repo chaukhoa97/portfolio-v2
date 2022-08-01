@@ -1,5 +1,5 @@
 ---
-title: 'Basis'
+title: 'JavaScript Basis'
 ---
 
 ## Callback
@@ -122,15 +122,15 @@ const obj = { key1: 'foo' } // error - re-declaring
 
 - **Primitive**:
 
-  - string; number (NaN - Not a Number vẫn đc tính là number, Infinity, -Infinity); boolean; undefined;
-  - null (typeof null === “object”) // Mặc dù behavior giống primitive nhưng lại là object
-  - Ít dùng: symbol; bigint
+  - string; number (`NaN` _vẫn_ đc tính là number, Infinity, -Infinity); boolean; undefined(`typeof undefined === "undefined"`).
+  - null (`typeof null === “object”`): Mặc dù behavior giống _primitive_ nhưng lại là _object_.
+  - Ít dùng: symbol; bigint.
 
 - **Reference**:
 
-  - object; array (typeof Object/Array === “object”)
-  - function (typeof Function === “function")
-  - Ít dùng: date; regexp; error;
+  - object; array (`typeof Object/Array === “object”`); set.
+  - function (`typeof Function === “function"`).
+  - Ít dùng: date; regexp; error; map; weakmap; weakset.
 
 - **Falsy values**: `0, “”, false, null, undefined, NaN`
 

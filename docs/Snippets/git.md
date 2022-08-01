@@ -15,21 +15,23 @@ title: 'Git'
 
 ### Merge, Rebase & Cherry-Pick
 
-Cả 3 đều integrate changes from one branch into another branch
+Cả 3 đều integrate changes from one branch into another branch.
 
 - `git checkout feature` + `git merge main`
   - **Nếu hủy**: `git merge --abort`
   - **Fix conflict** &rarr; add. &rarr; `git merge --continue` &rarr; Sửa message ở màn hình _interactive_ &rarr; :wq
-- `git rebase` syntax giống hệt: Chỉ nên sử dụng trên nhánh **feature**, không nên dùng ở nhánh **master**
+- `git rebase` syntax giống hệt: **CHỈ** sử dụng trên nhánh **feature**, không dùng ở nhánh **master**.
+
+![Merge, Rebase](https://i.imgur.com/9A4MKGu.png)
 
 - `git cherry-pick <commit-id>`: Nhánh **feature** có commit _F1_ và _F2_. Ở nhánh **master**:
 
   - `git merge feature` sẽ merge cả _F1_ và _F2_ vào **master**.
   - `git cherry-pick <F1>` sẽ chỉ merge _F1_ vào **master**.
 
-### Status
+### Fuck Up
 
-- `git reflog show master` (Xem nhật ký thao tác trên nhánh master) → `git reset 'HEAD@{1}’` (với HEAD@{0} là thao tác vừa làm → reset về thao tác trước đó là HEAD@{1}).
+- `git reflog show master` (Xem nhật ký thao tác trên nhánh master) → `git reset 'HEAD@{1}’` (với `HEAD@{0}` là thao tác vừa làm → reset về thao tác trước đó là `HEAD@{1}`).
 - `HEAD@{1}` vs `HEAD~1`: 2nd của `git reflog` vs 2 commits older than HEAD của `git log --oneline`.
 
 ### Squash 3 commit
@@ -72,10 +74,10 @@ Cả 3 đều integrate changes from one branch into another branch
 1. **Tìm lại ID của commit/stash cũ**:  
    `git fsck --unreachable | grep commit | cut -d" " -f3 | xargs git log --merges --no-walk --grep=WIP`  
    Thay "WIP" ở cuối by a part of the title của stash/commit
-2. **Thử version cũ hơn của pj (Detached HEAD)**: `git checkout -b test-branch 56a4e5c08 --index.js` - Tạo nhánh mới từ `commit-id 56a4e5c08` &rarr; do anything... &rarr; `git checkout master` + `git branch -d test-branch`
+2. **Thử version cũ hơn của pj (Detached HEAD)**: `git checkout -b test-branch 56a4e5c08 --index.js` - Tạo nhánh mới từ `commit-id 56a4e5c08` &rarr; do anything... &rarr; `git checkout master` + `git branch -d test-branch`.  
+   Nếu ko có `--index.js` &rarr; phục hồi tất cả các file.
 
 ### ETC
 
 - **Xóa file**: `git rm *.ts (--cached)` &rarr; Xóa file (khỏi stage).
-
 - **Vim**: `ESC : W Q` &rarr; Save & Quit.

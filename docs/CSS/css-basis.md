@@ -1,8 +1,8 @@
 ---
-title: 'Basis'
+title: 'CSS Basis'
 ---
 
-## Flexbox: Main(`justify-content`)/Cross(`align-items`) Axis
+## Flexbox
 
 1. `flex-grow` - MAX: Chỉ định tỷ lệ kích thước to nhất mà phần tử nên có so với các phần tử còn lại.
 
@@ -19,10 +19,13 @@ title: 'Basis'
    - **(Default)** `auto`: Dc tính toán theo nội dung và các phần tử khác.
    - `1000px`: Trình duyệt sẽ hiểu là "Hãy cố gắng dành ra `1000px` cho phần tử này". Cái này còn phụ thuộc vào nội dung của những phần tử khác - Nếu nội dung mấy phần tử khác mà to quá thì cũng chịu.
 
-## Box model: [Content + (Padding + Border)] + Margin
+- `order: -1`: Default `0`. Số nhỏ xếp trước.
+- `align-self`: Override `align-items` của flex container.
 
-- `box-sizing: border-box` : Width/Height = `Content` + `Padding` + `Border`.
-- `box-sizing: content-box` : Width/Height = `Content` &rarr; `Padding` & `Border` làm width to hơn so với ý muốn.
+## Box model
+
+- `box-sizing: content-box` : Size = `Content` &rarr; `Padding` & `Border` làm width to hơn so với ý muốn.
+- `box-sizing: border-box` : Size = `Content` + `Padding` + `Border`.
 
 ## Display
 
@@ -84,3 +87,25 @@ div {
   animation: show 1s infinite;
 }
 ```
+
+## Element height
+
+Thường không nên chỉnh độ cao của element. Nhưng nếu có thì nên dùng `min-height`. Vì nếu viewport nhỏ lại thì element cũng sẽ tự cao ra cho vừa với content, còn nếu chỉ dùng `height` mà nhỏ quá thì bị overflow.  
+`min-height` PHẢI là _absolute unit_ (px, rem,...). Nếu `min-height` là % thì `height` của container phải là _absolute unit_ (Không được là % hết)
+
+## Image Properties
+
+### `background-size`
+
+- `background-size: cover` &rarr; Luôn cover hết container dẫu có stretch.
+- `background-size: contain` &rarr; Luôn show ảnh đúng, dẫu có chừa lại khoảng trống trong container.
+
+:::note
+Khi dùng `background-image`, set `width` cho container không có tác dụng, chỉ khi set `height` mới có tác dụng.
+:::
+
+### `object-fit`
+
+- `object-fit: fill`_(default)_: Fills the container nhưng bị stretch - **GIỐNG** `background-size: cover`
+- `object-fit: cover`: Fills the container nhưng bị cắt bớt (giữ nguyên aspect ratio) - **KHÁC** `background-size: cover`
+- `object-fit: contain`: Luôn show ảnh đúng, dẫu có chừa lại khoảng trống trong container - **GIỐNG** `background-size: contain`

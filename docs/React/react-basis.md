@@ -1,5 +1,5 @@
 ---
-title: 'Basis'
+title: 'React Basis'
 ---
 
 ## Events
