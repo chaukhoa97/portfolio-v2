@@ -51,26 +51,6 @@ A strongly typed programming language that builds on JavaScript.
 - Đọc kỹ hết.
 - [Array and Object methods](../Snippets/array-object-methods.mdx)
 
-### `this` keyword
-
-```js
-// `this` references the object that is excecuting the current function
-class Person1 {
-  constructor(name) {
-    this.name = name
-  }
-  printNameArrow() {
-    console.log(this.name) // Retains the `this` value of the function's lexical environment
-  }
-  printNameFunction() {
-    console.log(this.name) // Will be reference to global object
-  }
-}
-const k = new Person1('khoa')
-console.log(k.printNameArrow()) // khoa
-console.log(k.printNameFunction()) // undefined
-```
-
 ## Next.js
 
 ### Introduction
@@ -103,6 +83,7 @@ React Framework for Production.
 
 ### Tools
 
+- **Docker**: A plaform used to deliver software in packages called _contianers_.
 - **Webpack**: A module bundler for modern JavaScript applications &rarr; Vite.
 - **Babel**: A JS transcompiler that is mainly used to convert ECMAScript 2015+ code into a backwards compatible version of JS that can be run by older browsers.
 

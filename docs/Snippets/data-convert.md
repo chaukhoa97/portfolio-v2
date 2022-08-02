@@ -2,13 +2,14 @@
 title: 'Data Convert'
 ---
 
-### Number to String
+## Number to String
 
 ```js
-String(100 + 23)(100 + 23).toString()
+let a = String(100 + 23)
+let b = (100 + 23).toString()
 ```
 
-### String to Number
+## String to Number
 
 ```js
 Number('99 88') // returns NaN

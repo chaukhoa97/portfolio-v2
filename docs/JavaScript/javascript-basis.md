@@ -120,19 +120,21 @@ const obj = { key1: 'foo' } // error - re-declaring
 
 ## Types
 
-- **Primitive**:
+### Primitive
 
-  - string; number (`NaN` _vẫn_ đc tính là number, Infinity, -Infinity); boolean; undefined(`typeof undefined === "undefined"`).
-  - null (`typeof null === “object”`): Mặc dù behavior giống _primitive_ nhưng lại là _object_.
-  - Ít dùng: symbol; bigint.
+- string; number (`NaN` _vẫn_ đc tính là number, Infinity, -Infinity); boolean; undefined(`typeof undefined === "undefined"`).
+- null (`typeof null === “object”`): Mặc dù behavior giống _primitive_ nhưng lại là _object_.
+- Ít dùng: symbol; bigint.
 
-- **Reference**:
+### Reference
 
-  - object; array (`typeof Object/Array === “object”`); set.
-  - function (`typeof Function === “function"`).
-  - Ít dùng: date; regexp; error; map; weakmap; weakset.
+- object; array (`typeof Object/Array === “object”`); set.
+- function (`typeof Function === “function"`).
+- Ít dùng: date; regexp; error; map; weakmap; weakset.
 
-- **Falsy values**: `0, “”, false, null, undefined, NaN`
+### Falsy values
+
+`0, “”, false, null, undefined, NaN`
 
 ## Operator
 
@@ -140,6 +142,26 @@ const obj = { key1: 'foo' } // error - re-declaring
 - **Nullish coalescing**: `??`: Tương tự `OR`
   - `[0/""/false/NaN] ?? expr` &rarr; Vế trái
   - `null/undefined ?? expr` &rarr; expr
+
+## `this` keyword
+
+```js
+// `this` references the object that is excecuting the current function
+class Person1 {
+  constructor(name) {
+    this.name = name
+  }
+  printNameArrow() {
+    return () => console.log(this.name) // Retains the `this` value of the function's lexical environment
+  }
+  printNameFunction() {
+    console.log(this.name) // Will be reference to global object
+  }
+}
+const k = new Person1('khoa')
+console.log(k.printNameArrow()) // khoa
+console.log(k.printNameFunction()) // undefined
+```
 
 ## ETC
 

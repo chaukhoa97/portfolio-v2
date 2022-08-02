@@ -2,6 +2,9 @@
 title: 'JavaScript Snippets'
 ---
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
 ## Dynamic object key
 
 ```jsx
@@ -81,3 +84,57 @@ eventTime.toLocaleString() // 11/16/2021, 11:37:35 PM
 eventTime.toLocaleDateString() // 11/16/2021
 eventTime.toLocaleTimeString() // 11:37:35 PM
 ```
+
+## Barrell
+
+A container file and is represented by `index.js` file which exports different files together within the _same_ folder.
+
+<Tabs>
+  <TabItem value="Carousel" label="Components/Carousel.jsx">
+
+```jsx
+export default function Carousel() {
+  return <h1>Carousel</h1>
+}
+```
+
+  </TabItem>
+
+  <TabItem value="Product" label="Components/Product.jsx">
+
+```jsx
+export default function Product() {
+  return <h1>Product</h1>
+}
+```
+
+  </TabItem>
+
+  <TabItem value="index" label="Components/index.js">
+
+```js
+export { default as Cart } from './Cart'
+export { default as Product } from './Product'
+```
+
+  </TabItem>
+
+  <TabItem value="Cart" label="Cart/Cart.jsx">
+
+```jsx
+import { Carousel } from '../Components'
+import { Product } from '../Components'
+
+export default function Cart() {
+  return (
+    <div>
+      <Carousel />
+      <Product />
+    </div>
+  )
+}
+```
+
+  </TabItem>
+
+</Tabs>
