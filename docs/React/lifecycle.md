@@ -4,12 +4,14 @@ title: 'Lifecycle'
 
 ![Lifecycle](https://i.imgur.com/tSYbUyv.png)
 
-## Step 1: React trigger render (`initial` hoặc `re-render`) Component
+## Steps
+
+### Step 1: React trigger render (`initial` hoặc `re-render`) Component
 
 During render, React _calls your **Component function**_ to figure out what should be on the screen. React trigger render when:
 
-- Any of these change: **State**(including state updates from the _Custom hooks_ your component consumes), **Prop**, **ContextValue** consumed by your Component.
-- Parent của Component re-render (trừ `React.memo`).
+- Any of these change: **State**(including state updates from the _Custom hooks_ your component consumes), **Prop**, **ContextValue** consumed by your Component (Context _consumers_ get rendered whenever the _provider_ get rendered).
+- Parent của Component re-render (trừ `React.memo`). [If passed as `prop` instead of directly passed to Component, React will NOT re-render Component when Parent re-render](#lift-ur-component-up-and-pass-it-down-as-a-prop).
 
 :::caution
 
@@ -41,7 +43,7 @@ const Parent = () => {
 }
 ```
 
-## Step 2: React commits changes to the DOM
+### Step 2: React commits changes to the DOM
 
 After rendering (calling) your components, React will applies changes the DOM.
 
@@ -53,9 +55,48 @@ After React commits changes to the DOM, it will run your [Effects](./hooks#how-i
 If your Effect _also_ immediately updates the state, this restarts the whole process from scratch!
 :::
 
-## Epilogue: Browser paint
+### Epilogue: Browser paint
 
 After rendering is done and React updated the DOM, the browser will repaint the screen. Although this process is known as “browser rendering”, we’ll refer to it as “painting” to avoid confusion.
+
+## [Reduce re-rendering](https://www.zhenghao.io/art/blog/react-rerender/flowchart.jpeg)
+
+### Lift ur component up and pass it down as a prop
+
+1. `ChildA` gets compiled to `React.createElement(ChildA, null)` by Babel that creates a `ReactElement` of this shape `{type: Child, props: {}}`. `prop` là ref value &rarr; `ChildA` luôn bị re-render khi `Parent` re-render.
+2. `ChildB` & `ChildC` all passed as prop of `Parent` &rarr; no `React.createElement` is called for `ChildB` & `ChildC` (Có thể hiểu `prop` chỉ reference tới `ChildB` & `ChildC` chứ ko [call Component function](#step-1-react-trigger-render-initial-hoặc-re-render-component) của 2 thằng này).
+
+```jsx
+default function App() {
+  return (
+    <Parent lastChild={<ChildC />}>
+      <ChildB />
+    </Parent>
+  );
+}
+
+function Parent({ children, lastChild }) {
+  return (
+    <div className="parent">
+      <ChildA />
+      {children}
+      {lastChild}
+    </div>
+  );
+}
+
+function ChildA() {
+  return <div className="childA"></div>;
+}
+
+function ChildB() {
+  return <div className="childB"></div>;
+}
+
+function ChildC() {
+  return <div className="childC"></div>;
+}
+```
 
 ## Mimic lifecycle methods
 
@@ -67,9 +108,9 @@ useEffect(() => {
 }, [])
 ```
 
-:::danger
-This is different with logics that _only_ [run one time when the application starts](https://beta.reactjs.org/learn/you-might-not-need-an-effect#initializing-the-application)
-:::
+<details>
+  <summary><b>CAUTION</b>: This is different with logics that&nbsp;
+  <a href="https://beta.reactjs.org/learn/you-might-not-need-an-effect#initializing-the-application"><i>only</i> run one time when the application starts</a></summary>
 
 ```jsx
 let didInit = false
@@ -90,6 +131,8 @@ if (typeof window !== 'undefined') {
 }
 ```
 
+</details>
+
 ### `componentDidUpdate`
 
 ```jsx
@@ -101,7 +144,7 @@ useEffect(() => {
   } else {
     // Do `componentDidUpdate` logic
   }
-})
+}, [yourDepedencies])
 ```
 
 See example in [CodeSanbox](https://codesandbox.io/s/componentdidmount-componentdidupdate-with-useref-8vw622?file=/App.js)

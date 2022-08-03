@@ -9,6 +9,21 @@
           "label": "font"
         }
       ]
+    },
+    {
+      "path": "docs/React/lifecycle.md",
+      "bookmarks": [
+        {
+          "line": 22,
+          "column": 24,
+          "label": "icon OK and X"
+        },
+        {
+          "line": 110,
+          "column": 9,
+          "label": "html details"
+        }
+      ]
     }
   ]
 }

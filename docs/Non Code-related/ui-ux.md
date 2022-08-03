@@ -4,7 +4,7 @@ title: 'UI/UX Stuff'
 
 ## Typical parts of a website
 
-- **Accordion/Disclosure/Collapse**: Click đóng/mở nội dung như FAQ.
+- **Accordion/Disclosure/Collapse**: Click đóng/mở nội dung như HTML `<details>`.
 
 ![Typical parts of a website](https://imgur.com/MyJJ16E.png)
 
