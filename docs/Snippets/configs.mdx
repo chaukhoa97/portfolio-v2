@@ -48,7 +48,7 @@ npm install --save-dev lint-staged
 
 Ở `.eslintrc.js`: `extends` dùng các `config-name` dc lấy từ các `eslint-config-<config-name>` trong file `package.json`
 
-[Sự khác nhau giữa `extends` và `plugins`](https://prateeksurana.me/blog/difference-between-eslint-extends-and-plugins/)
+[Sự khác nhau giữa `extends` và `plugins`](https://prateeksurana.me/blog/difference-between-eslint-extends-and-plugins/): `plugins` phải tự add rules vào, `extends` là tổng hợp các configs sẵn.
 
 <Tabs>
   <TabItem value="package.json" label="package.json" >
@@ -64,7 +64,7 @@ npm install --save-dev lint-staged
 ```
 
   </TabItem>
-  <TabItem value=".eslintrc.js" label=".eslintrc.js" default>
+  <TabItem value="React" label=".eslintrc.js React" default>
 
 ```js
 module.exports = {
@@ -91,6 +91,37 @@ module.exports = {
     'react/prop-types': 'off',
     'react/no-unescaped-entities': 'off',
     'no-unused-vars': 'off',
+  },
+}
+```
+
+  </TabItem>
+
+  <TabItem value="Vue" label=".eslintrc.js Vue">
+
+```js
+module.exports = {
+  env: {
+    es2021: true,
+    node: true,
+  },
+  extends: [
+    'eslint:recommended',
+    'next',
+    'prettier',
+    'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
+  ],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+  rules: {
+    'no-unused-vars': 'off',
+    'vue/multi-word-component-names': 'off',
   },
 }
 ```
@@ -156,5 +187,20 @@ npx --no-install lint-staged
       "dependsOrder": "sequence"
     }
   ]
+}
+```
+
+### `tsconfig.json`
+
+```json
+{
+  "compilerOptions": {
+  ...
+    "paths": {
+        "@/*": ["./src/*"],
+        "@components/*": ["./src/components/*"],
+        "@hooks/*": ["./src/hooks/*"]
+      }
+  }
 }
 ```
