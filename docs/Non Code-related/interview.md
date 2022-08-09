@@ -14,14 +14,9 @@ A declarative, efficient, and flexible JavaScript library for building user inte
 
 #### Features
 
-- **JSX syntax**: Provide us JS functionalities along with HTML like template syntax.
-- **Reusable components**
-- Support **Server-side rendering**
-
-### Virtual DOM vs Real DOM
-
-- **Virtual DOM**: Là 1 bản sao in-memory của Real DOM. When there are [re-renders](../React/lifecycle.md#step-1-react-trigger-render-initial-hoặc-re-render-component), React will apply the minimal necessary operations (calculated while rendering!) to make the DOM match the latest rendering output, which means React only changes the DOM nodes if there’s a difference between renders.
-- **So sánh VDOM vs Real DOM**: Real DOM chậm hơn vì mỗi khi DOM thay đổi, trình duyệt cần phải dựng lại UI ở ngoài browser, so với những thay đổi chỉ xảy ra ở trong memory của VDOM.
+- **JSX syntax**: HTML-like template syntax coming with JS functionalities.
+- Easy to reuse components.
+- Support **Server-side rendering**.
 
 ### Docs
 
@@ -66,6 +61,30 @@ React Framework for Production.
 ### Docs
 
 Đọc kỹ hết
+
+## Virtual DOM
+
+An in-memory copy of the Real DOM.
+
+### React
+
+When there are [re-renders](../React/lifecycle.md#step-1-react-trigger-render-initial-hoặc-re-render-component), React will apply the minimal necessary operations (calculated while rendering!) to make the DOM match the latest rendering output, which means React only changes the DOM nodes if there’s a difference between renders.
+
+### Cons
+
+The virtual DOM operations are the **addition** of the final operations on the real DOM. It is only faster if we compare it with less efficient frameworks at the time React came out. Also, **diffing isn't free**.  
+React is built around **_state_**, and using Virtual Dom is a part of achieving that. You only need to think about state when building applications with React because in real world applications, the Virtual Dom is usually fast enough.
+
+### Compiler
+
+React, Vue, Angular ship JS code to the browser to make ur code work at the runtime.  
+Nowadays frameworks has their own **compiler** that knows at build time how things could change in your app, rather than waiting to do the work at run time (it tries to do as much of the work in the build time).  
+It compiles your _declarative_ code into _efficient imperative_ code that works with **native browser APIs**, so the Virtual Dom can do less work &rarr; High performance and small package.
+
+### Vue
+
+Vue still uses Virtual Dom partially but Evan You want to take the _template_ and compile it to something that's **NOT** Virtual Dom at all, similar to **SolidJS** or **Svelte**:  
+Directly create a piece of HTML DOM, and generate code that _binds individual nodes to reactive expressions_ instead of walking the whole DOM to figure out which node should each reactive expression bind to.
 
 ## HTML CSS
 
