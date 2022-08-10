@@ -14,7 +14,7 @@ A declarative, efficient, and flexible JavaScript library for building user inte
 
 #### Features
 
-- **JSX syntax**: HTML-like template syntax coming with JS functionalities.
+- **JSX**: HTML-based template syntax coming with JS functionalities.
 - Easy to reuse components.
 - Support **Server-side rendering**.
 

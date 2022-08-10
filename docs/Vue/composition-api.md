@@ -12,8 +12,15 @@ _One_-way binding vs _Two_-way binding
 
 ## Lifecycle hooks
 
-- `beforeCreate` - Called immediately after instance is initialized, before options are processed. _Not need when using the composition API_.
-- `created` - Called after the instance has been created. _Not need when using the composition API_.
+- `beforeCreate` - Called immediately after instance is initialized, before options are processed.
+- `created` - Called after the instance has been created.
+
+:::note
+
+`beforeCreate` & `created` are **NOT** need when using the composition API (`beforeCreate` &rarr; `setup` &rarr; `beforeCreate`). Simply put the code in `setup` method.
+
+:::
+
 - `beforeMount` - Right before mounting of the DOM begins
 - `mounted` - Called when the instance has been mounted (browser updated).
 - `beforeUpdate` - Called when reactive data has changed, before the DOM is re-rendered.
