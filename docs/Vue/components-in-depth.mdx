@@ -1,0 +1,63 @@
+---
+title: 'Components in Depth'
+---
+
+## Slot
+
+```tsx title='WelcomeItem.vue'
+<template>
+  <slot name="heading" />
+  <slot :count="1"> No content... </slot>
+</template>
+```
+
+```html title='Parent.vue'
+<!-- Default slot content position -->
+<WelcomeItem>
+  This line is below the `#heading` (default slot position in the template)
+  <template #heading>Community</template>
+</WelcomeItem>
+
+<!-- Scoped Slots -->
+<WelcomeItem v-slot="slotProps"> {{ slotProps.count }} </WelcomeItem>
+
+<!-- Slot fallback content: This will show "No content..." -->
+<WelcomeItem />
+```
+
+## `props` & `emit`
+
+```ts title="AddPostForm.vue"
+<script setup lang="ts">
+export interface Props {
+  msg?: string
+  labels?: string[]
+}
+const props = withDefaults(defineProps<Props>(), {
+  msg: 'hello',
+  labels: () => ['one', 'two'],
+})
+
+defineEmits<{
+  (e: 'add', title: string): void
+  (e: 'cancel-adding'): void
+}>()
+
+function handleCancelAdding() {
+  emit('cancel-adding')
+}
+</script>
+
+<template>
+  <button @click="$emit('add', inputValue)">Add</button>
+  <button @click="handleCancelAdding">Cancel</button>
+</template>
+```
+
+```jsx title="Posts.vue"
+function handleAdd(event: Event) {
+  console.log((event.target as HTMLInputElement).value)
+}
+
+<AddPostForm @add="handleAdd" @cancel-adding="handleCancelAdding" />
+```

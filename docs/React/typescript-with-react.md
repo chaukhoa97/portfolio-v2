@@ -1,5 +1,5 @@
 ---
-title: 'With React'
+title: 'TypeScript'
 ---
 
 ## Defaut `props`

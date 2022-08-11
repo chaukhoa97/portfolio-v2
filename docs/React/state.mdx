@@ -95,7 +95,7 @@ export default function TeaGathering() {
 ```
 
 If the `cups` variable or the `[]` array were created outside the `TeaGathering` function, this would be a huge problem! You would be changing a preexisting object by pushing items into that array.  
-However, it’s fine because you’ve created them **during the same _render_ ([_render_ nghĩa là call Component function - ở đây là call `TeaGathering`](lifecycle.md#step-1-react-trigger-render-initial-hoặc-re-render-component), với mỗi lần call thì `cups` dc tạo lại trong lần call đấy)**. No code outside of `TeaGathering` will ever know that this happened. This is called **“local mutation”** — it’s like your component’s little secret.
+However, it’s fine because you’ve created them **during the same _render_ ([_render_ nghĩa là call Component function - ở đây là call `TeaGathering`](react-lifecycle.md#step-1-react-trigger-render-initial-hoặc-re-render-component), với mỗi lần call thì `cups` dc tạo lại trong lần call đấy)**. No code outside of `TeaGathering` will ever know that this happened. This is called **“local mutation”** — it’s like your component’s little secret.
 
 ## Object & Array inputs
 
@@ -132,6 +132,8 @@ setPerson(nextPerson)
 | [Removing](https://beta.reactjs.org/learn/updating-arrays-in-state#removing-from-an-array)          | `splice`, `pop`, `shift`            | `filter`, `slice`                                                                                                          |
 | [Replacing](https://beta.reactjs.org/learn/updating-arrays-in-state#replacing-items-in-an-array)    | `splice`, `arr[i] = ...` assignment | `map`                                                                                                                      |
 | [Sorting](https://beta.reactjs.org/learn/updating-arrays-in-state#making-other-changes-to-an-array) | `sort`, `reverse`                   | Copy the array first ([example](https://beta.reactjs.org/learn/updating-arrays-in-state#making-other-changes-to-an-array)) |
+
+[_Unlike React, Vue is able to detect when a reactive array's mutation methods are called and trigger necessary updates._](https://vuejs.org/guide/essentials/list.html#array-change-detection)
 
 #### Example: Inserting _at any position_ to an array
 

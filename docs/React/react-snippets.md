@@ -1,5 +1,5 @@
 ---
-title: 'React Snippets'
+title: 'Snippets'
 ---
 
 ### Show obj ra page

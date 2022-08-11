@@ -4,7 +4,7 @@ title: 'Data Structure & Algorithms'
 
 ## [Big O](https://www.bigocheatsheet.com/): Luôn xét đến worst case
 
-### Basis
+### Basics
 
 - **Drop constant**: O(2n) = O(0.5n) = O(n).
 - **Simplify Exponent**: O(n^100) = O(n^2).

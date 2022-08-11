@@ -302,20 +302,18 @@ Usage: Manage Wide State.
 Handle business logic ở CustomHook rồi truyền vào UI(dumb) Component
 
 ```jsx
-// Custom hook must start with "use"
-function useCounterUseCase(isForward = true) {
-  const [state, setState] = useState({
-    count: 0,
-    isForward: true,
-  })
-  return state
+// Custom hook MUST start with "use"
+function useCounterUseCase(requiredArgs, { optionalArgs = 'default' }) {
+  const [value, setValue] = useState(optionalArgs ? optionalArgs : requiredArgs)
+  return { value, setValue }
 }
 ```
 
 ```jsx
 import useCounterUseCase from './useCounterUseCase.jsx'
 function Container() {
-  const { count, isForward } = useCounterUseCase(false)
-  return isForward ? <div>{count + 1}</div> : <div>{count - 1}</div>
+  const { value, setValue } = useCounterUseCase('required args come first...', {
+    optionalArgs: 'remaining optional args are inside the options object',
+  })
 }
 ```

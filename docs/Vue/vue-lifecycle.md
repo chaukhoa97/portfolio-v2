@@ -1,14 +1,12 @@
 ---
-title: 'Composition API'
+title: 'Lifecycle'
 ---
 
-## `setup`
+![Lifecycle](https://vuejs.org/assets/lifecycle.16e4c08e.png)
 
-![setup](https://i.imgur.com/Xrx59o2.png)
-
-## `v-bind (:)` vs `v-model`
-
-_One_-way binding vs _Two_-way binding
+:::caution
+If the page use SSR or u must interact with the DOM by [Template Refs](https://vuejs.org/guide/essentials/template-refs.html#template-refs), the logic should be put **ONLY AFTER** post-mount lifecycle hooks, which means `onMounted` onwards.
+:::
 
 ## Lifecycle hooks
 
@@ -30,3 +28,7 @@ _One_-way binding vs _Two_-way binding
 - `activated` - Used for `<keep-alive>` , when a component inside `<keep-alive>` is toggled on.
 - `deactivated` - Used for `<keep-alive>`, when a component inside `<keep-alive>` is toggled off.
 - `errorCaptured` - Called when an error from any descendent component is captured.
+
+## `setup`
+
+![setup](https://i.imgur.com/Xrx59o2.png)

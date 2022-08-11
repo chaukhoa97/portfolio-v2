@@ -1,0 +1,101 @@
+---
+title: 'Essentials'
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+## Template syntax
+
+![Template syntax](https://vuejs.org/assets/directive.69c37117.png)
+
+## `computed`
+
+A computed property will only re-evaluate when some of its reactive dependencies have changed.
+[Avoid mutating computed value](https://vuejs.org/guide/essentials/computed.html#avoid-mutating-computed-value)
+
+## `v-if` vs `v-show`
+
+Generally speaking, v-if has higher toggle costs while v-show has higher initial render costs. So prefer v-show if you need to toggle something very often, and prefer v-if if the condition is unlikely to change at runtime.
+
+## Component props
+
+`kebab-case` instead of `camelCase`. Because HTML tags and attribute names are case-insensitive.
+
+## `@change` vs `@input`
+
+`@input` (fires when user changes input value) instead of `@change` (fires when user changed value and unfocus input, e.g. click somewhere outside)
+
+## `v-bind (:)` vs `v-model`
+
+_One_-way binding vs _Two_-way binding
+
+## [`watch` vs `watchEffect`](https://sfc.vuejs.org/#eNp9UsGO2yAQ/ZUpF9tqDOo1dVJFVQ89tZV65EIdvCGxgQKOG1n+9w4mpN1daS82MG/evHkzMzlYS6+jJFvS+NYpG8DLMNo912qwxgWYwcluA5MI7QkW6JwZoMCMgmuuW6N9gN+j9EEZDbuILYuiyhGh/SRdfv9xx3kY/Sj6/gaICkJpEP84BuEuFD7WVWTheq1b5ugGhL/pFkotp8xWwW4PM9cAqnsWoEof5Z9vWPhTUcEe6g9VwsFdF72KfpSorvh5Uvqi9BOlFPuKiOBuGQxRJjbjpEesmIQK0MkoqziFYP2WsZv02tApdExYFYWnvBdlypSLPPTsjS6riiZEwi/QriaX0jnjHlpfq/0S4+/gsxn7I2gTGQXmhZOEw/evFAp4DyvHnTf+8LOgroalKeN88RLkYHsRJN4Amjj0iD/4Cw4EW2LaPOayTbFGaTsGuNaDOcp+x0mOcwIs0bDEg3TznBdgWdJzwx4lyYakDasHYVc/cAfXlvk94DnZZhM4wZWLd06y575r4+aePTXuieGJulEHNUgq/VD/cmbyaNoZWTb/cTB8vEpXO4nL4dD6NzhfQF/xZl/J8hesSRoK)
+
+<Tabs>
+  <TabItem value="watch" label="watch">
+
+```ts
+<script setup>
+import { ref, watch } from 'vue'
+
+const question = ref('')
+const answer = ref('Questions usually contain a question mark. ;-)')
+
+watch(question, async (newQuestion) => {
+  if (newQuestion.indexOf('?') > -1) {
+    answer.value = 'Thinking...'
+    try {
+      const res = await fetch('https://yesno.wtf/api')
+      answer.value = (await res.json()).answer
+    } catch (error) {
+      answer.value = 'Error! Could not reach the API. ' + error
+    }
+  }
+})
+</script>
+
+<template>
+  <p>
+    Ask a yes/no question:
+    <input v-model="question" />
+  </p>
+  <p>{{ answer }}</p>
+</template>
+```
+
+  </TabItem>
+  <TabItem value="watchEffect" label="watchEffect">
+
+```ts
+<script setup>
+import { ref, watchEffect } from 'vue'
+
+const question = ref('')
+const answer = ref('Questions usually contain a question mark. ;-)')
+
+watchEffect(async () => {
+  if (question.value.indexOf('?') > -1) {
+    answer.value = 'Thinking...'
+    try {
+      const res = await fetch('https://yesno.wtf/api')
+      answer.value = (await res.json()).answer
+    } catch (error) {
+      answer.value = 'Error! Could not reach the API. ' + error
+    }
+  }
+})
+</script>
+
+<template>
+  <p>
+    Ask a yes/no question:
+    <input v-model="question" />
+  </p>
+  <p>{{ answer }}</p>
+</template>
+```
+
+  </TabItem>
+</Tabs>

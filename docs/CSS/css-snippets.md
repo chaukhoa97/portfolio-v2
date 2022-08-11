@@ -1,5 +1,5 @@
 ---
-title: 'CSS'
+title: 'Snippets'
 ---
 
 ### Center hoàn toàn

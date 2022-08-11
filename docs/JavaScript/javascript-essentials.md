@@ -1,5 +1,6 @@
 ---
-title: 'JavaScript Basis'
+title: 'Essentials'
+sidebar_position: 1
 ---
 
 ## Callback

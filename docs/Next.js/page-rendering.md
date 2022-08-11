@@ -111,7 +111,7 @@ Pending...
 
 ## [Client-side Rendering](https://nextjs.org/docs/basic-features/data-fetching/client-side)
 
-Cách cơ bản nhất là sử dụng [`useEffect` để fetch data về ở Client](../Snippets//react-snippets.md/#async-function-in-useeffect).  
+Cách cơ bản nhất là sử dụng [`useEffect` để fetch data về ở Client](../React/react-snippets.md/#async-function-in-useeffect).  
 Nên kẹp chung với [TanStack Query](https://github.com/TanStack/query/releases) hoặc [Vercel SWR](https://github.com/vercel/swr/releases).
 
 ### Usage
