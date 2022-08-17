@@ -11,15 +11,29 @@ title: 'UI/UX Stuff'
 
 ## Header-Content Font pairs
 
-- **Impact**: Oswald - Quattrocento
-- **Multifunction**: Raleway - Roboto
-- **Playful**: Amatic SC - Josefin Sans
-- **Serious**: Playfair Display - Fauna one
-- **Impact**: Alfa Slab - Open Sans
+<h3 style={{fontFamily: "Oswald"}}> Impact: Oswald </h3>
+<p style={{fontFamily: "Quattrocento",}}><b>Quattrocento</b>: <i>Ogni individuo ha diritto al riposo</i> ed allo svago, comprendendo in ciò una ragionevole limitazione delle ore di lavoro e ferie periodiche retribuite.
+</p>
+
+<h3 style={{fontFamily: "Raleway"}}> Multifunction: Raleway </h3>
+<p style={{fontFamily: "Roboto"}}><b>Roboto</b>: <i>Ogni individuo ha diritto al riposo</i> ed allo svago, comprendendo in ciò una ragionevole limitazione delle ore di lavoro e ferie periodiche retribuite.
+</p>
+
+<h3 style={{fontFamily: "Amatic SC"}}> Playful: Amatic SC </h3>
+<p style={{fontFamily: "Josefin Sans"}}><b>Josefin Sans</b>: <i>Ogni individuo ha diritto al riposo</i> ed allo svago, comprendendo in ciò una ragionevole limitazione delle ore di lavoro e ferie periodiche retribuite.
+</p>
+
+<h3 style={{fontFamily: "Playfair Display"}}> Serious: Playfair Display </h3>
+<p style={{fontFamily: "Fauna One"}}><b>Fauna One</b>: <i>Ogni individuo ha diritto al riposo</i> ed allo svago, comprendendo in ciò una ragionevole limitazione delle ore di lavoro e ferie periodiche retribuite.
+</p>
+
+<h3 style={{fontFamily: "Alfa Slab"}}> Impact: Alfa Slab </h3>
+<p style={{fontFamily: "Open Sans"}}><b>Open Sans</b>: <i>Ogni individuo ha diritto al riposo</i> ed allo svago, comprendendo in ciò una ragionevole limitazione delle ore di lavoro e ferie periodiche retribuite.
+</p>
 
 ## Color
 
-![HSL](https://i.imgur.com/tYjLyml)
+![HSL](https://i.imgur.com/tYjLyml.png)
 
 ## Photoshop
 

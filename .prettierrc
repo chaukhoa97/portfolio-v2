@@ -5,13 +5,5 @@
   "useTabs": false,
   "trailingComma": "all",
   "bracketSpacing": true,
-  "printWidth": 80,
-  "overrides": [
-    {
-      "files": ["framework/saleor/**/*"],
-      "options": {
-        "printWidth": 120
-      }
-    }
-  ]
+  "printWidth": 80
 }
