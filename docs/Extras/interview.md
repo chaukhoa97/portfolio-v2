@@ -36,7 +36,7 @@ A strongly typed programming language that builds on JavaScript.
 
 ### Docs
 
-- Đọc kỹ [Features](../TypeScript/features)
+- Đọc kỹ [Features](../JavaScript/TypeScript/features)
 - Folder TS Archive
 
 ## JavaScript

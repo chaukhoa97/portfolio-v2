@@ -5,6 +5,7 @@ title: 'UI/UX Stuff'
 ## Typical parts of a website
 
 - **Accordion/Disclosure/Collapse**: Click đóng/mở nội dung như HTML `<details>`.
+- [Image Masonry](https://mui.com/material-ui/react-masonry)
 
 ![Typical parts of a website](https://imgur.com/MyJJ16E.png)
 
