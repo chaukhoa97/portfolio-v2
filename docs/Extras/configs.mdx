@@ -16,7 +16,7 @@ npm init @eslint/config
 npm install husky --save-dev
 npm set-script prepare "husky install"
 npm run prepare
-npx husky add .husky/pre-commit "npm test"
+npx husky add .husky/pre-commit "npx --no-install lint-staged"
 git add .husky/pre-commit
 
 npm install --save-dev lint-staged
