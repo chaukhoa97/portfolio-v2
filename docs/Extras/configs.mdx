@@ -161,9 +161,12 @@ npx --no-install lint-staged
   </TabItem>
 </Tabs>
 
-### VSCode Task
+### VSCode
 
-```json title=".vscode/tasks.json"
+<Tabs>
+  <TabItem value="tasks" label=".vscode/tasks.json" >
+
+```json
 {
   "version": "2.0.0",
   "tasks": [
@@ -190,7 +193,23 @@ npx --no-install lint-staged
 }
 ```
 
-### `tsconfig.json`
+  </TabItem>
+
+  <TabItem value="Monolisa" label="Monolisa" >
+
+```json
+"settings": {
+  "terminal.integrated.fontSize": 13,
+  "editor.fontSize": 12,
+  "editor.fontFamily": "monolisa",
+  "editor.fontWeight": "300"
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### `tsconfig` paths
 
 ```json
 {

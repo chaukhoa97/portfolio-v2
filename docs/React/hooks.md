@@ -223,9 +223,10 @@ export default React.memo(Children)
 
 ### Usage & Comparison
 
-Usage: Both are used to manage Narrow State. `useReducer` dùng cho ~ Narrow State mà có nhiều case.
+Usage: Both are used to manage _Narrow State_. `useReducer` dùng cho ~ Narrow State mà có nhiều case.  
+Use [`useContext`](./state#context) or [Redux](./redux.md) for _Wide State_.
 
-_[So sánh `useState` & `useReducer`](https://beta.reactjs.org/learn/extracting-state-logic-into-a-reducer#comparing-usestate-and-usereducer)._
+_Read more_: [So sánh `useState` & `useReducer`](https://beta.reactjs.org/learn/extracting-state-logic-into-a-reducer#comparing-usestate-and-usereducer).
 
 ### `useState`
 
@@ -292,10 +293,6 @@ function ReducerExample() {
 
 export default ReducerExample
 ```
-
-## [`useContext`](./state#context) / [Redux](./redux.md)
-
-Usage: Manage Wide State.
 
 ## Custom Hook
 
