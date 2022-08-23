@@ -1,5 +1,5 @@
 ---
-title: 'Lifecycle'
+title: 'Vue Lifecycle'
 ---
 
 ![Lifecycle](https://vuejs.org/assets/lifecycle.16e4c08e.png)

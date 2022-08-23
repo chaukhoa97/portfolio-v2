@@ -1,5 +1,5 @@
 ---
-title: 'Lifecycle'
+title: 'React Lifecycle'
 ---
 
 ![Lifecycle](https://i.imgur.com/tSYbUyv.png)
@@ -11,7 +11,7 @@ title: 'Lifecycle'
 During render, React _calls your **Component function**_ to figure out what should be on the screen. React trigger render when:
 
 - Any of these change: **State**(including state updates from the _Custom hooks_ your component consumes), **Prop**, **ContextValue** consumed by your Component (Context _consumers_ get rendered whenever the _provider_ get rendered).
-- Parent của Component re-render (trừ `React.memo`). [If passed as `prop` instead of directly passed to Component, React will NOT re-render Component when Parent re-render](#lift-ur-component-up-and-pass-it-down-as-a-prop).
+- Parent của Component re-render (trừ khi Component dc wrap bởi `React.memo`). [If passed as `prop` instead of directly passed to Component, React will NOT re-render Component when Parent re-render](#lift-ur-component-up-and-pass-it-down-as-a-prop).
 
 :::caution
 

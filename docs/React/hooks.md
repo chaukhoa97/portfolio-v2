@@ -183,9 +183,11 @@ Memoize **function**. Khi Component re-render, function trong `useCallback` sẽ
 
 ### `useMemo`
 
-Memoize **value trả về từ function**. Dùng để chỉ re-render Component khi dependency thay đổi (giống `React.memo`) / Function tạo value quá phức tạp (ex: Sort, fetch,...).
+Memoize **return value of the function**. Dùng để chỉ re-render Component khi dependency thay đổi (giống `React.memo`), hoặc khi Function tạo value quá phức tạp (ex: Sort, fetch,...).
 
-> `useCallback(fn, deps)` = `useMemo(() => fn, deps)`
+:::note
+`useCallback(someFunction, deps)` are the same with `useMemo(() => someFunction, deps)`
+:::
 
 ### `React.memo`
 
@@ -193,29 +195,30 @@ Chỉ re-render component dc wrap bởi `React.memo` khi props của component t
 
 ```jsx
 const Parent = () => {
+  const someFunction = () => 'Some value'
   //1. Parent re-render, cachedFn do có useCallback ko bị create lại.
-  const cachedFn = useCallback(() => 'Some value', [])
+  const cachedFn = useCallback(someFunction, [])
   //2. prop của Children là cachedFn ko bị create lại...
-  return <Children onClick={cachedFn} />
+  return <Children expensiveFn={cachedFn} />
 }
 export default Parent
 ```
 
 ```jsx
 const Children = ({ expensiveFn }) => {
-  const uncachedValue = computeExpensiveValue(a, b) // Create lại mỗi lần Children re-render
-  const cachedValue = useMemo(() => computeExpensiveValue(a, b), [a, b])
+  const uncachedValue = [computeExpensiveValue(a, b)] // Create lại mỗi lần Children re-render
+  const cachedValue = useMemo(() => [computeExpensiveValue(a, b)], [a, b])
 
   return (
     <>
-      {/* Khi `uncachedValue` thay đổi, hoặc bản thân `uncachedValue` là ref value, thì Kid1 sẽ re-render */}
+      {/* `uncachedValue` là ref value -> `value` prop của Kid1 thay đổi mỗi khi Children re-render */}
       <Kid1 value={uncachedValue} />
-      {/* Chỉ khi `cachedValue` thay đổi thì Kid2 mới re-render */}
+      {/* Chỉ khi `cachedValue` thay đổi thì `value` prop của Kid2 mới đổi */}
       <Kid2 value={cachedValue} />
     </>
   )
 }
-//3. Children dc bọc bởi React.memo sẽ ko re-render khi Parent re-render (do prop là cachedFn ko đổi)
+//3. Children sẽ KO re-render khi Parent re-render do prop (ở đây là cachedFn) ko đổi
 export default React.memo(Children)
 ```
 

@@ -4,12 +4,16 @@ title: 'Debug'
 
 ## Browser Debug
 
-```js title='devtools console tab'
+### Pause Devtools
+
+```js title='Devtools Console'
 // Gõ in console tab; Hover rồi đợi 3s; Browser pause; Inspect & debug
 setTimeout(function () {
   debugger
 }, 3000)
 ```
+
+### Overflow Detect
 
 ```css title='main.css'
 /* Thấy dc thằng nào overflow */
