@@ -16,8 +16,8 @@ function HomepageHeader() {
         </span>
       </h1>
       <p className={styles.subHeading}>
-        React.js Developer with a passion in building modern and elegant
-        websites
+        Instead of being mediocre at everything, I want to be an expert in
+        whatever I do.
       </p>
     </header>
   )
