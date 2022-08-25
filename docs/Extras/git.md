@@ -41,7 +41,7 @@ Cả 3 đều integrate changes from one branch into another branch.
 
 ### Branch
 
-- `git branch -b newBranch`: Tạo và chuyển sang nhánh _newBranch_
+- `git checkout -b newBranch`: Tạo và chuyển sang nhánh _newBranch_
 - `git branch -d test1`: Xóa nhánh test1
 - `git branch -m newName`: Đổi tên nhánh đang checkout thành newName
 - `git branch -a`: Show cả các branch ở remote
