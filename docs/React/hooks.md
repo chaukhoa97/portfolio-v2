@@ -127,32 +127,28 @@ Some components need to synchronize with external systems (like network or a thi
  _Effects_ let you run some code after rendering so that you can synchronize your component with some system outside of React.
 
 ```jsx
-function App() {
-  const [count, setCount] = useState(0)
+function App({ id }) {
+  const [user, setUser] = useState()
 
   useEffect(() => {
     const connect = async () => {
-      const result = await fetch('https://jsonplaceholder.typicode.com/todos/1')
-      setCount(await result.json().userId)
+      const result = await fetch(`https://users.com/[${id}]`)
+      setUser(result)
     }
     connect()
     return () => {
       disconnect()
     }
-    // If dependency is an empty array, code in useEffect will run only on mount
-    // and the cleanup fn will be called before unmount.
-  }, [])
+  }, [id])
 
-  return <div>{loading ? 'Loading...' : count}</div>
+  return <div>{user}</div>
 }
 ```
 
-:::tip
+### How it runs from the Effect’s perspective
 
-- Ko cần cleanup (Chạy rồi thì k cần quan tâm nữa): Gọi API, Tương tác DOM
-- Cần cleanup: setTimeout/Interval, connection to a server/database
-
-:::
+The _Effect_ start `connecting` (until it `disconnect` when the `id` change), and then `connects` to another `id`...  
+Finally when the `App` unmount, the _Effect_ `disconnect`.
 
 ### How it runs from the component’s perspective
 
@@ -162,13 +158,11 @@ function App() {
 
 :::note
 
-_Mount/Unmount_ means Adding/Removing nodes to the DOM
+_Mount/Unmount_ means Adding/Removing nodes to the DOM.  
+Ko cần cleanup (Chạy rồi thì k cần quan tâm nữa): Gọi API, Tương tác DOM.  
+Cần cleanup: `setTimeout`/`setInterval`, connection to a server/database
 
 :::
-
-### How it runs from the Effect’s perspective
-
-Effect start connecting (until it disconnected by looking at deps)
 
 ### You might not need an Effect to transform data for rendering or handle user events
 
