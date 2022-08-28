@@ -17,7 +17,7 @@ Object.entries(product).map(([key, val]) => (
 
 ```jsx
 import styles from '../nav.module.scss'
-;<h1 className={`${styles['active-nav']} ${styles.red}`}>Hello</h1>
+return <h1 className={`${styles['active-nav']} ${styles.red}`}>Hello</h1>
 ```
 
 ## Portal
@@ -43,18 +43,7 @@ const MyComponent = () => {
 ```jsx title='ChevronRight.tsx'
 const ChevronRight = ({ ...props }) => {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      width="24"
-      height="24"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      fill="none"
-      shapeRendering="geometricPrecision"
-      {...props}
-    >
+    <svg width="24" height="24" {...props}>
       <path d="M9 18l6-6-6-6" />
     </svg>
   )
