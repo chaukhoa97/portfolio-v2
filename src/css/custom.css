@@ -29,4 +29,17 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
+.icon {
+  width: min(25vw, 98px);
+  transition: fill 0.2s ease-in-out;
+}
+
+[data-theme='light'] .icon {
+  fill: #000;
+}
+
+[data-theme='dark'] .icon {
+  fill: #fff;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Amatic+SC:wght@700&family=Fauna+One&family=Josefin+Sans:ital@0;1&family=Oswald:wght@500&family=Playfair+Display:wght@500&family=Quattrocento&family=Raleway:wght@500&display=swap');

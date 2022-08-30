@@ -2,6 +2,7 @@ module.exports = {
   env: {
     es2021: true,
     node: true,
+    browser: true,
   },
   extends: ['prettier', 'eslint:recommended', 'plugin:react/recommended'],
   parserOptions: {

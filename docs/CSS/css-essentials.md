@@ -39,7 +39,7 @@ sidebar_position: 1
 ## Position
 
 - `fixed`, `sticky`(`relative` + `fixed`), `static`
-- `absolute`: If a child element has `absolute` then the parent element will xem như child ko có ở đó luôn. Để children absolutely position theo parent thì parent phải có position là `relative` hoặc `absolute`.
+- `absolute`: The parent will behave like the `absolute` children is not there at all. Để children absolutely position theo parent thì parent phải có position là `relative` hoặc `absolute`.
 - `relative`: Ở chỗ cũ như `static`, nhưng khác với `static` là bây giờ `left/right/top/bottom/z-index` sẽ hoạt động.
 
 ## Selector

@@ -60,8 +60,6 @@ Cho phép create/update static pages sau khi đã `next build`. Khi gặp 1 tron
 
 ### First case - by `getStaticProps` using `revalidate`
 
-![ISG by `getStaticProps`](https://vercel.com/_next/image?url=%2Fdocs-proxy%2Fstatic%2Fdocs%2Fconcepts%2Fnext.js%2Fisr%2Fregeneration.png&w=1080&q=75)
-
 1. The initial request to the product page will show the cached page (giống `SSG`)
 2. The data for the product is updated in the CMS.
 3. Any requests to the page after the initial request and before the 60 seconds window will show the cached page with old data.

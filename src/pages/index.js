@@ -1,27 +1,13 @@
 import React from 'react'
 import Link from '@docusaurus/Link'
 import Layout from '@theme/Layout'
-import HomepageFeatures from '@site/src/components/HomepageFeatures'
-
-import styles from './index.module.css'
-
-function HomepageHeader() {
-  return (
-    <header className={styles.header}>
-      <img className={styles.avatar} src="img/avatar.png"></img>
-      <h1 className={styles.heading}>
-        Hi, I'm{' '}
-        <span className={styles['highlight-container']}>
-          <span className={styles.highlight}>Finn</span>
-        </span>
-      </h1>
-      <p className={styles.subHeading}>
-        Instead of being mediocre at everything, I want to be an expert in
-        whatever I do.
-      </p>
-    </header>
-  )
-}
+import s from './index.module.css'
+import ReactIcon from '../components/icons/ReactIcon'
+import NextJsIcon from '../components/icons/NextJsIcon'
+import TypeScriptIcon from '../components/icons/TypeScriptIcon'
+import JavaScriptIcon from '../components/icons/JavaScriptIcon'
+import CSSIcon from '../components/icons/CSSIcon'
+import TailwindIcon from '../components/icons/TailwindIcon'
 
 export default function Home() {
   return (
@@ -29,10 +15,51 @@ export default function Home() {
       title="My personal page"
       description="Description will go into a meta tag in <head />"
     >
-      <HomepageHeader />
-      <main>
-        <HomepageFeatures />
-      </main>
+      <div>
+        <header className={s.header}>
+          <img className={s.avatar} src="img/avatar.png"></img>
+          <div className={s.textContainer}>
+            <h1 className={s.heading}>
+              Hi, I'm{' '}
+              <span className={s.highlightContainer}>
+                <span className={s.highlight}>Finn</span>
+              </span>
+            </h1>
+            <em className={s.subHeading}>Front-end Developer</em>
+          </div>
+        </header>
+        <div className={s.skills}>
+          <h2 className={s.h2}>Things I specialize in</h2>
+          <div className={s.icons}>
+            <Link href="https://reactjs.org/" style={{ lineHeight: 0 }}>
+              <ReactIcon color="#61DAFB" />
+            </Link>
+            <Link href="https://nextjs.org/">
+              <NextJsIcon color="#6b7280" />
+            </Link>
+            <Link
+              href="https://www.typescriptlang.org/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <TypeScriptIcon color="#007acc" />
+            </Link>
+            <JavaScriptIcon color="#f7df1e" />
+            <CSSIcon color="#1572B6" />
+            <Link href="https://tailwindcss.com/">
+              <TailwindIcon color="#00d1b2" />
+            </Link>
+          </div>
+          <div className={s.more}>
+            Want to know me more? View my <Link href="">Resume</Link> or connect
+            with me via{' '}
+            <Link href="https://www.linkedin.com/in/khoa-ch%C3%A2u-4701b5233/">
+              LinkedIn
+            </Link>{' '}
+            for more details.
+          </div>
+        </div>
+      </div>
     </Layout>
   )
 }
