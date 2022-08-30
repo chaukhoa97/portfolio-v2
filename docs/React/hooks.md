@@ -191,7 +191,8 @@ Memoize **return value of the function**. Dùng để chỉ re-render Component 
 
 ### `React.memo`
 
-Chỉ re-render component dc wrap bởi `React.memo` khi props của component thay đổi &rarr; Khi wrap `React.memo` ở các high level component &rarr; các component ở dưới cũng sẽ ko bị re-render.
+Chỉ re-render component dc wrap bởi `React.memo` khi `props` của component thay đổi.  
+Wrap `React.memo` correctly at high level components &rarr; các component ở dưới cũng sẽ ko bị re-render.
 
 ```jsx
 const Parent = () => {

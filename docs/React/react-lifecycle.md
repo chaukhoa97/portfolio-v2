@@ -63,7 +63,7 @@ After rendering is done and React updated the DOM, the browser will repaint the 
 
 ### Lift ur component up and pass it down as a prop
 
-1. `ChildA` gets compiled to `React.createElement(ChildA, null)` by Babel that creates a `ReactElement` of this shape `{type: Child, props: {}}`. `prop` là ref value &rarr; `ChildA` luôn bị re-render khi `Parent` re-render.
+1. `ChildA` gets compiled to `React.createElement(ChildA, null)` by Babel that creates a `ReactElement` of this shape `{ type: Child, props: {} }`. `props` là ref value &rarr; `ChildA` luôn bị re-render khi `Parent` re-render.
 2. `ChildB` & `ChildC` all passed as prop of `Parent` &rarr; no `React.createElement` is called for `ChildB` & `ChildC` (Có thể hiểu `prop` chỉ reference tới `ChildB` & `ChildC` chứ ko [call Component function](#step-1-react-trigger-render-initial-hoặc-re-render-component) của 2 thằng này).
 
 ```jsx
