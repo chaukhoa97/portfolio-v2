@@ -51,12 +51,11 @@ export default function Home() {
             </Link>
           </div>
           <div className={s.more}>
-            Want to know me more? View my <Link href="">Resume</Link> or connect
-            with me via{' '}
+            Connect with me via{' '}
             <Link href="https://www.linkedin.com/in/khoa-ch%C3%A2u-4701b5233/">
               LinkedIn
             </Link>{' '}
-            for more details.
+            or have a look at my <Link href="">Resume</Link> for more details.
           </div>
         </div>
       </div>

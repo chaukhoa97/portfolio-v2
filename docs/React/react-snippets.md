@@ -5,12 +5,7 @@ title: 'Snippets'
 ## Show obj ra page
 
 ```jsx
-Object.entries(product).map(([key, val]) => (
-  <Fragment key={key}>
-    <p style={{ color: 'red' }}>{key}</p>
-    <pre>{JSON.stringify(val, null, 2)}</pre>
-  </Fragment>
-))
+<pre>{JSON.stringify(data, null, 2)}</pre>
 ```
 
 ## Module CSS
