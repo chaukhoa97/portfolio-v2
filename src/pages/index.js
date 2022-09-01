@@ -5,7 +5,7 @@ import s from './index.module.css'
 import ReactIcon from '../components/icons/ReactIcon'
 import NextJsIcon from '../components/icons/NextJsIcon'
 import TypeScriptIcon from '../components/icons/TypeScriptIcon'
-import JavaScriptIcon from '../components/icons/JavaScriptIcon'
+import ReactQueryIcon from '../components/icons/ReactQueryIcon'
 import CSSIcon from '../components/icons/CSSIcon'
 import TailwindIcon from '../components/icons/TailwindIcon'
 
@@ -34,19 +34,25 @@ export default function Home() {
             <Link href="https://reactjs.org/" style={{ lineHeight: 0 }}>
               <ReactIcon color="#61DAFB" />
             </Link>
-            <Link href="https://nextjs.org/">
+            <Link href="https://nextjs.org/" style={{ lineHeight: 0 }}>
               <NextJsIcon color="#6b7280" />
             </Link>
             <Link
               href="https://www.typescriptlang.org/"
               target="_blank"
               rel="noreferrer"
+              style={{ lineHeight: 0 }}
             >
               <TypeScriptIcon color="#007acc" />
             </Link>
-            <JavaScriptIcon color="#f7df1e" />
+            <Link
+              href="https://tanstack.com/query/v4"
+              style={{ lineHeight: 0 }}
+            >
+              <ReactQueryIcon color="#FF4154" />
+            </Link>
             <CSSIcon color="#1572B6" />
-            <Link href="https://tailwindcss.com/">
+            <Link href="https://tailwindcss.com/" style={{ lineHeight: 0 }}>
               <TailwindIcon color="#00d1b2" />
             </Link>
           </div>
