@@ -2,6 +2,33 @@
 title: 'Features'
 ---
 
+## Indexed Access Types
+
+```ts
+const MyArray = [
+  { name: 'Alice', age: 15 },
+  { name: 'Bob', age: 23 },
+]
+type Person = typeof MyArray[0]
+type Name = typeof MyArray[0]['name']
+```
+
+## Mapped Types
+
+```ts
+type OptionsFlags<Type> = {
+  [Property in keyof Type]: boolean
+}
+
+type FeatureFlags = {
+  darkMode: () => void
+  newUserProfile: () => void
+}
+
+// darkMode: boolean, newUserProfile: boolean
+type FeatureOptions = OptionsFlags<FeatureFlags>
+```
+
 ## Type Assertion
 
 ```ts

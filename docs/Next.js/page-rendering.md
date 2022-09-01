@@ -96,7 +96,7 @@ Pending...
 
 ## [Server-side Rendering](https://nextjs.org/docs/basic-features/pages#server-side-rendering)
 
-`getServerSideProps` ko tạo HTML ở build time như SSG. Thay vào đó mỗi khi user request, Next.js sẽ tạo file JSON [format giống như trên](#file-json-có-dạng), từ đó render ra trang HTML ở server và trả về cho client.
+`getServerSideProps` ko tạo HTML ở build time như SSG. Thay vào đó mỗi khi user request, Next.js sẽ tạo file JSON format giống như trên, từ đó render ra trang HTML ở server và trả về cho client.
 
 ### Usage
 
