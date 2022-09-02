@@ -45,15 +45,20 @@ export default function Home() {
             >
               <TypeScriptIcon color="#007acc" />
             </Link>
+            <Link href="https://tailwindcss.com/" style={{ lineHeight: 0 }}>
+              <TailwindIcon color="#00d1b2" />
+            </Link>
+            <Link
+              href="https://developer.mozilla.org/en-US/docs/Web/CSS"
+              style={{ lineHeight: 0 }}
+            >
+              <CSSIcon color="#1572B6" />
+            </Link>
             <Link
               href="https://tanstack.com/query/v4"
               style={{ lineHeight: 0 }}
             >
               <ReactQueryIcon color="#FF4154" />
-            </Link>
-            <CSSIcon color="#1572B6" />
-            <Link href="https://tailwindcss.com/" style={{ lineHeight: 0 }}>
-              <TailwindIcon color="#00d1b2" />
             </Link>
           </div>
           <div className={s.more}>

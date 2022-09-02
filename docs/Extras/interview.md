@@ -32,7 +32,7 @@ A strongly typed programming language that builds on JavaScript.
 
 - _Optional_ static typing.
 - I prefer looking at Typescript type system as a programming language itself, for example a `Type` with `Generic` is like a function with parameter; or [Mapped Types](../JavaScript/TypeScript/features#mapped-types) is like a loop.
-- IDEs provide Intellisense for TS, show warnings and errors about any potenial issues in your code even before _Compile time_.
+- IDEs provide Intellisense for TS, show warnings and errors about any potenial issues in your code at _Compile time_.
 
 ### Docs
 
