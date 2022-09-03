@@ -12,13 +12,12 @@ import SupabaseIcon from '../components/icons/SupabaseIcon'
 
 export default function Home() {
   return (
-    <Layout
-      title="My personal page"
-      description="Description will go into a meta tag in <head />"
-    >
-      <div>
+    <Layout title="My personal page" description="Finn Chau's personal page">
+      <div className={s.homepage}>
         <header className={s.header}>
-          <img className={s.avatar} src="img/avatar.png"></img>
+          <div className={s.avatarContainer}>
+            <img className={s.avatar} src="img/avatar.png"></img>
+          </div>
           <div className={s.textContainer}>
             <h1 className={s.heading}>
               Hi, I'm{' '}

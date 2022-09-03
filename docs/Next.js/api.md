@@ -7,3 +7,23 @@ title: 'API'
 ### Comparing with `router.push`
 
 Cả 2 đều là _Client-side route transitions_, tuy nhiên `router.push` không tạo ra `<a>` tag &rarr; your links won't be detected by crawlers.
+
+## pages/\_document.js
+
+```jsx
+export default function Document() {
+  return (
+    // Thêm vào ` lang="cn" `
+    <Html lang="cn">
+      <Head />
+      {/* Thêm vào ` className="bg-dark" ` */}
+      <body className="bg-dark">
+        {/* Thêm vào <div> portal */}
+        <div id="portal" />
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  )
+}
+```

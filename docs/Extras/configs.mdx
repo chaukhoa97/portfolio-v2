@@ -209,10 +209,11 @@ npx --no-install lint-staged
   </TabItem>
 </Tabs>
 
-### `tsconfig` paths
+### tsconfig.json
 
 ```json
 {
+  "exclude": ["src/stories/**/*"], /* Exclude stories from build */
   "compilerOptions": {
   ...
     "paths": {
