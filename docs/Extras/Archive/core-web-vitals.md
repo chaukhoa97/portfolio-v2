@@ -10,7 +10,7 @@ title: 'Core Web Vitals'
 
 _Note: This is not `First Contentful Paint (FCP)`, which measures the time from when the page begins to load to when the first element is rendered on screen._
 
-## First Input Delay (FID) == Total Blocking Time
+## Total Blocking Time (TBT) == First Input Delay (FID)
 
 **FID** measures the **interactivity** of a web page.
 

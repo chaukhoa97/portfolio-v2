@@ -8,6 +8,7 @@ import TypeScriptIcon from '../components/icons/TypeScriptIcon'
 import ReactQueryIcon from '../components/icons/ReactQueryIcon'
 import CSSIcon from '../components/icons/CSSIcon'
 import TailwindIcon from '../components/icons/TailwindIcon'
+import SupabaseIcon from '../components/icons/SupabaseIcon'
 
 export default function Home() {
   return (
@@ -53,6 +54,7 @@ export default function Home() {
               style={{ lineHeight: 0 }}
             >
               <CSSIcon color="#1572B6" />
+              {/* <SupabaseIcon color="#3ECF8E" /> */}
             </Link>
             <Link
               href="https://tanstack.com/query/v4"

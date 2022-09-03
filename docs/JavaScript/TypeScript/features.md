@@ -47,10 +47,13 @@ function minLength<T extends { length: number }>(a: T, b: number): T {
 }
 ```
 
-## Non-null Assertion vs Optional Chaining
+## Non-null Assertion vs Optional Chaining vs Nullish Coalescing
 
 - `!`: Non-null assertion - Only runs at _Compile time_, nói với compiler là cái này ko `null` dc &rarr; dùng khi biết chắc obj có value rồi để skip runtime check.
 - `?`: Optional chaining - Only runs at _Runtime_, nếu ko có thì trả về `undefined` &rarr; dùng khi ko biết chắc obj có value hay ko để tránh crash.
+- **Nullish Coalescing**: `??`: Tương tự `OR`
+  - `[0/""/false/NaN] ?? expr` &rarr; Vế trái
+  - `null/undefined ?? expr` &rarr; expr
 
 ## [Type Assign Table](https://www.typescriptlang.org/docs/handbook/type-compatibility.html#any-unknown-object-void-undefined-null-and-never-assignability)
 

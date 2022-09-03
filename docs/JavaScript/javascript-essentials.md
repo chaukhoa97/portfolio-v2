@@ -137,13 +137,6 @@ const obj = { key1: 'foo' } // error - re-declaring
 
 `0, “”, false, null, undefined, NaN`
 
-## Operator
-
-- **Optional Chaning**: `?.`: Nếu ko có, dừng lại và trả về `undefined`
-- **Nullish coalescing**: `??`: Tương tự `OR`
-  - `[0/""/false/NaN] ?? expr` &rarr; Vế trái
-  - `null/undefined ?? expr` &rarr; expr
-
 ## `this` keyword
 
 ```js
