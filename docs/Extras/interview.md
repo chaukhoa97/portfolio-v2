@@ -15,7 +15,7 @@ A declarative, efficient, and flexible JavaScript library for building user inte
 #### Features
 
 - **JSX**: HTML-based template syntax coming with JS functionalities.
-- Easy to reuse components.
+- Component-based: They manage their own state and can be reused anywhere to make more complex UIs.
 - Support **Server-side rendering**.
 
 ### Docs
