@@ -3,36 +3,6 @@ title: 'Essentials'
 sidebar_position: 1
 ---
 
-## Callback
-
-_Hàm_ dc truyền qua _argument_.
-Usage: Gọi hàm khi có sự kiện xảy ra, thực hiện bất đồng bộ.
-
-## Event loop
-
-1. Synchronous execute the script until the **Call Stack** (LIFO) is empty. Các hàm _async_ vào **Call stack** thì dc di chuyển qua **Web api**. Ở **Web api** chạy async xong thì push callback vào **Task Queue**/**Microtask Queue**.
-
-2. Select the oldest callback from **Microtask Queue** (`Promise`) to push into **Call Stack** and execute it. Repeat until the **Microtask Queue** is empty. This is the **Event Loop**.
-
-3. Do the same like step 2 with **Task Queue** (`setTimeout`).
-
-![Event loop](https://i.imgur.com/E1AuR7A.png)
-
-### Example: Test this snippet [here](https://www.jsv9000.app/)
-
-```js
-setTimeout(function a() {}, 500)
-setTimeout(function b() {}, 0)
-fetch('https://www.google.com').then(function c() {})
-Promise.resolve().then(function d() {})
-Promise.reject().catch(function e() {})
-function f() {
-  g()
-}
-function g() {}
-f()
-```
-
 ## Closure
 
 Is the combination of a **Function** and its **Lexical environment** (_references_ to any other data from the outer scope that the function depends on). You can think of a function to have its own **"private"** variable.  
@@ -89,6 +59,36 @@ var x; // console.log(x) -> undefined
 let y; // console.log(y) -> ERROR
 const z; // ERROR ngay bước init
 ```
+
+## Event loop
+
+1. Synchronous execute the script until the **Call Stack** (LIFO) is empty. Các hàm _async_ vào **Call stack** thì dc di chuyển qua **Web api**. Ở **Web api** chạy async xong thì push callback vào **Task Queue**/**Microtask Queue**.
+
+2. Select the oldest callback from **Microtask Queue** (`Promise`) to push into **Call Stack** and execute it. Repeat until the **Microtask Queue** is empty. This is the **Event Loop**.
+
+3. Do the same like step 2 with **Task Queue** (`setTimeout`).
+
+![Event loop](https://i.imgur.com/E1AuR7A.png)
+
+### Example: Test this snippet [here](https://www.jsv9000.app/)
+
+```js
+setTimeout(function a() {}, 500)
+setTimeout(function b() {}, 0)
+fetch('https://www.google.com').then(function c() {})
+Promise.resolve().then(function d() {})
+Promise.reject().catch(function e() {})
+function f() {
+  g()
+}
+function g() {}
+f()
+```
+
+## Callback
+
+_Hàm_ dc truyền qua _argument_.
+Usage: Gọi hàm khi có sự kiện xảy ra, thực hiện bất đồng bộ.
 
 ## var let const
 
