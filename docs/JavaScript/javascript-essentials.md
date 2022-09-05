@@ -5,8 +5,8 @@ sidebar_position: 1
 
 ## Closure
 
-Is the combination of a **Function** and its **Lexical environment** (_references_ to any other data from the outer scope that the function depends on). You can think of a function to have its own **"private"** variable.  
-Closures của 1 function dc tạo ra ngay tại thời điểm declare function đó.
+Is the combination of a **Function** and its **Lexical environment** (_references_ to any other data from the outer scope that the function depends on). Closure của 1 function dc tạo ra ngay tại thời điểm declare function đó.  
+You can think of a function to have its own "private" variable.
 
 ```js
 function f1() {
@@ -41,7 +41,7 @@ for (var i = 0; i < 3; i++) {
 
 ## Hoisting
 
-Là quá trình đưa các khai báo (declaration) hàm/biến lên trên đầu trang, nó được thực hiện tự động bởi JavaScript Engine
+JavaScript Engine moves the function/variable declarations to the top of the current scope.
 
 ```js
 add(3, 4); //* returns 7

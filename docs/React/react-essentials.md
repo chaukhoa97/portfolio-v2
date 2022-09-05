@@ -5,17 +5,17 @@ sidebar_position: 1
 
 ## Key
 
-Keys are not globally unique. They only specify the position of elements within their parent. Keys helps React infer what exactly has happened, and make the correct updates to the DOM tree.
+Keys are not globally unique. Instead, they only specify the position of elements within their parent. Keys helps React infer what exactly has happened, and make the correct updates to the DOM tree.
 
 Key của 1 element trong 1 array là thứ có giá trị riêng biệt với các element khác (siblings) của nó:
 
 1. **ID** của element từ dữ liệu.
 2. **Value** của element từ dữ liệu.
-3. **index**: Worst. If the list order changes when an item is inserted, delete or if the array is sorted, it will leads to subtle and confusing bugs. In fact, that’s what React will use if you don’t specify a `key` at all.
+3. **index**: In fact, that’s what React will use if you don’t specify a `key` at all. If the list order changes when an item is inserted, delete or if the array is sorted, it will leads to confusing bugs.
 
 ## Virtual DOM
 
-An in-memory copy of the Real DOM. React, Vue, Angular ship JS code to the browser to make ur code work at the runtime.
+An in-memory copy of the Real DOM.
 
 ### React
 
@@ -30,7 +30,7 @@ Even though new frameworks nowadays have their way to achieve that without using
 
 ### Compiler
 
-New frameworks today have their own **compiler** that knows at build time how things could change in your app, rather than waiting to do the work at run time (it tries to do as much of the work in the build time).  
+React, Vue, Angular ship JS code to the browser to make ur code work at the runtime. New frameworks today have their own **compiler** that knows at build time how things could change in your app, rather than waiting to do the work at run time (it tries to do as much of the work in the build time).  
 It compiles your _declarative_ code into _efficient imperative_ code that works with **native browser APIs**, so the Virtual Dom can do less work &rarr; High performance and small package.
 
 ### Vue

@@ -6,9 +6,7 @@ title: 'Interview'
 
 Introduction and functionalities &rarr; Fundamental concepts and features.
 
-## React
-
-### Introduction
+### React
 
 A declarative, efficient, and flexible JavaScript library for building user interfaces.
 
@@ -18,13 +16,7 @@ A declarative, efficient, and flexible JavaScript library for building user inte
 - Component-based: They manage their own state and can be reused anywhere to make more complex UIs.
 - Support **Server-side rendering**.
 
-### Docs
-
-Đọc kỹ hết.
-
-## TypeScript
-
-### Introduction
+### TypeScript
 
 A strongly typed programming language that builds on JavaScript.
 
@@ -34,21 +26,7 @@ A strongly typed programming language that builds on JavaScript.
 - I prefer looking at Typescript type system as a programming language itself, for example a `Type` with `Generic` is like a function with parameter; or [Mapped Types](../JavaScript/TypeScript/features#mapped-types) is like a loop.
 - IDEs provide Intellisense for TS, show warnings and errors about any potenial issues in your code at _Compile time_.
 
-### Docs
-
-- Đọc kỹ [Features](../JavaScript/TypeScript/features)
-- Folder TS Archive
-
-## JavaScript
-
-### Docs
-
-- Đọc kỹ hết.
-- [Array and Object methods](../JavaScript/array-object-methods.mdx)
-
-## Next.js
-
-### Introduction
+### Next.js
 
 React Framework for Production.
 
@@ -58,13 +36,7 @@ React Framework for Production.
 - File-based Routing.
 - Have Fullstack Capabilities: We can add backend (server side) code into our Next.js app.
 
-### Docs
-
-Đọc kỹ hết
-
 ## Others
-
-[CSS Essentials](../CSS/css-essentials)
 
 ### Libs/Frameworks
 

@@ -59,45 +59,6 @@ If your Effect _also_ immediately updates the state, this restarts the whole pro
 
 After rendering is done and React updated the DOM, the browser will repaint the screen. Although this process is known as “browser rendering”, we’ll refer to it as “painting” to avoid confusion.
 
-## [Reduce re-rendering](https://www.zhenghao.io/art/blog/react-rerender/flowchart.jpeg)
-
-### Lift ur component up and pass it down as a prop
-
-1. `ChildA` gets compiled to `React.createElement(ChildA, null)` by Babel that creates a `ReactElement` of this shape `{ type: Child, props: {} }`. `props` là ref value &rarr; `ChildA` luôn bị re-render khi `Parent` re-render.
-2. `ChildB` & `ChildC` all passed as prop of `Parent` &rarr; no `React.createElement` is called for `ChildB` & `ChildC` (Có thể hiểu `prop` chỉ reference tới `ChildB` & `ChildC` chứ ko [call Component function](#step-1-react-trigger-render-initial-hoặc-re-render-component) của 2 thằng này).
-
-```jsx
-default function App() {
-  return (
-    <Parent lastChild={<ChildC />}>
-      <ChildB />
-    </Parent>
-  );
-}
-
-function Parent({ children, lastChild }) {
-  return (
-    <div className="parent">
-      <ChildA />
-      {children}
-      {lastChild}
-    </div>
-  );
-}
-
-function ChildA() {
-  return <div className="childA"></div>;
-}
-
-function ChildB() {
-  return <div className="childB"></div>;
-}
-
-function ChildC() {
-  return <div className="childC"></div>;
-}
-```
-
 ## Mimic lifecycle methods
 
 ### `componentDidMount`
@@ -157,4 +118,43 @@ useEffect(() => {
     // Do `componentWillUnmount` logic
   }
 }, [])
+```
+
+## [Reduce re-rendering](https://www.zhenghao.io/art/blog/react-rerender/flowchart.jpeg)
+
+### Lift ur component up and pass it down as a prop
+
+1. `ChildA` gets compiled to `React.createElement(ChildA, null)` by Babel that creates a `ReactElement` of this shape `{ type: Child, props: {} }`. `props` là ref value &rarr; `ChildA` luôn bị re-render khi `Parent` re-render.
+2. `ChildB` & `ChildC` all passed as prop of `Parent` &rarr; no `React.createElement` is called for `ChildB` & `ChildC` (Có thể hiểu `prop` chỉ reference tới `ChildB` & `ChildC` chứ ko [call Component function](#step-1-react-trigger-render-initial-hoặc-re-render-component) của 2 thằng này).
+
+```jsx
+default function App() {
+  return (
+    <Parent lastChild={<ChildC />}>
+      <ChildB />
+    </Parent>
+  );
+}
+
+function Parent({ children, lastChild }) {
+  return (
+    <div className="parent">
+      <ChildA />
+      {children}
+      {lastChild}
+    </div>
+  );
+}
+
+function ChildA() {
+  return <div className="childA"></div>;
+}
+
+function ChildB() {
+  return <div className="childB"></div>;
+}
+
+function ChildC() {
+  return <div className="childC"></div>;
+}
 ```
