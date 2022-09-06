@@ -2,6 +2,9 @@
 title: 'Hooks'
 ---
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
 ## `useRef`
 
 ### Usage
@@ -126,6 +129,9 @@ For example, sending a message in the chat is an _Event_ because it is directly 
 Some components need to synchronize with external systems (like network or a third-party library). For example, you might want to control a non-React component based on the React state, set up a server connection, or send an analytics log when a component appears on the screen.  
  _Effects_ let you run some code after rendering so that you can synchronize your component with some system outside of React.
 
+<Tabs>
+  <TabItem value="Connect" label="Connect" >
+
 ```jsx
 function App({ id }) {
   const [user, setUser] = useState()
@@ -144,6 +150,27 @@ function App({ id }) {
   return <div>{user}</div>
 }
 ```
+
+  </TabItem>
+  <TabItem value="setTimeout" label="setTimeout" >
+
+```jsx
+function useDelayedValue(value, delay) {
+  const [delayedValue, setDelayedValue] = useState(value)
+
+  // useEffect, setTimeout, setInterval đều có 1st param là callback
+  useEffect(() => {
+    setTimeout(() => {
+      setDelayedValue(value)
+    }, delay)
+  }, [value, delay])
+
+  return delayedValue
+}
+```
+
+  </TabItem>
+</Tabs>
 
 ### How it runs from the Effect’s perspective
 
@@ -183,7 +210,8 @@ Memoize **function**. Khi Component re-render, function trong `useCallback` sẽ
 
 ### `useMemo`
 
-Memoize **return value of the function**. Dùng để chỉ re-render Component khi dependency thay đổi (giống `React.memo`), hoặc khi Function tạo value quá phức tạp (ex: Sort, fetch,...).
+Memoize **return value of the function**. Dùng để chỉ re-render Component khi dependency thay đổi (giống `React.memo`), hoặc khi Function tạo value quá phức tạp (ex: Sort, fetch,...).  
+It's also generally a good idea to memoize [Context](./state.mdx#Context) values because there might be dozens of pure components that consume this context. Without `useMemo`, all of these components would be forced to re-render if the `Context Provider` happens to re-render.
 
 :::note
 `useCallback(someFunction, deps)` are the same with `useMemo(() => someFunction, deps)`
@@ -300,7 +328,8 @@ export default ReducerExample
 
 ## Custom Hook
 
-Handle business logic ở CustomHook rồi truyền vào UI(dumb) Component
+Custom Hooks let you share _stateful logic_ but NOT _state_ itself.  
+**Use case\*\***: Handle business logic ở CustomHook rồi truyền vào UI(dumb) Component
 
 ```jsx
 // Custom hook MUST start with "use"

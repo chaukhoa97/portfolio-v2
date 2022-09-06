@@ -61,10 +61,11 @@ import UIContext from '../components/ui/UIContext'
 function MyApp({ Component, pageProps }: AppProps) {
   // To update context, you need to combine it with state.
   const [currency, setCurrency] = useState<Currency>('USD')
+  const memoizedValue = useMemo(() => ({ currency, setCurrency }), [currency])
 
   return (
     // B2: Provide Context cho ~ part cần
-    <UIContext.Provider value={{ currency, setCurrency }}>
+    <UIContext.Provider value={memoizedValue}>
       <Layout>
         <Component {...pageProps} />
       </Layout>
