@@ -13,8 +13,9 @@ A declarative, efficient, and flexible JavaScript library for building user inte
 #### Features
 
 - **JSX**: HTML-based template syntax coming with JS functionalities.
-- Component-based: They manage their own state and can be reused anywhere to make more complex UIs.
-- Support **Server-side rendering**.
+- Component-based: The components manage their own state and can be reused anywhere to make more complex UIs.
+- Support **Server-side rendering**. Although we barely do it with vanilla React, there are many frameworks like Next.js and Remix that do this for us.
+- [Virutal DOM](../React/react-essentials.md#virtual-dom). But I don't think it should be called a feature any more.
 
 ### TypeScript
 
@@ -22,9 +23,9 @@ A strongly typed programming language that builds on JavaScript.
 
 #### Features
 
-- _Optional_ static typing.
+- _Optional_ static typing. You don't even need to really code in TypeScript but you still can benefit from TypeScript infer system
+- TS is well-supported by many IDEs. They show warnings and errors about any potenial issues in your code at even before _Run time_.
 - I prefer looking at Typescript type system as a programming language itself, for example a `Type` with `Generic` is like a function with parameter; or [Mapped Types](../JavaScript/TypeScript/features#mapped-types) is like a loop.
-- IDEs provide Intellisense for TS, show warnings and errors about any potenial issues in your code at _Compile time_.
 
 ### Next.js
 

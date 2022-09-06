@@ -5,7 +5,7 @@ sidebar_position: 1
 
 ## Closure
 
-Is the combination of a **Function** and its **Lexical environment** (_references_ to any other data from the outer scope that the function depends on). Closure của 1 function dc tạo ra ngay tại thời điểm declare function đó.  
+Is the combination of a **Function** and its **Lexical environment** (_references_ to any other data from the outer scope that the function depends on). Closure of a function is created at the time it is declared.  
 You can think of a function to have its own "private" variable.
 
 ```js

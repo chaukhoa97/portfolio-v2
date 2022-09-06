@@ -1,5 +1,5 @@
 ---
-title: 'SASS'
+title: 'SCSS'
 ---
 
 - Nested Routes

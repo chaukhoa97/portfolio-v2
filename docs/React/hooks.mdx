@@ -121,8 +121,8 @@ There are 2 types of logic inside React components:
 
 ### "Effect" vs "Event"
 
-"Effects" refers to side effects caused by _rendering itself_, rather than by a _particular event_, thus **can't** be handled by event handlers.  
-For example, sending a message in the chat is an _Event_ because it is directly caused by the user clicking a specific button. However, setting up a server connection is an _Effect_ because it needs to happen regardless of which interaction caused the component to appear.
+"Effects" refers to side effects caused by _rendering itself_, rather than by a _particular event_, and therefore **can't** be handled by event handlers.  
+For example, sending a message in the chat is an _Event_ because it is directly caused by the user clicking a button. However, setting up a server connection is an _Effect_ because it needs to happen regardless what makes the component to appear.
 
 ### Usage & Syntax
 
