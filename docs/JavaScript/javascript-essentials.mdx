@@ -41,7 +41,7 @@ for (var i = 0; i < 3; i++) {
 
 ## Hoisting
 
-JavaScript Engine moves the function/variable declarations to the top of the current scope.
+JavaScript Engine moves the function and variable declarations to the top of the current scope.
 
 ```js
 add(3, 4); //* returns 7
@@ -62,7 +62,7 @@ const z; // ERROR ngay bước init
 
 ## Event loop
 
-1. Synchronous execute the script until the **Call Stack** (LIFO) is empty. Các hàm _async_ vào **Call stack** thì dc di chuyển qua **Web api**. Ở **Web api** chạy async xong thì push callback vào **Task Queue**/**Microtask Queue**.
+1. Synchronously execute the script until the **Call Stack** (LIFO) is empty. Các hàm _async_ vào **Call stack** thì dc di chuyển qua **Web api**. Ở **Web api** chạy async xong thì push callback vào **Task Queue**/**Microtask Queue**.
 
 2. Select the oldest callback from **Microtask Queue** (`Promise`) to push into **Call Stack** and execute it. Repeat until the **Microtask Queue** is empty. This is the **Event Loop**.
 
