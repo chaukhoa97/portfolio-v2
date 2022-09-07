@@ -39,11 +39,11 @@ console.log(x as number)
 
 ```ts
 // Ràng buộc `T` phải ÍT NHẤT có `length` property
-function minLength<T extends { length: number }>(a: T, b: number): T {
+function minLength<T extends { length: number }>(obj: T, minimum: number): T {
   if (obj.length >= minimum) {
     return obj
   }
-  return { length: minimum }
+  return { length: minimum } // ❌: `T` ko nhất thiết phải là obj mà có thể là array hoặc string (đều có `length` property)
 }
 ```
 

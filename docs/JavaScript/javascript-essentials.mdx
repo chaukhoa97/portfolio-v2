@@ -90,6 +90,31 @@ f()
 _Hàm_ dc truyền qua _argument_.
 Usage: Gọi hàm khi có sự kiện xảy ra, thực hiện bất đồng bộ.
 
+## for...in vs for...of
+
+```js
+const arr = ['a', 'b', 'c']
+const obj = { a: 1, b: 2, c: 3 }
+// for...in(dex)
+for (const i in arr) {
+  console.log(i) // 0, 1, 2
+}
+for (const i in obj) {
+  console.log(i) // a, b, c
+}
+console.log(0 in arr) // true
+console.log('a' in arr) // false (you must specify the index number, not the value at that index)
+console.log('a' in obj) // true
+
+// for...of(value)
+for (const i of arr) {
+  console.log(i) // 'a', 'b', 'c'
+}
+for (const i of obj) {
+  console.log(i) // ERROR
+}
+```
+
 ## var let const
 
 |       |      Scope      |  Hoisting + Init value  | Re-declare | Update |
