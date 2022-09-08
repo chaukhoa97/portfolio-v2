@@ -5,42 +5,23 @@ title: 'Essentials'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-## Consumer
-
-### Indexed Access Types
-
-```ts
-const MyArray = [
-  { name: 'Alice', age: 15 },
-  { name: 'Bob', age: 23 },
-]
-type Person = typeof MyArray[0]
-type Name = typeof MyArray[0]['name']
-```
-
-### [Type Assign Table](https://www.typescriptlang.org/docs/handbook/type-compatibility.html#any-unknown-object-void-undefined-null-and-never-assignability)
-
-![Type Assign Table](https://i.imgur.com/OXp9Bta.png)
-
-```ts
-//* `undefined` ->(assign to) `void` ✅
-const test1 = (x: void) => {}
-test1(undefined) // Ok
-
-//! object -> void ❌
-const test2 = (x: void) => {}
-test2({ id: 1 }) // Error
-```
-
 ## Manipulation
 
 ### Conditional Types
+
+<Tabs>
+  <TabItem value="Basic" label="Basic">
 
 ```ts
 type Id = number
 type Name = string
 type NameOrId<T extends number | string> = T extends number ? Id : Name
-// `never` use case with Conditional Types
+```
+
+  </TabItem>
+  <TabItem value="never" label="use case with `never`">
+
+```ts
 type MessageOf<T> = T extends { message: unknown } ? T['message'] : never
 interface Email {
   message: string
@@ -50,10 +31,10 @@ interface Dog {
 }
 type EmailMessageContents = MessageOf<Email> // string
 type DogMessageContents = MessageOf<Dog> // never
-// (Uncommon) Distributive Conditional Types
-type ToArray<Type> = Type extends any ? Type[] : never
-type StrArrOrNumArr = ToArray<string | boolean> // string[] | boolean[]
 ```
+
+  </TabItem>
+</Tabs>
 
 ### Type Assertion
 
@@ -134,16 +115,6 @@ type Mutable<Type> = {
 
 ## Types & Utility Types
 
-### Index Signature
-
-```ts
-interface JD {
-  // An index signature property type must be either ‘string’ or ‘number’
-  [index: string]: any //* JD can have any number of properties with `any` type
-  1: string // typeof jd[1] = string
-}
-```
-
 ### Enums
 
 ```ts
@@ -195,6 +166,27 @@ foo.method() //* Ok; anything goes with any
 bar.method() //! Not ok; we don't know anything about this variable
 ```
 
+### Index Signature
+
+```ts
+interface JD {
+  // An index signature property type must be either ‘string’ or ‘number’
+  [index: string]: any //* JD can have any number of properties with `any` type
+  1: string // typeof jd[1] = string
+}
+```
+
+### Indexed Access Types
+
+```ts
+const MyArray = [
+  { name: 'Alice', age: 15 },
+  { name: 'Bob', age: 23 },
+]
+type Person = typeof MyArray[0]
+type Name = typeof MyArray[0]['name']
+```
+
 ### `Record<Keys, Type>`
 
 An object type whose property keys are `Keys` and whose property values are `Type`
@@ -232,12 +224,39 @@ function minLength<T extends { length: number }>(obj: T, minimum: number): T {
 ```
 
   </TabItem>
+  <TabItem value="keyof" label="use case with `keyof`">
+
+```ts
+let x = { a: 1, b: 2, c: 3, d: 4 }
+function getProperty3<Type, Key extends keyof Type>(obj: Type, key: Key) {
+  return obj[key]
+}
+getProperty3(x, 'a')
+getProperty3(x, 'm') //! Error
+```
+
+  </TabItem>
+</Tabs>
 
 ### Default Generic value
 
 ```ts
 type F1<T = string> = (a: T) => any
 const Fn1: F1 = (a) => a.split(' ') // Ko khai báo thì default là string -> Dùng `split` dc
+```
+
+### Multi Generics Function
+
+Các `Generic` phải relate với nhau. Ex: Relate giữa input & output, hay giữa các input với nhau
+
+```ts
+function map<Input, Output>(
+  arr: Input[],
+  func: (arg: Input) => Output,
+): Output[] {
+  return arr.map(func)
+}
+const parsed = map(['1', '2', '3'], (n) => parseInt(n)) // Infer `Input` = string; `Output` = number
 ```
 
 ## Function
@@ -271,3 +290,17 @@ type GreeterReturn = ReturnType<GreetFunction>
 - **Nullish Coalescing**: `??`: Tương tự `OR`
   - `[0/""/false/NaN] ?? expr` &rarr; Vế trái
   - `null/undefined ?? expr` &rarr; expr
+
+## [Type Assign Table](https://www.typescriptlang.org/docs/handbook/type-compatibility.html#any-unknown-object-void-undefined-null-and-never-assignability)
+
+![Type Assign Table](https://i.imgur.com/OXp9Bta.png)
+
+```ts
+//* `undefined` ->(assign to) `void` ✅
+const test1 = (x: void) => {}
+test1(undefined) // Ok
+
+//! object -> void ❌
+const test2 = (x: void) => {}
+test2({ id: 1 }) // Error
+```
