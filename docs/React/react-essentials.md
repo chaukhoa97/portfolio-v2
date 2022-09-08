@@ -30,7 +30,7 @@ Even though new frameworks nowadays have their way to achieve that without using
 
 ### Compiler
 
-React, Vue, Angular ship JS code to the browser to make ur code work at the runtime. New frameworks today have their own **compiler** that knows at build time how things could change in your app, rather than waiting to do the work at run time (it tries to do as much of the work in the build time).  
+React, Vue, Angular ship JS code to the browser to make ur code work at the runtime. New frameworks today have their own **compiler** that knows at build time how things could change in your app, rather than waiting to do the work at Runtime (it tries to do as much of the work in the build time).  
 It compiles your _declarative_ code into _efficient imperative_ code that works with **native browser APIs**, so the Virtual Dom can do less work &rarr; High performance and small package.
 
 ### Vue

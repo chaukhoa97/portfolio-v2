@@ -1,0 +1,273 @@
+---
+title: 'Essentials'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+## Consumer
+
+### Indexed Access Types
+
+```ts
+const MyArray = [
+  { name: 'Alice', age: 15 },
+  { name: 'Bob', age: 23 },
+]
+type Person = typeof MyArray[0]
+type Name = typeof MyArray[0]['name']
+```
+
+### [Type Assign Table](https://www.typescriptlang.org/docs/handbook/type-compatibility.html#any-unknown-object-void-undefined-null-and-never-assignability)
+
+![Type Assign Table](https://i.imgur.com/OXp9Bta.png)
+
+```ts
+//* `undefined` ->(assign to) `void` ✅
+const test1 = (x: void) => {}
+test1(undefined) // Ok
+
+//! object -> void ❌
+const test2 = (x: void) => {}
+test2({ id: 1 }) // Error
+```
+
+## Manipulation
+
+### Conditional Types
+
+```ts
+type Id = number
+type Name = string
+type NameOrId<T extends number | string> = T extends number ? Id : Name
+// `never` use case with Conditional Types
+type MessageOf<T> = T extends { message: unknown } ? T['message'] : never
+interface Email {
+  message: string
+}
+interface Dog {
+  bark(): void
+}
+type EmailMessageContents = MessageOf<Email> // string
+type DogMessageContents = MessageOf<Dog> // never
+// (Uncommon) Distributive Conditional Types
+type ToArray<Type> = Type extends any ? Type[] : never
+type StrArrOrNumArr = ToArray<string | boolean> // string[] | boolean[]
+```
+
+### Type Assertion
+
+Assert the type-system that `x` can be assigned to `number`. Only be used to more or less specific type; không thể có ~ chuyển đổi vô lý như `"hello" as number`
+
+```ts
+console.log(x as number)
+```
+
+### Intersection
+
+```ts
+type Identity = {
+  name: string
+}
+interface Contact {
+  email: string
+}
+type Customer = Identity & Contact & { gender: string } // type cũng có thể dc tạo từ 2 interface intersection
+interface Customer2 extends Identity, Contact {
+  gender: string
+}
+```
+
+## Keywords
+
+### `in`
+
+Usage is the same with object
+
+```ts
+type Fish = { swim: () => void }
+type Bird = { fly: () => void }
+type Human = { swim?: () => void; fly?: () => void }
+function move(animal: Fish | Bird | Human) {
+  if ('swim' in animal) {
+    animal.swim
+  } else {
+    animal
+  }
+}
+```
+
+### `readonly` & `as const` (Const Assertion)
+
+`as const`:
+
+- No literal types in that expression should be widened (e.g. no going from `"hello"` to `string`)
+- Object literals get `readonly` properties (no assign to object `props`)
+- Array literals get `readonly` tuples (no assign to array `value`)
+
+```ts
+interface Home {
+  name: string
+}
+const noMutateHome1 = { name: 'home' } as const
+const noMutateHome2: Readonly<Home> = { name: 'home' }
+noMutateHome1.name = 'bro' // ❌: Cannot assign to 'home' because it is a read-only property.
+```
+
+### `keyof` & Mapped Types (looping through object keys)
+
+```ts
+type OptionsFlags<Type> = {
+  [Property in keyof Type]: boolean
+}
+type FeatureFlags = {
+  f1: () => void
+  f2: () => void
+}
+type FeatureOptions = OptionsFlags<FeatureFlags> // f1: boolean, f2: boolean
+
+// delete all `readonly` props
+type Mutable<Type> = {
+  -readonly [Key in keyof Type]: Type[Key]
+}
+```
+
+## Types & Utility Types
+
+### Index Signature
+
+```ts
+interface JD {
+  // An index signature property type must be either ‘string’ or ‘number’
+  [index: string]: any //* JD can have any number of properties with `any` type
+  1: string // typeof jd[1] = string
+}
+```
+
+### Enums
+
+```ts
+//2 Number enum
+enum Status1 {
+  Pending, // 0
+  Approved, // 1
+  Rejected = 10,
+}
+console.log(Status1['Rejected']) // 10
+// Reverse mapping
+console.log(Status1[10]) // Rejected
+
+//2 String enum: KHÔNG REVERSE MAPPING như Number Enum dc
+enum Status2 {
+  Pending = '0',
+  Approved = '1',
+}
+const ss = Status2.Pending // "0"
+const bb = Status2[0] // undefined
+type ResponseTypes = keyof typeof Status2 // "Pending" | "Approved"
+```
+
+### Tuple
+
+Superset of Array - Knows exactly how many elements it contains, and exactly which types it contains at specific positions.
+
+```ts
+let tuple1: [string, number, number?] = ['John', 25] // tuple1.length = 2 | 3
+let tupleArray: [string, number][] = [
+  ['John', 25],
+  ['Uyen', 23],
+]
+var tuple2: [string, ...boolean[], number] = ['John', true, false, 1] //* Rest elements must be array type
+```
+
+### `unknown`
+
+```ts
+// `unknown`: Similar to `any`, but safer because u can't do anything with it
+let foo: any = 10
+let bar: unknown = 10 //* We can assign anything to unknown just like any
+const upperCase = (x: string) => console.log(x.toUpperCase())
+upperCase(foo) // Ok, `any` can assign to anything
+upperCase(bar) //! Invalid; we can't assign `unknown` to any other type (without an explicit assertion)
+upperCase(bar as string) //* Assert là string nên type-system ko báo lỗi, lúc run mới ra lỗi TypeError: number ko có method toUpperCase
+
+foo.method() //* Ok; anything goes with any
+bar.method() //! Not ok; we don't know anything about this variable
+```
+
+### `Record<Keys, Type>`
+
+An object type whose property keys are `Keys` and whose property values are `Type`
+
+```ts
+type GenericObject = Record<string, any>
+
+type CatName = 'miffy' | 'boris' | 'mordred'
+interface CatInfo {
+  age: number
+  breed: string
+}
+const cats: Record<CatName, CatInfo> = {
+  miffy: { age: 10, breed: 'Persian' },
+  boris: { age: 5, breed: 'Maine Coon' },
+  mordred: { age: 16, breed: 'British Shorthair' },
+}
+```
+
+## Generics
+
+### Generic Constraints
+
+<Tabs>
+  <TabItem value="Basic" label="Basic">
+
+```ts
+// Ràng buộc `T` phải ÍT NHẤT có `length` property
+function minLength<T extends { length: number }>(obj: T, minimum: number): T {
+  if (obj.length >= minimum) {
+    return obj
+  }
+  return { length: minimum } // ❌: `T` ko nhất thiết phải là obj mà có thể là array hoặc string (đều có `length` property)
+}
+```
+
+  </TabItem>
+
+### Default Generic value
+
+```ts
+type F1<T = string> = (a: T) => any
+const Fn1: F1 = (a) => a.split(' ') // Ko khai báo thì default là string -> Dùng `split` dc
+```
+
+## Function
+
+```ts
+//1 Function Type expression:
+//2. Cách 1: Truyền trực tiếp
+const greeter = (a: string): void => {
+  console.log(a)
+}
+function greeter1(a: string) {
+  console.log(a) // return type dc infer là void
+}
+//2 Cách 2: Khai báo qua `type`
+type GreetFunction = (a: string, b?: number) => void
+const greeter2: GreetFunction = (a) => {
+  console.log(a)
+}
+
+//1 Utility Types
+//2 `Parameter`
+type GreeterParams = Parameters<typeof greeter2>
+//2 `ReturnType`
+type GreeterReturn = ReturnType<GreetFunction>
+```
+
+## Non-null Assertion vs Optional Chaining vs Nullish Coalescing
+
+- `!`: Non-null assertion - Only runs at _Compile time_, nói với compiler là cái này ko `null` dc &rarr; dùng khi biết chắc obj có value rồi để skip runtime check.
+- `?`: Optional chaining - Only runs at _Runtime_, nếu ko có thì trả về `undefined` &rarr; dùng khi ko biết chắc obj có value hay ko để tránh crash.
+- **Nullish Coalescing**: `??`: Tương tự `OR`
+  - `[0/""/false/NaN] ?? expr` &rarr; Vế trái
+  - `null/undefined ?? expr` &rarr; expr

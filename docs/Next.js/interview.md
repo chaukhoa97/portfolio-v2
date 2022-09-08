@@ -25,7 +25,7 @@ A strongly typed programming language that builds on JavaScript.
 
 - _Optional_ static typing. You don't even need to really code in TypeScript but you still can benefit from TypeScript infer system
 - TS is well-supported by many IDEs. They show warnings and errors about any potenial issues in your code at even before _Run time_.
-- I prefer looking at Typescript type system as a programming language itself, for example a `Type` with `Generic` is like a function with parameter; or [Mapped Types](../JavaScript/TypeScript/features#mapped-types) is like a loop.
+- I prefer looking at Typescript type system as a programming language itself. It has Conditional Type; or a `Type` with `Generic` is like a function with parameter; or [Mapped Types](../JavaScript/TypeScript/features#mapped-types) is like a loop.
 
 ### Next.js
 
