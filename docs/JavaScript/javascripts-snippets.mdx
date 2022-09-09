@@ -15,9 +15,12 @@ setSearchParams({ [name]: id })
 ## Measure function runtime
 
 ```js
-console.time('filter array')
+console.time('filter array') // C1.1
+const start = performance.now() // C2.1
 const visibleTodos = getFilteredTodos(todos, filter)
-console.timeEnd('filter array')
+console.timeEnd('filter array') // C1.2
+const end = performance.now() // C2.2
+console.log('filter array took', end - start, 'ms') // C2.3
 ```
 
 ## Scroll to top

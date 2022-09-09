@@ -213,14 +213,15 @@ npx --no-install lint-staged
 
 ```json
 {
-  "exclude": ["src/stories/**/*"], /* Exclude stories from build */
+  "exclude": ["src/stories/**/*"] /* Exclude stories from build */,
   "compilerOptions": {
-  ...
+    // ...
+    "baseUrl": ".",
     "paths": {
-        "@/*": ["./src/*"],
-        "@components/*": ["./src/components/*"],
-        "@hooks/*": ["./src/hooks/*"]
-      }
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@hooks/*": ["src/hooks/*"]
+    }
   }
 }
 ```
