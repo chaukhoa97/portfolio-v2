@@ -47,6 +47,13 @@ const MyComponent = () => {
 }
 ```
 
+## Force Re-render
+
+```jsx
+const [, forceRerender] = useState()
+forceRerender({})
+```
+
 ## Icon
 
 ```jsx title='ChevronRight.tsx'

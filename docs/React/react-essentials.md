@@ -5,13 +5,12 @@ sidebar_position: 1
 
 ## Key
 
-Keys are not globally unique. Instead, they only specify the position of elements within their parent. Keys helps React infer what exactly has happened, and make the correct updates to the DOM tree.
-
-Key của 1 element trong 1 array là thứ có giá trị riêng biệt với các element khác (siblings) của nó:
+Basically, keys in React are used to specify the position of the elements within their parent. It helps React infer what exactly happened, and make the correct updates to the DOM.  
+Keys are NOT globally unique. They only need to be unique among their siblings.
 
 1. **ID** của element từ dữ liệu.
 2. **Value** của element từ dữ liệu.
-3. **index**: In fact, that’s what React will use if you don’t specify a `key` at all. If the list order changes when an item is inserted, delete or if the array is sorted, it will leads to confusing bugs.
+3. `index`: In fact, that’s what React will use if you don’t specify a `key` at all. If the list order changes when an item is inserted, delete or if the array is sorted, it will leads to confusing bugs.
 
 ## Virtual DOM
 
@@ -25,8 +24,8 @@ It also decouples rendering logic from the actual DOM - makes it straightforward
 
 ### Cons
 
-Using Virtual DOM is NOT faster bc it's actually an **addition** of the final operations on the real DOM (_diffing_ is NOT free). It is only faster if we compare it in a more complex context when the DOM doesn't have a way to optimize updates (e.g. batch updates, or list updates) because it can reduce the number of DOM operations.  
-Even though new frameworks nowadays have their way to achieve that without using Virtual DOM, in real-world applications, the Virtual Dom is usually fast enough. After a certain point, performance is no longer the main selling point of a library or framework, especially when the difference is only in microseconds.
+Using Virtual DOM is NOT faster bc it's actually an **addition** of the final operations on the real DOM (_diffing_ is NOT free). It is only faster because it can reduce the number of DOM operations if we do the comparison in a more complex context when the real DOM doesn't have a way to optimize updates (e.g. batch updates, or list updates) .  
+Even though new frameworks nowadays have their way to achieve that without using Virtual DOM, in real-world applications, the Virtual Dom is usually fast enough. After a certain point, performance is no longer the main selling point of a library or framework, especially when the difference is only in milliseconds.
 
 ### Compiler
 

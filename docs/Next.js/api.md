@@ -11,10 +11,12 @@ Cả 2 đều là _Client-side route transitions_, tuy nhiên `router.push` khô
 ## pages/\_document.js
 
 ```jsx
+import { Html, Head, Main, NextScript } from 'next/document'
+
 export default function Document() {
   return (
-    // Thêm vào ` lang="cn" `
-    <Html lang="cn">
+    // Thêm vào `data-theme`
+    <Html data-theme="dracula">
       <Head />
       {/* Thêm vào ` className="bg-dark" ` */}
       <body className="bg-dark">
