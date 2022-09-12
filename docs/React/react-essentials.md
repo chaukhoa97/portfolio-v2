@@ -16,20 +16,23 @@ Keys are NOT globally unique. They only need to be unique among their siblings.
 
 An in-memory copy of the Real DOM.
 
-### React
+### How it works in React
 
-When there are [re-renders](../React/react-lifecycle.md#step-1-react-trigger-render-initial-hoặc-re-render-component), while rendering, React will compute the diffs between what's _currently on the page_ vs what _should be on the page_, calculate the minimal necessary DOM operations to make the DOM match the latest rendering output, and then batch executes all updates.
-
-It also decouples rendering logic from the actual DOM - makes it straightforward to reuse it in non-browser environments, e.g. rendering to a string (**SSR**), native mobile rendering (**React Native**).
+When there are [re-renders](../React/react-lifecycle.md#step-1-react-trigger-render-initial-hoặc-re-render-component), while rendering ([1st phase](./react-lifecycle.md#step-1-react-trigger-render-initial-hoặc-re-render-component)), React will compute the diffs between what's _currently on the page_ vs what _should be on the page_, calculate the minimal necessary DOM operations to make the DOM match the latest rendering output, and then batch executes all updates.
 
 ### Cons
 
-Using Virtual DOM is NOT faster bc it's actually an **addition** of the final operations on the real DOM (_diffing_ is NOT free). It is only faster because it can reduce the number of DOM operations if we do the comparison in a more complex context when the real DOM doesn't have a way to optimize updates (e.g. batch updates, or list updates) .  
-Even though new frameworks nowadays have their way to achieve that without using Virtual DOM, in real-world applications, the Virtual Dom is usually fast enough. After a certain point, performance is no longer the main selling point of a library or framework, especially when the difference is only in milliseconds.
+Using Virtual DOM is NOT faster because it's actually an **addition** to the final operations on the real DOM. Also, _diffing_ is NOT free. It is only faster because it can reduce the number of DOM operations if we do the comparison in a more complex context when the real DOM doesn't have a way to optimize updates (e.g. batch updates, or list updates).
 
-### Compiler
+### Why React still uses Virtual DOM
 
-React, Vue, Angular ship JS code to the browser to make ur code work at the runtime. New frameworks today have their own **compiler** that knows at build time how things could change in your app, rather than waiting to do the work at Runtime (it tries to do as much of the work in the build time).  
+Although more recent frameworks have their way to reduce DOM operations without using Virtual DOM, in real-world applications, the Virtual Dom is usually fast enough. After a certain point, performance is no longer the main selling point of a library or framework, especially when the difference is only in microseconds.
+
+It also decouples rendering logic from the actual DOM - makes it straightforward to reuse it in non-browser environments, e.g. native mobile rendering in **React Native**, rendering to a string (**SSR**).
+
+### Recent frameworks compiler
+
+React, Vue, Angular ship JS code to the browser to make ur code work at the runtime. More recent frameworks have their own **compiler** that knows at _Build time_ how things could change in your app, rather than waiting to do the work at _Runtime_.  
 It compiles your _declarative_ code into _efficient imperative_ code that works with **native browser APIs**, so the Virtual Dom can do less work &rarr; High performance and small package.
 
 ### Vue

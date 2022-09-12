@@ -33,7 +33,7 @@ React Framework for Production.
 
 #### Features
 
-- Built-in Server-side Rendering Support. We can even blend CSR with SSR.
+- Built-in Server-side Rendering support. We can even blend CSR with SSR.
 - File-based Routing.
 - Have Fullstack Capabilities: We can add backend (server side) code into our Next.js app.
 

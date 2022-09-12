@@ -4,7 +4,7 @@ title: 'Page Rendering'
 
 ## Pre-rendering
 
-By default, Next.js pre-renders every page. Nghĩa là Next.js sẽ tạo trước HTML, thay vì để JS ở client-side làm hết.  
+By default, Next.js pre-renders every page. It means when there's a request, Next.js will pre-render the HTML page with its static content, instead of letting client-side JS do all the work like CSR.  
 Each generated HTML is associated with minimal JavaScript code necessary for that page. When a page is loaded by the browser, its JavaScript code runs and makes the page fully interactive. (This process is called `hydration`).
 
 [SSG](#static-site-generation), [ISR](#incremental-static-regeneration), [SSR](#server-side-rendering) are 3 ways Next.js pre-renders pages.
@@ -14,18 +14,22 @@ Each generated HTML is associated with minimal JavaScript code necessary for tha
 
 ## [Static-site Generation](https://nextjs.org/docs/basic-features/pages#static-generation-recommended)
 
-### Usage
-
-Dùng cho những page có content ít/kbh thay đổi: FAQ, Policy, ...
-
 ### Introduction
+
+> **SSG** is the pre-rendering method that generates the HTML at build time. The pre-rendered HTML is then reused on each request.
+
+**Usage**: Dùng cho những page có content ít/kbh thay đổi: FAQ, Policy,...
 
 ![Static-site Generation](https://nextjs.org/static/images/learn/data-fetching/static-generation.png)
 
-**SSG** is the pre-rendering method that generates the HTML at build time. The pre-rendered HTML is then reused on each request.  
-It also generates a JSON file.
+### `next/link` with JSON
 
-File `JSON` có dạng:
+SSG (and ISG) also generate a JSON file beside the HTML. It's used for **Client-side routing** (Page transitions are handled by JS, similar to a SPA) when the user navigates to the **static** pages by `next/link` by having this JSON as the `props` for the `PageComponent`.  
+In addition, any `<Link />` **in the viewport** (initially or through scroll) to pages that haven't been pre-rendered will also be generated & prefetched by default.  
+Although SSG generates 2 files (HTML and JSON), when prefetching, **only** the JSON file is downloaded for Client-side routing.
+
+<details>
+  <summary>The JSON's format is like this:</summary>
 
 ```json
 {
@@ -39,24 +43,17 @@ File `JSON` có dạng:
 }
 ```
 
-### `next/link` with JSON
-
-Khi navigate bằng `next/link` sang ~ _SSG Page (no SSR)_, Next.js sẽ thực hiện _Client-side route transition_ (Page transition are handled by JS, similar to a SPA) bằng cách lấy file JSON này làm `prop` cho `PageComponent`. Thus any `<Link />` **in the viewport** (initially or through scroll) will be generated & prefetched by default.  
-Although SSG generate 2 file là HTML và JSON, tuy nhiên lúc prefetch thì chỉ có file JSON được prefetch để dùng cho Client-side routing.
-
-:::danger
-
-Ở đây ko fetch pre-rendered HTML, mà chỉ fetch JSON cho Client-side route transition
-
-:::
+</details>
 
 ## [Incremental Static Regeneration](https://vercel.com/docs/concepts/next.js/incremental-static-regeneration)
 
-### Usage
+### Introduction
 
-Dùng cho những page có content dc update thường xuyên but it's not important for the user to see most up-to-date data: Blog, Product Detail, ...
+> **ISG** allows you to create & update static pages sau khi after the _Build time_.
 
-Cho phép create/update static pages sau khi đã `next build`. Khi gặp 1 trong 2 case dưới đây, Next.js sẽ trigger generate static page ở server.
+**Usage**: Dùng cho những page có content dc update thường xuyên but it's not important for the user to see most up-to-date data: Blog, Product Detail, ...
+
+Khi gặp 1 trong 2 case dưới đây, Next.js sẽ trigger generate static page ở server:
 
 ### First case - by `getStaticProps` using `revalidate`
 
@@ -96,12 +93,14 @@ Pending...
 
 ## [Server-side Rendering](https://nextjs.org/docs/basic-features/pages#server-side-rendering)
 
-`getServerSideProps` ko tạo HTML ở build time như SSG. Thay vào đó mỗi khi user request, Next.js sẽ tạo file JSON format giống như trên, từ đó render ra trang HTML ở server và trả về cho client.
+### Introduction
 
-### Usage
+> `getServerSideProps`: Next.js will pre-render the HTML at the time the user request instead of the build time and then return the HTML to the user.
 
-- Important for the user to see most up-to-date data.
+**Usage**:
+
 - SEO is critical.
+- Important for the user to see most up-to-date data.
 - TTFB chậm nhất (do Server phải Generate lại page rồi mới gửi lại cho user), nhưng tổng thể sau cùng thì load nhanh hơn `CSR` (ko đáng kể).  
   &rarr; Dùng cho những page cần SEO, và content của page dc dựa theo input (Ex: search) từ user: Search result ...
 
@@ -114,9 +113,9 @@ Nên kẹp chung với [TanStack Query](https://github.com/TanStack/query/releas
 
 ### Usage
 
+- SEO tệ (do k có pre-render), usually used for personalized content.
 - Important for the user to see most up-to-date data.
 - Có thể cho người dùng thấy layout trước (Skeleton) so với `SSR`.
-- SEO tệ (do k có pre-render), usually used for personalized content.
   &rarr; Dùng cho những page như: Dashboard, Cart, ...
 
 ![Client-side Rendering](https://nextjs.org/static/images/learn/data-fetching/client-side-rendering.png)

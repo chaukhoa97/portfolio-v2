@@ -107,6 +107,10 @@ const selectedRef = useRef(null)
 
 ## `useEffect`
 
+### Usage
+
+Some components need to synchronize with **external systems** outside of React (like a network or a third-party library). For example, you might want to set up a server connection, send an analytics log when a component appears on the screen, or control an external component based on a React state. _Effects_ let you run some code **after rendering** to do those kinds of things.
+
 ### "Effect" vs "Side effect"
 
 :::info
@@ -124,9 +128,7 @@ There are 2 types of logic inside React components:
 "Effects" refers to side effects caused by _rendering itself_, rather than by a _particular event_, and therefore **can't** be handled by event handlers.  
 For example, sending a message in the chat is an _Event_ because it is directly caused by the user clicking a button. However, setting up a server connection is an _Effect_ because it needs to happen regardless what makes the component to appear.
 
-### Usage & Syntax
-
-_Effects_ let you run some code after rendering because some components need to synchronize with external systems outside of React (like network or a third-party library). For example, you might want to set up a server connection, send an analytics log when a component appears on the screen, or control an external component based on a React state.
+### Syntax
 
 <Tabs>
   <TabItem value="Connect" label="Connect" >
