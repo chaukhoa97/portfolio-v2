@@ -235,16 +235,22 @@ export default Parent
 ```
 
 ```jsx
-const Children = ({ expensiveFn }) => {
-  const uncachedValue = [computeExpensiveValue(a, b)] // Create lại mỗi lần Children re-render
-  const cachedValue = useMemo(() => [computeExpensiveValue(a, b)], [a, b])
+const Children = ({ todos, text }) => {
+  const options = { searchParam: text }
+  const uncachedTodos = filterTodos(todos, options) // Create lại mỗi lần Children re-render
+
+  const cachedTodos = useMemo(() => {
+    // `options` là ref nhưng bọc trong `useMemo` thì vẫn ok, `cachedTodos` ko bị create lại
+    const options = { searchParam: text }
+    return filterTodos(todos, options)
+  }, [todos, text])
 
   return (
     <>
-      {/* `uncachedValue` là ref value -> `value` prop của Kid1 thay đổi mỗi khi Children re-render */}
-      <Kid1 value={uncachedValue} />
-      {/* Chỉ khi `cachedValue` thay đổi thì `value` prop của Kid2 mới đổi */}
-      <Kid2 value={cachedValue} />
+      {/* `uncachedTodos` là ref value -> `value` prop của Kid1 thay đổi mỗi khi Children re-render */}
+      <Kid1 value={uncachedTodos} />
+      {/* Chỉ khi `cachedTodos` thay đổi (khi `todos` và `text` thay đổi) thì `value` prop của Kid2 mới đổi */}
+      <Kid2 value={cachedTodos} />
     </>
   )
 }
@@ -329,7 +335,7 @@ export default ReducerExample
 
 ## Custom Hook
 
-Custom Hooks let you share _stateful logic_ but NOT _state_ itself.  
+Custom Hooks let you share _stateful logic_ across React components but NOT _state_ itself.  
 **Use case**: Handle business logic ở CustomHook rồi truyền vào UI(dumb) Component
 
 ```jsx
