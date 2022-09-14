@@ -18,3 +18,8 @@ useQuery(['todos', page, status], ...)
 // Variable depends
 useQuery(['todos', { type, id }], () => fetch(type, id))
 ```
+
+## `status` vs `fetchStatus`
+
+- `status: 'loading'| 'error' | 'success'` answers **Do we have any `data` or not**?
+- `fetchStatus: 'fetching' | 'idle' | 'paused'` answers **Is `queryFn` running or not**?
