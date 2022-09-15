@@ -207,12 +207,17 @@ Cần cleanup: `setTimeout`/`setInterval`, connection to a server/database
 
 ### `useCallback`
 
-Memoize **function**. Khi Component re-render, function trong `useCallback` sẽ ko re-create lại.
+Memoize **function**. Khi Component re-render, function trong `useCallback` sẽ ko re-create lại &rarr; lấy function làm props ko bị re-render.  
+If you’re writing a custom Hook, it’s recommended to wrap any functions that it returns into `useCallback`
 
 ### `useMemo`
 
-Memoize **return value of the function**. Dùng để chỉ re-render Component khi dependency thay đổi (giống `React.memo`), hoặc khi Function tạo value quá phức tạp (ex: Sort, fetch,...).  
+- Memoize **return value of the function**. Khi Component re-render, return value trong `useMemo` sẽ ko re-create lại &rarr; lấy **ref** value làm props ko bị re-render
+- Cũng dc dùng Function tạo value quá phức tạp (ex: Sort, fetch,...).
+
 It's also generally a good idea to memoize [Context](./state.mdx#Context) values because there might be dozens of pure components that consume this context. Without `useMemo`, all of these components would be forced to re-render if the `Context Provider` happens to re-render.
+
+[`useMemo` benchmark for complexity](https://i.imgur.com/GZdPjKP.png)
 
 :::note
 `useCallback(someFunction, deps)` are the same with `useMemo(() => someFunction, deps)`
@@ -220,7 +225,7 @@ It's also generally a good idea to memoize [Context](./state.mdx#Context) values
 
 ### `React.memo`
 
-Chỉ re-render component dc wrap bởi `React.memo` khi `props` của component thay đổi.  
+Chỉ re-render component dc wrap bởi `React.memo` khi `props` của component thay đổi (`useCallback`/`useMemo` can reduce the number of `props` change).  
 Wrap `React.memo` correctly at high level components &rarr; các component ở dưới cũng sẽ ko bị re-render.
 
 ```jsx

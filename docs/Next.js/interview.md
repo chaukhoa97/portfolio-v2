@@ -35,6 +35,7 @@ React Framework for Production.
 
 - Built-in Server-side Rendering support. We can even blend CSR with SSR.
 - File-based Routing.
+- Optimized image component. This is huge because images are the biggest performance bottleneck in most websites.
 - Have Fullstack Capabilities: We can add backend (server side) code into our Next.js app.
 
 ## Others
