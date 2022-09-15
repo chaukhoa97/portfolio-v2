@@ -16,7 +16,7 @@ Each generated HTML is associated with minimal JavaScript code necessary for tha
 
 ### Introduction
 
-> **SSG** is the pre-rendering method that generates the HTML at build time. The pre-rendered HTML is then reused on each request.
+> **SSG** generates the HTML at build time. The pre-rendered HTML is then reused on each request.
 
 **Usage**: Dùng cho những page có content ít/kbh thay đổi: FAQ, Policy,...
 
@@ -49,7 +49,7 @@ Although SSG generates 2 files (HTML and JSON), when prefetching, **only** the J
 
 ### Introduction
 
-> **ISG** allows you to create & update static pages sau khi after the _Build time_.
+> **ISG** allows you to create & update static pages after the _Build time_.
 
 **Usage**: Dùng cho những page có content dc update thường xuyên but it's not important for the user to see most up-to-date data: Blog, Product Detail, ...
 

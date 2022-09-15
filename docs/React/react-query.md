@@ -23,3 +23,10 @@ useQuery(['todos', { type, id }], () => fetch(type, id))
 
 - `status: 'loading'| 'error' | 'success'` answers **Do we have any `data` or not**?
 - `fetchStatus: 'fetching' | 'idle' | 'paused'` answers **Is `queryFn` running or not**?
+
+## `queryClient.invalidateQueries(['basic query', { type, id }])` vs `refetch()` in `useQuery`
+
+- `invalidate` will set the query to `stale` so it will refetch when the component mount.
+- `refetch` will always refetch even if the component is not mounted.
+
+Usually you don't have access to `refetch` because it is returned from `useQuery`.

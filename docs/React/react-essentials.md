@@ -28,7 +28,7 @@ Using Virtual DOM is NOT faster because it's actually an **addition** to the fin
 
 Although more recent frameworks have their way to reduce DOM operations without using Virtual DOM, in real-world applications, the Virtual Dom is usually fast enough. After a certain point, performance is no longer the main selling point of a library or framework, especially when the difference is only in microseconds.
 
-It also decouples rendering logic from the actual DOM - makes it straightforward to reuse it in non-browser environments, e.g. native mobile rendering in **React Native**, rendering to a string (**SSR**).
+Using Virtual DOM also opens up possibilities to decouple rendering logic from the actual DOM - makes it straightforward to reuse it in non-browser environments, e.g. native mobile rendering in **React Native**, rendering to a string (**SSR**).
 
 ### Recent frameworks compiler
 
