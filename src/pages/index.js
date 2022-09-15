@@ -11,6 +11,10 @@ import TailwindIcon from '../components/icons/TailwindIcon'
 import SupabaseIcon from '../components/icons/SupabaseIcon'
 
 export default function Home() {
+  const [isMounted, setIsMounted] = React.useState(false)
+  React.useEffect(() => {
+    setIsMounted(true)
+  }, [])
   return (
     <Layout title="My personal page" description="Finn Chau's personal page">
       <div className={s.homepage}>
@@ -32,10 +36,10 @@ export default function Home() {
           <h2 className={s.h2}>Things I specialize in</h2>
           <div className={s.icons}>
             <Link href="https://reactjs.org/" style={{ lineHeight: 0 }}>
-              <ReactIcon color="#61DAFB" />
+              <ReactIcon isMobile={isMounted && window.innerWidth < 1024} />
             </Link>
             <Link href="https://nextjs.org/" style={{ lineHeight: 0 }}>
-              <NextJsIcon color="#6b7280" />
+              <NextJsIcon />
             </Link>
             <Link
               href="https://www.typescriptlang.org/"
@@ -43,31 +47,39 @@ export default function Home() {
               rel="noreferrer"
               style={{ lineHeight: 0 }}
             >
-              <TypeScriptIcon color="#007acc" />
+              <TypeScriptIcon
+                isMobile={isMounted && window.innerWidth < 1024}
+              />
             </Link>
             <Link href="https://tailwindcss.com/" style={{ lineHeight: 0 }}>
-              <TailwindIcon color="#00d1b2" />
+              <TailwindIcon isMobile={isMounted && window.innerWidth < 1024} />
             </Link>
             <Link
               href="https://developer.mozilla.org/en-US/docs/Web/CSS"
               style={{ lineHeight: 0 }}
             >
-              <CSSIcon color="#1572B6" />
-              {/* <SupabaseIcon color="#3ECF8E" /> */}
+              <CSSIcon isMobile={isMounted && window.innerWidth < 1024} />
+              {/* <SupabaseIcon isMobile={isMounted && window.innerWidth < 1024} /> */}
             </Link>
             <Link
               href="https://tanstack.com/query/v4"
               style={{ lineHeight: 0 }}
             >
-              <ReactQueryIcon color="#FF4154" />
+              <ReactQueryIcon
+                isMobile={isMounted && window.innerWidth < 1024}
+              />
             </Link>
           </div>
           <div className={s.more}>
-            Connect with me via{' '}
+            Want to work with me? Connect with me via{' '}
             <Link href="https://www.linkedin.com/in/khoa-ch%C3%A2u-4701b5233/">
               LinkedIn
             </Link>{' '}
-            or have a look at my <Link href="">Resume</Link> for more details.
+            or have a look at my{' '}
+            <Link href="https://drive.google.com/file/d/1igui_PElYY8y6IJgyfSOPN4oYEDfg-wX/view?usp=sharing">
+              Resume
+            </Link>{' '}
+            for more details.
           </div>
         </div>
       </div>

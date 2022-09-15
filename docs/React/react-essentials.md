@@ -22,7 +22,7 @@ When there are [re-renders](../React/react-lifecycle.md#step-1-react-trigger-ren
 
 ### Cons
 
-Using Virtual DOM is NOT faster because it's actually an **addition** to the final operations on the real DOM. Also, _diffing_ is NOT free. It is only faster because it can reduce the number of DOM operations if we do the comparison in a more complex context when the real DOM doesn't have a way to optimize updates (e.g. batch updates, or list updates).
+Using Virtual DOM is NOT faster because it's actually an **addition** to the final operations on the real DOM (_diffing_ is NOT free). It is only faster because it can reduce the number of DOM operations if we do the comparison in a more complex context when the real DOM doesn't have a way to optimize updates (e.g. batch updates, or list updates).
 
 ### Why React still uses Virtual DOM
 
