@@ -33,8 +33,10 @@ React Framework for Production.
 
 #### Features
 
-- Built-in Server-side Rendering support. We can even blend CSR with SSR.
-- File-based Routing.
+Have many built-in features for a great production app.
+
+- Server-side Rendering support. We can even allowed to choose between CSR and SSR on every page in our app.
+- File-based Routing. Vercel is also working on a new Layout system to make it even more flexible.
 - Optimized image component. This is huge because images are the biggest performance bottleneck in most websites.
 - Have Fullstack Capabilities: We can add backend (server side) code into our Next.js app.
 
