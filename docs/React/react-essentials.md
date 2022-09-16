@@ -6,7 +6,7 @@ sidebar_position: 1
 ## Key
 
 Basically, keys in React are used to specify the position of the elements within their parent. It helps React infer what exactly happened, and make the correct updates to the DOM.  
-Keys are NOT globally unique. They only need to be unique among their siblings.
+Keys are NOT globally unique. They only need to be unique among their siblings. The most common use case of `key` is in a list of items. But it can also be useful in some case when you need to tell React not to preserve the state when the DOM tree structure match up with the previous one.
 
 1. **ID** của element từ dữ liệu.
 2. **Value** của element từ dữ liệu.
