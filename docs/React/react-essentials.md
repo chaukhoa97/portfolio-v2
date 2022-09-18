@@ -6,7 +6,7 @@ sidebar_position: 1
 ## Key
 
 Basically, keys in React are used to specify the position of the elements within their parent. It helps React infer what exactly happened, and make the correct updates to the DOM.  
-Keys are NOT globally unique. They only need to be unique among their siblings. The most common use case of `key` is in a list of items. But it can also be useful in some case when you need to tell React not to preserve the state when the DOM tree structure match up with the previous one.
+Keys are NOT globally unique. They only need to be unique among their siblings. The most common use case of `key` is in a list of items. But it can also be useful in some case when you need to tell React not to preserve the state of a component when the DOM tree structure match up with the previous one.
 
 1. **ID** của element từ dữ liệu.
 2. **Value** của element từ dữ liệu.
@@ -26,7 +26,7 @@ Using Virtual DOM is NOT faster because it's actually an **addition** to the fin
 
 ### Why React still uses Virtual DOM
 
-Although more recent frameworks have their way to reduce DOM operations without using Virtual DOM, in real-world applications, the Virtual Dom is usually fast enough. After a certain point, performance is no longer the main selling point of a library or framework, especially when the difference is only in microseconds.
+Although more recent frameworks have their way to reduce DOM operations without using Virtual DOM, in real-world applications, the Virtual Dom is usually fast enough. It's not easy to change a fundamental part of a complex library like React and after a certain point, performance is no longer the main selling point of a library or framework, especially when the difference is only in microseconds.
 
 Using Virtual DOM also opens up possibilities to decouple rendering logic from the actual DOM - makes it straightforward to reuse it in non-browser environments, e.g. native mobile rendering in **React Native**, rendering to a string (**SSR**).
 
@@ -38,6 +38,57 @@ It compiles your _declarative_ code into _efficient imperative_ code that works 
 ### Vue
 
 Vue still uses Virtual Dom partially but Evan You want to take the _template_ and compile it to something that's **NOT** Virtual Dom at all, similar to **SolidJS** or **Svelte**: Directly create a piece of HTML DOM, and generate code that _binds individual nodes to reactive expressions_ instead of walking the whole DOM to figure out which node should each reactive expression bind to.
+
+## Data Flow
+
+### Moving State down
+
+```jsx
+const Parent = () => {
+  const parentData = 'random data'
+  return <Children childProp1={parentData} />
+}
+```
+
+### Lifting State up
+
+> Passing down the **event handler** to the child allowed the child to change the parent’s state.
+
+Ở đây, ta đã move state `isActive` của 2 Child (`Panel`) lên Parent (`Accordion`) để có thể phối hợp 2 `Panel` với nhau (chỉ có 1 `Panel` được _active_ tại một thời điểm - thằng này mở thì thằng kia phải đóng).
+
+```jsx
+export default function Accordion() {
+  const [activeIndex, setActiveIndex] = useState(0)
+  return (
+    <>
+      <h2>Almaty, Kazakhstan</h2>
+      <Panel
+        title="About"
+        isActive={activeIndex === 0}
+        onShow={() => setActiveIndex(0)}
+      >
+        Bla bla
+      </Panel>
+      <Panel
+        title="Etymology"
+        isActive={activeIndex === 1}
+        onShow={() => setActiveIndex(1)}
+      >
+        Bla bla
+      </Panel>
+    </>
+  )
+}
+
+function Panel({ title, children, isActive, onShow }) {
+  return (
+    <section className="panel">
+      <h3>{title}</h3>
+      {isActive ? <p>{children}</p> : <button onClick={onShow}>Show</button>}
+    </section>
+  )
+}
+```
 
 ## Events
 

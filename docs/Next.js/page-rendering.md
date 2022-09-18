@@ -5,7 +5,7 @@ title: 'Page Rendering'
 ## Pre-rendering
 
 By default, Next.js pre-renders every page. It means when there's a request, Next.js will pre-render the HTML page with its static content, instead of letting client-side JS do all the work like CSR.  
-Each generated HTML is associated with minimal JavaScript code necessary for that page. When a page is loaded by the browser, its JavaScript code runs and makes the page fully interactive. (This process is called `hydration`).
+Each generated HTML is also associated with minimal JavaScript code to make the page fully interactive after it is loaded by the browser (This process is called `hydration`).
 
 [SSG](#static-site-generation), [ISR](#incremental-static-regeneration), [SSR](#server-side-rendering) are 3 ways Next.js pre-renders pages.
 

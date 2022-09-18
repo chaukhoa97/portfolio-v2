@@ -22,54 +22,61 @@ State is like a component’s memory. **It lets a component keep track of some i
 Context lets components pass information deep down without explicitly passing props.
 
 <Tabs>
-  <TabItem value="UIContext" label="components/ui/UIContext.ts" >
+  <TabItem value="cartContext" label="components/cart/cartContext.tsx" >
 
 ```ts
-import { createContext, useContext } from 'react'
+// Make sure the file extension is `.tsx`
+import React, { createContext, useContext, useState, useMemo } from 'react'
 
 export type Currency = 'USD' | 'VND'
 
-export interface UIContextProps {
+export interface CartContextProps {
   currency: Currency
   setCurrency: (currency: Currency) => void
 }
 
-const UIContext = createContext<UIContextProps>({
+export const CartContext = createContext<CartContextProps>({
   currency: 'USD',
   setCurrency: () => {},
 })
 
-export default UIContext
+export const CartProvider = ({ children }) => {
+  // To update context, you need to combine it with state
+  const [currency, setCurrency] = useState<Currency>('USD')
+  // (Optional) Components that consume the context may re-render when `CartProvider` re-render
+  const memoizedValue = useMemo(() => ({ currency, setCurrency }), [currency])
 
-// B1': Export Hook that returns Context value to use in component -> Clean code
-export const useUI = () => {
-  const { currency, setCurrency } = useContext(UIContext)
+  return (
+    <CartContext.Provider value={memoizedValue}>
+      {children}
+    </CartContext.Provider>
+  )
+}
+
+export const useCart = () => {
+  const { currency, setCurrency } = useContext(CartContext)
+  if (!currency) {
+    throw new Error('useCart must be used within a CartProvider')
+  }
   return { currency, setCurrency }
 }
 ```
 
   </TabItem>
-  <TabItem value="_app" label="_app.tsx">
+  <TabItem value="_app" label="_app.js">
 
 ```tsx
-import type { AppProps } from 'next/app'
-import { useState } from 'react'
-import Layout from '../components/Layout'
-import type { Currency } from '../components/ui/UIContext'
-import UIContext from '../components/ui/UIContext'
+import { CartProvider } from '../components/cart/cartContext'
+import Layout from '../components/layout'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  // To update context, you need to combine it with state.
-  const [currency, setCurrency] = useState<Currency>('USD')
-  const memoizedValue = useMemo(() => ({ currency, setCurrency }), [currency])
-
+function MyApp({ Component, pageProps }) {
   return (
-    // B2: Provide Context cho ~ part cần
-    <UIContext.Provider value={memoizedValue}>
+    // B2: Wrap Provider cho ~ part cần
+    <CartProvider>
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </UIContext.Provider>
+    </CartProvider>
   )
 }
 
@@ -80,19 +87,16 @@ export default MyApp
   <TabItem value="SomeComponent" label="SomeComponent.tsx">
 
 ```js
-import { useContext } from 'react'
-import UIContext, { useUI } from './NumberContext'
+import { useCart } from '../cart/cartContext'
 
 // B3: Use Context
-const { currency, setCurrency } = useContext(UIContext)
-// Hoặc
-const { currency, setCurrency } = useUI() // B1': Clean code, chỉ cần import `useUI` là đủ
+const { currency, setCurrency } = useCart()
 ```
 
   </TabItem>
 </Tabs>
 
-_Read more_: [Kết hợp giữa `useReducer` và `Context` để manage **wide** sate](https://beta.reactjs.org/learn/scaling-up-with-reducer-and-context)
+> **Read more**: [Kết hợp giữa `useReducer` và `Context` để manage **wide** sate](https://beta.reactjs.org/learn/scaling-up-with-reducer-and-context)
 
 ### Local mutation
 

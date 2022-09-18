@@ -217,7 +217,7 @@ If you’re writing a custom Hook, it’s recommended to wrap any functions that
 
 It's also generally a good idea to memoize [Context](./state.mdx#Context) values because there might be dozens of pure components that consume this context. Without `useMemo`, all of these components would be forced to re-render if the `Context Provider` happens to re-render.
 
-[`useMemo` benchmark for complexity](https://i.imgur.com/GZdPjKP.png)
+> **Read more**: `useMemo` benchmark [article](https://canimerge.com/should-you-really-use-usememo-in-react-lets-find-out/) & [result](https://i.imgur.com/GZdPjKP.png)
 
 :::note
 `useCallback(someFunction, deps)` are the same with `useMemo(() => someFunction, deps)`
@@ -270,7 +270,7 @@ export default React.memo(Children)
 Usage: Both are used to manage _Narrow State_. `useReducer` dùng cho ~ Narrow State mà có nhiều case.  
 Use [`useContext`](./state#context) or [Redux](./redux.md) for _Wide State_.
 
-_Read more_: [So sánh `useState` & `useReducer`](https://beta.reactjs.org/learn/extracting-state-logic-into-a-reducer#comparing-usestate-and-usereducer).
+> **Read more**: [So sánh `useState` & `useReducer`](https://beta.reactjs.org/learn/extracting-state-logic-into-a-reducer#comparing-usestate-and-usereducer).
 
 ### `useState`
 

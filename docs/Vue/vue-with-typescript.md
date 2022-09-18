@@ -1,5 +1,5 @@
 ---
-title: 'TypeScript'
+title: 'Vue with TypeScript'
 ---
 
 ## Default `props`

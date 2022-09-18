@@ -1,5 +1,5 @@
 ---
-title: 'TypeScript'
+title: 'React with TypeScript'
 ---
 
 ## Defaut `props`
@@ -41,4 +41,17 @@ Ko dc return gì về ngoại trừ `void` / `Destructor`
 // For example, `HTMLDivElement` is better than `HTMLElement` and way better than `Element`.
 const divRef = useRef<HTMLDivElement>(null)
 return <div ref={divRef}>etc</div>
+```
+
+## Enums with state
+
+```tsx
+enum Status {
+  Pending = 'Đang chờ',
+  Success = 'Thành công',
+}
+
+const [status, setStatus] = useState<Status>(Status.Pending)
+<button onClick={() => setStatus(Status.Success)}> Meo </button>
+<p>{status}</p> // Thành công
 ```
