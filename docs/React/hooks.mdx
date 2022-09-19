@@ -5,6 +5,164 @@ title: 'Hooks'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
+## `useEffect`
+
+### A component must be pure
+
+The component's _rendering code_ is where you take the props and state, transform them, and return the JSX you want to see on the screen. It must be **pure**, which means:
+
+- It should not change any variables that existed before rendering.
+- It should always return the same result when being given the same inputs, including props, state and context.
+
+### Side effects
+
+Anything that shouldn't happen during rendering, which means it can modify pre-existing variables or the component’s inputs is called **Side effect**. It can do more things rather than just calculate the JSX, e.g. (for example) it can modify a state to be different from the initial value, toggle dark mode on the website, query more products from the server,...  
+In React, side effects usually belong inside **event handlers**. They don’t need to be pure because even though they are defined inside your component, they **don’t** run in the rendering phase.
+
+### Effects
+
+**Effects** refers to the React-specific definition, i.e. (that is) _side effects_ caused by **rendering itself**, rather than **side effects** caused by a **particular event**, and therefore **can't** be handled by event handlers. For example, sending a message in the chat is an **Event** because it is directly caused by the user clicking a button. However, setting up a server connection is an **Effect** because it needs to happen regardless what makes the component to appear.  
+In React, effects are handled by `useEffect` hook.
+
+---
+
+**Effects** let you run some code **after rendering** to synchronize React components with **external systems** outside of React (like a network or a third-party library). For example, you might want to set up a server connection, send an analytics log when a component appears on the screen, or control an external component based on a React state.
+
+### Syntax
+
+<Tabs>
+  <TabItem value="Connect" label="Connect" >
+
+```jsx
+function App({ id }) {
+  const [user, setUser] = useState()
+
+  useEffect(() => {
+    const connect = async () => {
+      const result = await fetch(`https://users.com/[${id}]`)
+      setUser(result)
+    }
+    connect()
+    return () => {
+      disconnect()
+    }
+  }, [id])
+
+  return <div>{user}</div>
+}
+```
+
+  </TabItem>
+  <TabItem value="setTimeout" label="setTimeout" >
+
+```jsx
+function useDelayedValue(value, delay) {
+  const [delayedValue, setDelayedValue] = useState(value)
+
+  // useEffect, setTimeout, setInterval đều có 1st param là callback
+  useEffect(() => {
+    setTimeout(() => {
+      setDelayedValue(value)
+    }, delay)
+  }, [value, delay])
+
+  return delayedValue
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### How it runs from the Effect’s perspective
+
+The _Effect_ start `connecting` (until it `disconnect` when the `id` change), and then `connects` to another `id`...  
+Finally when the `App` unmount, the _Effect_ `disconnect`.
+
+### How it runs from the component’s perspective
+
+- **Mounting**: Render &rarr; Commit &rarr; `useEffectCode`
+- **Updating**: Render &rarr; Commit &rarr; `useEffectCode` &rarr; `cleanUp`.
+- **Unmounting**: `cleanUp`
+
+:::note
+
+_Mount/Unmount_ means Adding/Removing nodes to the DOM.  
+Ko cần cleanup (Chạy rồi thì k cần quan tâm nữa): Gọi API, Tương tác DOM.  
+Cần cleanup: `setTimeout`/`setInterval`, connection to a server/database
+
+:::
+
+### You might not need an Effect to transform data for rendering or handle user events
+
+- [If you can calculate something during render, you don’t need an Effect.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#updating-state-based-on-props-or-state)
+- [To cache expensive calculations, add `useMemo` instead of `useEffect`.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#caching-expensive-calculations)
+- [To reset the state of an entire component tree, pass a different `key` to it.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#resetting-all-state-when-a-prop-changes)
+- [To reset a particular bit of state in response to a prop change, set it during rendering.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes)
+- [Code that needs to run because a component was _displayed_ should be in Effects, the rest should be in events.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#sharing-logic-between-event-handlers)
+- [If you need to update the state of several components, it’s better to do it during a single event.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#sending-a-post-request)
+- [Whenever you try to synchronize state variables in different components, consider lifting state up.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#passing-data-to-the-parent)
+- [You can fetch data with Effects, but you need to implement cleanup to avoid race conditions.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#subscribing-to-an-external-store)
+
+## Optimize
+
+### `useCallback`
+
+Memoize **function**. Khi Component re-render, function trong `useCallback` sẽ ko re-create lại &rarr; lấy function làm props ko bị re-render.  
+If you’re writing a custom Hook, it’s recommended to wrap any functions that it returns into `useCallback`
+
+### `useMemo`
+
+- Memoize **return value of the function**. Khi Component re-render, return value trong `useMemo` sẽ ko re-create lại &rarr; lấy **ref** value làm props ko bị re-render
+- Cũng dc dùng Function tạo value quá phức tạp (ex: Sort, fetch,...).
+
+It's also generally a good idea to memoize [Context](./state.mdx#Context) values because there might be dozens of pure components that consume this context. Without `useMemo`, all of these components would be forced to re-render if the `Context Provider` happens to re-render.
+
+> **Read more**: `useMemo` benchmark [article](https://canimerge.com/should-you-really-use-usememo-in-react-lets-find-out/) & [result](https://i.imgur.com/GZdPjKP.png)
+
+:::note
+`useCallback(someFunction, deps)` are the same with `useMemo(() => someFunction, deps)`
+:::
+
+### `React.memo`
+
+Chỉ re-render component dc wrap bởi `React.memo` khi `props` của component thay đổi (`useCallback`/`useMemo` can reduce the number of `props` change).  
+Wrap `React.memo` correctly at high level components &rarr; các component ở dưới cũng sẽ ko bị re-render.
+
+```jsx
+const Parent = () => {
+  const someFunction = () => 'Some value'
+  //1. Parent re-render, cachedFn do có useCallback ko bị create lại.
+  const cachedFn = useCallback(someFunction, [])
+  //2. prop của Children là cachedFn ko bị create lại...
+  return <Children expensiveFn={cachedFn} />
+}
+export default Parent
+```
+
+```jsx
+const Children = ({ todos, text }) => {
+  const options = { searchParam: text }
+  const uncachedTodos = filterTodos(todos, options) // Create lại mỗi lần Children re-render
+
+  const cachedTodos = useMemo(() => {
+    // `options` là ref nhưng bọc trong `useMemo` thì vẫn ok, `cachedTodos` ko bị create lại
+    const options = { searchParam: text }
+    return filterTodos(todos, options)
+  }, [todos, text])
+
+  return (
+    <>
+      {/* `uncachedTodos` là ref value -> `value` prop của Kid1 thay đổi mỗi khi Children re-render */}
+      <Kid1 value={uncachedTodos} />
+      {/* Chỉ khi `cachedTodos` thay đổi (khi `todos` và `text` thay đổi) thì `value` prop của Kid2 mới đổi */}
+      <Kid2 value={cachedTodos} />
+    </>
+  )
+}
+//3. Children sẽ KO re-render khi Parent re-render do prop (ở đây là cachedFn) ko đổi
+export default React.memo(Children)
+```
+
 ## `useRef`
 
 ### Usage
@@ -103,163 +261,6 @@ const selectedRef = useRef(null)
     />
   ))
 }
-```
-
-## `useEffect`
-
-### Pure components vs "Effects" vs "Side effects"
-
-A **pure component** means:
-
-- It should not change any variables that existed before rendering.
-- It should always return the same result when being given the same inputs (props, state, context).
-
-**Side effects** are things that can modify pre-existing variables and the component’s inputs, e.g. modify a state to be different from the initial value, toggle dark mode, query more products from the server,...
-
-**Effects** refers to side effects caused by **rendering itself**, rather than **side effects** caused by a **particular event**, and therefore **can't** be handled by event handlers.  
-For example, sending a message in the chat is an **Event** because it is directly caused by the user clicking a button. However, setting up a server connection is an **Effect** because it needs to happen regardless what makes the component to appear.
-
-> **"Effect"** refers to the React-specific definition, i.e. a _side effect_ caused by rendering. To refer to the broader programming concept, we’ll say **"side effect"**.
-
-### 3 types of logic inside React components
-
-- **Rendering code** is where you take the props and state, transform them, and return the JSX you want to see on the screen. Rendering code must be pure. Like a math formula, it should only calculate the result, but not do anything else.
-- **Event handlers** handles _Side effects_: It can do more things rather than just calculate the JSX. Even though _event handlers_ are defined inside your component, they **don’t run** during rendering! So _event handlers_ (e.g. button click) don’t need to be _pure_.
-- `useEffect` handles _Effects_: It let you run some code **after rendering** to synchronize React components with **external systems** outside of React (like a network or a third-party library). For example, you might want to set up a server connection, send an analytics log when a component appears on the screen, or control an external component based on a React state.
-
-### Syntax
-
-<Tabs>
-  <TabItem value="Connect" label="Connect" >
-
-```jsx
-function App({ id }) {
-  const [user, setUser] = useState()
-
-  useEffect(() => {
-    const connect = async () => {
-      const result = await fetch(`https://users.com/[${id}]`)
-      setUser(result)
-    }
-    connect()
-    return () => {
-      disconnect()
-    }
-  }, [id])
-
-  return <div>{user}</div>
-}
-```
-
-  </TabItem>
-  <TabItem value="setTimeout" label="setTimeout" >
-
-```jsx
-function useDelayedValue(value, delay) {
-  const [delayedValue, setDelayedValue] = useState(value)
-
-  // useEffect, setTimeout, setInterval đều có 1st param là callback
-  useEffect(() => {
-    setTimeout(() => {
-      setDelayedValue(value)
-    }, delay)
-  }, [value, delay])
-
-  return delayedValue
-}
-```
-
-  </TabItem>
-</Tabs>
-
-### How it runs from the Effect’s perspective
-
-The _Effect_ start `connecting` (until it `disconnect` when the `id` change), and then `connects` to another `id`...  
-Finally when the `App` unmount, the _Effect_ `disconnect`.
-
-### How it runs from the component’s perspective
-
-- **Mounting**: Render &rarr; Commit &rarr; `useEffectCode`
-- **Updating**: Render &rarr; Commit &rarr; `cleanUp` &rarr; `useEffectCode`
-- **Unmounting**: `cleanUp`
-
-:::note
-
-_Mount/Unmount_ means Adding/Removing nodes to the DOM.  
-Ko cần cleanup (Chạy rồi thì k cần quan tâm nữa): Gọi API, Tương tác DOM.  
-Cần cleanup: `setTimeout`/`setInterval`, connection to a server/database
-
-:::
-
-### You might not need an Effect to transform data for rendering or handle user events
-
-- [If you can calculate something during render, you don’t need an Effect.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#updating-state-based-on-props-or-state)
-- [To cache expensive calculations, add `useMemo` instead of `useEffect`.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#caching-expensive-calculations)
-- [To reset the state of an entire component tree, pass a different `key` to it.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#resetting-all-state-when-a-prop-changes)
-- [To reset a particular bit of state in response to a prop change, set it during rendering.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes)
-- [Code that needs to run because a component was _displayed_ should be in Effects, the rest should be in events.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#sharing-logic-between-event-handlers)
-- [If you need to update the state of several components, it’s better to do it during a single event.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#sending-a-post-request)
-- [Whenever you try to synchronize state variables in different components, consider lifting state up.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#passing-data-to-the-parent)
-- [You can fetch data with Effects, but you need to implement cleanup to avoid race conditions.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#subscribing-to-an-external-store)
-
-## Optimize
-
-### `useCallback`
-
-Memoize **function**. Khi Component re-render, function trong `useCallback` sẽ ko re-create lại &rarr; lấy function làm props ko bị re-render.  
-If you’re writing a custom Hook, it’s recommended to wrap any functions that it returns into `useCallback`
-
-### `useMemo`
-
-- Memoize **return value of the function**. Khi Component re-render, return value trong `useMemo` sẽ ko re-create lại &rarr; lấy **ref** value làm props ko bị re-render
-- Cũng dc dùng Function tạo value quá phức tạp (ex: Sort, fetch,...).
-
-It's also generally a good idea to memoize [Context](./state.mdx#Context) values because there might be dozens of pure components that consume this context. Without `useMemo`, all of these components would be forced to re-render if the `Context Provider` happens to re-render.
-
-> **Read more**: `useMemo` benchmark [article](https://canimerge.com/should-you-really-use-usememo-in-react-lets-find-out/) & [result](https://i.imgur.com/GZdPjKP.png)
-
-:::note
-`useCallback(someFunction, deps)` are the same with `useMemo(() => someFunction, deps)`
-:::
-
-### `React.memo`
-
-Chỉ re-render component dc wrap bởi `React.memo` khi `props` của component thay đổi (`useCallback`/`useMemo` can reduce the number of `props` change).  
-Wrap `React.memo` correctly at high level components &rarr; các component ở dưới cũng sẽ ko bị re-render.
-
-```jsx
-const Parent = () => {
-  const someFunction = () => 'Some value'
-  //1. Parent re-render, cachedFn do có useCallback ko bị create lại.
-  const cachedFn = useCallback(someFunction, [])
-  //2. prop của Children là cachedFn ko bị create lại...
-  return <Children expensiveFn={cachedFn} />
-}
-export default Parent
-```
-
-```jsx
-const Children = ({ todos, text }) => {
-  const options = { searchParam: text }
-  const uncachedTodos = filterTodos(todos, options) // Create lại mỗi lần Children re-render
-
-  const cachedTodos = useMemo(() => {
-    // `options` là ref nhưng bọc trong `useMemo` thì vẫn ok, `cachedTodos` ko bị create lại
-    const options = { searchParam: text }
-    return filterTodos(todos, options)
-  }, [todos, text])
-
-  return (
-    <>
-      {/* `uncachedTodos` là ref value -> `value` prop của Kid1 thay đổi mỗi khi Children re-render */}
-      <Kid1 value={uncachedTodos} />
-      {/* Chỉ khi `cachedTodos` thay đổi (khi `todos` và `text` thay đổi) thì `value` prop của Kid2 mới đổi */}
-      <Kid2 value={cachedTodos} />
-    </>
-  )
-}
-//3. Children sẽ KO re-render khi Parent re-render do prop (ở đây là cachedFn) ko đổi
-export default React.memo(Children)
 ```
 
 ## `useState` & `useReducer`

@@ -13,18 +13,11 @@ React triggers a Component rendering when:
 - **State** (including state consumed by custom hook), **Props**, **Context** consumed by your Component changes.
 - Parent của Component re-render (trừ khi Component dc wrap bởi `React.memo`). [If passed as `prop` instead of directly passed to Component, React will NOT re-render Component when Parent re-render](#lift-ur-component-up-and-pass-it-down-as-a-prop).
 
-“Rendering” is React **calling your Component function**. It uses a concept called [_Virtual DOM_](./react-essentials.md#virtual-dom), compute the diffs between what's _currently on the page_ vs what _should be on the page_, calculate the minimal necessary DOM operations to make the DOM match the latest rendering output, and wait for the next step, the _commit phase_.
+“Rendering” means React **calling your Component function**. It uses a concept called [_Virtual DOM_](./react-essentials.md#virtual-dom) to compute the diffs between what's _currently on the page_ vs what _should be on the page_, then calculate the minimal necessary DOM operations to make the DOM match the latest rendering output, and wait for the next step, the _commit phase_.
 
-:::caution
-After React renders your component, it will run your [Effects](./hooks.mdx#usage-1) because this is a good time to synchronize the React components with external systems.  
-If your Effect _also_ immediately updates the state, this restarts the whole process from scratch!
-:::
+<details>
 
-:::caution
-
-You must not declare nested components in your Component function because they can be redefined when Parent re-render
-
-:::
+<summary>You must not declare nested components in your Component function because they can be redefined when Parent re-render</summary>
 
 ```jsx
 // ✅ Tách Child ra ngoài
@@ -50,12 +43,19 @@ const Parent = () => {
 }
 ```
 
+</details>
+
 ### Step 2: Commit phase
 
 After rendering (calling) your components, React will applies changes the DOM.
 
 - For the initial render, React will use the [`appendChild()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) DOM API to put all the DOM nodes it has created on screen.
-- For re-renders, React will apply the minimal necessary operations (calculated while rendering at the above step) to make the DOM match the latest rendering output, which means React only changes the DOM if there’s a difference between renders.
+- For re-renders, React will apply the minimal necessary DOM operations that have just been calculated at the rendering phase, which means React only changes the DOM if there’s a difference between renders.
+
+:::caution
+After commit phase, it will run your [Effects](./hooks.mdx#usage-1) because this is a good time to synchronize your React components with external systems.  
+If your Effect _also_ immediately updates the state, this restarts the whole process from scratch, and in some case can cause an infinite loop.
+:::
 
 ### Epilogue: Browser paint
 
@@ -127,7 +127,7 @@ useEffect(() => {
 ### Lift ur component up and pass it down as a prop
 
 1. `ChildA` gets compiled to `React.createElement(ChildA, null)` by Babel that creates a `ReactElement` of this shape `{ type: Child, props: {} }`. `props` là ref value &rarr; `ChildA` luôn bị re-render khi `Parent` re-render.
-2. `ChildB` & `ChildC` all passed as prop of `Parent` &rarr; no `React.createElement` is called for `ChildB` & `ChildC` (Có thể hiểu `prop` chỉ reference tới `ChildB` & `ChildC` chứ ko [call Component function](#step-1-react-trigger-render-initial-hoặc-re-render-component) của 2 thằng này).
+2. `ChildB` & `ChildC` all passed as prop of `Parent` &rarr; no `React.createElement` is called for `ChildB` & `ChildC` (Có thể hiểu `prop` chỉ reference tới `ChildB` & `ChildC` chứ ko call Component function của 2 thằng này).
 
 ```jsx
 default function App() {
