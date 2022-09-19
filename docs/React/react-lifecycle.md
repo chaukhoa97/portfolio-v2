@@ -6,14 +6,19 @@ title: 'React Lifecycle'
 
 ## Steps
 
-### Step 1: React trigger render (`initial` hoặc `re-render`) Component
+### Step 1: Render phase
 
 React triggers a Component rendering when:
 
-- **State**, **Props**, **Context Value** & **Custom Hook State** consumed by your Component changes.
+- **State** (including state consumed by custom hook), **Props**, **Context** consumed by your Component changes.
 - Parent của Component re-render (trừ khi Component dc wrap bởi `React.memo`). [If passed as `prop` instead of directly passed to Component, React will NOT re-render Component when Parent re-render](#lift-ur-component-up-and-pass-it-down-as-a-prop).
 
-During render, React _calls your **Component function**_ to figure out what should be on the screen. It uses a concept called [_Virtual DOM_](./react-essentials.md#virtual-dom)...
+“Rendering” is React **calling your Component function**. It uses a concept called [_Virtual DOM_](./react-essentials.md#virtual-dom), compute the diffs between what's _currently on the page_ vs what _should be on the page_, calculate the minimal necessary DOM operations to make the DOM match the latest rendering output, and wait for the next step, the _commit phase_.
+
+:::caution
+After React renders your component, it will run your [Effects](./hooks.mdx#usage-1) because this is a good time to synchronize the React components with external systems.  
+If your Effect _also_ immediately updates the state, this restarts the whole process from scratch!
+:::
 
 :::caution
 
@@ -45,17 +50,12 @@ const Parent = () => {
 }
 ```
 
-### Step 2: React commits changes to the DOM
+### Step 2: Commit phase
 
 After rendering (calling) your components, React will applies changes the DOM.
 
 - For the initial render, React will use the [`appendChild()`](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild) DOM API to put all the DOM nodes it has created on screen.
-- For re-renders, React will apply the minimal necessary operations (calculated while rendering!) to make the DOM match the latest rendering output, which means React only changes the DOM nodes if there’s a difference between renders.
-
-:::caution
-After React commits changes to the DOM, it will run your [Effects](./hooks#how-it-runs) because this is a good time to synchronize the React components with external systems.  
-If your Effect _also_ immediately updates the state, this restarts the whole process from scratch!
-:::
+- For re-renders, React will apply the minimal necessary operations (calculated while rendering at the above step) to make the DOM match the latest rendering output, which means React only changes the DOM if there’s a difference between renders.
 
 ### Epilogue: Browser paint
 

@@ -107,26 +107,25 @@ const selectedRef = useRef(null)
 
 ## `useEffect`
 
-### Usage
+### Pure components vs "Effects" vs "Side effects"
 
-_Effects_ let you run some code **after rendering** to synchronize React components with **external systems** outside of React (like a network or a third-party library). For example, you might want to set up a server connection, send an analytics log when a component appears on the screen, or control an external component based on a React state.
+A **pure component** means:
 
-### "Effect" vs "Side effect"
+- It should not change any variables that existed before rendering.
+- It should always return the same result when being given the same inputs (props, state, context).
 
-:::info
+**Side effects** are things that can modify pre-existing variables and the component’s inputs, e.g. modify a state to be different from the initial value, toggle dark mode, query more products from the server,...
 
-“Effect” refers to the React-specific definition above, i.e. a side effect caused by rendering. To refer to the broader programming concept, we’ll say “side effect”.
+**Effects** refers to side effects caused by **rendering itself**, rather than **side effects** caused by a **particular event**, and therefore **can't** be handled by event handlers.  
+For example, sending a message in the chat is an **Event** because it is directly caused by the user clicking a button. However, setting up a server connection is an **Effect** because it needs to happen regardless what makes the component to appear.
 
-:::
-There are 2 types of logic inside React components:
+> **"Effect"** refers to the React-specific definition, i.e. a _side effect_ caused by rendering. To refer to the broader programming concept, we’ll say **"side effect"**.
 
-- Rendering code MUST be pure. This is where you take the props and state, transform them, and return the JSX.
-- Event handlers can contain "side effects" (they change the program's state) that are caused by a specific user action (Ex: button click).
+### 3 types of logic inside React components
 
-### "Effect" vs "Event"
-
-"Effects" refers to side effects caused by _rendering itself_, rather than by a _particular event_, and therefore **can't** be handled by event handlers.  
-For example, sending a message in the chat is an _Event_ because it is directly caused by the user clicking a button. However, setting up a server connection is an _Effect_ because it needs to happen regardless what makes the component to appear.
+- **Rendering code** is where you take the props and state, transform them, and return the JSX you want to see on the screen. Rendering code must be pure. Like a math formula, it should only calculate the result, but not do anything else.
+- **Event handlers** handles _Side effects_: It can do more things rather than just calculate the JSX. Even though _event handlers_ are defined inside your component, they **don’t run** during rendering! So _event handlers_ (e.g. button click) don’t need to be _pure_.
+- `useEffect` handles _Effects_: It let you run some code **after rendering** to synchronize React components with **external systems** outside of React (like a network or a third-party library). For example, you might want to set up a server connection, send an analytics log when a component appears on the screen, or control an external component based on a React state.
 
 ### Syntax
 
