@@ -16,6 +16,7 @@ Introduction and functionalities &rarr; Fundamental concepts and features.
 ### Tools
 
 - **Docker**: A plaform used to deliver software in packages called _contianers_.
+- **Lighthouse**: Automated tool for providing needed information to improve your website quality and speed. But its performance scores are not always an accurate reflection of true user experience. Sometimes the true experience when using the application is more reliable than the stats shown by any automated tool.
 - **Webpack**: A module bundler for modern JavaScript applications &rarr; Vite.
 - **Babel**: A JS transcompiler that is mainly used to convert ECMAScript 2015+ code into a backwards compatible version of JS that can be run by older browsers.
 

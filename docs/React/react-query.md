@@ -35,6 +35,14 @@ Stale queries are refetched automatically in the background when:
 
 Most of the time you only need to adjust `staleTime`. The `cacheTime` default (5 mins) is ok.
 
+## Cache levl & Observer level
+
+- **Cache level**: For each Query Key, there is only one cache entry, some options we provide to `useQuery` will affect that cache entry like `staleTime`
+- **Observer level**: For each Query Key, there can be multiple observers. The basic way to create an observer is to call `useQuery`. Every time we do that, we create an observer, and our component will re-render when data changes. This of course means we can have multiple observers watching the same cache entry. Some options that work on observer level would be `select` or `keepPreviousData`. In fact, what's makes `select` so great for data transformations is the ability to watch the same cache entry, but subscribe to different slices of its data in different components.
+
+  Example how many observers a query has (3 in this example):
+  ![Observer example](https://d33wubrfki0l68.cloudfront.net/923bb92064234bd61bdb46e651fc769ddac738fe/f2711/blog/static/986ddce4accc50a039147674f2ece7c1/9bf66/observers.png)
+
 ## `invalidate` vs `refetch`
 
 - `queryClient.invalidateQueries(['posts'])` will set the query to `stale` so it will refetch when the component mount.

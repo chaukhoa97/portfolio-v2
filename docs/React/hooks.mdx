@@ -16,7 +16,7 @@ The component's _rendering code_ is where you take the props and state, transfor
 
 ### Side effects
 
-Anything that shouldn't happen during rendering, which means it can modify pre-existing variables or the component’s inputs is called **Side effect**. It can do more things rather than just calculate the JSX, e.g. (for example) it can modify a state to be different from the initial value, toggle dark mode on the website, query more products from the server,...  
+Anything that shouldn't happen during rendering, which means it can modify pre-existing variables or the component’s inputs is called **Side effect**. It can do more things rather than just calculate the JSX, e.g. (for example) it can modify a state value other than the initial value, toggle dark mode on the website, query more products from the server,...  
 In React, side effects usually belong inside **event handlers**. They don’t need to be pure because even though they are defined inside your component, they **don’t** run in the rendering phase.
 
 ### Effects
@@ -107,13 +107,12 @@ Cần cleanup: `setTimeout`/`setInterval`, connection to a server/database
 
 ### `useCallback`
 
-Memoize **function**. Khi Component re-render, function trong `useCallback` sẽ ko re-create lại &rarr; lấy function làm props ko bị re-render.  
+Memoize **function**: When the component re-render, the reference to the function in `useCallback` will be retained &rarr; Components that take the function as `props` won't re-render pointlessly.  
 If you’re writing a custom Hook, it’s recommended to wrap any functions that it returns into `useCallback`
 
 ### `useMemo`
 
-- Memoize **return value of the function**. Khi Component re-render, return value trong `useMemo` sẽ ko re-create lại &rarr; lấy **ref** value làm props ko bị re-render
-- Cũng dc dùng Function tạo value quá phức tạp (ex: Sort, fetch,...).
+Memoize **return value of a function**: When the component re-render, the reference to the return value in `useMemo` callback will be retained &rarr; Components that take the return value as `props` won't re-render pointlessly. Or when the function that creates the value is too complex (ex: Sort, fetch,...).
 
 It's also generally a good idea to memoize [Context](./state.mdx#Context) values because there might be dozens of pure components that consume this context. Without `useMemo`, all of these components would be forced to re-render if the `Context Provider` happens to re-render.
 
