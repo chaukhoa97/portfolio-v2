@@ -24,6 +24,17 @@ useQuery(['todos', { type, id }], () => fetch(type, id))
 - `status: 'loading'| 'error' | 'success'`: **Do we have any `data` or not**?
 - `fetchStatus: 'fetching' | 'idle' | 'paused'`: **Is `queryFn` running or not**?
 
+## Stale queries
+
+Stale queries are refetched automatically in the background when:
+
+- New instances of the query mount.
+- The window is refocused.
+- The network is reconnected.
+- The query is optionally configured with a refetch interval.
+
+Most of the time you only need to adjust `staleTime`. The `cacheTime` default (5 mins) is ok.
+
 ## `invalidate` vs `refetch`
 
 - `queryClient.invalidateQueries(['posts'])` will set the query to `stale` so it will refetch when the component mount.
