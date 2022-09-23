@@ -101,6 +101,7 @@ for (const i in arr) {
 }
 for (const i in obj) {
   console.log(i) // a, b, c
+  console.log(obj[i]) // 1, 2, 3
 }
 console.log(0 in arr) // true
 console.log('a' in arr) // false (you must specify the index number, not the value at that index)
@@ -111,7 +112,7 @@ for (const i of arr) {
   console.log(i) // 'a', 'b', 'c'
 }
 for (const i of obj) {
-  console.log(i) // ERROR
+  console.log(i) // TypeError: obj is not iterable
 }
 ```
 
@@ -119,9 +120,9 @@ for (const i of obj) {
 
 |       |      Scope      |  Hoisting + Init value  | Re-declare | Update |
 | :---: | :-------------: | :---------------------: | :--------: | :----: |
-|  Var  | Global/Function |     ✅ (undefined)      |     ✅     |   ✅   |
-|  Let  |      Block      | ✅(must be initialized) |     ❌     |   ❌   |
-| Const |      Block      |   ✅(not initialized)   |     ❌     |   ✅   |
+|  Var  | Global/Function |    ✅ (`undefined`)     |     ✅     |   ✅   |
+|  Let  |      Block      |   ✅(not initialized)   |     ❌     |   ✅   |
+| Const |      Block      | ✅(MUST be initialized) |     ❌     |   ❌   |
 
 Example:
 
