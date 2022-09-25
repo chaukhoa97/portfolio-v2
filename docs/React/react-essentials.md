@@ -1,5 +1,5 @@
 ---
-title: 'Essentials'
+title: 'React Essentials'
 sidebar_position: 1
 ---
 
@@ -52,7 +52,7 @@ const Parent = () => {
 
 ### Lifting State up
 
-> Passing down the **event handler** to the child allowed the child to change the parent’s state.
+> Passing down the **event handler** allows the child to change the parent’s state.
 
 Ở đây, ta đã move state `isActive` của 2 Child (`Panel`) lên Parent (`Accordion`) để có thể phối hợp 2 `Panel` với nhau (chỉ có 1 `Panel` được _active_ tại một thời điểm - thằng này mở thì thằng kia phải đóng).
 

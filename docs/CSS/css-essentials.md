@@ -1,5 +1,5 @@
 ---
-title: 'Essentials'
+title: 'CSS Essentials'
 sidebar_position: 1
 ---
 

@@ -16,7 +16,7 @@ The component's _rendering code_ is where you take the props and state, transfor
 
 ### Side effects
 
-Anything that shouldn't happen during rendering, which means it can modify pre-existing variables or the component’s inputs is called **Side effect**. It can do more things rather than just calculate the JSX, e.g. (for example) it can modify a state value other than the initial value, toggle dark mode on the website, query more products from the server,...  
+Anything that shouldn't happen during rendering, which means it can modify its own appearance or pre-existing variables is called **Side effect**. It can do more things rather than just calculate the JSX, e.g. (for example) it can modify a state value other than the initial value, toggle dark mode on the website, query more products from the server,...  
 In React, side effects usually belong inside **event handlers**. They don’t need to be pure because even though they are defined inside your component, they **don’t** run in the rendering phase.
 
 ### Effects
@@ -170,17 +170,7 @@ You should only use them when you have to “step outside React"
 
 - Communicate with external APIs - often a browser API that won’t impact the appearance of the component (`focus`, `scrollIntoView`) &rarr; Storing and manipulating DOM elements.
 
-- Storing and persisting other values that only needed by event handlers and changing it doesn’t require a re-render (it's NOT necessary for calculating the JSX), e.g. `timeoutId`, user input.  
-  _Example về Debounce button sử dụng `ref`:_
-
-  ```jsx
-  const timeoutRef = useRef(null);
-
-  <button onClick={() => {
-    clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => {}, 1000);
-  }}>
-  ```
+- Storing and persisting other values that only needed by event handlers and changing it doesn’t require a re-render (it's NOT necessary for calculating the JSX), e.g. `timeoutId`, user input.
 
 ### Do not write or read `ref.current` during rendering
 
@@ -241,6 +231,17 @@ const [term, setTerm] = useState('')
 const termRef = useRef()
 // ...termRef.current bây h chính là <input> trên DOM -> Có thể gọi hàm ví dụ như termRef.current.focus()
 <input ref={termRef} type="text" />
+```
+
+### Snippet: Debounce button
+
+```jsx
+const timeoutRef = useRef(null);
+
+<button onClick={() => {
+  clearTimeout(timeoutRef.current);
+  timeoutRef.current = setTimeout(() => {}, 1000);
+}}>
 ```
 
 ### Snippet: One `ref` for a list of elements
