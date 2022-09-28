@@ -217,22 +217,6 @@ Vì vậy, value used for rendering thì dùng `useState`. Còn những thứ on
 
 :::
 
-### Snippet: Controlled vs Uncontrolled Component with `useRef`
-
-```jsx title='Controlled.jsx'
-// State của <input> do React quản lý
-const [term, setTerm] = useState('')
-// Gõ phím -> `term` dc update -> Value của <input> update theo
-<input value={term} onChange={(e) => setTerm(e.target.value)} />
-```
-
-```jsx title='Uncontrolled.jsx'
-// State của input là internal state, mình chỉ lấy value về bằng ref...
-const termRef = useRef()
-// ...termRef.current bây h chính là <input> trên DOM -> Có thể gọi hàm ví dụ như termRef.current.focus()
-<input ref={termRef} type="text" />
-```
-
 ### Snippet: Debounce button
 
 ```jsx

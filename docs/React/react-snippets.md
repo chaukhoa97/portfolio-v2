@@ -1,5 +1,5 @@
 ---
-title: 'Snippets'
+title: 'React Snippets'
 ---
 
 ### Hydration Error React 18 + Next.js

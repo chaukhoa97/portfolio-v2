@@ -35,7 +35,7 @@ Using Virtual DOM also opens up possibilities to decouple rendering logic from t
 React, Vue, Angular ship JS code to the browser to make ur code work at the runtime. More recent frameworks have their own **compiler** that knows at _Build time_ how things could change in your app, rather than waiting to do the work at _Runtime_.  
 It compiles your _declarative_ code into _efficient imperative_ code that works with **native browser APIs**, so the Virtual Dom can do less work &rarr; High performance and small package.
 
-### Vue
+### Virtual DOM in Vue
 
 Vue still uses Virtual Dom partially but Evan You want to take the _template_ and compile it to something that's **NOT** Virtual Dom at all, similar to **SolidJS** or **Svelte**: Directly create a piece of HTML DOM, and generate code that _binds individual nodes to reactive expressions_ instead of walking the whole DOM to figure out which node should each reactive expression bind to.
 
@@ -86,6 +86,54 @@ function Panel({ title, children, isActive, onShow }) {
       <h3>{title}</h3>
       {isActive ? <p>{children}</p> : <button onClick={onShow}>Show</button>}
     </section>
+  )
+}
+```
+
+## Controlled vs Uncontrolled Component
+
+```jsx title='Controlled.jsx'
+// State của <form> do React quản lý
+export default function Form() {
+  const [formData, setFormData] = useState({
+    name: '',
+    message: '',
+  })
+  const handleChange = (e) => {
+    // onChange -> `formData` dc update -> Value của <form> update theo
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(formData)
+  }
+  return (
+    <form onSubmit={handleSubmit} onChange={handleChange} value={formData}>
+      <input name="name" />
+      <textarea name="message" />
+      <button>Submit</button> {/* Or <input type='submit' /> */}
+    </form>
+  )
+}
+```
+
+```jsx title='Uncontrolled.jsx'
+// State của <form> là internal state
+export default function Form() {
+  // `formRef.current` is binded to the <form> -> Có thể gọi hàm ví dụ như `formRef.current.focus()`
+  const formRef = useRef()
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const { name, message } = e.target.elements // Các child của <form>, ở đây là <input> & <textarea>
+    console.log(name.value, message.value)
+  }
+
+  return (
+    <form ref={formRef}>
+      <input name="name" />
+      <textarea name="message" />
+      <button>Submit</button> {/* Or <input type='submit' /> */}
+    </form>
   )
 }
 ```

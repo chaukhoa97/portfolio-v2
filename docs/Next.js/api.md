@@ -17,7 +17,13 @@ export default function Document() {
   return (
     // Thêm vào `data-theme`
     <Html data-theme="dracula">
-      <Head />
+      <Head>
+        {/* Optimized font */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter&display=optional"
+          rel="stylesheet"
+        />
+      </Head>
       {/* Thêm vào ` className="bg-dark" ` */}
       <body className="bg-dark">
         {/* Thêm vào <div> portal */}
