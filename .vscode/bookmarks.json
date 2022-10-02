@@ -11,15 +11,15 @@
       ]
     },
     {
-      "path": "docs/React/react-lifecycle.md",
+      "path": "docs/React/react-lifecycle.mdx",
       "bookmarks": [
         {
-          "line": 22,
+          "line": 28,
           "column": 24,
           "label": "icon OK and X"
         },
         {
-          "line": 112,
+          "line": 139,
           "column": 9,
           "label": "html details"
         }

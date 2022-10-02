@@ -38,6 +38,7 @@ function App({ id }) {
   const [user, setUser] = useState()
 
   useEffect(() => {
+    // Declare the function in Effect so it won't be called on every render
     const connect = async () => {
       const result = await fetch(`https://users.com/[${id}]`)
       setUser(result)
@@ -81,8 +82,8 @@ Finally when the `App` unmount, the _Effect_ `disconnect`.
 ### How it runs from the component’s perspective
 
 - **Mounting**: Render &rarr; Commit &rarr; `useEffectCode`
-- **Updating**: Render &rarr; Commit &rarr; `useEffectCode` &rarr; `cleanUp`.
-- **Unmounting**: `cleanUp`
+- **Updating**: Render &rarr; Commit &rarr; `useEffectCode` &rarr; **Re-render** when deps change &rarr; `cleanUp` with old values &rarr; `useEffectCode` with new values...
+- **Unmounting**: `cleanUp` (**AFTER** the component is removed from the DOM).
 
 :::note
 
@@ -91,17 +92,6 @@ Ko cần cleanup (Chạy rồi thì k cần quan tâm nữa): Gọi API, Tương
 Cần cleanup: `setTimeout`/`setInterval`, connection to a server/database
 
 :::
-
-### You might not need an Effect to transform data for rendering or handle user events
-
-- [If you can calculate something during render, you don’t need an Effect.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#updating-state-based-on-props-or-state)
-- [To cache expensive calculations, add `useMemo` instead of `useEffect`.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#caching-expensive-calculations)
-- [To reset the state of an entire component tree, pass a different `key` to it.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#resetting-all-state-when-a-prop-changes)
-- [To reset a particular bit of state in response to a prop change, set it during rendering.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes)
-- [Code that needs to run because a component was _displayed_ should be in Effects, the rest should be in events.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#sharing-logic-between-event-handlers)
-- [If you need to update the state of several components, it’s better to do it during a single event.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#sending-a-post-request)
-- [Whenever you try to synchronize state variables in different components, consider lifting state up.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#passing-data-to-the-parent)
-- [You can fetch data with Effects, but you need to implement cleanup to avoid race conditions.](https://beta.reactjs.org/learn/you-might-not-need-an-effect#subscribing-to-an-external-store)
 
 ## Optimize
 
@@ -261,22 +251,26 @@ Use [`useContext`](./state#context) or [Redux](./redux.md) for _Wide State_.
 A state variable’s value never changes within a render, even if its event handler’s code is asynchronous
 
 ```jsx
-// Lazy init: `computeExpensiveValue` chỉ chạy ở lần render đầu tiên để tạo ra giá trị init cho `count` state
-const [count, setCount] = useState(() => computeExpensiveValue(a,b));
-<button onClick={() => setCount(0)}>Reset</button> // Normal
-<button
-  onClick={() => {
-    // Update dựa theo prev state, convention là letter đầu tiên của state (count -> c)
-    setCount((c) => c + 5);
-    // Alert 0 thay vì 5, `alert` ở đây đã nhận snapshot của `count` state ngay lúc click btn (0)
-    // Sau đó dẫu `count` có thay đổi (0 -> 5) cũng k ảnh hưởng tới giá trị dc `alert`
-    setTimeout(() => {
-      alert(count);
-    }, 1000);
-  }}
->
-  +5
-</button>
+function Counter() {
+  // Lazy init: `computeExpensiveValue` chỉ chạy ở lần render đầu tiên để tạo ra giá trị init cho `count` state
+
+  const [count, setCount] = useState(() => computeExpensiveValue(a, b))
+  return (
+    <button
+      onClick={() => {
+        // Update dựa theo prev state, convention là letter đầu tiên của state (count -> c)
+        setCount((c) => c + 5)
+        // Alert 0 thay vì 5, `alert` ở đây đã nhận snapshot của `count` state ngay lúc click btn (0)
+        // Sau đó dẫu `count` có thay đổi (0 -> 5) cũng k ảnh hưởng tới giá trị dc `alert`
+        setTimeout(() => {
+          alert(count)
+        }, 1000)
+      }}
+    >
+      +5
+    </button>
+  )
+}
 ```
 
 _[Demo CodeSanbox](https://codesandbox.io/s/state-as-snapshot-dtklvu?file=/App.js)_

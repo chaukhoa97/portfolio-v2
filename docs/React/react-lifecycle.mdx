@@ -2,6 +2,9 @@
 title: 'React Lifecycle'
 ---
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
 ![Lifecycle](https://i.imgur.com/tSYbUyv.png)
 
 ## Steps
@@ -17,7 +20,10 @@ React triggers a Component rendering when:
 
 <details>
 
-<summary>You must not declare nested components in your Component function because they can be redefined when Parent re-render</summary>
+<summary>
+  You must not declare nested components in your Component function because they
+  can be redefined when Parent re-render
+</summary>
 
 ```jsx
 // ✅ Tách Child ra ngoài
@@ -98,6 +104,9 @@ if (typeof window !== 'undefined') {
 
 ### `componentDidUpdate`
 
+<Tabs>
+  <TabItem value="ref" label="With useRef">
+
 ```jsx
 const mounted = useRef()
 useEffect(() => {
@@ -109,6 +118,24 @@ useEffect(() => {
   }
 }, [yourDepedencies])
 ```
+
+  </TabItem>
+  <TabItem value="state" label="With useState">
+
+```jsx
+const [mounted, setMounted] = useState(false)
+useEffect(() => {
+  if (!mounted) {
+    setMounted(true)
+    // Do `componentDidMount` logic
+  } else {
+    // Do `componentDidUpdate` logic
+  }
+}, [yourDepedencies])
+```
+
+  </TabItem>
+</Tabs>
 
 See example in [CodeSanbox](https://codesandbox.io/s/componentdidmount-componentdidupdate-with-useref-8vw622?file=/App.js)
 

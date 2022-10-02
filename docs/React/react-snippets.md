@@ -2,7 +2,39 @@
 title: 'React Snippets'
 ---
 
-### Hydration Error React 18 + Next.js
+## Module CSS
+
+```jsx
+import styles from '../nav.module.scss'
+return <h1 className={`${styles['active-nav']} ${styles.red}`}>Hello</h1>
+```
+
+## Different content on client and server
+
+```jsx
+function MyComponent() {
+  const [didMount, setDidMount] = useState(false)
+
+  useEffect(() => {
+    // Effect does not run on the server
+    setDidMount(true)
+  }, [])
+
+  if (didMount) {
+    // ... return client-only JSX ...
+  } else {
+    // ... return initial JSX on the server ...
+  }
+}
+```
+
+## Show `obj` ra page
+
+```jsx
+<pre>{JSON.stringify(data, null, 2)}</pre>
+```
+
+## Hydration Error React 18 + Next.js
 
 `useId` is a hook for generating unique IDs that are stable across the server and client, while avoiding hydration mismatches.
 
@@ -14,19 +46,6 @@ const App = () => {
   // Hoặc
   return mounted && <Element />
 }
-```
-
-## Show obj ra page
-
-```jsx
-<pre>{JSON.stringify(data, null, 2)}</pre>
-```
-
-## Module CSS
-
-```jsx
-import styles from '../nav.module.scss'
-return <h1 className={`${styles['active-nav']} ${styles.red}`}>Hello</h1>
 ```
 
 ## Portal
