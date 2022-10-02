@@ -14,8 +14,6 @@ Each generated HTML is also associated with minimal JavaScript code to make the 
 
 ## [Static-site Generation](https://nextjs.org/docs/basic-features/pages#static-generation-recommended)
 
-### Introduction
-
 > **SSG** generates the HTML at build time. The pre-rendered HTML is then reused on each request.
 
 **Usage**: Dùng cho những page có content ít/kbh thay đổi: FAQ, Policy,...
@@ -46,8 +44,6 @@ Although SSG generates 2 files (HTML and JSON), when prefetching, **only** the J
 </details>
 
 ## [Incremental Static Regeneration](https://vercel.com/docs/concepts/next.js/incremental-static-regeneration)
-
-### Introduction
 
 > **ISG** allows you to create & update static pages after the _Build time_.
 
@@ -93,16 +89,15 @@ Pending...
 
 ## [Server-side Rendering](https://nextjs.org/docs/basic-features/pages#server-side-rendering)
 
-### Introduction
-
 > `getServerSideProps`: Next.js will pre-render the HTML at the time the user request instead of the build time and then return the HTML to the user.
 
 **Usage**:
 
 - SEO is critical.
 - Important for the user to see most up-to-date data.
-- TTFB chậm nhất (do Server phải Generate lại page rồi mới gửi lại cho user), nhưng tổng thể sau cùng thì load nhanh hơn `CSR` (ko đáng kể).  
-  &rarr; Dùng cho những page cần SEO, và content của page dc dựa theo input (Ex: search) từ user: Search result ...
+- TTFB chậm nhất (do Server phải Generate lại page rồi mới gửi lại cho user), nhưng tổng thể sau cùng thì load nhanh hơn `CSR` (ko đáng kể).
+
+&rarr; Dùng cho những page cần SEO, và content của page dc dựa theo input từ user: Search result by keyword, ...
 
 ![Server-side Rendering](https://nextjs.org/static/images/learn/data-fetching/server-side-rendering.png)
 
@@ -111,7 +106,7 @@ Pending...
 Cách cơ bản nhất là sử dụng [`useEffect` để fetch data về ở Client](../React/react-snippets.md/#async-function-in-useeffect).  
 Nên kẹp chung với [TanStack Query](https://github.com/TanStack/query/releases) hoặc [Vercel SWR](https://github.com/vercel/swr/releases).
 
-### Usage
+**Usage**:
 
 - SEO tệ (do k có pre-render), usually used for personalized content.
 - Important for the user to see most up-to-date data.

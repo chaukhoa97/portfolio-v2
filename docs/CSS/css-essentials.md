@@ -5,20 +5,31 @@ sidebar_position: 1
 
 ## Flexbox
 
+### `flex`
+
+- `flex: initial` = `flex: 0 1 auto`
+- `flex: auto` = `flex: 1 1 auto`
+- `flex: none` = `flex: 0 0 auto`
+- `flex: 1` = `flex: 1 1 0%`
+
+### Details
+
 1. `flex-grow` - MAX: Chỉ định tỷ lệ kích thước to nhất mà phần tử nên có so với các phần tử còn lại.
 
-   - **(Default)** `0`: Kích thước của các phần tử sẽ khớp với nội dung bên trong &rarr; có thể ko lắp đầy hết `Parent`.
-   - `> 1`: Ví dụ có 2 phần tử: Child1: `grow: 1`, Child2: `grow: 3` &rarr; Cả 2 sẽ lấp đầy `Parent` nhưng Child2 sẽ chiếm nhiều hơn.
+   - `0` (**Default**): Kích thước của các phần tử sẽ khớp với nội dung bên trong &rarr; có thể ko lắp đầy hết `Parent`.
+   - `>= 1`: Ví dụ có 2 phần tử: Child1: `grow: 1`, Child2: `grow: 3` &rarr; Cả 2 sẽ lấp đầy `Parent` nhưng Child2 sẽ chiếm nhiều hơn gấp 3 lần.
 
 2. `flex-shrink` - MIN: Kích thước nhỏ nhất mà phần tử nên có. Giá trị càng lớn thì phần tử càng nhỏ.
 
-   - **(Default)** `1`: Take up the same amount of space at all times.
+   - `1` (**Default**): Take up the same amount of space at all times.
    - `0`: Bất chấp giữ nguyên kích thước, dẫu có phá vỡ layout.
 
-3. `flex-basis` - IDEAL: Kích thước lý tưởng của phần tử. `content` —> `width` —> `flex-basis` (limted by max-width & min-width).
-   - Không set `width` cho flex-item, chỉ nên set `flex-basis` cho nó.
-   - **(Default)** `auto`: Dc tính toán theo nội dung và các phần tử khác.
+3. `flex-basis` - IDEAL: Kích thước lý tưởng của phần tử.  
+   Priority: `flex-basis` (limted by max-width & min-width) > `width` > `content`. Vì vậy chỉ nên set `flex-basis` cho flex item thay vì set `width` cho nó.
+   - `auto` (**Default**): Dc tính toán theo nội dung và các phần tử khác.
    - `1000px`: Trình duyệt sẽ hiểu là "Hãy cố gắng dành ra `1000px` cho phần tử này". Cái này còn phụ thuộc vào nội dung của những phần tử khác - Nếu nội dung mấy phần tử khác mà to quá thì cũng chịu.
+
+### Other properties
 
 - `order: -1`: Default `0`. Số nhỏ xếp trước.
 - `align-self`: Override `align-items` của flex container.
@@ -46,7 +57,7 @@ sidebar_position: 1
 
 ### [Pseudo-class](https://www.w3schools.com/css/css_pseudo_classes.asp)`:` Define a special state of an element
 
-- `article p:nth-child(2)`: Select every `<p>` that is the second child of its parent (ở đây là article).
+- `article p:nth-child(2)`: Select every `<p>` that is the second child of its parent (ở đây là `<article>`).
 - `article p:nth-of-type(2)`: Select every `<p>` that is the second `<p>` of its parent.
 - `button:active`: Select the button when it is clicked.
 

@@ -26,6 +26,8 @@ const MyComponent = ({ children }: Props) => {
 
 ### `useState`
 
+Spec the type **specifically** to help TS infer the type of the state.
+
 ```tsx
 const [user, setUser] = useState<number[]>([1, 2, 3])
 ```

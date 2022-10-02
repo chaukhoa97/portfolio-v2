@@ -8,17 +8,25 @@ title: 'Core Web Vitals'
 
 **LCP** measures the **loading performance** of a web page.
 
-_Note: This is not `First Contentful Paint (FCP)`, which measures the time from when the page begins to load to when the first element is rendered on screen._
+Improve **LCP** by: Optimized image component or even before delivered, lazy loading.
+
+:::caution
+This is not **First Contentful Paint (FCP)**, which measures the time from when the page begins to load to when the first element is rendered on screen.
+:::
 
 ## Total Blocking Time (TBT) == First Input Delay (FID)
 
 **FID** measures the **interactivity** of a web page.
 
+Improve **FID** by: Reduce the amount of JavaScript executed on page load by using code splitting, removing unused code, and deferring non-critical JavaScript.
+
 ## Cumulative Layout Shift (CLS)
 
 **CLS** occurs when elements have been shifted after initially being rendered by the DOM. Ex: A `button` is rendered after the `text block`, causing the `text` to shift downward.
 
-**CLS** measure your site’s **overall layout stability**
+**CLS** measure your site’s **overall layout stability**.
+
+Improve **CLS** by: Skeleton & Placeholder.
 
 ![Cumulative Layout Shift (CLS)](https://nextjs.org/static/images/learn/seo/cls-example.png)
 
