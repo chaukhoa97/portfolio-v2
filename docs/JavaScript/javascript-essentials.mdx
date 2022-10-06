@@ -166,23 +166,36 @@ const obj = { key1: 'foo' } // error - re-declaring
 
 ## `this` keyword
 
+`this` references the OBJECT that is excecuting the current function
+
 ```js
-// `this` references the object that is excecuting the current function
-class Person1 {
-  constructor(name) {
-    this.name = name
-  }
-  printNameArrow() {
-    return () => console.log(this.name) // Retains the `this` value of the function's lexical environment
-  }
-  printNameFunction() {
-    console.log(this.name) // Will be reference to global object
-  }
+const person = {
+  foo: ['a', 'b', 'c'],
+
+  test() {
+    // `this` of a METHOD will be the OBJECT that contains the method
+    console.log(this) // `person` obj
+
+    this.foo.map(function (item) {
+      // `this` of a regular fn will be the `window` object in the browser or `global` object in Node
+      console.log(this) // `window` obj
+    })
+
+    // the second arg of `map` - `thisArg` will be used as the `this` of the callback fn, in this case, `person` obj
+    this.foo.map(function (item) {
+      console.log(this) // `person` obj
+    }, this)
+
+    this.foo.map((item) => {
+      // `this` of a regular ARROW fn will be the OBJECT that contains the method
+      console.log(this) // `person` obj
+    })
+  },
 }
-const k = new Person1('khoa')
-console.log(k.printNameArrow()) // khoa
-console.log(k.printNameFunction()) // undefined
+person.test()
 ```
+
+[CodeSandbox example](https://codesandbox.io/s/vanilla-js-ijfdx6?file=/src/this.js)
 
 ## ETC
 
