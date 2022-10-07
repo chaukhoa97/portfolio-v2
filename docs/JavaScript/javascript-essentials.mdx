@@ -156,8 +156,8 @@ const obj = { key1: 'foo' } // error - re-declaring
 
 ### Reference
 
-- object; array (`typeof Object/Array === “object”`); set.
-- function (`typeof Function === “function"`).
+- `typeof === “object”`: Object; Array; Set
+- `typeof === “function"`: Function
 - Ít dùng: date; regexp; error; map; weakmap; weakset.
 
 ### Falsy values
@@ -173,11 +173,11 @@ const person = {
   foo: ['a', 'b', 'c'],
 
   test() {
-    // `this` of a METHOD will be the OBJECT that contains the method
+    // `this` of a METHOD will be the OBJECT/CLASS that contains the method
     console.log(this) // `person` obj
 
     this.foo.map(function (item) {
-      // `this` of a regular fn will be the `window` object in the browser or `global` object in Node
+      // `this` of a regular fn will be the `window` object in the browser (or `global` object in Node)
       console.log(this) // `window` obj
     })
 
