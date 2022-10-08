@@ -1,0 +1,156 @@
+---
+title: 'SQL'
+---
+
+## Basic
+
+```sql
+USE sql_store;
+-- Phần dưới được tính là một "Subquery"
+SELECT DISTINCT * FROM customers
+WHERE points BETWEEN 100 AND 200
+AND WHERE points IS NOT NULL
+ORDER BY first_name DESC
+LIMIT 3;
+```
+
+## `like` Operator
+
+```sql
+-- Returns customers whose first name starts with "b"
+SELECT *
+FROM customers
+WHERE first_name LIKE ‘b%’
+```
+
+- `%` : any number of characters
+- `_` : exactly one character
+
+## `regexp` Operator
+
+```sql
+SELECT *
+FROM customers
+-- Returns customers whose first name starts with "a"
+WHERE first_name REGEXP ‘^a’
+-- Returns customers whose first letter NOT "a"; "c" or "f"
+WHERE first_name LIKE ‘[!acf]%’
+-- Returns customers whose first name starts with "my" or contains "se":
+WHERE first_name REGEXP ‘^my|se’
+```
+
+- `^`: beginning of a string
+- `$`: end of a string
+- `|`: logical OR
+- `[abc]`: match any single characters
+- `[a-d]`: any characters from a to d
+
+## Joins
+
+### Outer Join
+
+```sql
+-- Return all customers whether they have any orders or not
+SELECT *
+FROM customers c
+LEFT JOIN orders o
+ON c.customer_id = o.customer_id | USING (customer_id)
+```
+
+### Self Join
+
+![Self join](https://i.imgur.com/QnIUPH8.png)
+
+```sql
+-- Cùng lấy column từ "Customers" Table
+SELECT A.CustomerName AS CustomerName1, B.CustomerName AS CustomerName2, A.City
+FROM Customers A, Customers B
+WHERE A.CustomerID != B.CustomerID AND A.City = B.City
+ORDER BY A.City;
+```
+
+### Cross Join
+
+```sql
+-- Combine every color with every size
+SELECT *
+FROM colors
+CROSS JOIN sizes
+hoặc
+FROM colors, sizes
+```
+
+## Unions
+
+```sql
+-- Combine records from multiple result sets
+SELECT name, address
+FROM customers
+UNION
+SELECT name, address
+FROM clients
+```
+
+## Modify [Database/Table]
+
+`(Create|Drop|Truncate)(Database|Table)`
+
+### Insert/Delete columns
+
+```sql
+ALTER TABLE customers
+ADD Birthday DATE  -- DATE là Datatype của column Birthday
+HOẶC
+DROP COLUMN Birthday
+```
+
+## Modify Data
+
+### Insert Data
+
+```sql
+(INSERT INTO | CREATE TABLE) customers(customer_id, name, phone, points) VALUES
+(LAST_INSERT_ID(), ‘Mosh’, NULL, DEFAULT),
+(LAST_INSERT_ID(), ‘Bob’, 0905112233, 10)
+HOẶC
+(INSERT INTO | CREATE TABLE) customers AS (Subquery)
+```
+
+### Update Data
+
+```sql
+UPDATE invoices
+SET invoice_total = invoice_total - 100
+WHERE client_id IN
+(SELECT client_id
+FROM clients
+WHERE state IN (‘CA’, ’NY’)
+-- SELECT client_id tương ứng với client_id ở hàng WHERE ở trên
+-- Subquery này là optional. Ex: Có thể viết “WHERE client_id = 5” là đủ. Tuy vậy nên kiểm tra trước bằng cách viết riêng rồi test thử:
+SELECT * FROM invoices WHERE client_id = 5.
+-- LƯU Ý: NẾU CÓ 2 KẾT QUẢ TRỞ LÊN THÌ DÙNG IN, 1 KQ THÌ DÙNG “=”
+```
+
+### Delete Data
+
+```sql
+DELETE FROM invoices
+WHERE … (tương tự như phần sau của Updating Data) -- Nếu không có hàng này thì là xóa hết cả Table invoices
+```
+
+## Counting Records
+
+```sql
+-- Hàm COUNT: return the number of records
+SELECT COUNT(* | tên một column bất kỳ) FROM customers
+```
+
+## Group by
+
+```sql
+-- List the number of customers in each country, ordered by the country with the most customers first.
+SELECT COUNT(CustomerID), country
+FROM customers
+GROUP BY country
+ORDER BY COUNT(CustomerID) DESC
+```
