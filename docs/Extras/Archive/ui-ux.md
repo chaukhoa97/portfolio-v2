@@ -4,8 +4,7 @@ title: 'UI/UX Stuff'
 
 ## Typical parts of a website
 
-- **Accordion/Disclosure/Collapse**: Click đóng/mở nội dung như HTML `<details>`.
-- [Image Masonry](https://mui.com/material-ui/react-masonry)
+[**Read more**: The web's most common UI components](https://storybook.js.org/showcase/glossary)
 
 ![Typical parts of a website](https://imgur.com/MyJJ16E.png)
 
@@ -14,7 +13,6 @@ title: 'UI/UX Stuff'
 <h3 style={{fontFamily: "Oswald"}}> Impact: Oswald </h3>
 <p style={{fontFamily: "Quattrocento",}}><b>Quattrocento</b>: <i>Ogni individuo ha diritto al riposo</i> ed allo svago, comprendendo in ciò una ragionevole limitazione delle ore di lavoro e ferie periodiche retribuite.
 </p>
-
 <h3 style={{fontFamily: "Raleway"}}> Multifunction: Raleway </h3>
 <p style={{fontFamily: "Roboto"}}><b>Roboto</b>: <i>Ogni individuo ha diritto al riposo</i> ed allo svago, comprendendo in ciò una ragionevole limitazione delle ore di lavoro e ferie periodiche retribuite.
 </p>
