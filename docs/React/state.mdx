@@ -118,7 +118,7 @@ export default function TeaGathering() {
 ```
 
 If the `cups` variable or the `[]` array were created outside the `TeaGathering` function, this would be a huge problem! You would be changing a preexisting object by pushing items into that array.  
-However, it’s fine because you’ve created them **during the same _render_ ([_render_ nghĩa là call Component function - ở đây là call `TeaGathering`](react-lifecycle.md#step-1-react-trigger-render-initial-hoặc-re-render-component), với mỗi lần call thì `cups` dc tạo lại trong lần call đấy)**. No code outside of `TeaGathering` will ever know that this happened. This is called **“local mutation”** — it’s like your component’s little secret.
+However, it’s fine because you’ve created them **during the same _render_ ([_render_ nghĩa là call Component function - ở đây là call `TeaGathering`](react-lifecycle.mdx#step-1-react-trigger-render-initial-hoặc-re-render-component), với mỗi lần call thì `cups` dc tạo lại trong lần call đấy)**. No code outside of `TeaGathering` will ever know that this happened. This is called **“local mutation”** — it’s like your component’s little secret.
 
 ## Object & Array inputs
 

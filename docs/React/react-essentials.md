@@ -18,7 +18,7 @@ An in-memory copy of the Real DOM.
 
 ### How it works in React
 
-When there are [re-renders](../React/react-lifecycle.md#step-1-react-trigger-render-initial-hoặc-re-render-component), while rendering ([1st phase](./react-lifecycle.md#step-1-react-trigger-render-initial-hoặc-re-render-component)), React will compute the diffs between what's _currently on the page_ vs what _should be on the page_, calculate the minimal necessary DOM operations to make the DOM match the latest rendering output, and finally batch executes all updates in the _commit phase_.
+When there are [re-renders](../React/react-lifecycle.mdx#step-1-react-trigger-render-initial-hoặc-re-render-component), while rendering ([1st phase](./react-lifecycle.mdx#step-1-react-trigger-render-initial-hoặc-re-render-component)), React will compute the diffs between what's _currently on the page_ vs what _should be on the page_, calculate the minimal necessary DOM operations to make the DOM match the latest rendering output, and finally batch executes all updates in the _commit phase_.
 
 ### Cons
 
@@ -90,7 +90,7 @@ function Panel({ title, children, isActive, onShow }) {
 }
 ```
 
-## Controlled vs Uncontrolled Component
+## Controlled vs Uncontrolled Form
 
 ```jsx title='Controlled.jsx'
 // State của <form> do React quản lý
@@ -108,10 +108,16 @@ export default function Form() {
     console.log(formData)
   }
   return (
-    <form onSubmit={handleSubmit} onChange={handleChange} value={formData}>
-      <input name="name" />
-      <textarea name="message" />
+    <form onSubmit={handleSubmit}>
+      <input name="name" onChange={handleChange} value={formData.name} />
+      <textarea
+        name="message"
+        onChange={handleChange}
+        value={formData.message}
+      />
       <button>Submit</button> {/* Or <input type='submit' /> */}
+      {/* Nếu k có type="button" thì sẽ mặc định là type="submit" -> submit */}
+      <button type="button">Do other stuff</button>
     </form>
   )
 }
@@ -129,10 +135,10 @@ export default function Form() {
   }
 
   return (
-    <form ref={formRef}>
+    <form ref={formRef} onSubmit={handleSubmit}>
       <input name="name" />
       <textarea name="message" />
-      <button>Submit</button> {/* Or <input type='submit' /> */}
+      <button>Submit</button>
     </form>
   )
 }

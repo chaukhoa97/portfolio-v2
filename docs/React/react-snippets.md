@@ -5,8 +5,8 @@ title: 'React Snippets'
 ## Module CSS
 
 ```jsx
-import styles from '../nav.module.scss'
-return <h1 className={`${styles['active-nav']} ${styles.red}`}>Hello</h1>
+import s from '../Nav.module.scss'
+return <h1 className={`${s['active-nav']} ${s.red}`}>Hello</h1>
 ```
 
 ## Different content on client and server

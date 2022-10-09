@@ -45,5 +45,5 @@ Most of the time you only need to adjust `staleTime`. The `cacheTime` default (5
 
 ## `invalidate` vs `refetch`
 
-- `queryClient.invalidateQueries(['posts'])` will set the query to `stale` so it will refetch when the component mount.
-- `const { refetch } = useQuery(...)` will always refetch even if the component is not mounted. Usually you don't have access to `refetch` because it is returned from `useQuery`.
+- `queryClient.invalidateQueries(['posts'])` **_(preferred)_** will set the query to `stale`. It will only refetch if the component is on the screen.
+- `const { refetch } = useQuery(...)` will ALWAYS refetch even if the component hasn't mounted. Usually you don't have access to `refetch` because it is returned from `useQuery`.

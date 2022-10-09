@@ -16,7 +16,7 @@ title: 'Git'
 ## Push & Pull
 
 _All belows can be executed with the same result at any branch._  
-`git push <remote> <local-branch>:<remote-branch>`
+`git push <remote_URL/remote_name> <local-branch>:<remote-branch>`
 
 - Local & remote `origin` has the same name: `git push origin t1` (Push **local** `t1` lên **origin** `t1`)
 - Local & remote `origin` has different names: `git push origin t1:newT1` (Push **local** `t1` lên **origin** `newT1`)
@@ -66,6 +66,7 @@ Cả 3 đều integrate changes from one branch into another branch.
 
 - `git config --list --show-origin`
 - `git config --global user.email jonhkane00@gmail.com`
+- `git config --global user.name "Finn Chau"`
 
 ## Stash
 
