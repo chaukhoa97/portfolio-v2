@@ -79,15 +79,14 @@ numbers.forEach((element, index) => {
 
 ## Object
 
-```js
+```ts
 var obj = { a: 1, b: 2 }
 
 // Đều trả về array
-Object.keys(obj) // => Array ['a', 'b']
-Object.values(obj) // => Array [1, 2]
-// [['a', 1], ['b', 2]]
-for (const [key, value] of Object.entries(obj)) {
-  console.log(`${key}: ${value}`)
+Object.keys<string>(obj) // => Array ['a', 'b']
+Object.values<number>(obj) // => Array [1, 2]
+for (const [key, value] of Object.entries<number>(obj)) {
+  console.log(`${key}: ${value}`) // [['a', 1], ['b', 2]]
 }
 
 // Object.assign: Source overwrites target

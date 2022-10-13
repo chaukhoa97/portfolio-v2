@@ -28,10 +28,10 @@ In React, effects are handled by `useEffect` hook.
 
 **Effects** let you run some code **after rendering** to synchronize React components with **external systems** outside of React (like a network or a third-party library). For example, you might want to set up a server connection, send an analytics log when a component appears on the screen, or control an external component based on a React state.
 
-### Syntax
+### Snippets
 
 <Tabs>
-  <TabItem value="Connect" label="Connect" >
+  <TabItem value="Connect" label="Connect to a server" >
 
 ```jsx
 function App({ id }) {
@@ -203,7 +203,7 @@ function MyComponent() {
 
 :::note
 
-Vì vậy, value used for rendering thì dùng `useState`. Còn những thứ only needed by event handlers and changing it doesn’t require a re-render (Ex: user input, timeoutId) thì dùng `useRef`. Những thứ constant ko show thì dùng `JS variable` như bình thường.
+Vì vậy, value used for rendering thì dùng `useState`. Còn những thứ only needed by event handlers and changing it doesn’t require a re-render (Ex: user's `input`, `timeoutId`) thì dùng `useRef`. Những thứ constant ko show thì dùng `JS variable` như bình thường.
 
 :::
 
