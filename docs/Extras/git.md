@@ -21,7 +21,7 @@ _All belows can be executed with the same result at any branch._
 - Local & remote `origin` has the same name: `git push origin t1` (Push **local** `t1` lên **origin** `t1`)
 - Local & remote `origin` has different names: `git push origin t1:newT1` (Push **local** `t1` lên **origin** `newT1`)
 - Between local branches: `git push origin t1:t2` (Push **local** `t1` sang **local** `t2`)
-- `git pull origin main`: Pull **origin** `main` về **local** `main`.
+- `git pull origin main`: Pull **origin** `main` về **local** `HEAD`.
 
 ## Merge, Rebase & Cherry-Pick
 
