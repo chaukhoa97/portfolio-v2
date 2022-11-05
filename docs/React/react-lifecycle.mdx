@@ -9,6 +9,20 @@ import TabItem from '@theme/TabItem'
 
 ## Steps
 
+**TL;DR**:
+
+1. "calling" a component to get the jsx tree
+2. "reconciling" the old and new virtual DOM
+3. "committing" the changes to the real DOM
+4. `useLayoutEffect` to avoid flashes (ie position popups)
+5. `useEffect` after to release the thread before effects
+
+[CodeSandbox example](https://codesandbox.io/s/react-lifecycle-djj04t):
+
+1. Parent is fully rendered before any child is rendered. So you get "before Child" and "after Child" before "rendering Child".
+2. Child `useLayoutEffect` runs before Parent `useLayoutEffect`
+3. Child `useEffect` runs before Parent `useEffect`
+
 ### Step 1: Render phase
 
 React triggers a Component rendering when:
