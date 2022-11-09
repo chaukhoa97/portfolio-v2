@@ -156,6 +156,13 @@ type Person = typeof MyArray[0]
 type Name = typeof MyArray[0]['name']
 ```
 
+### Template Literals
+
+```ts
+type Lang = 'en' | 'ja' | 'pt'
+type LocaleMessageIDs = `${Lang}_bro`
+```
+
 ## Utility Types
 
 ### `Record<Keys, Type>`
