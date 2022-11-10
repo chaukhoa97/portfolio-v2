@@ -264,6 +264,20 @@ function map<Input, Output>(
 const parsed = map(['1', '2', '3'], (n) => parseInt(n)) // Infer `Input` = string; `Output` = number
 ```
 
+## Type Documentation
+
+```ts
+export type ProductVariant = {
+  /**
+   * The product variant’s price.
+   * @deprecated Use `priceV2` instead
+   */
+  price: Scalars['Money']
+  /** The product variant’s price. */
+  priceV2: MoneyV2
+}
+```
+
 ## Conditional Types
 
 <Tabs>
