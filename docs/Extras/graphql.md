@@ -21,7 +21,7 @@ type Product implements Node {
 
 type Collection implements Node {
   id: ID!
-  #* "first" là 1 arg của `products`, có `type` là "Product"; "3" là `default value`
+  # "first" là 1 arg của `products`, có `type` là "Product"; "3" là `default value`
   products(first: Int! = 3): [Product]
 }
 
@@ -39,11 +39,11 @@ input ReviewInput {
 
 #1 Operations: Query, Mutation, Subscription
 type Query {
-  #! Trong Query có `node` -> Có thể dùng khi `query` - Xem file `operation.graphql` (line 13)
+  # Trong Query có `node` -> Có thể dùng khi `query` - Xem file `operation.graphql` (line 13)
   node(id: ID!): Node
 }
 type Mutation {
-  #! Trong Mutation có `createReview` -> Có thể dùng khi `mutation` - Xem file `operation.graphql` (line 4)
+  # Trong Mutation có `createReview` -> Có thể dùng khi `mutation` - Xem file `operation.graphql` (line 4)
   createReview(episode: Episode!, review: ReviewInput!): String
 }
 ```
@@ -53,7 +53,7 @@ type Mutation {
 ```graphql title="operation.graphql"
 #1 query, mutation, subscription là các `operation type`, tiếp theo là `operation name` (OPTIONAL) "createReviewForEpisode"
 mutation createReviewForEpisode($ep: Episode!, $rv: ReviewInput!) {
-  #! operation có `createReview` trong một `mutation` -> ở schema cũng phải có `createReview` trong `type Mutation`
+  # operation có `createReview` trong một `mutation` -> ở schema cũng phải có `createReview` trong `type Mutation`
   createReview(episode: $ep, review: $review) {
     # Tương tự `query`, `mutation` sau khi update cũng có thể return data, ta có thể check new state sau khi update.
     stars
@@ -83,12 +83,12 @@ fragment collectionProducts on Collection {
 
 #1 Inline fragment: Dùng khi query (ở đây là `node`) có field trả về là `interface` hoặc `union`
 query getProductsFromCollection($categoryId: ID!, $first: Int = 250) {
-  #* 1. query `node` có arg là `id`, khi ta truyền vào có thể là bất kỳ `id` nào (productId, collectionId, ...)
+  #1 query `node` có arg là `id`, khi ta truyền vào có thể là bất kỳ `id` nào (productId, collectionId, ...)
   node(id: $categoryId) {
-    #* 2. query `node` trả về `Node` nên chắc chắn sẽ có id...
+    #2 query `node` trả về `Node` nên chắc chắn sẽ có id...
     id
-    #* 3. ... và vì `Product` và `Colllection` all IMPLEMENTs `Node` -> Dùng `inline fragment` để trả về thêm các field khác nhau tuỳ trường hợp (Product thì trả về `title`, còn Collection thì trả về `products`).
-    #* 4. Lý do là vì ở Collection ko có field `title` nên ko thể lấy dc, tương tự như Product ko có field `products`
+    #3. ... và vì `Product` và `Colllection` all IMPLEMENTs `Node` -> Dùng `inline fragment` để trả về thêm các field khác nhau tuỳ trường hợp (Product thì trả về `title`, còn Collection thì trả về `products`).
+    #4 Lý do là vì ở Collection ko có field `title` nên ko thể lấy dc, tương tự như Product ko có field `products`
     ... on Product {
       title
     }
