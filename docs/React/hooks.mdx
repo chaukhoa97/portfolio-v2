@@ -31,7 +31,7 @@ In React, effects are handled by `useEffect` hook.
 ### Snippets
 
 <Tabs>
-  <TabItem value="Connect" label="Connect to a server" >
+  <TabItem value="Fetch and use an external value" label="Fetch and use an external value" >
 
 ```jsx
 function App({ id }) {
@@ -39,22 +39,25 @@ function App({ id }) {
 
   useEffect(() => {
     // Declare the function in Effect so it won't be called on every render
-    const connect = async () => {
+    const fetchUser = async () => {
       const result = await fetch(`https://users.com/[${id}]`)
       setUser(result)
     }
-    connect()
-    return () => {
-      disconnect()
-    }
+    fetchUser()
   }, [id])
+
+  useEffect(() => {
+    // the "someAnalytics" is irrelevant to React lifecycle
+    // -> it should be in an Effect so it won't be called on every render
+    window.someAnalytics.push(user)
+  }, [user])
 
   return <div>{user}</div>
 }
 ```
 
   </TabItem>
-  <TabItem value="setTimeout" label="setTimeout" >
+  <TabItem value="setTimeout" label="Delay a value" >
 
 ```jsx
 function useDelayedValue(value, delay) {
