@@ -5,8 +5,9 @@ title: 'Data Convert'
 ## Number to String
 
 ```js
-let a = String(100 + 23)
-let b = (100 + 23).toString()
+// Either has there 2 have better performance than String(number) & number.toString()
+let a = 100 + 23 + ''
+let b = `${100 + 23}`
 ```
 
 ## String to Number
