@@ -2,24 +2,10 @@
 title: 'React with TypeScript'
 ---
 
-## Defaut `props`
+## Default `props` and `children`
 
 ```tsx
-type GreetProps = { age?: number };
-const Greet = ({ age = 21 }: GreetProps) => ...
-```
-
-## `PropsWithChildren`
-
-```tsx
-import { PropsWithChildren } from 'react'
-
-interface Props extends PropsWithChildren<any> {}
-
-// Không có children trong Props nhưng vẫn add dc
-const MyComponent = ({ children }: Props) => {
-  return <h1>{children}</h1>
-}
+const Greet = ({ age = 21, children }: { age?: number, children: ReactNode }) => ...
 ```
 
 ## Hooks
