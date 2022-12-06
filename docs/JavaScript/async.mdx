@@ -120,7 +120,7 @@ Promise.all([
 
 </Tabs>
 
-## `Promise.all` vs `Promise.race`
+## `Promise` methods
 
 ```js
 Promise.all([oneSec, twoSecs]).then((messages) => {
@@ -129,6 +129,15 @@ Promise.all([oneSec, twoSecs]).then((messages) => {
 
 Promise.race([oneSec, twoSecs]).then((message) => {
   console.log(message) // oneSec
+})
+
+Promise.any([oneSec, twoSecs]).then((firstMessage) => {
+  console.log(firstMessage) // oneSec
+})
+
+Promise.allSettled([oneSec, twoSecs]).then((messages) => {
+  // [{ status: "fulfilled", value: "oneSec" }, { status: "fulfilled", value: "twoSecs" }]
+  console.log(messages)
 })
 ```
 
