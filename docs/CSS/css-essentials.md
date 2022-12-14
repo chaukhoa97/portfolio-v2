@@ -3,6 +3,44 @@ title: 'CSS Essentials'
 sidebar_position: 1
 ---
 
+## Image Properties
+
+|                                                             | Preserve aspect ratio | Fill the container | Note        |
+| ----------------------------------------------------------- | --------------------- | ------------------ | ----------- |
+| `object-fit: fill`(**default**) == `background-size: cover` | ❌ (stretch)          | ✅                 |             |
+| `object-fit: cover` != `background-size: cover`             | ✅                    | ✅ (cropped)       |             |
+| `object-fit: contain` == `background-size: contain`         | ✅                    | ❌ (empty space)   | Letterboxed |
+
+## Element height
+
+Thường không nên chỉnh độ cao của element. Nhưng nếu có thì nên dùng `min-height`. Vì nếu viewport nhỏ lại thì element cũng sẽ tự cao ra cho vừa với content, còn nếu chỉ dùng `height` mà nhỏ quá thì bị overflow.  
+`min-height` PHẢI là _absolute unit_ (px, rem,...). Nếu `min-height` là % thì `height` của container phải là _absolute unit_ (Không được là % hết)
+
+:::note
+Khi dùng `background-image`, set `width` cho container không có tác dụng, chỉ khi set `height` mới có tác dụng.
+:::
+
+## Selector
+
+### [Pseudo-class](https://www.w3schools.com/css/css_pseudo_classes.asp)`:` Define a special state of an element
+
+- `article p:nth-child(2)`: Select every `<p>` that is the second child of its parent (ở đây là `<article>`).
+- `article p:nth-of-type(2)`: Select every `<p>` that is the second `<p>` of its parent.
+- `button:active`: Select the button when it is clicked.
+
+### [Pseudo-element](https://www.w3schools.com/css/css_pseudo_elements.asp)`::` Style specified parts of an element
+
+```css
+p::before { content: '', color:... }
+```
+
+### [Reference selector](https://www.w3schools.com/cssref/css_selectors.asp)
+
+- `a[href *= ".com"]`: Select những href **containing** ".com".
+- `#sentence > p`: Các `p` ở tập hợp con **nhỏ hơn 1 bậc** so với id "sentence".
+- `.sentence + p`: MỘT `p` **duy nhất liền sau** kết thúc của class "sentence".
+- `.sentence ~ p`: TẤT CẢ các `p` **liền sau** kết thúc của class "sentence"
+
 ## Flexbox
 
 ### `flex`
@@ -34,11 +72,6 @@ sidebar_position: 1
 - `order: -1`: Default `0`. Số nhỏ xếp trước.
 - `align-self`: Override `align-items` của flex container.
 
-## Box model
-
-- `box-sizing: content-box` : Size = `Content` &rarr; `Padding` & `Border` làm width to hơn so với ý muốn.
-- `box-sizing: border-box` : Size = `Content` + `Padding` + `Border`.
-
 ## Display
 
 - `flex`, `grid`, `none`
@@ -52,27 +85,6 @@ sidebar_position: 1
 - `fixed`, `sticky`(`relative` + `fixed`), `static`
 - `absolute`: The parent will behave like the `absolute` children is not there at all. Để children absolutely position theo parent thì parent phải có position là `relative` hoặc `absolute`.
 - `relative`: Ở chỗ cũ như `static`, nhưng khác với `static` là bây giờ `left/right/top/bottom/z-index` sẽ hoạt động.
-
-## Selector
-
-### [Pseudo-class](https://www.w3schools.com/css/css_pseudo_classes.asp)`:` Define a special state of an element
-
-- `article p:nth-child(2)`: Select every `<p>` that is the second child of its parent (ở đây là `<article>`).
-- `article p:nth-of-type(2)`: Select every `<p>` that is the second `<p>` of its parent.
-- `button:active`: Select the button when it is clicked.
-
-### [Pseudo-element](https://www.w3schools.com/css/css_pseudo_elements.asp)`::` Style specified parts of an element
-
-```css
-p::before { content: '', color:... }
-```
-
-### [Reference selector](https://www.w3schools.com/cssref/css_selectors.asp)
-
-- `a[href *= ".com"]`: Select những href **containing** ".com".
-- `#sentence > p`: Các `p` ở tập hợp con **nhỏ hơn 1 bậc** so với id "sentence".
-- `.sentence + p`: MỘT `p` **duy nhất liền sau** kết thúc của class "sentence".
-- `.sentence ~ p`: TẤT CẢ các `p` **liền sau** kết thúc của class "sentence"
 
 ## `transform` & `transistion`
 
@@ -100,24 +112,7 @@ div {
 }
 ```
 
-## Element height
+## Box model
 
-Thường không nên chỉnh độ cao của element. Nhưng nếu có thì nên dùng `min-height`. Vì nếu viewport nhỏ lại thì element cũng sẽ tự cao ra cho vừa với content, còn nếu chỉ dùng `height` mà nhỏ quá thì bị overflow.  
-`min-height` PHẢI là _absolute unit_ (px, rem,...). Nếu `min-height` là % thì `height` của container phải là _absolute unit_ (Không được là % hết)
-
-## Image Properties
-
-### `background-size`
-
-- `background-size: cover` &rarr; Luôn cover hết container dẫu có stretch.
-- `background-size: contain` &rarr; Luôn show ảnh đúng, dẫu có chừa lại khoảng trống trong container.
-
-:::note
-Khi dùng `background-image`, set `width` cho container không có tác dụng, chỉ khi set `height` mới có tác dụng.
-:::
-
-### `object-fit`
-
-- `object-fit: fill`_(default)_: Fills the container nhưng bị stretch - **GIỐNG** `background-size: cover`
-- `object-fit: cover`: Fills the container nhưng bị cắt bớt (giữ nguyên aspect ratio) - **KHÁC** `background-size: cover`
-- `object-fit: contain`: Luôn show ảnh đúng, dẫu có chừa lại khoảng trống trong container - **GIỐNG** `background-size: contain`
+- `box-sizing: content-box` : Size = `Content` &rarr; `Padding` & `Border` làm width to hơn so với ý muốn.
+- `box-sizing: border-box` : Size = `Content` + `Padding` + `Border`.
