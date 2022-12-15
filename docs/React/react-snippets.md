@@ -34,7 +34,7 @@ function MyComponent() {
 <pre>{JSON.stringify(data, null, 2)}</pre>
 ```
 
-## Hydration Error React 18 + Next.js
+## Next.js Hydration Error
 
 `useId` is a hook for generating unique IDs that are stable across the server and client, while avoiding hydration mismatches.
 
@@ -46,6 +46,30 @@ const App = () => {
   // Hoặc
   return mounted && <Element />
 }
+```
+
+## [`typeof window` checks](https://remix.run/docs/en/v1/pages/gotchas#typeof-window-checks)
+
+```js
+if (typeof document === 'undefined') {
+  // running in a server environment
+} else {
+  // running in a browser environment
+}
+```
+
+## Icon
+
+```jsx title='ChevronRight.tsx'
+const ChevronRight = ({ ...props }) => {
+  return (
+    <svg width="24" height="24" {...props}>
+      <path d="M9 18l6-6-6-6" />
+    </svg>
+  )
+}
+
+export default ChevronRight
 ```
 
 ## Portal
@@ -71,18 +95,4 @@ const MyComponent = () => {
 ```jsx
 const [, forceRerender] = useState()
 forceRerender({})
-```
-
-## Icon
-
-```jsx title='ChevronRight.tsx'
-const ChevronRight = ({ ...props }) => {
-  return (
-    <svg width="24" height="24" {...props}>
-      <path d="M9 18l6-6-6-6" />
-    </svg>
-  )
-}
-
-export default ChevronRight
 ```
