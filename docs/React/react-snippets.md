@@ -40,10 +40,19 @@ function MyComponent() {
 
 ```jsx
 const id = useId()
-const [mounted, setMounted] = useState(false)
+
 const App = () => {
   return <Element key={id} />
-  // Hoặc
+}
+
+// Hoặc
+const [mounted, setMounted] = useState(false)
+
+useEffect(() => {
+  setMounted(true)
+}, [])
+
+const App = () => {
   return mounted && <Element />
 }
 ```
