@@ -10,11 +10,29 @@ title: 'UI/UX Stuff'
 
 ## Header-Content Font pairs
 
+<h2>Headlines</h2>
+<h3 style={{fontFamily: "Raleway"}}>Raleway</h3>
+<h3 style={{fontFamily: "Roboto"}}>Roboto</h3>
+
+<h2>Body (Multifunction)</h2>
+<p style={{fontFamily:"Inter"}}><b>Inter</b>: <i>Ogni individuo ha diritto al riposo</i> ed allo svago, comprendendo in ciò una ragionevole limitazione delle ore di lavoro e ferie periodiche retribuite.
+</p>
+<p style={{fontFamily: "Roboto"}}><b>Roboto</b>: <i>Ogni individuo ha diritto al riposo</i> ed allo svago, comprendendo in ciò una ragionevole limitazione delle ore di lavoro e ferie periodiche retribuite.
+</p>
+<p style={{fontFamily: "Source Sans Pro"}}><b>Source Sans Pro</b>: <i>Ogni individuo ha diritto al riposo</i> ed allo svago, comprendendo in ciò una ragionevole limitazione delle ore di lavoro e ferie periodiche retribuite.
+</p>
+
+<h2>Articles (Optional)</h2>
+<p style={{fontFamily: "Merriweather"}}><b>Merriweather</b>: <i>Ogni individuo ha diritto al riposo</i> ed allo svago, comprendendo in ciò una ragionevole limitazione delle ore di lavoro e ferie periodiche retribuite.
+</p>
+<p style={{fontFamily: "Lato"}}><b>Lato</b>: <i>Ogni individuo ha diritto al riposo</i> ed allo svago, comprendendo in ciò una ragionevole limitazione delle ore di lavoro e ferie periodiche retribuite.
+</p>
+
+<details>
+  <summary>Some different styles</summary>
+
 <h3 style={{fontFamily: "Oswald"}}> Impact: Oswald </h3>
 <p style={{fontFamily: "Quattrocento",}}><b>Quattrocento</b>: <i>Ogni individuo ha diritto al riposo</i> ed allo svago, comprendendo in ciò una ragionevole limitazione delle ore di lavoro e ferie periodiche retribuite.
-</p>
-<h3 style={{fontFamily: "Raleway"}}> Multifunction: Raleway </h3>
-<p style={{fontFamily: "Roboto"}}><b>Roboto</b>: <i>Ogni individuo ha diritto al riposo</i> ed allo svago, comprendendo in ciò una ragionevole limitazione delle ore di lavoro e ferie periodiche retribuite.
 </p>
 
 <h3 style={{fontFamily: "Amatic SC"}}> Playful: Amatic SC </h3>
@@ -28,6 +46,8 @@ title: 'UI/UX Stuff'
 <h3 style={{fontFamily: "Alfa Slab"}}> Impact: Alfa Slab </h3>
 <p style={{fontFamily: "Open Sans"}}><b>Open Sans</b>: <i>Ogni individuo ha diritto al riposo</i> ed allo svago, comprendendo in ciò una ragionevole limitazione delle ore di lavoro e ferie periodiche retribuite.
 </p>
+
+</details>
 
 ## Color
 
