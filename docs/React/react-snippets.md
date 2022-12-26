@@ -34,6 +34,19 @@ function MyComponent() {
 <pre>{JSON.stringify(data, null, 2)}</pre>
 ```
 
+## Conditional HTML tag
+
+```jsx
+const MyComponent = ({ as: As = 'div', ...props }) => {
+  return <As {...props} />
+}
+
+const MyButton = ({ ...props }) => {
+  const Component = props.href ? 'a' : 'button'
+  return <Component {...props} />
+}
+```
+
 ## Next.js Hydration Error
 
 `useId` is a hook for generating unique IDs that are stable across the server and client, while avoiding hydration mismatches.
