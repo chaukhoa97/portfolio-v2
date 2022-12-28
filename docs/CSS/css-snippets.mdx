@@ -26,6 +26,29 @@ Cùi hơn thì dùng flexbox hoặc `mx-auto` (chỉ dùng dc cho ~ element có 
 }
 ```
 
+### Aspect ratio
+
+```css
+.product-image {
+  aspect-ratio: 1/1;
+}
+/* Or */
+.product-image {
+  /* 1:1 Aspect Ratio, e.g 16:9 will have the padding-top at 56.25%  */
+  padding-top: 100%;
+  position: relative;
+}
+.product-image > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  max-height: 100%;
+  margin: auto;
+}
+```
+
 ### Hidden & Visible element
 
 ```scss
