@@ -9,17 +9,25 @@ USE sql_store;
 -- Phần dưới được tính là một "Subquery"
 SELECT DISTINCT * FROM customers
 WHERE points BETWEEN 100 AND 200
+AND WHERE points IN (150, 180)
 AND WHERE points IS NOT NULL
+GROUP BY country
 ORDER BY first_name DESC
 LIMIT 3;
+```
+
+## Counting Records
+
+```sql
+-- Hàm COUNT: return the number of records
+SELECT COUNT(* | tên một column bất kỳ) FROM customers
 ```
 
 ## `like` Operator
 
 ```sql
 -- Returns customers whose first name starts with "b"
-SELECT *
-FROM customers
+SELECT * FROM customers
 WHERE first_name LIKE ‘b%’
 ```
 
@@ -29,8 +37,7 @@ WHERE first_name LIKE ‘b%’
 ## `regexp` Operator
 
 ```sql
-SELECT *
-FROM customers
+SELECT * FROM customers
 -- Returns customers whose first name starts with "a"
 WHERE first_name REGEXP ‘^a’
 -- Returns customers whose first letter NOT "a"; "c" or "f"
@@ -51,10 +58,12 @@ WHERE first_name REGEXP ‘^my|se’
 
 ```sql
 -- Return all customers whether they have any orders or not
-SELECT *
-FROM customers c
-LEFT JOIN orders o
-ON c.customer_id = o.customer_id | USING (customer_id)
+SELECT * FROM customers AS c
+LEFT JOIN orders AS o
+-- Those 2 lines work the same
+ON c.customer_id = o.customer_id
+-- OR
+USING (customer_id)
 ```
 
 ### Self Join
@@ -62,33 +71,29 @@ ON c.customer_id = o.customer_id | USING (customer_id)
 ![Self join](https://i.imgur.com/QnIUPH8.png)
 
 ```sql
--- Cùng lấy column từ "Customers" Table
-SELECT A.CustomerName AS CustomerName1, B.CustomerName AS CustomerName2, A.City
-FROM Customers A, Customers B
-WHERE A.CustomerID != B.CustomerID AND A.City = B.City
-ORDER BY A.City;
+-- Cùng lấy column từ "customers" Table
+SELECT a.CustomerName AS CustomerName1, b.CustomerName AS CustomerName2, a.City
+FROM customers AS a, customers AS b
+WHERE a.CustomerID != b.CustomerID AND a.City = b.City
+ORDER BY a.City;
 ```
 
 ### Cross Join
 
 ```sql
 -- Combine every color with every size
-SELECT *
-FROM colors
-CROSS JOIN sizes
-hoặc
-FROM colors, sizes
+SELECT * FROM colors CROSS JOIN sizes
+-- OR
+SELECT * FROM colors, sizes
 ```
 
 ## Unions
 
 ```sql
 -- Combine records from multiple result sets
-SELECT name, address
-FROM customers
+SELECT name, address FROM customers
 UNION
-SELECT name, address
-FROM clients
+SELECT name, address FROM clients
 ```
 
 ## Modify [Database/Table]
@@ -100,7 +105,7 @@ FROM clients
 ```sql
 ALTER TABLE customers
 ADD Birthday DATE  -- DATE là Datatype của column Birthday
-HOẶC
+-- OR
 DROP COLUMN Birthday
 ```
 
@@ -112,7 +117,7 @@ DROP COLUMN Birthday
 (INSERT INTO | CREATE TABLE) customers(customer_id, name, phone, points) VALUES
 (LAST_INSERT_ID(), ‘Mosh’, NULL, DEFAULT),
 (LAST_INSERT_ID(), ‘Bob’, 0905112233, 10)
-HOẶC
+-- OR
 (INSERT INTO | CREATE TABLE) customers AS (Subquery)
 ```
 
@@ -122,35 +127,15 @@ HOẶC
 UPDATE invoices
 SET invoice_total = invoice_total - 100
 WHERE client_id IN
-(SELECT client_id
-FROM clients
-WHERE state IN (‘CA’, ’NY’)
--- SELECT client_id tương ứng với client_id ở hàng WHERE ở trên
--- Subquery này là optional. Ex: Có thể viết “WHERE client_id = 5” là đủ. Tuy vậy nên kiểm tra trước bằng cách viết riêng rồi test thử:
-SELECT * FROM invoices WHERE client_id = 5.
--- LƯU Ý: NẾU CÓ 2 KẾT QUẢ TRỞ LÊN THÌ DÙNG IN, 1 KQ THÌ DÙNG “=”
+-- 1 in 2
+(a1, a2)
+-- OR
+(SELECT client_id FROM clients WHERE client_id in (a1, a2))
 ```
 
 ### Delete Data
 
 ```sql
-DELETE FROM invoices
-WHERE … (tương tự như phần sau của Updating Data) -- Nếu không có hàng này thì là xóa hết cả Table invoices
-```
-
-## Counting Records
-
-```sql
--- Hàm COUNT: return the number of records
-SELECT COUNT(* | tên một column bất kỳ) FROM customers
-```
-
-## Group by
-
-```sql
--- List the number of customers in each country, ordered by the country with the most customers first.
-SELECT COUNT(CustomerID), country
-FROM customers
-GROUP BY country
-ORDER BY COUNT(CustomerID) DESC
+DELETE FROM invoices WHERE …
+-- ... tương tự như "WHERE" của Updating Data. Nếu ko có "WHERE" này thì là xóa hết cả Table "invoices"
 ```
