@@ -322,12 +322,12 @@ export default ReducerExample
 ## Custom Hook
 
 Custom Hooks let you share _stateful logic_ across React components but NOT _state_ itself.  
-**Use case**: Handle business logic ở CustomHook rồi truyền vào UI(dumb) Component
+**Use case**: Handle logic ở CustomHook rồi truyền vào View(UI/Presentational/Dumb) Component
 
 ```jsx
 // Custom hook MUST start with "use"
-function useCounterUseCase(requiredArgs, { optionalArgs = 'default' }) {
-  const [value, setValue] = useState(optionalArgs ? optionalArgs : requiredArgs)
+function useCounterUseCase({ requiredArg, optionalArg = 'default' }) {
+  const [value, setValue] = useState(optionalArg ? optionalArg : requiredArg)
   return { value, setValue }
 }
 ```
@@ -335,8 +335,9 @@ function useCounterUseCase(requiredArgs, { optionalArgs = 'default' }) {
 ```jsx
 import useCounterUseCase from './useCounterUseCase.jsx'
 function Container() {
-  const { value, setValue } = useCounterUseCase('required args come first...', {
-    optionalArgs: 'remaining optional args are inside the options object',
+  const { value, setValue } = useCounterUseCase({
+    requiredArg: 'required arg come first...',
+    optionalArg: 'remaining optional args are inside the options object',
   })
 }
 ```
