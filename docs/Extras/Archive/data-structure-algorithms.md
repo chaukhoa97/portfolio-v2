@@ -13,8 +13,8 @@ title: 'Data Structure & Algorithms'
 
 ### Array xét trên phương diện Big O
 
-- Thêm/xóa element ở đầu/giữa array (`splice`; `shift`…) &rarr; `O(n)` vì phải reindex.
-- Thêm/xóa element ở cuối array &rarr; `O(1)`.
+- Thêm/xóa element ở đầu/giữa array (`slice`, `splice`; `shift`...) &rarr; `O(n)` vì phải reindex.
+- Thêm/xóa element ở cuối array (`pop`, `push`...) &rarr; `O(1)`.
 - Tìm item theo index &rarr; `O(1)`.
 
 Kết luận: Nếu Data Structure này dùng để truy cập item theo index, hay chỉ thêm/xóa item ở cuối thì nên dùng array.

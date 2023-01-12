@@ -27,6 +27,6 @@ setTimeout(function () {
 **Breakpoint**: Debugger temporarily pause execution there so you can decide what to do:
 
 - **Continue**: Run normally until hitting a _Breakpoint_.
-- **Step Over**: Run line by line, **ONLY** in the same file.
+- Step Over: Run line by line, **ONLY** in the same file.
 - **Step Into**: Run line by line, **STEP INTO** into any external function.
-- **Step out**: When you've **STEP INTO** a function, **STEP OUT** will take you back to the line right after the function call (instead of the next _Breakpoint_ like **CONTINUE**)
+- Step out: When you've **STEP INTO** a function, **STEP OUT** will take you back to the line right after the function call (instead of the next _Breakpoint_ like **CONTINUE**)
