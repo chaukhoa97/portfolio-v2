@@ -114,9 +114,8 @@ DROP COLUMN Birthday
 ### Insert Data
 
 ```sql
-(INSERT INTO | CREATE TABLE) customers(customer_id, name, phone, points) VALUES
-(LAST_INSERT_ID(), ‘Mosh’, NULL, DEFAULT),
-(LAST_INSERT_ID(), ‘Bob’, 0905112233, 10)
+(INSERT INTO | CREATE TABLE) customers(customer_id, name, phone, points)
+VALUES (123, ‘Mosh’, NULL, DEFAULT), (LAST_INSERT_ID(), ‘Bob’, 0905112233, 10)
 -- OR
 (INSERT INTO | CREATE TABLE) customers AS (Subquery)
 ```
