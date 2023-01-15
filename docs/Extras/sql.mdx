@@ -96,19 +96,6 @@ UNION
 SELECT name, address FROM clients
 ```
 
-## Modify [Database/Table]
-
-`(Create|Drop|Truncate)(Database|Table)`
-
-### Insert/Delete columns
-
-```sql
-ALTER TABLE customers
-ADD Birthday DATE  -- DATE là Datatype của column Birthday
--- OR
-DROP COLUMN Birthday
-```
-
 ## Modify Data
 
 ### Insert Data
@@ -137,4 +124,17 @@ WHERE client_id IN
 ```sql
 DELETE FROM invoices WHERE …
 -- ... tương tự như "WHERE" của Updating Data. Nếu ko có "WHERE" này thì là xóa hết cả Table "invoices"
+```
+
+## Modify [Table|Database]
+
+`(Create|Drop|Truncate)(Table|Database)`
+
+### Insert/Delete columns
+
+```sql
+ALTER TABLE customers
+ADD Birthday DATE  -- DATE là `Datatype` của column `Birthday`
+-- OR
+DROP COLUMN Birthday
 ```
