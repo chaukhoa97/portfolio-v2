@@ -94,9 +94,9 @@ const config = {
         // The application ID provided by Algolia
         appId: 'WIQAV03P4Q',
         // Public API key: it is safe to commit it
-        apiKey: '27e56a8447e70f6ce311a85e2b2475d8',
+        apiKey: '93a7092910a1fb5f8f00d212643c04f6',
         indexName: 'finnchau',
-        contextualSearch: false,
+        contextualSearch: true,
       },
     }),
 }
