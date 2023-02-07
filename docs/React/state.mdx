@@ -149,12 +149,12 @@ setPerson(nextPerson)
 
 ### Array
 
-|                                                                                                     | Avoid (mutates the array)           | Prefer (returns a new array)                                                               |
-| --------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------ |
-| [Adding](https://beta.reactjs.org/learn/updating-arrays-in-state#adding-to-an-array)                | `push`, `unshift`                   | `concat`, `[...arr]` spread syntax                                                         |
-| [Removing](https://beta.reactjs.org/learn/updating-arrays-in-state#removing-from-an-array)          | `splice`, `pop`, `shift`            | `filter`, `slice`                                                                          |
-| [Replacing](https://beta.reactjs.org/learn/updating-arrays-in-state#replacing-items-in-an-array)    | `splice`, `arr[i] = ...` assignment | `map`                                                                                      |
-| [Sorting](https://beta.reactjs.org/learn/updating-arrays-in-state#making-other-changes-to-an-array) | `sort`, `reverse`                   | Copy the array by spread syntax first (`const nextList = [...list] -> nextList.reverse()`) |
+|                                                                                                     | Avoid (mutates the array)           | Prefer (returns a new array)                                                             |
+| --------------------------------------------------------------------------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------- |
+| [Adding](https://beta.reactjs.org/learn/updating-arrays-in-state#adding-to-an-array)                | `push`, `unshift`                   | `concat`, `[...arr1, ...arr2]` (spread syntax)                                           |
+| [Removing](https://beta.reactjs.org/learn/updating-arrays-in-state#removing-from-an-array)          | `splice`, `pop`, `shift`            | `filter`, `slice`                                                                        |
+| [Replacing](https://beta.reactjs.org/learn/updating-arrays-in-state#replacing-items-in-an-array)    | `splice`, `arr[i] = ...` assignment | `map`                                                                                    |
+| [Sorting](https://beta.reactjs.org/learn/updating-arrays-in-state#making-other-changes-to-an-array) | `sort`, `reverse`                   | Copy the array by spread syntax first: `cons nextList = [...list] -> nextList.reverse()` |
 
 [_Unlike React, Vue is able to detect when a reactive array's mutation methods are called and trigger necessary updates._](https://vuejs.org/guide/essentials/list.html#array-change-detection)
 
