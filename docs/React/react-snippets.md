@@ -47,6 +47,19 @@ const MyButton = ({ ...props }) => {
 }
 ```
 
+## `setInterval` for third party API
+
+```jsx
+useEffect(() => {
+  const tagalysInterval = setInterval(() => {
+    if (window.Tagalys) {
+      clearInterval(tagalysInterval)
+      Tagalys.doStuff()
+    }
+  }, 100)
+}, [])
+```
+
 ## Next.js Hydration Error
 
 `useId` is a hook for generating unique IDs that are stable across the server and client, while avoiding hydration mismatches.
