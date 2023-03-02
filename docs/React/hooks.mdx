@@ -31,7 +31,7 @@ In React, effects are handled by `useEffect` hook.
 ### Snippets
 
 <Tabs>
-  <TabItem value="Fetch and use an external value" label="Fetch and use an external value" >
+  <TabItem value="Fetch & Use external value" label="Fetch & Use external value" >
 
 ```jsx
 function App({ id }) {
@@ -47,8 +47,6 @@ function App({ id }) {
   }, [id])
 
   useEffect(() => {
-    // the "someAnalytics" is irrelevant to React lifecycle
-    // -> it should be in an Effect so it won't be called on every render
     window.someAnalytics.push(user)
   }, [user])
 
@@ -71,6 +69,26 @@ function useDelayedValue(value, delay) {
   }, [value, delay])
 
   return delayedValue
+}
+```
+
+  </TabItem>
+  <TabItem value="setInterval" label="setInterval for third party API" >
+
+```jsx
+function useInterval() {
+  const [externalData, setExternalData] = useState()
+
+  useEffect(() => {
+    const tagalysInterval = setInterval(() => {
+      if (window.Tagalys) {
+        clearInterval(tagalysInterval)
+        setExternalData(Tagalys.getData())
+      }
+    }, 100)
+  }, [])
+
+  return externalData
 }
 ```
 
