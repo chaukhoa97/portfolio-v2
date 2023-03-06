@@ -37,13 +37,18 @@ function MyComponent() {
 ## Conditional HTML tag
 
 ```jsx
-const MyComponent = ({ as: As = 'div', ...props }) => {
-  return <As {...props} />
+const MyButton = (props) => {
+  if (props.href) {
+    return <a {...props} />
+  }
+  return <button {...props} />
 }
 
-const MyButton = ({ ...props }) => {
-  const Component = props.href ? 'a' : 'button'
-  return <Component {...props} />
+const UnsetComponent = ({ as, ...props }) => {
+  return <as />
+}
+const MyComponent = () => {
+  return <UnsetComponent as="div" />
 }
 ```
 
