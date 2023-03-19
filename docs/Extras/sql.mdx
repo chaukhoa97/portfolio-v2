@@ -54,6 +54,8 @@ WHERE first_name REGEXP ‘^my|se’
 
 ## Joins
 
+![Joins](https://qph.cf2.quoracdn.net/main-qimg-3ec11ebde60c9db9f06eafba43c9f9b7)
+
 ### Outer Join
 
 ```sql
@@ -64,27 +66,6 @@ LEFT JOIN orders AS o
 ON c.customer_id = o.customer_id
 -- OR
 USING (customer_id)
-```
-
-### Self Join
-
-![Self join](https://i.imgur.com/QnIUPH8.png)
-
-```sql
--- Cùng lấy column từ "customers" Table
-SELECT a.CustomerName AS CustomerName1, b.CustomerName AS CustomerName2, a.City
-FROM customers AS a, customers AS b
-WHERE a.CustomerID != b.CustomerID AND a.City = b.City
-ORDER BY a.City;
-```
-
-### Cross Join
-
-```sql
--- Combine every color with every size
-SELECT * FROM colors CROSS JOIN sizes
--- OR
-SELECT * FROM colors, sizes
 ```
 
 ## Unions
@@ -111,12 +92,12 @@ VALUES (123, ‘Mosh’, NULL, DEFAULT), (LAST_INSERT_ID(), ‘Bob’, 090511223
 
 ```sql
 UPDATE invoices
-SET invoice_total = invoice_total - 100
+SET value = value - 100
 WHERE client_id IN
 -- 1 in 2
-(a1, a2)
+(1, 9)
 -- OR
-(SELECT client_id FROM clients WHERE client_id in (a1, a2))
+(SELECT id FROM clients WHERE id IN (1, 9))
 ```
 
 ### Delete Data
@@ -128,7 +109,7 @@ DELETE FROM invoices WHERE …
 
 ## Modify [Table|Database]
 
-`(Create|Drop|Truncate)(Table|Database)`
+`(Create|Drop|Truncate)(Table|Database)` customers
 
 ### Insert/Delete columns
 
