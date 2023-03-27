@@ -63,7 +63,7 @@ p::before { content: '', color:... }
    - `0`: Bất chấp giữ nguyên kích thước, dẫu có phá vỡ layout.
 
 3. `flex-basis` - IDEAL: Kích thước lý tưởng của phần tử.  
-   Priority: `flex-basis` (limted by max-width & min-width) > `width` > `content`. Vì vậy chỉ nên set `flex-basis` cho flex item thay vì set `width` cho nó.
+   Priority: `flex-basis` (limted by `max-width` & `min-width`) > `width` > `content`. Vì vậy chỉ nên set `flex-basis` cho flex item thay vì set `width` cho nó.
    - `auto` (**Default**): Dc tính toán theo nội dung và các phần tử khác.
    - `1000px`: Trình duyệt sẽ hiểu là "Hãy cố gắng dành ra `1000px` cho phần tử này". Cái này còn phụ thuộc vào nội dung của những phần tử khác - Nếu nội dung mấy phần tử khác mà to quá thì cũng chịu.
 
