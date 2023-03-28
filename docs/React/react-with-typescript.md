@@ -2,6 +2,12 @@
 title: 'React with TypeScript'
 ---
 
+## Get type of an element's props
+
+```ts
+type Props = React.ComponentProps<typeof MyComponent>
+```
+
 ## Default `props` and `children`
 
 ```tsx
