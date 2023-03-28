@@ -26,6 +26,18 @@ Cùi hơn thì dùng flexbox hoặc `mx-auto` (chỉ dùng dc cho ~ element có 
 }
 ```
 
+### Grid 2 columns
+
+```css
+.grid {
+  /* min-width = 0, max-width = 1fr, Similar to Tailwind */
+  grid-template-columns: repeat(2, minmax(0, 1fr))
+
+  /* ❌ Wrong, == minmax(auto, 1fr), so the grid item is free to resize to 0 */
+  grid-template-columns: 1fr
+}
+```
+
 ### Aspect ratio
 
 ```css
