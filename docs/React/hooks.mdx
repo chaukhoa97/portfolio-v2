@@ -103,7 +103,7 @@ Finally when the `App` unmount, the _Effect_ `disconnect`.
 ### How it runs from the component’s perspective
 
 - **Mounting**: Render &rarr; Commit &rarr; `useEffectCode`
-- **Updating**: Render &rarr; Commit &rarr; `useEffectCode` &rarr; **Re-render** when deps change &rarr; `cleanUp` with old values &rarr; `useEffectCode` with new values...
+- **Updating**: Render &rarr; Commit &rarr; `useEffectCode` &rarr; Rerun when deps change &rarr; `cleanUp` with **old** values &rarr; `useEffectCode` with **new** values...
 - **Unmounting**: `cleanUp` (**AFTER** the component is removed from the DOM).
 
 :::note
