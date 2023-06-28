@@ -118,8 +118,11 @@ Cần cleanup: `setTimeout`/`setInterval`, connection to a server/database
 
 ### `useCallback`
 
-Memoize **function**: When the component re-render, the reference to the function in `useCallback` will be retained &rarr; Components that take the function as `props` won't re-render pointlessly.  
-If you’re writing a custom Hook, it’s recommended to wrap any functions that it returns into `useCallback`
+Memoize **function**: When the component re-render, the reference to the function in `useCallback` will be retained &rarr; Components that take the function as `props` won't re-render pointlessly.
+
+:::note
+If you’re writing a custom Hook, it’s recommended to wrap any functions that it returns into `useCallback` if you plan to pass them as Component `prop` or `useEffect` dependency.
+:::
 
 ### `useMemo`
 
