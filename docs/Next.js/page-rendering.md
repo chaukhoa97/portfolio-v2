@@ -45,9 +45,9 @@ Although SSG generates 2 files (HTML and JSON), when prefetching, **only** the J
 
 ## [Incremental Static Regeneration](https://vercel.com/docs/concepts/next.js/incremental-static-regeneration)
 
-> **ISG** allows you to create & update static pages after the _Build time_.
+> **ISG** allows you to create & update static pages after the **Build time**.
 
-**Usage**: Dùng cho những page có content dc update thường xuyên but it's not important for the user to see most up-to-date data: Blog, Product Detail, ...
+**Usage**: Dùng cho những page có content dc update thường xuyên but it's NOT important for the user to see most up-to-date data: Blog, Product Detail, ...
 
 Khi gặp 1 trong 2 case dưới đây, Next.js sẽ trigger generate static page ở server:
 
@@ -59,7 +59,7 @@ Khi gặp 1 trong 2 case dưới đây, Next.js sẽ trigger generate static pag
 4. After the 60 second window, the next request will still show the same cached page with old data, but Next.js will now trigger a regeneration of the page in the background.
 5. Once the page has been successfully generated, Next.js will invalidate the cache and show the updated product page. If the background regeneration fails, the old page remains unaltered.
 
-### Second case - by `getStaticPaths` using `fallback: 'blocking'(preferred)/true`
+### Second case - by `getStaticPaths` using `fallback: 'blocking'(preferred)/ true`
 
 Nếu dùng cách này, khi trên màn hình có ~ `next/<Link>`**(KHÔNG phải `<a>`)** dẫn đến ~ page chưa dc pre-render, Next.js sẽ trigger generate static page cho tất cả các page đó.
 
@@ -85,7 +85,28 @@ Use case: Đẻ 1000 most popular products từ `getStaticPaths`
 
 ### [On-demand ISR](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#on-demand-revalidation)
 
-Pending...
+Allows you to **proactively** create & update static pages when specific events occur, instead of periodical update using [`revalidate`](#first-case---by-getstaticprops-using-revalidate). This can be done by accessing a route in `api` folder (manually or with a webhook).
+
+```js title="pages/api/revalidate.js"
+// https://<your-site.com>/api/revalidate?secret=<token>
+export default async function handler(req, res) {
+  // Check for secret to confirm this is a valid request
+  if (req.query.secret !== process.env.MY_SECRET_TOKEN) {
+    return res.status(401).json({ message: 'Invalid token' })
+  }
+
+  try {
+    // this should be the actual path not a rewritten path
+    // e.g. for "/blog/[slug]" this should be "/blog/post-1"
+    await res.revalidate('/path-to-revalidate')
+    return res.json({ revalidated: true })
+  } catch (err) {
+    // If there was an error, Next.js will continue
+    // to show the last successfully generated page
+    return res.status(500).send('Error revalidating')
+  }
+}
+```
 
 ## [Server-side Rendering](https://nextjs.org/docs/basic-features/pages#server-side-rendering)
 
