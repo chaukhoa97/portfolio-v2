@@ -26,7 +26,7 @@ In React, effects are handled by `useEffect` hook.
 
 ---
 
-**Effects** let you run some code **after rendering** to synchronize React components with **external systems** outside of React (like a network or a third-party library). For example, you might want to set up a server connection, send an analytics log when a component appears on the screen, or control an external component based on a React state.
+**Effects** let you run some code **after rendering** to synchronize React components with **external systems** outside of React. For example, you might want to set up a server connection, send an analytics log when a component appears on the screen, or control an external element based on a React state.
 
 ### Snippets
 
@@ -138,7 +138,7 @@ It's also generally a good idea to memoize [Context](./state.mdx#Context) values
 
 ### `React.memo`
 
-Chỉ re-render component dc wrap bởi `React.memo` khi `props` của component thay đổi (`useCallback`/`useMemo` can reduce the number of `props` change).  
+Chỉ re-render component dc wrap bởi `React.memo` khi `props` của component thay đổi (using `useCallback` and `useMemo` in the parent component for values which are used as `props` can reduce their number of changes).  
 Wrap `React.memo` correctly at high level components &rarr; các component ở dưới cũng sẽ ko bị re-render.
 
 ```jsx
@@ -342,8 +342,8 @@ export default ReducerExample
 
 ## Custom Hook
 
-Custom Hooks let you share _stateful logic_ across React components but NOT _state_ itself (Each component that uses the same Custom Hook will get its own isolated instance of state).  
-**Use case**: Handle logic ở CustomHook rồi truyền vào View (UI/ Presentational/ Dumb) Component
+1. Let you share _stateful logic_ to React components but NOT the _state_ itself (Each component that uses the same Custom Hook will get its own isolated instance of state).
+2. Better project structure by implementing the logic in a custom hook, then using them in View (UI/ Presentational/ Dumb) Components.
 
 ```jsx
 // Custom hook MUST start with "use"
