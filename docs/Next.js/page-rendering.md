@@ -1,5 +1,6 @@
 ---
 title: 'Page Rendering'
+sidebar_position: 1
 ---
 
 ## Pre-rendering
@@ -22,7 +23,7 @@ Each generated HTML is also associated with minimal JavaScript code to make the 
 
 ### `next/link` with JSON
 
-SSG (and ISG) also generate a JSON file beside the HTML. It's used for **Client-side routing** (Page transitions are handled by JS, similar to a SPA) when the user navigates to the **static** pages by `next/link` by having this JSON as the `props` for the `PageComponent`.  
+SSG (and ISG) also generate a JSON file besides the HTML. It's used for **Client-side routing** (Page transitions are handled by JS, similar to a SPA) when users navigate by `next/link` to those **static** pages. The JSON is passed as the `props` for the `PageComponent`.  
 In addition, any `<Link />` **in the viewport** (initially or through scroll) to pages that haven't been pre-rendered will also be generated & prefetched by default.  
 Although SSG generates 2 files (HTML and JSON), when prefetching, **only** the JSON file is downloaded for Client-side routing.
 
@@ -47,7 +48,7 @@ Although SSG generates 2 files (HTML and JSON), when prefetching, **only** the J
 
 > **ISG** allows you to create & update static pages after the **Build time**.
 
-**Usage**: Dùng cho những page có content dc update thường xuyên but it's NOT important for the user to see most up-to-date data: Blog, Product Detail, ...
+**Usage**: Dùng cho những page có content dc update thường xuyên but it's NOT important for the user to see the up-to-date data: Blog, Product Detail, ...
 
 Khi gặp 1 trong 2 case dưới đây, Next.js sẽ trigger generate static page ở server:
 
@@ -61,8 +62,6 @@ Khi gặp 1 trong 2 case dưới đây, Next.js sẽ trigger generate static pag
 
 ### Second case - by `getStaticPaths` using `fallback: 'blocking'(preferred)/ true`
 
-Nếu dùng cách này, khi trên màn hình có ~ `next/<Link>`**(KHÔNG phải `<a>`)** dẫn đến ~ page chưa dc pre-render, Next.js sẽ trigger generate static page cho tất cả các page đó.
-
 ```js title="pages/products/[id].js"
 export async function getStaticPaths() {
   const products = await getTop1000Products()
@@ -74,13 +73,16 @@ export async function getStaticPaths() {
 }
 ```
 
+:::note
+
+Nếu dùng cách này, khi trên screen có ~ `next/link`**(ko phải `<a>`)** dẫn đến ~ page **CHƯA** dc pre-render (ko dc return từ `getStaticPaths`), Next.js cũng sẽ trigger generate static page cho tất cả ~ page đó, đúng với default behavior của `next/link`.
+
+:::
+
 Use case: Đẻ 1000 most popular products từ `getStaticPaths`
 
 - `fallback: blocking` **_(preferred)_** – when a request is made to a page that hasn't been generated, Next.js will `SSR` the page on the first request and cache it. Future requests will serve the static file from the cache.
 - `fallback: true` _(gõ URL thay vì click vào `<Link>` sẽ dính error)_– when a request is made to a page that hasn't been generated, Next.js will immediately serve a static page with a loading state on the first request. When the data is finished loading, the page will re-render using this data and be cached. Future requests will serve the static file from the cache.
-
----
-
 - `fallback: false` - 404 page will be served.
 
 ### [On-demand ISR](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#on-demand-revalidation)

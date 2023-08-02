@@ -21,7 +21,7 @@ In React, side effects usually belong inside **event handlers**. They don’t ne
 
 ### Effects
 
-**Effects** refers to the React-specific definition, i.e. (that is) _side effects_ caused by **rendering itself**, rather than **side effects** caused by a **particular event**, and therefore **can't** be handled by event handlers. For example, sending a message in the chat is an **Event** because it is directly caused by the user clicking a button. However, setting up a server connection is an **Effect** because it needs to happen regardless what makes the component to appear.  
+**Effects** refers to the React-specific definition, i.e. _side effects_ caused by **rendering itself**, rather than **side effects** caused by a **particular event**, and therefore **can't** be handled by event handlers. For example, sending a message in the chat is an **Event** because it is directly caused by the user clicking a button. However, setting up a server connection is an **Effect** because it needs to happen regardless what makes the component to appear.  
 In React, effects are handled by `useEffect` hook.
 
 ---
@@ -342,13 +342,13 @@ export default ReducerExample
 
 ## Custom Hook
 
-Custom Hooks let you share _stateful logic_ across React components but NOT _state_ itself.  
-**Use case**: Handle logic ở CustomHook rồi truyền vào View(UI/Presentational/Dumb) Component
+Custom Hooks let you share _stateful logic_ across React components but NOT _state_ itself (Each component that uses the same Custom Hook will get its own isolated instance of state).  
+**Use case**: Handle logic ở CustomHook rồi truyền vào View (UI/ Presentational/ Dumb) Component
 
 ```jsx
 // Custom hook MUST start with "use"
-function useCounterUseCase({ requiredArg, optionalArg = 'default' }) {
-  const [value, setValue] = useState(optionalArg ? optionalArg : requiredArg)
+function useCounterUseCase({ required = 'default', ...rest }) {
+  const [value, setValue] = useState(0)
   return { value, setValue }
 }
 ```
@@ -357,8 +357,14 @@ function useCounterUseCase({ requiredArg, optionalArg = 'default' }) {
 import useCounterUseCase from './useCounterUseCase.jsx'
 function Container() {
   const { value, setValue } = useCounterUseCase({
-    requiredArg: 'required arg come first...',
-    optionalArg: 'remaining optional args are inside the options object',
+    required: 'meo',
+    optional1: '1',
+    optional2: '2',
   })
 }
 ```
+
+## HOC
+
+A Higher Order Component (HOC) contains certain logic that we want to apply to the another component that we pass as a parameter. After applying that logic, the HOC returns the element with the additional logic.  
+HOCs can largely be replaced by Hooks as they can reduce the depth of the component tree and make the code more readable.

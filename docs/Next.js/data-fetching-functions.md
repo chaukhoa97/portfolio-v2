@@ -1,5 +1,6 @@
 ---
 title: 'Data fetching Functions'
+sidebar_position: 2
 ---
 
 ### `getStaticProps` + `getStaticPaths`

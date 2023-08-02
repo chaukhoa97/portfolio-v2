@@ -185,34 +185,34 @@ function handleClick() {
 
 ![Preserving state](https://beta.reactjs.org/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fpreserving_state_diff_same_pt1.dark.png&w=828&q=75)
 
-### Resetting state at the same position
-
 ```jsx
-// These 2 share the state
+// These 2 share the `count` state in the above image
 isPlayerA ? <Counter person="Taylor" /> : <Counter person="Sarah" />
 ```
 
-#### Option 1: Rendering a component in different positions
+### Resetting state at the same position
+
+#### Option 1: Resetting state with a key
 
 ```jsx
-// These 2 won't share the state!
-{
-  isPlayerA && <Counter person="Taylor" />
-}
-{
-  !isPlayerA && <Counter person="Sarah" />
-}
-```
-
-#### Option 2: Resetting state with a key
-
-```jsx
-// These 2 won't share the state!
+// These 2 won't share the `count` state!
 {
   isPlayerA ? (
     <Counter key="Taylor" person="Taylor" />
   ) : (
     <Counter key="Sarah" person="Sarah" />
   )
+}
+```
+
+#### Option 2: Rendering a component in different positions
+
+```jsx
+// These 2 won't share the `count` state!
+{
+  isPlayerA && <Counter person="Taylor" />
+}
+{
+  !isPlayerA && <Counter person="Sarah" />
 }
 ```
