@@ -18,7 +18,7 @@ An in-memory copy of the Real DOM.
 
 ### How it works in React
 
-When there are [re-renders](../React/react-lifecycle.mdx#step-1-react-trigger-render-initial-hoặc-re-render-component), while rendering ([1st phase](./react-lifecycle.mdx#step-1-react-trigger-render-initial-hoặc-re-render-component)), React will compute the diffs between what's _currently on the page_ vs what _should be on the page_, calculate the minimal necessary DOM operations to make the DOM match the latest rendering output, and finally batch executes all updates in the _commit phase_.
+When there are [re-renders](./react-lifecycle.mdx#step-1-render-phase), while rendering ([1st phase](./react-lifecycle.mdx#step-1-render-phase)), React will compute the diffs between what's _currently on the page_ vs what _should be on the page_, calculate the minimal necessary DOM operations to make the DOM match the latest rendering output, and finally batch executes all updates in the _commit phase_.
 
 ### Cons
 
