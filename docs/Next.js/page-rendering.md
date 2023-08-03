@@ -5,7 +5,7 @@ sidebar_position: 1
 
 ## Pre-rendering
 
-By default, Next.js pre-renders every page. It means when there's a request, Next.js will pre-render the HTML page with its static content, instead of letting client-side JS do all the work like CSR.  
+By default, Next.js pre-renders every page. It means when there's a request, Next.js will pre-render the HTML page with its static content, instead of letting client-side JS do all the work like CSR -> **Great for SEO**.  
 Each generated HTML is also associated with minimal JavaScript code to make the page fully interactive after it is loaded by the browser (This process is called `hydration`).
 
 [SSG](#static-site-generation), [ISR](#incremental-static-regeneration), [SSR](#server-side-rendering) are 3 ways Next.js pre-renders pages.
@@ -114,13 +114,9 @@ export default async function handler(req, res) {
 
 > `getServerSideProps`: Next.js will pre-render the HTML at the time the user request instead of the build time and then return the HTML to the user.
 
-**Usage**:
+**Usage**: Important for the user to see most up-to-date data: Pages whose content is based on user input: Search result by keyword, ...
 
-- SEO is critical.
-- Important for the user to see most up-to-date data.
-- TTFB chậm nhất (do Server phải Generate lại page rồi mới gửi lại cho user), nhưng tổng thể sau cùng thì load nhanh hơn `CSR` (ko đáng kể).
-
-&rarr; Dùng cho những page cần SEO, và content của page dc dựa theo input từ user: Search result by keyword, ...
+TTFB chậm nhất (do Server phải Generate lại page rồi mới gửi lại cho user), nhưng tổng thể sau cùng thì load nhanh hơn `CSR` (ko đáng kể).
 
 ![Server-side Rendering](https://nextjs.org/static/images/learn/data-fetching/server-side-rendering.png)
 
