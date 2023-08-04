@@ -19,7 +19,8 @@ State is like a component’s memory. **It lets a component keep track of some i
 
 ### Context
 
-Context lets components pass information deep down without explicitly passing props.
+Context lets the parent component make some information available to **any component in the tree below it**—no matter how deep—without passing it explicitly through props, thus avoid **prop drilling**.  
+It’s designed for data that changes over time, like the current user’s theme, or the preferred language.
 
 <Tabs>
   <TabItem value="cartContext" label="components/cart/cartContext.tsx" >

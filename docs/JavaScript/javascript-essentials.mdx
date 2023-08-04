@@ -3,6 +3,9 @@ title: 'JavaScript Essentials'
 sidebar_position: 1
 ---
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
 ## Event loop
 
 1. Synchronously execute the script until the **Call Stack** (LIFO) is empty. Các hàm **async** vào **Call stack** thì dc di chuyển qua **Web api**. Ở **Web api** chạy async xong thì push callback vào **Task Queue**/ **Microtask Queue**.
@@ -52,6 +55,9 @@ console.log(x) // ❌ ReferenceError: Biến `x` chỉ dc sử dụng trong `f1`
 
 ### Tricky example
 
+<Tabs>
+  <TabItem value="Basic" label="Basic">
+
 ```js
 // When using `var` in a `for` loop, the variable is hoisted to Global Scope.
 for (var i = 0; i < 3; i++) {
@@ -62,11 +68,47 @@ for (var i = 0; i < 3; i++) {
   const log = () => console.log(i)
   setTimeout(log, 0)
 }
+// EZ Fix: Use `let` instead of `var` OR get rid of `setTimeout`
 ```
+
+ </TabItem>
+  <TabItem value="IIFE" label="IIFE">
+
+```js
+// Fix that still use `var` and `setTimeout`
+// Use IIFE (Immediately Invoked Function Expression)
+for (var i = 0; i < 3; i++) {
+  ;(function (i) {
+    setTimeout(function () {
+      console.log(i)
+    }, 0)
+  })(i)
+}
+```
+
+  </TabItem>
+  <TabItem value="Separate Fn" label="Separate Fn">
+
+```js
+// Fix that still use `var` and `setTimeout`
+for (var i = 0; i < 3; i++) {
+  // Create a closure to capture the current value of `i`
+  const temp = function (index) {
+    setTimeout(function () {
+      console.log(index)
+    }, 0)
+  }
+  temp(i)
+}
+```
+
+  </TabItem>
+
+</Tabs>
 
 ## Hoisting
 
-JavaScript Engine moves the function and variable **declarations** to the top of the current **scope**.  
+JavaScript Engine moves the function and variable **declarations** to the top of the current **scope**.
 _NOTE: [**scope** of `var` and `let` is different.](#var-let-const)_
 
 ```js
