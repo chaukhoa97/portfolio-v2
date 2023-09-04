@@ -11,15 +11,15 @@ type Props = React.ComponentProps<typeof MyComponent> // e.g. <"button">
 ## Default `props`, `children`, and `rest`
 
 ```tsx
-type GreetProps = {
+type ButtonProps = {
   disabled?: boolean
   children: React.ReactNode
 }
 
-const Greet = ({ disabled = false, children, ...rest }: GreetProps) => (
-  <div disabled={disabled} {...rest}>
+const Button = ({ disabled = false, children, ...rest }: ButtonProps) => (
+  <button disabled={disabled} {...rest}>
     {children}
-  </div>
+  </button>
 )
 ```
 
