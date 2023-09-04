@@ -5,13 +5,22 @@ title: 'React with TypeScript'
 ## Get type of an element's props
 
 ```ts
-type Props = React.ComponentProps<typeof MyComponent>
+type Props = React.ComponentProps<typeof MyComponent> // e.g. <"button">
 ```
 
-## Default `props` and `children`
+## Default `props`, `children`, and `rest`
 
 ```tsx
-const Greet = ({ age = 21, children }: { age?: number, children: ReactNode }) => ...
+type GreetProps = {
+  disabled?: boolean
+  children: React.ReactNode
+}
+
+const Greet = ({ disabled = false, children, ...rest }: GreetProps) => (
+  <div disabled={disabled} {...rest}>
+    {children}
+  </div>
+)
 ```
 
 ## Hooks
