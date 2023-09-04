@@ -9,6 +9,49 @@ import s from '../Nav.module.scss'
 return <h1 className={`${s['active-nav']} ${s.red}`}>Hello</h1>
 ```
 
+## Flatten object (useful for nested state)
+
+```js
+// From this...
+const initialTravelPlan = {
+  id: 0,
+  title: '(Root)',
+  childPlaces: [
+    {
+      id: 1,
+      title: 'Earth',
+      childPlaces: [
+        {
+          id: 2,
+          title: 'Africa',
+          childPlaces: [
+            {
+              id: 3,
+              title: 'Botswana',
+              childPlaces: [],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+
+// ...to this
+const flatTravelPlan = {
+  0: {
+    id: 0,
+    title: '(Root)',
+    childIds: [1, 42, 46],
+  },
+  1: {
+    id: 1,
+    title: 'Earth',
+    childIds: [2, 10, 19, 26, 34],
+  },
+}
+```
+
 ## Different content on client and server
 
 ```jsx

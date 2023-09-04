@@ -8,19 +8,36 @@ title: 'React with TypeScript'
 type Props = React.ComponentProps<typeof MyComponent> // e.g. <"button">
 ```
 
-## Default `props`, `children`, and `rest`
+## Default `props`, `children`, `style`, and `rest`
 
 ```tsx
 type ButtonProps = {
   disabled?: boolean
   children: React.ReactNode
+  style?: React.CSSProperties
 }
 
 const Button = ({ disabled = false, children, ...rest }: ButtonProps) => (
-  <button disabled={disabled} {...rest}>
+  <button disabled={disabled} style={{ color: 'red' }} {...rest}>
     {children}
   </button>
 )
+```
+
+## DOM Events
+
+```tsx
+const MyComponent = () => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => null
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => null
+
+  return (
+    <>
+      <button onClick={handleClick}>Click me</button>
+      <input onChange={handleInputChange} />
+    </>
+  )
+}
 ```
 
 ## Hooks
