@@ -2,6 +2,8 @@
 title: 'Core Web Vitals'
 ---
 
+![CWV](https://www.patterns.dev/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fddxwdqwkr%2Fimage%2Fupload%2Ff_auto%2Fv1660456914%2Fpatterns.dev%2Fweb-vitals.png&w=1920&q=75)
+
 ## Largest Contentful Paint (LCP)
 
 **LCP** measures the time it takes to get the largest element on the page visible within the viewport. This could be a large text block, video, or image that takes up the primary real estate on the page.
@@ -14,9 +16,13 @@ Improve **LCP** by: Optimized image component or even before delivered, lazy loa
 This is not **First Contentful Paint (FCP)**, which measures the time from when the page begins to load to when the first element is rendered on screen.
 :::
 
-## Total Blocking Time (TBT) == First Input Delay (FID)
+## Time To Interactive (TTI)
 
-**FID** measures the **interactivity** of a web page.
+**TTI** measures when the page becomes fully interactive and responsive to user input. It typically occurs after **FCP**.
+
+## First Input Delay (FID) == Total Blocking Time (TBT)
+
+**FID** measures the delay users experience between initiating an interaction (e.g., clicking a button) and the browser responding to that interaction. It occurs after **TTI** because it specifically focuses on user-initiated actions.
 
 Improve **FID** by: Reduce the amount of JavaScript executed on page load by using code splitting, removing unused code, and deferring non-critical JavaScript.
 
