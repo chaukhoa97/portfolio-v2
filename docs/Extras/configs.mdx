@@ -219,10 +219,13 @@ npx --no-install lint-staged
   "exclude": ["src/stories/**/*"] /* Exclude stories from build */,
   "compilerOptions": {
     // ...
-    "baseUrl": ".",
+    "baseUrl": ".", // hoặc "src", depends on project structure
     "paths": {
-      "@/*": ["./*"],
-      "@components/*": ["./components/*"]
+      // Cách 1: @/components/...; @/lib/...
+      "@/*": ["*"],
+      // Cách 2: @components/...; @lib/...
+      "@components/*": ["components/*"],
+      "@lib/*": ["lib/*"]
     }
   }
 }

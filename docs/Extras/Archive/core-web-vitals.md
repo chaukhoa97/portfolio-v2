@@ -2,11 +2,24 @@
 title: 'Core Web Vitals'
 ---
 
+## General
+
 ![CWV](https://www.patterns.dev/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fddxwdqwkr%2Fimage%2Fupload%2Ff_auto%2Fv1660456914%2Fpatterns.dev%2Fweb-vitals.png&w=1920&q=75)
 
-**Core Web Vitals** are a **subset** of **Performance Metrics**, defined by Google, aim to provide unified guidance for quality signals that are essential to delivering a <u>great user experience</u> on the web, while **Performance Metrics** evaluate <u>many different aspects</u> like server-side performance, resource optimization, and JavaScript execution time.
+**[Core Web Vitals](https://web.dev/learn-core-web-vitals/)** are a **subset** of **[Performance Metrics](https://web.dev/metrics/)**, defined by Google, aim to provide unified guidance for quality signals that are essential to delivering a <u>great user experience</u> on the web, while **Performance Metrics** evaluate <u>many different aspects</u> like server-side performance, resource optimization, and JavaScript execution time.
 
 The metrics that make up **Core Web Vitals** will evolve over time. The current set for 2020 focuses on three aspects of the user experience—_loading (**LCP**)_, _interactivity (**FID**)_, and _visual stability (**CLS**)_.
+
+|                           Metrics                            | Summary |                 How to improve                  |
+| :----------------------------------------------------------: | :-----: | :---------------------------------------------: |
+|      [Time to First Byte (TTFB)](https://web.dev/ttfb/)      |         |     [Link](https://web.dev/optimize-ttfb/)      |
+|     [First Contentful Paint (FCP)](https://web.dev/fcp/)     |         | [Link](https://web.dev/fcp/#how-to-improve-fcp) |
+| CWA: [Largest Contentful Paint (LCP)](https://web.dev/lcp/)  |         |      [Link](https://web.dev/optimize-lcp/)      |
+|     CWA: [First Input Delay (FID)](https://web.dev/fid/)     |         |      [Link](https://web.dev/optimize-fid/)      |
+|      [Time to Interactive (TTI)](https://web.dev/tti/)       |         | [Link](https://web.dev/tti/#how-to-improve-tti) |
+|      [Total Blocking Time (TBT)](https://web.dev/tbt/)       |         | [Link](https://web.dev/tbt/#how-to-improve-tbt) |
+|  CWA: [Cumulative Layout Shift (CLS)](https://web.dev/cls/)  |         |      [Link](https://web.dev/optimize-cls/)      |
+| CWA: [Interaction to Next Paint (INP)](https://web.dev/inp/) |         |      [Link](https://web.dev/optimize-inp/)      |
 
 ## [Largest Contentful Paint (LCP)](https://web.dev/lcp/)
 
