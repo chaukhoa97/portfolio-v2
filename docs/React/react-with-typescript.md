@@ -40,6 +40,26 @@ const MyComponent = () => {
 }
 ```
 
+## Try catch
+
+```tsx
+function getErrorMessage(error: unknown) {
+  // `Error` is a built-in type: interface Error { name: string; message: string; stack?: string }
+  if (error instanceof Error) return error.message
+  return `${error}`
+}
+
+const reportError = ({ message }: { message: string }) => {
+  // send the error to our logging service...
+}
+
+try {
+  throw new Error('Oh no!')
+} catch (error) {
+  reportError({ message: getErrorMessage(error) })
+}
+```
+
 ## Hooks
 
 ### `useState`
