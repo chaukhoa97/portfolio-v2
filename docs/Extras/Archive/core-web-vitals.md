@@ -4,39 +4,43 @@ title: 'Core Web Vitals'
 
 ![CWV](https://www.patterns.dev/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fddxwdqwkr%2Fimage%2Fupload%2Ff_auto%2Fv1660456914%2Fpatterns.dev%2Fweb-vitals.png&w=1920&q=75)
 
-## Largest Contentful Paint (LCP)
+**Core Web Vitals** are a **subset** of **Performance Metrics**, defined by Google, aim to provide unified guidance for quality signals that are essential to delivering a <u>great user experience</u> on the web, while **Performance Metrics** evaluate <u>many different aspects</u> like server-side performance, resource optimization, and JavaScript execution time.
+
+The metrics that make up **Core Web Vitals** will evolve over time. The current set for 2020 focuses on three aspects of the user experience—_loading (**LCP**)_, _interactivity (**FID**)_, and _visual stability (**CLS**)_.
+
+## [Largest Contentful Paint (LCP)](https://web.dev/lcp/)
 
 **LCP** measures the time it takes to get the largest element on the page visible within the viewport. This could be a large text block, video, or image that takes up the primary real estate on the page.
 
 **LCP** measures the **loading performance** of a web page.
 
-Improve **LCP** by: Optimized image component or even before delivered, lazy loading.
+Improve **LCP** by: Optimized image component or even before delivered, lazy loading. [Read more](https://web.dev/optimize-lcp/)
 
 :::caution
 This is not **First Contentful Paint (FCP)**, which measures the time from when the page begins to load to when the first element is rendered on screen.
 :::
 
-## Time To Interactive (TTI)
+## [First Input Delay (FID)](https://web.dev/fid/) ~~ Total Blocking Time (TBT)
 
-**TTI** measures when the page becomes fully interactive and responsive to user input. It typically occurs after **FCP**.
+**FID** measures the delay users experience between initiating an interaction (e.g., clicking a button) and the browser responding to that interaction.
 
-## First Input Delay (FID) == Total Blocking Time (TBT)
+Improve **FID** by: Reduce the amount of JavaScript executed on page load by using code splitting, removing unused code, and deferring non-critical JavaScript. [Read more](https://web.dev/optimize-fid/)
 
-**FID** measures the delay users experience between initiating an interaction (e.g., clicking a button) and the browser responding to that interaction. It occurs after **TTI** because it specifically focuses on user-initiated actions.
+:::info
+This will soon be replaced by [Interaction to Next Paint - INP](https://web.dev/inp/)
+:::
 
-Improve **FID** by: Reduce the amount of JavaScript executed on page load by using code splitting, removing unused code, and deferring non-critical JavaScript.
-
-## Cumulative Layout Shift (CLS)
+## [Cumulative Layout Shift (CLS)](https://web.dev/cls/)
 
 **CLS** occurs when elements have been shifted after initially being rendered by the DOM. Ex: A `button` is rendered after the `text block`, causing the `text` to shift downward.
 
 **CLS** measure your site’s **overall layout stability**.
 
-Improve **CLS** by: Skeleton & Placeholder.
+Improve **CLS** by: Skeleton & Placeholder. [Read more](https://web.dev/optimize-cls/)
 
 ![Cumulative Layout Shift (CLS)](https://nextjs.org/static/images/learn/seo/cls-example.png)
 
-## How to improve [Lighthouse Core Web Vitals](https://web.dev/performance-scoring/#lighthouse-8)
+## How to improve [Lighthouse Core Web Vitals](https://web.dev/performance-scoring)
 
 ### [`next/image`](https://nextjs.org/docs/basic-features/image-optimization)
 
