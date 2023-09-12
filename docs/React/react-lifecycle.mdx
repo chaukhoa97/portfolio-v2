@@ -30,7 +30,7 @@ React triggers a Component rendering when:
 - **State** (including state consumed by custom hook), **Props**, **Context** consumed by your Component changes.
 - Parent của Component re-render (trừ khi Component dc wrap bởi `React.memo`). [If passed as `prop` instead of directly passed to Component, React will NOT re-render Component when Parent re-render](#lift-ur-component-up-and-pass-it-down-as-a-prop).
 
-“Rendering” means React **calling your Component function**. It uses a concept called [_Virtual DOM_](./react-essentials.md#virtual-dom) to compute the diffs between what's _currently on the page_ vs what _should be on the page_, then calculate the minimal necessary DOM operations to make the DOM match the latest rendering output, and wait for the next step, the _commit phase_.
+“Rendering” means React **calling your Component function**. It uses a concept called [_Virtual DOM_](./react-essentials.md#virtual-dom) to compute the diffs between what's _currently on the page_ vs what _should be on the page_, then calculate the minimal necessary DOM operations to make the DOM match the latest rendering output, and wait for the next step, the _commit phase_. The diffing and calculation process is known as _reconciliation_.
 
 <details>
 
@@ -47,7 +47,13 @@ const Child = ({ onClick }) => {
 
 const Parent = () => {
   const [count, setCount] = useState(0)
-  const handleClick = () => setCount(count + 1)
+
+  const handleClick = () => {
+    const newCount = count + 1
+    setCount(newCount)
+    // This will reflect the correct value of the state after being changed instead of being one step behind
+    console.log(newCount)
+  }
 
   // ❌ Nested Component
   const NestChild = ({ onClick }) => {

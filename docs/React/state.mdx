@@ -44,7 +44,8 @@ export const CartContext = createContext<CartContextProps>({
 export const CartProvider = ({ children }) => {
   // To update context, you need to combine it with state
   const [currency, setCurrency] = useState<Currency>('USD')
-  // (Optional) Components that consume the context may re-render when `CartProvider` re-render
+  // When `CartProvider` re-render, components consuming the Context also re-render
+  // Memoizing the value which is passed as prop to `Provider` will reduce unnecessary re-render
   const memoizedValue = useMemo(() => ({ currency, setCurrency }), [currency])
 
   return (

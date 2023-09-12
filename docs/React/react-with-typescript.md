@@ -12,8 +12,8 @@ type Props = React.ComponentProps<typeof MyComponent> // e.g. <"button">
 
 ```tsx
 type ButtonProps = {
+  children: React.ReactNode // Widest, can be ReactElement, ReactFragment, string...
   disabled?: boolean
-  children: React.ReactNode
   style?: React.CSSProperties
 }
 
@@ -22,6 +22,52 @@ const Button = ({ disabled = false, children, ...rest }: ButtonProps) => (
     {children}
   </button>
 )
+```
+
+## [React component as `props`](https://codesandbox.io/p/sandbox/react-component-as-prop-icon-l6y3p8?file=/src/App.tsx:16,18)
+
+```tsx
+type ButtonProps = {
+  icon: ReactElement<IconProps> // JSX element
+}
+
+export const ButtonWithIconElement = ({
+  icon = <DefaultIcon />,
+}: ButtonProps) => {
+  const [isHovered, setIsHovered] = useState(false)
+
+  // Default props for the passed icon
+  const clonedIcon = React.cloneElement(icon, {
+    width: 32,
+    height: 32,
+    isHovered: isHovered,
+  })
+
+  return (
+    <button
+      onMouseOver={() => setIsHovered(true)}
+      onMouseOut={() => setIsHovered(false)}
+    >
+      {icon}
+      {clonedIcon}
+    </button>
+  )
+}
+
+function SvgComponent(props: any) {
+  return (
+    <svg
+      stroke={props.isHovered ? 'currentColor' : 'red'}
+      width={24}
+      height={24}
+      {...props}
+    />
+  )
+}
+
+function App() {
+  return <ButtonWithIconElement icon={<SvgComponent anyProps />} />
+}
 ```
 
 ## DOM Events

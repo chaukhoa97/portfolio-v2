@@ -128,18 +128,60 @@ If you’re writing a custom Hook, it’s recommended to wrap any functions that
 
 Memoize **return value of a function**: When the component re-render, the reference to the return value in `useMemo` callback will be retained &rarr; Components that take the return value as `props` won't re-render pointlessly. Or when the function that creates the value is too complex (ex: Sort, fetch,...).
 
-It's also generally a good idea to memoize [Context](./state.mdx#Context) values because there might be dozens of pure components that consume this context. Without `useMemo`, all of these components would be forced to re-render if the `Context Provider` happens to re-render.
+It's also generally a good idea to memoize values of a [Context](./state.mdx#Context) because there might be dozens of pure components that consume this context. Without `useMemo`, all of these components would be forced to re-render if the `Context Provider` happens to re-render.
 
-> **Read more**: `useMemo` benchmark [article](https://canimerge.com/should-you-really-use-usememo-in-react-lets-find-out/) & [result](https://i.imgur.com/GZdPjKP.png)
+> **Read more**: `useMemo` [benchmark result](https://i.imgur.com/GZdPjKP.png)
 
 :::note
 `useCallback(someFunction, deps)` are the same with `useMemo(() => someFunction, deps)`
 :::
 
+`useMemo` can also be used to memoized a component:
+
+```tsx
+export const Page = ({ countries }: { countries: Country[] }) => {
+  const [selectedCountry, setSelectedCountry] = useState<Country>(countries[0])
+  const [savedCountry, setSavedCountry] = useState<Country>(countries[0])
+
+  const list = useMemo(() => {
+    return (
+      <CountriesList
+        countries={countries}
+        onCountryChanged={(c) => setSelectedCountry(c)}
+        // This helps CountriesList to NOT rerender when `selectedCountry` changes, because it's not used in CountriesList
+        savedCountry={savedCountry}
+      />
+    )
+  }, [savedCountry, countries])
+
+  const selected = useMemo(() => {
+    return (
+      <SelectedCountry
+        // This helps SelectedCountry to NOT rerender when `savedCountry` changes, because it's not used in SelectedCountry
+        country={selectedCountry}
+        onCountrySaved={() => setSavedCountry(selectedCountry)}
+      />
+    )
+  }, [selectedCountry])
+
+  return (
+    <>
+      <h1>Country settings</h1>
+      <div css={contentCss}>
+        {list}
+        {selected}
+      </div>
+    </>
+  )
+}
+```
+
 ### `React.memo`
 
 Chỉ re-render component dc wrap bởi `React.memo` khi `props` của component thay đổi (using `useCallback` and `useMemo` in the parent component for values which are used as `props` can reduce their number of changes).  
 Wrap `React.memo` correctly at high level components &rarr; các component ở dưới cũng sẽ ko bị re-render.
+
+### Example for all of 3
 
 ```jsx
 const Parent = () => {
@@ -154,11 +196,11 @@ export default Parent
 
 ```jsx
 const Children = ({ todos, text }) => {
-  const options = { searchParam: text }
+  const options = { searchParam: text } // Create lại mỗi lần Children re-render
   const uncachedTodos = filterTodos(todos, options) // Create lại mỗi lần Children re-render
 
   const cachedTodos = useMemo(() => {
-    // `options` là ref nhưng bọc trong `useMemo` thì vẫn ok, `cachedTodos` ko bị create lại
+    // Declare `options` in `useMemo` won't let it be re-created as `cachedTodos` ko bị create lại
     const options = { searchParam: text }
     return filterTodos(todos, options)
   }, [todos, text])
@@ -277,23 +319,20 @@ A state variable’s value never changes within a render, even if its event hand
 ```jsx
 function Counter() {
   // Lazy init: `computeExpensiveValue` chỉ chạy ở lần render đầu tiên để tạo ra giá trị init cho `count` state
-
   const [count, setCount] = useState(() => computeExpensiveValue(a, b))
-  return (
-    <button
-      onClick={() => {
-        // Update dựa theo prev state, convention là letter đầu tiên của state (count -> c)
-        setCount((c) => c + 5)
-        // Alert 0 thay vì 5, `alert` ở đây đã nhận snapshot của `count` state ngay lúc click btn (0)
-        // Sau đó dẫu `count` có thay đổi (0 -> 5) cũng k ảnh hưởng tới giá trị dc `alert`
-        setTimeout(() => {
-          alert(count)
-        }, 1000)
-      }}
-    >
-      +5
-    </button>
-  )
+
+  const handleClick = () => {
+    // Update dựa theo prev state, convention là letter đầu tiên (count -> c)
+    setCount((c) => c + 5)
+    // Alert 0 instead of 5 even though `count` changed to 5
+    // Because `handleClick` function is a closure - it can only see the values of variables as they existed when the function was defined
+    // In other words, these state variables were a snapshot at the time the button was clicked
+    setTimeout(() => {
+      alert(count)
+    }, 1000)
+  }
+
+  return <button onClick={handleClick}>+5</button>
 }
 ```
 
@@ -368,3 +407,13 @@ function Container() {
 
 A Higher Order Component (HOC) contains certain logic that we want to apply to the another component that we pass as a parameter. After applying that logic, the HOC returns the element with the additional logic.  
 HOCs can largely be replaced by Hooks as they can reduce the depth of the component tree and make the code more readable.
+
+```jsx
+// accept a Component as an argument
+const withSomeLogic = (Component) => {
+  // do something
+
+  // return a component that renders the component from the argument
+  return (props) => <Component {...props} />
+}
+```
