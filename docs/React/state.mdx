@@ -21,6 +21,11 @@ State is like a component’s memory. **It lets a component keep track of some i
 
 Context lets the parent component make some information available to **any component in the tree below it**—no matter how deep—without passing it explicitly through props, thus avoid **prop drilling**.  
 It’s designed for data that changes over time, like the current user’s theme, or the preferred language.
+The biggest weakness of the Context API is that a component cannot selectively subscribe to parts of a context value, so all components reading that context will re-render when the value is updated.
+
+:::info
+Prop drilling can make your app hard to maintain. If you want to add or remove a prop to/from a component, you often have to make the same change in all of the components above it in the tree.
+:::
 
 <Tabs>
   <TabItem value="cartContext" label="components/cart/cartContext.tsx" >
@@ -50,6 +55,9 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider value={memoizedValue}>
+      // Use `children` so that the whole tree below `children` doesn't render
+      all the time when you update the context value // Read more "Lift ur
+      component up and pass it down as a prop"
       {children}
     </CartContext.Provider>
   )
@@ -100,9 +108,98 @@ const { currency, setCurrency } = useCart()
 
 > **Read more**: [Kết hợp giữa `useReducer` và `Context` để manage **wide** sate](https://beta.reactjs.org/learn/scaling-up-with-reducer-and-context)
 
+#### Context alternative: Reduce prop drilling using Composition
+
+<Tabs>
+  <TabItem value="before" label="Before">
+
+```jsx
+export default function App({ currentUser }) {
+  return <Dashboard user={currentUser} />
+}
+
+function Dashboard({ user }) {
+  return (
+    <main>
+      <h2>The Dashboard</h2>
+      <DashboardContent user={user} />
+    </main>
+  )
+}
+
+function DashboardContent({ user }) {
+  return (
+    <div>
+      <h3>Dashboard Content</h3>
+      <WelcomeMessage user={user} />
+    </div>
+  )
+}
+
+function WelcomeMessage({ user }) {
+  return <p>Welcome {user.name}</p>
+}
+```
+
+  </TabItem>
+  <TabItem value="after" label="After">
+
+```jsx
+// Dashboard and DashboardContent are no longer passed irrelevant data
+export default function App({ currentUser }) {
+  return (
+    <Dashboard>
+      <DashboardContent>
+        <WelcomeMessage user={currentUser} />
+      </DashboardContent>
+    </Dashboard>
+  )
+}
+
+function Dashboard({ children }) {
+  return (
+    <main>
+      <h2>The Dashboard</h2>
+      {children}
+    </main>
+  )
+}
+
+function DashboardContent({ children }) {
+  return (
+    <div>
+      <h3>Dashboard Content</h3>
+      {children}
+    </div>
+  )
+}
+
+function WelcomeMessage({ user }) {
+  return <p>Welcome {user.name}</p>
+}
+```
+
+  </TabItem>
+</Tabs>
+
+:::note
+This usually only works in simple app because it can make higher-level components more complicated and forces the lower-level components to be more felxible than you may want. For larger and more complex app, Context is a better option.
+:::
+
 ### Local mutation
 
-Pure functions don’t mutate variables outside of the function’s scope or objects that were created before the call — that makes them impure!  
+Pure functions don’t mutate variables outside of the function’s scope or objects that were created before the call — that makes them impure!
+
+```jsx
+// This will not re-render as expected because the `todos`'s reference hasn’t changed
+const [todos, setTodos] = useState(someTodosArray)
+
+const onClick = () => {
+  todos[3].completed = true
+  setTodos(todos)
+}
+```
+
 However, **it’s completely fine to change variables and objects that you’ve _just_ created while rendering**. In this example, you create an `[]` array, assign it to a `cups` variable, and then `push` a dozen cups into it:
 
 ```jsx

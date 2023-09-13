@@ -9,19 +9,15 @@ import TabItem from '@theme/TabItem'
 
 ## Steps
 
-**TL;DR**:
+**TLDR**:
 
-1. "calling" a component to get the jsx tree
-2. "reconciling" the old and new virtual DOM
-3. "committing" the changes to the real DOM
-4. `useLayoutEffect` to avoid flashes (ie position popups)
+1. "Calling" a component to get the jsx tree
+2. "Reconciling" the old and new virtual DOM
+3. "Committing" the changes to the real DOM
+4. `useLayoutEffect` to avoid flashes (i.e. position popups)
 5. `useEffect` after to release the thread before effects
 
-[CodeSandbox example](https://codesandbox.io/s/react-lifecycle-djj04t):
-
-1. Parent is fully rendered before any child is rendered. So you get "before Child" and "after Child" before "rendering Child".
-2. Child `useLayoutEffect` runs before Parent `useLayoutEffect`
-3. Child `useEffect` runs before Parent `useEffect`
+[CodeSandbox example](https://codesandbox.io/s/react-lifecycle-djj04t)
 
 ### Step 1: Render phase
 
@@ -176,43 +172,4 @@ useEffect(() => {
     // Do `componentWillUnmount` logic
   }
 }, [])
-```
-
-## [Reduce re-rendering](https://www.zhenghao.io/art/blog/react-rerender/flowchart.jpeg)
-
-### Lift ur component up and pass it down as a prop
-
-1. `ChildA` gets compiled to `React.createElement(ChildA, null)` by Babel that creates a `ReactElement` of this shape `{ type: Child, props: {} }`. `props` là ref value &rarr; `ChildA` luôn bị re-render khi `Parent` re-render.
-2. `ChildB` & `ChildC` all passed as prop of `Parent` &rarr; no `React.createElement` is called for `ChildB` & `ChildC` (Có thể hiểu `prop` chỉ reference tới `ChildB` & `ChildC` chứ ko call Component function của 2 thằng này).
-
-```jsx
-default function App() {
-  return (
-    <Parent lastChild={<ChildC />}>
-      <ChildB />
-    </Parent>
-  );
-}
-
-function Parent({ children, lastChild }) {
-  return (
-    <div className="parent">
-      <ChildA />
-      {children}
-      {lastChild}
-    </div>
-  );
-}
-
-function ChildA() {
-  return <div className="childA"></div>;
-}
-
-function ChildB() {
-  return <div className="childB"></div>;
-}
-
-function ChildC() {
-  return <div className="childC"></div>;
-}
 ```
