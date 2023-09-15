@@ -166,3 +166,18 @@ let arr = [1, 2, 3, 4]
 // Nếu ko có dấu ; thì sẽ bị lỗi:
 arr = [1, 2, 3, 4][(arr[0], arr[1])] = [arr[1], arr[0]]
 ```
+
+## Cached value
+
+```js
+const cache = {}
+function addTwo(input) {
+  if (!cache.hasOwnProperty(input)) {
+    cache[input] = input + 2
+  }
+  return cache[input]
+}
+
+addTwo(3) // 5
+addTwo(3) // 5, but this time we got it from the cache 🤓
+```

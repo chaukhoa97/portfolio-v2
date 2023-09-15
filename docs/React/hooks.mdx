@@ -103,14 +103,21 @@ Finally when the `App` unmount, the _Effect_ `disconnect`.
 ### How it runs from the component’s perspective
 
 - **Mounting**: Render &rarr; Commit &rarr; `useEffectCode`
-- **Updating**: Render &rarr; Commit &rarr; `useEffectCode` &rarr; Rerun when deps change &rarr; `cleanUp` with **old** values &rarr; `useEffectCode` with **new** values...
+- **Updating**: Render &rarr; Commit &rarr; `useEffectCode` &rarr; Rerender when deps change &rarr; `cleanUp` with **old** values &rarr; `useEffectCode` with **new** values...
 - **Unmounting**: `cleanUp` (**AFTER** the component is removed from the DOM).
+
+:::caution
+
+Because `useEffectCode` runs after a component rerender, anything you use in your effect callback that **won't** trigger a re-render when updated should **NOT** go into the dependency array, e.g. refs from `useRef`
+
+:::
 
 :::note
 
-_Mount/Unmount_ means Adding/Removing nodes to the DOM.  
-Ko cần cleanup (Chạy rồi thì k cần quan tâm nữa): Gọi API, Tương tác DOM.  
-Cần cleanup: `setTimeout`/`setInterval`, connection to a server/database
+_Mount/Unmount_ means Adding/Removing nodes to the DOM.
+
+- Ko cần cleanup (Chạy rồi thì k cần quan tâm nữa): Gọi API, Tương tác DOM.
+- Cần cleanup: `setTimeout`/`setInterval`, connection to a server/database
 
 :::
 
@@ -222,7 +229,7 @@ export default React.memo(Children)
 
 ### Usage
 
-You should only use them when you have to “step outside React"
+Lets you reference a value that’s **NOT** needed for rendering. You should only use them when you have to “step outside React"
 
 - Communicate with external APIs - often a browser API that won’t impact the appearance of the component (`focus`, `scrollIntoView`) &rarr; Storing and manipulating DOM elements.
 
@@ -258,6 +265,24 @@ function MyComponent() {
   // ...
 }
 ```
+
+### `forwardRef`
+
+```tsx
+const MyButton = React.forwardRef(
+  <HTMLButtonElement, ButtonProps>({ className, ...props }, ref) => {
+    return <button className={className} ref={ref} />
+  },
+)
+
+export default function App() {
+  return <MyButton ref={buttonRef} />
+}
+```
+
+1. `<MyButton ref={buttonRef}>` tells React to put the corresponding DOM node into `buttonRef.current`. However, it’s up to the `MyButton` component to opt into that. By default, it doesn’t.
+1. The `MyButton` component is declared using `forwardRef`. This opts it into receiving the `buttonRef`.
+1. `MyButton` itself passes the `ref` it received to the `<button>` inside of it.
 
 ### `useRef` vs `useState` vs `let`
 

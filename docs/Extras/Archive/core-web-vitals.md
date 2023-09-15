@@ -76,7 +76,7 @@ Improve **CLS** by: Skeleton & Placeholder. [Read more](https://web.dev/optimize
 />
 ```
 
-### [Dynamic Import for Components](https://nextjs.org/learn/seo/improve/dynamic-import-components)
+### [Dynamic Import for Components](https://nextjs.org/docs/pages/building-your-application/optimizing/lazy-loading)
 
 Dynamically render React component that is not needed on the initial page load
 

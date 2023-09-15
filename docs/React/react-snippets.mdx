@@ -48,6 +48,23 @@ function ChildC() {
 }
 ```
 
+## Component Maps and Lazy load
+
+```jsx
+import { lazy } from 'react'
+
+const COMPONENTS = {
+  day: DayPicker,
+  week: lazy(() => import('./week-picker')), // only worth for heavy components
+}
+
+const App = ({ type }) => {
+  const SelectedPicker = COMPONENTS[type]
+
+  return <SelectedPicker />
+}
+```
+
 ## Flatten object (useful for nested state)
 
 ```js
