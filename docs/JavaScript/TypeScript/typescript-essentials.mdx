@@ -68,8 +68,16 @@ noMutateHome1.name = 'bro' // ❌: Cannot assign to 'home' because it is a read-
 ### `keyof` & Mapped Types (looping through object keys)
 
 ```ts
+interface Person {
+  name: string
+  age: number
+}
+
+type PersonKey = keyof Person // "name" | "age"
+
 type OptionsFlags<Type> = {
-  [Property in keyof Type]: boolean
+  // Can understand `P` as "property" to remember
+  [P in keyof Type]: boolean
 }
 type FeatureFlags = {
   f1: () => void
@@ -77,9 +85,28 @@ type FeatureFlags = {
 }
 type FeatureOptions = OptionsFlags<FeatureFlags> // f1: boolean, f2: boolean
 
-// delete all `readonly` props
+// This removes all `readonly`` attributes since we used the `-` sign. If you removed the `-`, all fields would be read-only.
 type Mutable<Type> = {
-  -readonly [Key in keyof Type]: Type[Key]
+  -readonly [P in keyof Type]: Type[P]
+}
+```
+
+### `instanceof`: JS traditional use & TS narrowing
+
+```js
+// JS
+class Animal {}
+class Dog extends Animal {}
+const myDog = new Dog()
+myDog instanceof Dog // true
+
+// TS
+function logValue(x: Date | string) {
+  if (x instanceof Date) {
+    console.log(x.toUTCString()) // x: Date
+  } else {
+    console.log(x.toUpperCase()) //x: string
+  }
 }
 ```
 
