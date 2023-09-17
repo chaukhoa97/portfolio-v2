@@ -108,6 +108,17 @@ const flatTravelPlan = {
 }
 ```
 
+## `clsx` + `tailwind-merge` helper
+
+```ts
+import { clsx, type ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+```
+
 ## Different content on client and server
 
 ```jsx
