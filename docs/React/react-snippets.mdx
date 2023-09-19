@@ -185,13 +185,14 @@ const App = () => {
 }
 ```
 
-## [`typeof window` checks](https://remix.run/docs/en/v1/pages/gotchas#typeof-window-checks)
+## [`window` is not defined](https://remix.run/docs/en/main/guides/gotchas#typeof-window-checks)
 
 ```js
-if (typeof document === 'undefined') {
-  // running in a server environment
-} else {
+// `useEffect` is also good as it only runs on browser (not server)
+if (typeof document !== 'undefined') {
   // running in a browser environment
+} else {
+  // running in a server environment
 }
 ```
 
