@@ -23,12 +23,15 @@ const a = {
 ## Measure function runtime
 
 ```js
-console.time('filter array') // C1.1
-const start = performance.now() // C2.1
+// Cach 1
+console.time('filter array')
 const visibleTodos = getFilteredTodos(todos, filter)
-console.timeEnd('filter array') // C1.2
-const end = performance.now() // C2.2
-console.log('filter array took', end - start, 'ms') // C2.3
+console.timeEnd('filter array') // filter array: 0.15ms
+// Cach 2
+const start = performance.now()
+const visibleTodos = getFilteredTodos(todos, filter)
+const end = performance.now()
+console.log('filter array took', end - start, 'ms')
 ```
 
 ## Scroll to top

@@ -108,7 +108,7 @@ Finally when the `App` unmount, the _Effect_ `disconnect`.
 
 :::caution
 
-Because `useEffectCode` runs after a component rerender, anything you use in your effect callback that **won't** trigger a re-render when updated should **NOT** go into the dependency array, e.g. refs from `useRef`
+Anything you use in your effect callback that has a _stable identity_ aren't necessary to be included the dependency array, e.g. `setState`, refs from `useRef` because you’ll always get the same object for those on every render.
 
 :::
 
