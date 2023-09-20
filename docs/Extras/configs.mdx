@@ -61,7 +61,9 @@ npm install --save-dev lint-staged
   "devDependencies": {
     "eslint-plugin-react": "latest",
     "eslint-config-next": "latest",
-    "eslint-config-prettier": "latest"
+    "eslint-config-prettier": "latest",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest"
   }
 }
 ```
@@ -75,18 +77,20 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  plugins: ['react'],
+  plugins: ['react', '@typescript-eslint'],
+  parser: '@typescript-eslint/parser', // only for ts
   extends: [
     'eslint:recommended',
     'plugin:react/recommended', // from eslint-plugin-react
     'plugin:react/jsx-runtime', // from eslint-plugin-react
-    'next', // from eslint-config-next
+    'plugin:@typescript-eslint/recommended', // only for ts
     'prettier', // put this last so it can override other configs
   ],
   rules: {
     'react/prop-types': 'off',
     'react/no-unescaped-entities': 'off',
     'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'off', // only for ts
   },
   parserOptions: {
     ecmaFeatures: { jsx: true },
@@ -96,6 +100,8 @@ module.exports = {
 }
 // If not work change the suffix from ".js" to ".cjs"
 ```
+
+[Read more about typescript-eslint](https://typescript-eslint.io/getting-started)
 
   </TabItem>
   <TabItem value="React New" label="eslint.config.js React (Eslint v9+)">
