@@ -5,6 +5,8 @@ title: 'Configs'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
+## Core
+
 ### Install
 
 ```bash
@@ -57,9 +59,9 @@ npm install --save-dev lint-staged
 ```json
 {
   "devDependencies": {
-    "eslint-config-next": "^latest",
-    "eslint-config-prettier": "latest",
-    "eslint-plugin-react": "latest"
+    "eslint-plugin-react": "latest",
+    "eslint-config-next": "latest",
+    "eslint-config-prettier": "latest"
   }
 }
 ```
@@ -73,29 +75,63 @@ module.exports = {
     es2021: true,
     node: true,
   },
+  plugins: ['react'],
   extends: [
     'eslint:recommended',
-    'next',
-    'prettier',
-    'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
+    'plugin:react/recommended', // from eslint-plugin-react
+    'next', // from eslint-config-next
+    'prettier', // put this last so it can override other configs
   ],
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-  },
-  plugins: ['react'],
   rules: {
     'react/prop-types': 'off',
     'react/no-unescaped-entities': 'off',
     'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': 'off',
+  },
+  parserOptions: {
+    ecmaFeatures: { jsx: true },
+    ecmaVersion: 'latest',
+    sourceType: 'module',
   },
 }
 // If not work change the suffix from ".js" to ".cjs"
+```
+
+  </TabItem>
+  <TabItem value="React New" label="eslint.config.js React (Eslint v9+)">
+  
+[Doc](https://eslint.org/docs/latest/use/configure/configuration-files-new#using-plugins-in-your-configuration)
+
+```js
+import react from 'eslint-plugin-react'
+import next from '@next/eslint-plugin-next'
+import js from '@eslint/js'
+import markdown from 'eslint-plugin-markdown'
+import { browser } from 'globals'
+
+export default [
+  // js.configs.recommended predefined configuration is applied first before the two below
+  js.configs.recommended,
+  {
+    files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
+    plugins: { react, next, js },
+    ...react.configs.recommended,
+    ...next.configs.recommended,
+    languageOptions: {
+      parserOptions: { ecmaFeatures: { jsx: true } },
+      globals: { ...browser },
+    },
+    rules: {
+      'react/prop-types': 'off',
+      'react/no-unescaped-entities': 'off',
+      'no-unused-vars': 'off',
+    },
+  },
+  {
+    files: ['**/*.md'],
+    plugins: { markdown },
+    processor: 'markdown/markdown',
+  },
+]
 ```
 
   </TabItem>
@@ -108,13 +144,7 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: [
-    'eslint:recommended',
-    'next',
-    'prettier',
-    'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
-  ],
+  extends: ['eslint:recommended', 'prettier'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -132,7 +162,26 @@ module.exports = {
   </TabItem>
 </Tabs>
 
-### Husky & lint-staged
+### tsconfig.json
+
+```json
+{
+  "exclude": ["src/stories/**/*"] /* Exclude stories from build */,
+  "compilerOptions": {
+    // ...
+    "baseUrl": ".", // hoặc "src", depends on project structure
+    "paths": {
+      // Cách 1: @/components/...; @/lib/...
+      "@/*": ["*"],
+      // Cách 2: @components/...; @lib/...
+      "@components/*": ["components/*"],
+      "@lib/*": ["lib/*"]
+    }
+  }
+}
+```
+
+## Husky & lint-staged
 
 <Tabs>
   <TabItem value="package.json" label="package.json">
@@ -164,9 +213,21 @@ npx --no-install lint-staged
   </TabItem>
 </Tabs>
 
-### VSCode
+## VSCode
 
 <Tabs>
+  <TabItem value="Monolisa" label="Monolisa" >
+
+```json
+{
+  ,"editor.fontFamily": "monolisa",
+  "editor.fontWeight": "400",
+  "editor.fontSize": 12,
+  "editor.lineHeight": 1.4
+}
+```
+
+  </TabItem>
   <TabItem value="tasks" label=".vscode/tasks.json" >
 
 ```json
@@ -198,38 +259,7 @@ npx --no-install lint-staged
 
   </TabItem>
 
-  <TabItem value="Monolisa" label="Monolisa" >
-
-```json
-{
-  ,"editor.fontFamily": "monolisa",
-  "editor.fontWeight": "400",
-  "editor.fontSize": 12,
-  "editor.lineHeight": 1.4
-}
-```
-
-  </TabItem>
 </Tabs>
-
-### tsconfig.json
-
-```json
-{
-  "exclude": ["src/stories/**/*"] /* Exclude stories from build */,
-  "compilerOptions": {
-    // ...
-    "baseUrl": ".", // hoặc "src", depends on project structure
-    "paths": {
-      // Cách 1: @/components/...; @/lib/...
-      "@/*": ["*"],
-      // Cách 2: @components/...; @lib/...
-      "@components/*": ["components/*"],
-      "@lib/*": ["lib/*"]
-    }
-  }
-}
-```
 
 ### Node version manager
 

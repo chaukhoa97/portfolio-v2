@@ -286,17 +286,18 @@ export default function App() {
 
 ### `useRef` vs `useState` vs `let`
 
-|                                           | `useRef` | `useState` | `let` |
-| :---------------------------------------: | :------: | :--------: | :---: |
-| Value dc preserve khi Component re-render |    ✅    |     ✅     |  ❌   |
-|  Update value khiến Component re-render   |    ❌    |     ✅     |  ❌   |
-|                  Mutable                  |    ✅    |     ❌     |  ✅   |
+|                                                            | `useRef` | `useState` | `let` |
+| :--------------------------------------------------------: | :------: | :--------: | :---: |
+|     Value is <u>preserved</u> khi Component re-render      |    ✅    |     ✅     |  ❌   |
+|        Updating value requires Component re-render         |    ❌    |     ✅     |  ❌   |
+| Value is <u>unique</u> for every instance of the Component |    ✅    |     ✅     |  ❌   |
+|                          Mutable                           |    ✅    |     ❌     |  ✅   |
 
-:::note
+#### Kết luận
 
-Vì vậy, value used for rendering thì dùng `useState`. Còn những thứ only needed by event handlers and changing it doesn’t require a re-render (Ex: user's `input`, `timeoutId`) thì dùng `useRef`. Những thứ constant ko show thì dùng `JS variable` như bình thường.
-
-:::
+- `useState`: Values used for rendering, có thể thay đổi và ~ thay đổi đó require a re-render.
+- `useRef`: Values <u>NOT</u> used for rendering, có thể thay đổi và ~ thay đổi đó do <u>NOT</u> require a re-render e.g. user's search box input, `timeoutId`.
+- `JS variable`: Values <u>NOT</u> used for rendering, constant, can be shared among mutliple instances of the component e.g. `env` values.
 
 ### Snippet: Debounce button
 
