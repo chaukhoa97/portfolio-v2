@@ -211,7 +211,7 @@ const cats: Record<CatName, CatInfo> = {
 }
 ```
 
-### `Promise`
+### `Promise` & `Awaited`
 
 ```ts
 interface Album {
@@ -225,9 +225,11 @@ const fetchAlbum = async (): Promise<Album[]> => {
   )
   return data
 }
+
+type ReturnedAlbums = Awaited<ReturnType<typeof fetchAlbum>> // Album[]
 ```
 
-### `Omit` / `Pick`
+### `Omit` & `Pick`
 
 ```ts
 interface User {
@@ -236,6 +238,42 @@ interface User {
   lastName: string
 }
 type MyType = Pick<User, 'firstName' | 'lastName'>
+```
+
+### `Partial` & `Required`
+
+```ts
+type User = {
+  id: number
+  name: string
+  email?: string
+}
+
+type PartialUser = Partial<User> // all properties are optional
+type RequiredUser = Required<User> // all properties are required
+
+const partialUser: PartialUser = {
+  id: 1,
+}
+
+const requiredUser: RequiredUser = {
+  id: 2,
+  name: 'John',
+  email: 'john@example.com',
+}
+```
+
+### `Exclude`
+
+```ts
+type T2 = Exclude<string | number | (() => void), Function> // string | number
+
+type Shape =
+  | { kind: 'circle'; radius: number }
+  | { kind: 'square'; x: number }
+  | { kind: 'triangle'; x: number; y: number }
+
+type T3 = Exclude<Shape, { kind: 'circle' }> // only square and triangle left
 ```
 
 ## Generics
@@ -347,7 +385,7 @@ try {
 }
 ```
 
-## Intersection
+## Intersection (Extended interface or type)
 
 ```ts
 type Identity = {
