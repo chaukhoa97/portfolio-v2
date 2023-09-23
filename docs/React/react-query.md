@@ -4,8 +4,6 @@ title: 'React Query'
 
 ## [Basic Queries](https://tanstack.com/query/v5/docs/react/guides/queries)
 
-## [Query Keys](https://tanstack.com/query/v5/docs/guides/query-keys)
-
 ```jsx
 function Todos() {
   const { isPending, isError, data, error } = useQuery({
@@ -31,6 +29,8 @@ function Todos() {
   )
 }
 ```
+
+## [Query Keys](https://tanstack.com/query/v5/docs/guides/query-keys)
 
 ```js
 // A list of todos
@@ -61,7 +61,7 @@ Stale queries are refetched automatically in the background when:
 - The network is reconnected.
 - The query is optionally configured with a refetch interval.
 
-Most of the time you only need to adjust `staleTime`. The `cacheTime` default (5 mins) is ok.
+Most of the time you only need to adjust `staleTime`. The `gcTime` default (5 mins) is ok.
 
 ## Cache levl & Observer level
 
