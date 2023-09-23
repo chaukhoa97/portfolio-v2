@@ -2,27 +2,55 @@
 title: 'React Query'
 ---
 
-## [Query Keys](https://tanstack.com/query/v4/docs/guides/query-keys)
+## [Basic Queries](https://tanstack.com/query/v5/docs/react/guides/queries)
+
+## [Query Keys](https://tanstack.com/query/v5/docs/guides/query-keys)
+
+```jsx
+function Todos() {
+  const { isPending, isError, data, error } = useQuery({
+    queryKey: ['todos'],
+    queryFn: fetchTodoList,
+  })
+
+  if (isPending) {
+    return <span>Loading...</span>
+  }
+
+  if (isError) {
+    return <span>Error: {error.message}</span>
+  }
+
+  // We can assume by this point that `isSuccess === true`
+  return (
+    <ul>
+      {data.map((todo) => (
+        <li key={todo.id}>{todo.title}</li>
+      ))}
+    </ul>
+  )
+}
+```
 
 ```js
 // A list of todos
-useQuery(['todos', 'whatever'], ...)
+useQuery({ queryKey: ['todos'], ... })
 // An individual todo in a "preview" format
-useQuery(['todo', 5, { preview: true }], ...)
+useQuery({ queryKey: ['todo', 5, { preview: true }], ...})
 // These 2 are the same, object key order doesn't matter
-useQuery(['todos', { status, page }], ...)
-useQuery(['todos', { page, status }], ...)
+useQuery({ queryKey: ['todos', { status, page }], ... })
+useQuery({ queryKey: ['todos', { page, status }], ...})
 // But These 2 are different
-useQuery(['todos', status, page], ...)
-useQuery(['todos', page, status], ...)
+useQuery({ queryKey: ['todos', status, page], ... })
+useQuery({ queryKey: ['todos', page, status], ...})
 // Variable depends
-useQuery(['todos', { type, id }], () => fetch(type, id))
+useQuery({queryKey: ['todos', todoId], queryFn: () => fetchTodoById(todoId)})
 ```
 
 ## `status` vs `fetchStatus`
 
-- `status: 'loading'| 'error' | 'success'`: **Do we have any `data` or not**?
-- `fetchStatus: 'fetching' | 'idle' | 'paused'`: **Is `queryFn` running or not**?
+- `status: 'pending' | 'error' | 'success'`: **Do we have any `data` or not**?
+- `fetchStatus: 'fetching' | 'paused' | 'idle'`: **Is `queryFn` running or not**?
 
 ## Stale queries
 
