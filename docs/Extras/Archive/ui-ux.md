@@ -4,8 +4,6 @@ title: 'UI/UX Stuff'
 
 ## Typical parts of a website
 
-[**Read more**: The web's most common UI components](https://storybook.js.org/showcase/glossary)
-
 ![Typical parts of a website](https://imgur.com/MyJJ16E.png)
 
 ## Header-Content Font pairs

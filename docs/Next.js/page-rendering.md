@@ -24,7 +24,7 @@ Each generated HTML is also associated with minimal JavaScript code to make the 
 ### `next/link` with JSON
 
 SSG (and ISG) also generate a JSON file besides the HTML. It's used for **Client-side routing** (Page transitions are handled by JS, similar to a SPA) when users navigate by `next/link` to those **static** pages. The JSON is passed as the `props` for the `PageComponent`.  
-In addition, any `<Link />` **in the viewport** (initially or through scroll) to pages that haven't been pre-rendered will also be generated & prefetched by default.  
+In addition, any `<Link />` **in the viewport** (initially or through scroll) to pages that haven't been pre-rendered will also be <u>generated & prefetched</u> by default.  
 Although SSG generates 2 files (HTML and JSON), when prefetching, **only** the JSON file is downloaded for Client-side routing.
 
 <details>

@@ -1,5 +1,5 @@
 ---
-title: 'Data Structure & Algorithms'
+title: 'DSA'
 ---
 
 ## [Big O](https://www.bigocheatsheet.com/): Luôn xét đến worst case

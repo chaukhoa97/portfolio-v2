@@ -499,8 +499,44 @@ getType(new Set()) // "set"
 - `!`: Non-null assertion - Only runs at _Compile time_, nói với compiler là cái này ko `null` dc &rarr; dùng khi biết chắc obj có value rồi để skip runtime check.
 - `?`: Optional chaining - Only runs at _Runtime_, nếu ko có thì trả về `undefined` &rarr; dùng khi ko biết chắc obj có value hay ko để tránh crash.
 - **Nullish Coalescing**: `??`: Tương tự `OR`
+
   - `[0/""/false/NaN] ?? expr` &rarr; Vế trái
   - `null/undefined ?? expr` &rarr; expr
+
+## Use Interface until You Need Type
+
+`type` ko declare thêm vào dc, còn `interface` thì có &rarr; dùng `interface` cho public API để người dùng tự thêm vào. Cân nhắc dùng `type` cho `props` hay `state` vì nó nhất quán và ràng buộc hơn.
+
+<Tabs>
+  <TabItem value="Interface" label="Interface" default>
+
+```ts
+interface Person {
+  // Có 2 cách để định nghĩa một method trong một interface
+  log1?(message: string): void // Method declaration
+  log2?: (message: string) => void // Function in Property declaration
+}
+interface Person {
+  log1?(message: number): void // ✅: Có thể override Interface's method
+  log2?: (message: number) => void // ❌: Nhưng ko thể override Interface's property
+  anotherProp: string
+}
+```
+
+  </TabItem>
+  <TabItem value="Type" label="Type">
+
+```ts
+type Customer = {
+  id: number
+}
+type Customer = {
+  name: string // ❌ Error: Duplicate identifier 'Customer'
+}
+```
+
+  </TabItem>
+</Tabs>
 
 ## [Type Assign Table](https://www.typescriptlang.org/docs/handbook/type-compatibility.html#any-unknown-object-void-undefined-null-and-never-assignability)
 

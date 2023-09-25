@@ -1,0 +1,75 @@
+---
+title: 'Performance'
+---
+
+## Core Web Vitals
+
+**[Core Web Vitals](https://web.dev/learn-core-web-vitals/)** are a **subset** of **[Performance Metrics](https://web.dev/metrics/)**, defined by Google, aim to provide unified guidance for quality signals that are essential to delivering a <u>great user experience</u> on the web, while **Performance Metrics** evaluate <u>many different aspects</u> like server-side performance, resource optimization, and JavaScript execution time.
+
+The metrics that make up **Core Web Vitals** will **evolve over time**. The current set for 2020 focuses on three aspects of the user experience—_loading (**LCP**)_, _interactivity (**FID**)_, and _visual stability (**CLS**)_. Read [how the Performance score is weighted](https://web.dev/performance-scoring).
+
+| Metrics                                                                               |                 How to improve                  |
+| ------------------------------------------------------------------------------------- | :---------------------------------------------: |
+| [Time to First Byte (TTFB)](https://web.dev/ttfb/)                                    |     [Link](https://web.dev/optimize-ttfb/)      |
+| [First Contentful Paint (FCP)](https://web.dev/fcp/)                                  | [Link](https://web.dev/fcp/#how-to-improve-fcp) |
+| CWA: [Largest Contentful Paint (LCP)](https://web.dev/lcp/)                           |      [Link](https://web.dev/optimize-lcp/)      |
+| CWA: [First Input Delay (FID)](https://web.dev/fid/) - will soon be replaced with INP |      [Link](https://web.dev/optimize-fid/)      |
+| [Time to Interactive (TTI)](https://web.dev/tti/)                                     | [Link](https://web.dev/tti/#how-to-improve-tti) |
+| [Total Blocking Time (TBT)](https://web.dev/tbt/)                                     | [Link](https://web.dev/tbt/#how-to-improve-tbt) |
+| CWA: [Cumulative Layout Shift (CLS)](https://web.dev/cls/)                            |      [Link](https://web.dev/optimize-cls/)      |
+| CWA: [Interaction to Next Paint (INP)](https://web.dev/inp/) - will soon replace FID  |      [Link](https://web.dev/optimize-inp/)      |
+
+### [Largest Contentful Paint (LCP)](https://web.dev/lcp/)
+
+**LCP** measures the **loading performance** of a web page. To be specific, it measures the time it takes to get the largest element on the page visible within the viewport. This could be a large text block, video, or image that takes up the primary real estate on the page.
+
+Improve **LCP** by: Optimized image component or even before delivered, lazy loading. [Read more](https://web.dev/optimize-lcp/)
+
+:::caution
+This is not **First Contentful Paint (FCP)**, which measures the time from when the page begins to load to when the first element is rendered on screen.
+:::
+
+### [First Input Delay (FID)](https://web.dev/fid/) ~~ Total Blocking Time (TBT)
+
+**FID** measures the **interactivity** of a web page. To be specific, it measures how much is the delay users experience between initiating an interaction (e.g. clicking a button) and the browser responding to that interaction.
+
+Improve **FID** by: Reduce the amount of JavaScript executed on page load by using code splitting, removing unused code, and deferring non-critical JavaScript. [Read more](https://web.dev/optimize-fid/)
+
+:::info
+This will soon be replaced by [Interaction to Next Paint - INP](https://web.dev/inp/)
+:::
+
+### [Cumulative Layout Shift (CLS)](https://web.dev/cls/)
+
+**CLS** measure your site’s **overall layout stability**. To be specific, it measures how much elements have been shifted after initially being rendered by the DOM. Ex: A `button` is rendered after the `text block`, causing the `text` to shift downward.
+
+Improve **CLS** by: Skeleton & Placeholder. [Read more](https://web.dev/optimize-cls/)
+
+## How to improve performance
+
+### General (in order of familiarity)
+
+- Ship the smallest JS bundle possible by choosing packages carefully: Well maintained, small, and tree-shakeable.
+- Lazy/ Dynamic Loading:
+  - On visibility or user interaction
+  - Images, Component, Fonts, Scripts, Static Assets
+- Analytics: Google Lighthouse/ Next.js built-in. Not always accurately reflects of true user experience. Sometimes the true experience when using the application is more reliable than the stats shown by any automated tool.
+- Preload (`<link rel="preload">`, `next/script` with strategy prop as `beforeInteractive`, `next/image` with `priority` prop as `true`): Highest priority: Tell browser to fetch the resource ASAP, most likely to be used in the current page.
+- Prefetch (`<link rel="prefetch">`, `next/link` with `prefetch` prop as `true`, `next/router` with `prefetch` method): Utilizes browser idle time to fetch resources which the user might use in the near future. Lower priority compared to `preload`.
+- Caching: By changing the `Cache-Control` header, you can control how long the browser caches a resource.
+- List Virtualization: Only render the items that are visible to the user.
+- Metadata.
+
+### React
+
+- [Optimize hooks](../React/hooks.mdx#optimize)
+- React DevTools Profiler
+- [Next.js Built-in](https://nextjs.org/docs/app/building-your-application/optimizing): Images, Fonts, Scripts, Static Assets, Lazy/ Dynamic Loading, Analytics
+
+### Clean code
+
+- SOLID, DRY
+- YAGNI (You Aren't Gonna Need It): DDon't add code that you only think you **might** need in the future.
+- KISS (Keep It Simple, Stupid): The simpler the code, the easier it is to understand and maintain.
+- Meaningful Variable Names and Comments.
+- Avoid premature optimization.

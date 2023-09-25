@@ -16,7 +16,6 @@ setTimeout(function () {
 ### Overflow Detect
 
 ```css title='main.css'
-/* Thấy dc thằng nào overflow */
 * {
   outline: 1px solid #f00 !important;
 }
