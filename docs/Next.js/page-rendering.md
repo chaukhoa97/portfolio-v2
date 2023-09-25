@@ -122,7 +122,7 @@ TTFB chậm nhất (do Server phải Generate lại page rồi mới gửi lại
 
 ## [Client-side Rendering](https://nextjs.org/docs/basic-features/data-fetching/client-side)
 
-Cách cơ bản nhất là sử dụng [`useEffect` để fetch data về ở Client](../React/react-snippets.md/#async-function-in-useeffect).  
+Cách cơ bản nhất là sử dụng [`useEffect` để fetch data về ở Client](../React/hooks.mdx#snippets).  
 Nên kẹp chung với [TanStack Query](https://github.com/TanStack/query/releases) hoặc [Vercel SWR](https://github.com/vercel/swr/releases).
 
 **Usage**:
