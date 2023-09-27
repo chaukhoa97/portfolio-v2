@@ -11,6 +11,7 @@ title: 'Performance'
   - On visibility or user interaction
   - Images, Component, Fonts, Scripts, Static Assets
 - Analytics: Google Lighthouse/ Next.js built-in. Not always accurately reflects of true user experience. Sometimes the true experience when using the application is more reliable than the stats shown by any automated tool.
+- UX: Should have a specific level of UX knowledge to improve user experience without boosting performance.
 - Preload (`<link rel="preload">`, `next/script` with strategy prop as `beforeInteractive`, `next/image` with `priority` prop as `true`): Highest priority: Tell browser to fetch the resource ASAP, most likely to be used in the current page.
 - Prefetch (`<link rel="prefetch">`, `next/link` with `prefetch` prop as `true`, `next/router` with `prefetch` method): Utilizes browser idle time to fetch resources which the user might use in the near future. Lower priority compared to `preload`.
 - List Virtualization: Only render the items that are visible to the user. **I personally dislike this because it break Ctrl+F** although it can be fixed with our own search box.
@@ -30,6 +31,7 @@ title: 'Performance'
 - KISS (Keep It Simple, Stupid): The simpler the code, the easier it is to understand and maintain.
 - Meaningful Variable Names and Comments.
 - Avoid premature optimization.
+- "Any fool can write code that a computer can understand. Good programmers write code that humans can understand."
 
 ## Core Web Vitals
 
