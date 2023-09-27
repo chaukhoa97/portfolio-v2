@@ -2,6 +2,35 @@
 title: 'Performance'
 ---
 
+## How to improve performance
+
+### General (in order of familiarity)
+
+- Ship the smallest JS bundle possible by choosing packages carefully: Well maintained, small, and tree-shakeable.
+- Code Splitting (splitting JS bundle into smaller chunks so they can be loaded on demand e.g. route level or component level) -> Lazy/ Dynamic Loading:
+  - On visibility or user interaction
+  - Images, Component, Fonts, Scripts, Static Assets
+- Analytics: Google Lighthouse/ Next.js built-in. Not always accurately reflects of true user experience. Sometimes the true experience when using the application is more reliable than the stats shown by any automated tool.
+- Preload (`<link rel="preload">`, `next/script` with strategy prop as `beforeInteractive`, `next/image` with `priority` prop as `true`): Highest priority: Tell browser to fetch the resource ASAP, most likely to be used in the current page.
+- Prefetch (`<link rel="prefetch">`, `next/link` with `prefetch` prop as `true`, `next/router` with `prefetch` method): Utilizes browser idle time to fetch resources which the user might use in the near future. Lower priority compared to `preload`.
+- List Virtualization: Only render the items that are visible to the user. **I personally dislike this because it break Ctrl+F** although it can be fixed with our own search box.
+- Caching: By changing the `Cache-Control` header, you can control how long the browser caches a resource.
+- Metadata.
+
+### React
+
+- [Optimize hooks](../React/hooks.mdx#optimize)
+- React DevTools Profiler
+- [Next.js Built-in](https://nextjs.org/docs/app/building-your-application/optimizing): Images, Fonts, Scripts, Static Assets, Lazy/ Dynamic Loading, Analytics
+
+### Clean code
+
+- SOLID, DRY
+- YAGNI (You Aren't Gonna Need It): DDon't add code that you only think you **might** need in the future.
+- KISS (Keep It Simple, Stupid): The simpler the code, the easier it is to understand and maintain.
+- Meaningful Variable Names and Comments.
+- Avoid premature optimization.
+
 ## Core Web Vitals
 
 **[Core Web Vitals](https://web.dev/learn-core-web-vitals/)** are a **subset** of **[Performance Metrics](https://web.dev/metrics/)**, defined by Google, aim to provide unified guidance for quality signals that are essential to delivering a <u>great user experience</u> on the web, while **Performance Metrics** evaluate <u>many different aspects</u> like server-side performance, resource optimization, and JavaScript execution time.
@@ -44,32 +73,3 @@ This will soon be replaced by [Interaction to Next Paint - INP](https://web.dev/
 **CLS** measure your site’s **overall layout stability**. To be specific, it measures how much elements have been shifted after initially being rendered by the DOM. Ex: A `button` is rendered after the `text block`, causing the `text` to shift downward.
 
 Improve **CLS** by: Skeleton & Placeholder. [Read more](https://web.dev/optimize-cls/)
-
-## How to improve performance
-
-### General (in order of familiarity)
-
-- Ship the smallest JS bundle possible by choosing packages carefully: Well maintained, small, and tree-shakeable.
-- Code Splitting (splitting JS bundle into smaller chunks so they can be loaded on demand e.g. route level or component level) -> Lazy/ Dynamic Loading:
-  - On visibility or user interaction
-  - Images, Component, Fonts, Scripts, Static Assets
-- Analytics: Google Lighthouse/ Next.js built-in. Not always accurately reflects of true user experience. Sometimes the true experience when using the application is more reliable than the stats shown by any automated tool.
-- Preload (`<link rel="preload">`, `next/script` with strategy prop as `beforeInteractive`, `next/image` with `priority` prop as `true`): Highest priority: Tell browser to fetch the resource ASAP, most likely to be used in the current page.
-- Prefetch (`<link rel="prefetch">`, `next/link` with `prefetch` prop as `true`, `next/router` with `prefetch` method): Utilizes browser idle time to fetch resources which the user might use in the near future. Lower priority compared to `preload`.
-- List Virtualization: Only render the items that are visible to the user. **I personally dislike this because it break Ctrl+F** although it can be fixed with our own search box.
-- Caching: By changing the `Cache-Control` header, you can control how long the browser caches a resource.
-- Metadata.
-
-### React
-
-- [Optimize hooks](../React/hooks.mdx#optimize)
-- React DevTools Profiler
-- [Next.js Built-in](https://nextjs.org/docs/app/building-your-application/optimizing): Images, Fonts, Scripts, Static Assets, Lazy/ Dynamic Loading, Analytics
-
-### Clean code
-
-- SOLID, DRY
-- YAGNI (You Aren't Gonna Need It): DDon't add code that you only think you **might** need in the future.
-- KISS (Keep It Simple, Stupid): The simpler the code, the easier it is to understand and maintain.
-- Meaningful Variable Names and Comments.
-- Avoid premature optimization.
