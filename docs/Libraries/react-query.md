@@ -5,10 +5,21 @@ title: 'React Query'
 ## [Basic Queries](https://tanstack.com/query/v5/docs/react/guides/queries)
 
 ```jsx
+// queryFn can be any function that **returns a promise** (should either resolve the data or throw an error)
+export const fetchData = ({ queryKey }) => {
+  // Access the key, type and id variables in your query function
+  const [_key, { type, id }] = queryKey
+  return axios
+    .get(`https://jsonplaceholder.typicode.com/${type}/${id}`)
+    .then((res) => res.data)
+    .catch((error) => console.log(error))
+  // We can also skip the catch block because axios automatically throws an error, for `fetch` we need to check `res.ok`
+}
+
 function Todos() {
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ['todos'],
-    queryFn: fetchTodoList,
+    queryKey: ['basic', { type: 'todos', id: 1 }] // `key, type, id` as above
+    queryFn: fetchData,
   })
 
   if (isPending) {
@@ -20,13 +31,7 @@ function Todos() {
   }
 
   // We can assume by this point that `isSuccess === true`
-  return (
-    <ul>
-      {data.map((todo) => (
-        <li key={todo.id}>{todo.title}</li>
-      ))}
-    </ul>
-  )
+  return data.map((todo) => <div key={todo.id}>{todo.title}</div>)
 }
 ```
 
@@ -61,7 +66,7 @@ Stale queries are refetched automatically in the background when:
 - The network is reconnected.
 - The query is optionally configured with a refetch interval.
 
-Most of the time you only need to adjust `staleTime`. The `gcTime` default (5 mins) is ok.
+Most of the time you only need to adjust `staleTime` (default is 0). The `gcTime` 5 mins default is ok.
 
 ## Cache levl & Observer level
 
@@ -76,7 +81,7 @@ Most of the time you only need to adjust `staleTime`. The `gcTime` default (5 mi
 - `queryClient.invalidateQueries(['posts'])` **_(preferred)_** will set the query to `stale`. It will only refetch if the component is on the screen.
 - `const { refetch } = useQuery(...)` will ALWAYS refetch even if the component hasn't mounted. Usually you don't have access to `refetch` because it is returned from `useQuery`.
 
-## React Query with Next.js
+## React Query with Next.js Page Router
 
 ```jsx
 import { useQuery } from '@tanstack/react-query'
