@@ -36,11 +36,11 @@ export const ButtonWithIconElement = ({
 }: ButtonProps) => {
   const [isHovered, setIsHovered] = useState(false)
 
-  // Default props for the passed icon
   const clonedIcon = React.cloneElement(icon, {
+    // Default props for the passed icon
+    isHovered: isHovered,
     width: 32,
     height: 32,
-    isHovered: isHovered,
   })
 
   return (
@@ -48,7 +48,6 @@ export const ButtonWithIconElement = ({
       onMouseOver={() => setIsHovered(true)}
       onMouseOut={() => setIsHovered(false)}
     >
-      {icon}
       {clonedIcon}
     </button>
   )
@@ -70,7 +69,7 @@ function App() {
 }
 ```
 
-## DOM Events
+## DOM Events' types
 
 ```tsx
 const MyComponent = () => {
@@ -129,7 +128,7 @@ const divRef = useRef<HTMLDivElement>(null)
 return <div ref={divRef}>etc</div>
 ```
 
-## Enums with state
+## Enums with `useState`
 
 ```tsx
 enum Status {

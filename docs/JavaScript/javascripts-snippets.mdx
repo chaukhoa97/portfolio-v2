@@ -56,7 +56,7 @@ array.push(array.splice(index, 1)[0]) // Already know the index of the item to m
 array.push(array.splice(array.indexOf(element), 1)[0]) // If you don't have the index, and only the element
 ```
 
-## Shallow Copy vs Deep Copy
+## Shallow Copy vs Deep Copy (with Lodash)
 
 ```js
 var obj = [{ a: 1 }, { b: 2 }]
@@ -78,7 +78,7 @@ arr1.splice(0, arr1.length) // arr2 = []
 arr1 = [] // arr2 = [1, 2];
 ```
 
-## Destructing
+## Nested Destructing
 
 ```ts
 const {
@@ -170,7 +170,7 @@ let arr = [1, 2, 3, 4]
 arr = [1, 2, 3, 4][(arr[0], arr[1])] = [arr[1], arr[0]]
 ```
 
-## Cached value
+## Cache a value
 
 ```js
 const cache = {}

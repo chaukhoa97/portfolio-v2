@@ -106,7 +106,7 @@ const { currency, setCurrency } = useCart()
   </TabItem>
 </Tabs>
 
-> **Read more**: [Kết hợp giữa `useReducer` và `Context` để manage **wide** sate](https://beta.reactjs.org/learn/scaling-up-with-reducer-and-context)
+> **Read more**: [Kết hợp giữa `useReducer` và `Context` để manage **wide** sate](https://react.dev/learn/scaling-up-with-reducer-and-context)
 
 #### Context alternative: Reduce prop drilling using Composition
 
@@ -191,10 +191,10 @@ This usually only works in simple app because it can make higher-level component
 Pure functions don’t mutate variables outside of the function’s scope or objects that were created before the call — that makes them impure!
 
 ```jsx
-// This will not re-render as expected because the `todos`'s reference hasn’t changed
+// This will not re-render as expected because the reference of `todos` hasn’t changed
 const [todos, setTodos] = useState(someTodosArray)
 
-const onClick = () => {
+const handleClick = () => {
   todos[3].completed = true
   setTodos(todos)
 }

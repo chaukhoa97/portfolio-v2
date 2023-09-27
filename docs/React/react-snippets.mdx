@@ -48,7 +48,7 @@ function ChildC() {
 }
 ```
 
-## Component Maps and Lazy load
+## Lazy load & Component Maps
 
 ```jsx
 import { lazy } from 'react'
@@ -62,6 +62,24 @@ const App = ({ type }) => {
   const SelectedPicker = COMPONENTS[type]
 
   return <SelectedPicker />
+}
+```
+
+## Conditional HTML tag
+
+```jsx
+const MyButton = (props) => {
+  if (props.href) {
+    return <a {...props} />
+  }
+  return <button {...props} />
+}
+
+const UnsetComponent = ({ as, ...props }) => {
+  return <as />
+}
+const MyComponent = () => {
+  return <UnsetComponent as="div" />
 }
 ```
 
@@ -111,6 +129,7 @@ const flatTravelPlan = {
 ## `clsx` + `tailwind-merge` helper
 
 ```ts
+// Source: https://ui.shadcn.com/docs/installation/manual#add-a-cn-helper
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
@@ -171,51 +190,10 @@ function MyComponent() {
 }
 ```
 
-## Show `obj` ra page
+## Show JS `obj` ra page
 
 ```jsx
 <pre>{JSON.stringify(data, null, 2)}</pre>
-```
-
-## Conditional HTML tag
-
-```jsx
-const MyButton = (props) => {
-  if (props.href) {
-    return <a {...props} />
-  }
-  return <button {...props} />
-}
-
-const UnsetComponent = ({ as, ...props }) => {
-  return <as />
-}
-const MyComponent = () => {
-  return <UnsetComponent as="div" />
-}
-```
-
-## Next.js Hydration Error
-
-`useId` is a hook for generating unique IDs that are stable across the server and client, while avoiding hydration mismatches.
-
-```jsx
-const id = useId()
-
-const App = () => {
-  return <Element key={id} />
-}
-
-// Hoặc
-const [mounted, setMounted] = useState(false)
-
-useEffect(() => {
-  setMounted(true)
-}, [])
-
-const App = () => {
-  return mounted && <Element />
-}
 ```
 
 ## [`window` is not defined](https://remix.run/docs/en/main/guides/gotchas#typeof-window-checks)

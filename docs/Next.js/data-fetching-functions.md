@@ -5,7 +5,7 @@ sidebar_position: 2
 
 ### `getStaticProps` + `getStaticPaths`
 
-These 2 functions only runs at build time on server-side.
+These 2 functions only runs at build time on server.
 
 #### `getStaticProps`
 

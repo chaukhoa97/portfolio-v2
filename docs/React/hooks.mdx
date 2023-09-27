@@ -21,12 +21,9 @@ In React, side effects usually belong inside **event handlers**. They don’t ne
 
 ### Effects
 
-**Effects** refers to the React-specific definition, i.e. _side effects_ caused by **rendering itself**, rather than **side effects** caused by a **particular event**, and therefore **can't** be handled by event handlers. For example, sending a message in the chat is an **Event** because it is directly caused by the user clicking a button. However, setting up a server connection is an **Effect** because it needs to happen regardless what makes the component to appear.  
-In React, effects are handled by `useEffect` hook.
+**Effects** refers to the React-specific definition, i.e. _side effects_ caused by **rendering itself**, rather than **side effects** caused by a **particular event**, and therefore **can't** be handled by event handlers. For example, sending a message in the chat is an **Event** because it is directly caused by the user clicking a button. However, setting up a server connection is an **Effect** because it needs to happen regardless what makes the component to appear.
 
----
-
-**Effects** let you run some code **after rendering** to synchronize React components with **external systems** outside of React. For example, you might want to set up a server connection, send an analytics log when a component appears on the screen, or control an external element based on a React state.
+In React, effects are handled by `useEffect` hook. It let you run some code **after rendering** to synchronize React components with **external systems** outside of React. For example, you might want to set up a server connection, send an analytics log when a component appears on the screen, or control an external element based on a React state.
 
 ### Snippets
 
@@ -95,12 +92,12 @@ function useInterval() {
   </TabItem>
 </Tabs>
 
-### How it runs from the Effect’s perspective
+### (Recommended) Thinking from the Effect’s perspective
 
 The _Effect_ start `connecting` (until it `disconnect` when the `id` change), and then `connects` to another `id`...  
 Finally when the `App` unmount, the _Effect_ `disconnect`.
 
-### How it runs from the component’s perspective
+### Thinking from the component’s perspective
 
 - **Mounting**: Render &rarr; Commit &rarr; `useEffectCode`
 - **Updating**: Render &rarr; Commit &rarr; `useEffectCode` &rarr; Rerender when deps change &rarr; `cleanUp` with **old** values &rarr; `useEffectCode` with **new** values...
@@ -114,7 +111,7 @@ Anything you use in your effect callback that has a _stable identity_ aren't nec
 
 :::note
 
-_Mount/Unmount_ means Adding/Removing nodes to the DOM.
+_Mount/ Unmount_ means Adding/ Removing nodes to the DOM.
 
 - Ko cần cleanup (Chạy rồi thì k cần quan tâm nữa): Gọi API, Tương tác DOM.
 - Cần cleanup: `setTimeout`/`setInterval`, connection to a server/database
@@ -426,20 +423,5 @@ function Container() {
     optional1: '1',
     optional2: '2',
   })
-}
-```
-
-## HOC
-
-A Higher Order Component (HOC) contains certain logic that we want to apply to the another component that we pass as a parameter. After applying that logic, the HOC returns the element with the additional logic.  
-HOCs can largely be replaced by Hooks as they can reduce the depth of the component tree and make the code more readable.
-
-```jsx
-// accept a Component as an argument
-const withSomeLogic = (Component) => {
-  // do something
-
-  // return a component that renders the component from the argument
-  return (props) => <Component {...props} />
 }
 ```

@@ -2,20 +2,6 @@
 title: 'Redux'
 ---
 
-![One-way data flow](https://i.imgur.com/0yQz4vc.png)
-
-## Steps
-
-1. The _Store_ provides all application states for the components to display on the UI (Single source of truth).
-2. Người dùng tương tác lên UI, e.g. click button.
-3. Component call `dispatch(Action obj)` hoặc `dispatch(Thunk)` - with `Thunk` is an async fn that also returns an _Action obj_.  
-   An _action obj_ typically has the following format: `{ type: "SHOW_NOTIFICATION", text }`:
-
-   - Property `type` to tell the store which reducer should be called.
-   - Property `payload` (`payload.text`, `payload.value`...) as the arguments for the reducer.
-
-4. Redux store dựa theo `type` của Action obj để gọi _reducerFn_ tương ứng và Update Store data dựa theo `storeState` & `payload`.
-
 ## Redux vs React Context
 
 ### Context
@@ -33,3 +19,17 @@ A very generic state management tool that can be used for a broad use cases: Cac
 Use (React-)Redux if you have **many** states or functions with **complex logic** that **do** change often. It is also useful for medium or large-sized apps, or when you want to be able to understand when, where, why, and how the state in your application has updated, and visualize the changes to your state over time. It **uses middleware** to allow app code to trigger side effects.
 
 React-Redux passes the **current Redux store instance** via Context. Components can subscribe to **specific** pieces of the store state, and only re-render when those values change.
+
+![One-way data flow](https://i.imgur.com/0yQz4vc.png)
+
+## Steps
+
+1. The _Store_ provides all application states for the components to display on the UI (Single source of truth).
+2. Người dùng tương tác lên UI, e.g. click button.
+3. Component call `dispatch(Action obj)` hoặc `dispatch(Thunk)` - with `Thunk` is an async fn that also returns an _Action obj_.  
+   An _action obj_ typically has the following format: `{ type: "SHOW_NOTIFICATION", text }`:
+
+   - Property `type` to tell the store which reducer should be called.
+   - Property `payload` (`payload.text`, `payload.value`...) as the arguments for the reducer.
+
+4. Redux store dựa theo `type` của Action obj để gọi _reducerFn_ tương ứng và Update Store data dựa theo `storeState` & `payload`.

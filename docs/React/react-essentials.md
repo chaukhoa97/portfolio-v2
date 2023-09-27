@@ -148,3 +148,18 @@ export default function Form() {
 
 - [Events propagate upwards (children trước parent sau). Call `e.stopPropagation()` on the first argument to prevent that](https://beta.reactjs.org/learn/responding-to-events#event-propagation).
 - [Events may have unwanted default browser behavior (Ex: The page reload when we submit a form). Call `e.preventDefault()` to prevent that](https://beta.reactjs.org/learn/responding-to-events#preventing-default-behavior).
+
+## HOC
+
+A Higher Order Component (HOC) contains certain logic that we want to apply to the another component that we pass as a parameter. After applying that logic, the HOC returns the element with the additional logic.  
+HOCs can largely be replaced by Hooks as they can reduce the depth of the component tree and make the code more readable.
+
+```jsx
+// accept a Component as an argument
+const withSomeLogic = (Component) => {
+  // do something
+
+  // return a component that renders the component from the argument
+  return (props) => <Component {...props} />
+}
+```

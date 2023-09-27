@@ -54,11 +54,13 @@ function toNumber(x: unknown): number {
 
 ### `in`
 
-Usage is the same with object
+Usage is the same with JS `object`
 
 ```ts
 type Fish = { swim: () => void }
 type Bird = { fly: () => void }
+
+// `type Fish | Bird` is called "Union Types"
 function move(animal: Fish | Bird) {
   'swim' in animal ? animal.swim() : animal.fly()
 }
@@ -168,15 +170,17 @@ var tuple2: [string, ...boolean[], number] = ['John', true, false, 1] //* Rest e
 
 ```ts
 // `unknown`: Similar to `any`, but safer because u can't do anything with it
-let foo: any = 10
-let bar: unknown = 10 //* We can assign anything to unknown just like any
+let anyFoo: any = 10
+let unknownBar: unknown = 10 //* We can assign anything to unknown just like any
 const upperCase = (x: string) => console.log(x.toUpperCase())
-upperCase(foo) // Ok, `any` can assign to anything
-upperCase(bar) //! Invalid; we can't assign `unknown` to any other type (without an explicit assertion)
-upperCase(bar as string) //* Assert là string nên type-system ko báo lỗi, lúc run mới ra lỗi TypeError: number ko có method toUpperCase
 
-foo.method() //* Ok; anything goes with any
-bar.method() //! Not ok; we don't know anything about this variable
+upperCase(anyFoo) // Ok, `any` can assign to anything
+upperCase(unknownBar) //! Invalid; we can't assign `unknown` to any other type...
+typeOf unknownBar === 'string' && upperCase(unknownBar) // ... We must do it with a type check
+upperCase(unknownBar as string) //* Careful: Assert là string nên type-system ko báo lỗi, lúc run mới ra lỗi TypeError: number ko có method `toUpperCase`
+
+anyFoo.method() //* Ok; anything goes with `any`
+unknownBar.method() //! Not ok; we don't know anything about this variable
 ```
 
 ### Index Signature
@@ -315,11 +319,11 @@ function minLength<T extends { length: number }>(obj: T, minimum: number): T {
 
 ```ts
 let x = { a: 1, b: 2, c: 3, d: 4 }
-function getProperty3<Type, Key extends keyof Type>(obj: Type, key: Key) {
+function getProperty<Type, Key extends keyof Type>(obj: Type, key: Key) {
   return obj[key]
 }
-getProperty3(x, 'a')
-getProperty3(x, 'm') //! Error
+getProperty(x, 'a')
+getProperty(x, 'm') //! Error
 ```
 
   </TabItem>
@@ -329,7 +333,7 @@ getProperty3(x, 'm') //! Error
 
 ```ts
 type F1<T = string> = (a: T) => any
-const Fn1: F1 = (a) => a.split(' ') // Ko khai báo thì default là string -> Dùng `split` dc
+const Fn1: F1 = (a) => a.split(' ') // Ko khai báo thì default là `string` -> Dùng `split` dc
 ```
 
 ### Multi Generics Function
@@ -498,9 +502,9 @@ getType(new Set()) // "set"
 
 - `!`: Non-null assertion - Only runs at _Compile time_, nói với compiler là cái này ko `null` dc &rarr; dùng khi biết chắc obj có value rồi để skip runtime check.
 - `?`: Optional chaining - Only runs at _Runtime_, nếu ko có thì trả về `undefined` &rarr; dùng khi ko biết chắc obj có value hay ko để tránh crash.
-- **Nullish Coalescing**: `??`: Tương tự `OR`
+- **Nullish Coalescing**: `??`: Tương tự `|`
 
-  - `[0/""/false/NaN] ?? expr` &rarr; Vế trái
+  - `[0/""/false/NaN] ?? expr` &rarr; `[0/""/false/NaN]`
   - `null/undefined ?? expr` &rarr; expr
 
 ## Use Interface until You Need Type

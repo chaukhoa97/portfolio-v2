@@ -31,4 +31,4 @@ Phân bố bất kỳ đâu trong memory (không liền kề nhau như Array).
 
 ### Queue
 
-**FIFO**
+**FIFO**. Ex: Human Queue: The first person will be served first.

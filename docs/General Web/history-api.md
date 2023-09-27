@@ -1,5 +1,5 @@
 ---
-title: 'History'
+title: 'History API'
 ---
 
 ## Vanilla React client-side routing
