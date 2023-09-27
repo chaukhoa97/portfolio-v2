@@ -2,6 +2,8 @@
 title: 'React Hook Form'
 ---
 
+## v7
+
 ```jsx
 export default function SignUpForm() {
   const {
