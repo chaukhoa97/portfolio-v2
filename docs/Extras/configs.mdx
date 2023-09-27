@@ -175,9 +175,25 @@ module.exports = {
 
 ```json
 {
-  "exclude": ["src/stories/**/*"] /* Exclude stories from build */,
   "compilerOptions": {
-    // ...
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "baseUrl": ".", // hoặc "src", depends on project structure
     "paths": {
       // Cách 1: @/components/...; @/lib/...
@@ -186,7 +202,9 @@ module.exports = {
       "@components/*": ["components/*"],
       "@lib/*": ["lib/*"]
     }
-  }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["src/stories/**/*"] /* Exclude stories from build */
 }
 ```
 
