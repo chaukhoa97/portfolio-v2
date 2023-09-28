@@ -146,8 +146,8 @@ export default function Form() {
 
 ## Events
 
-- [Events propagate upwards (children trước parent sau). Call `e.stopPropagation()` on the first argument to prevent that](https://beta.reactjs.org/learn/responding-to-events#event-propagation).
-- [Events may have unwanted default browser behavior (Ex: The page reload when we submit a form). Call `e.preventDefault()` to prevent that](https://beta.reactjs.org/learn/responding-to-events#preventing-default-behavior).
+- [Events propagate upwards (children trước parent sau). Call `e.stopPropagation()` if you want to prevent an event from reaching parent components](https://react.dev/learn/responding-to-events#event-propagation).
+- [Events may have unwanted default browser behavior (Ex: The page reload when we submit a form). Call `e.preventDefault()` to prevent that](https://react.dev/learn/responding-to-events#preventing-default-behavior).
 
 ## HOC
 

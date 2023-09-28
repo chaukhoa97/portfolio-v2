@@ -28,11 +28,11 @@ Prop drilling can make your app hard to maintain. If you want to add or remove a
 :::
 
 <Tabs>
-  <TabItem value="cartContext" label="components/cart/cartContext.tsx" >
+  <TabItem value="CartContext" label="components/cart/CartContext.tsx" >
 
 ```ts
 // Make sure the file extension is `.tsx`
-import React, { createContext, useContext, useState, useMemo } from 'react'
+import { createContext, useContext, useState, useMemo, ReactNode } from 'react'
 
 export type Currency = 'USD' | 'VND'
 
@@ -41,12 +41,13 @@ export interface CartContextProps {
   setCurrency: (currency: Currency) => void
 }
 
-export const CartContext = createContext<CartContextProps>({
-  currency: 'USD',
-  setCurrency: () => {},
-})
+// Init context with `undefined` is a must
+// to check if `useCart` is used within a `CartProvider` (see `useCart` below)
+export const CartContext = createContext<CartContextProps | undefined>(
+  undefined,
+)
 
-export const CartProvider = ({ children }) => {
+export const CartProvider = ({ children }: { children: ReactNode }) => {
   // To update context, you need to combine it with state
   const [currency, setCurrency] = useState<Currency>('USD')
   // When `CartProvider` re-render, components consuming the Context also re-render
@@ -54,21 +55,20 @@ export const CartProvider = ({ children }) => {
   const memoizedValue = useMemo(() => ({ currency, setCurrency }), [currency])
 
   return (
+    // Use `children` so that the whole tree below `children` doesn't render all the time when you update the context value
+    // Read more "Lift ur component up and pass it down as a prop"
     <CartContext.Provider value={memoizedValue}>
-      // Use `children` so that the whole tree below `children` doesn't render
-      all the time when you update the context value // Read more "Lift ur
-      component up and pass it down as a prop"
       {children}
     </CartContext.Provider>
   )
 }
 
 export const useCart = () => {
-  const { currency, setCurrency } = useContext(CartContext)
-  if (!currency) {
+  const context = useContext(CartContext)
+  if (!context) {
     throw new Error('useCart must be used within a CartProvider')
   }
-  return { currency, setCurrency }
+  return context
 }
 ```
 
@@ -248,12 +248,12 @@ setPerson(nextPerson)
 
 ### Array
 
-|                                                                                                     | Avoid (mutates the array)           | Prefer (returns a new array)                                                             |
-| --------------------------------------------------------------------------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------- |
-| [Adding](https://beta.reactjs.org/learn/updating-arrays-in-state#adding-to-an-array)                | `push`, `unshift`                   | `concat`, `[...arr1, ...arr2]` (spread syntax)                                           |
-| [Removing](https://beta.reactjs.org/learn/updating-arrays-in-state#removing-from-an-array)          | `splice`, `pop`, `shift`            | `filter`, `slice`                                                                        |
-| [Replacing](https://beta.reactjs.org/learn/updating-arrays-in-state#replacing-items-in-an-array)    | `splice`, `arr[i] = ...` assignment | `map`                                                                                    |
-| [Sorting](https://beta.reactjs.org/learn/updating-arrays-in-state#making-other-changes-to-an-array) | `sort`, `reverse`                   | Copy the array by spread syntax first: `cons nextList = [...list] -> nextList.reverse()` |
+|                                                                                              | Avoid (mutates the array)           | Prefer (returns a new array)                                                             |
+| -------------------------------------------------------------------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------- |
+| [Adding](https://react.dev/learn/updating-arrays-in-state#adding-to-an-array)                | `push`, `unshift`                   | `concat`, `[...arr1, ...arr2]` (spread syntax)                                           |
+| [Removing](https://react.dev/learn/updating-arrays-in-state#removing-from-an-array)          | `splice`, `pop`, `shift`            | `filter`, `slice`                                                                        |
+| [Replacing](https://react.dev/learn/updating-arrays-in-state#replacing-items-in-an-array)    | `splice`, `arr[i] = ...` assignment | `map`                                                                                    |
+| [Sorting](https://react.dev/learn/updating-arrays-in-state#making-other-changes-to-an-array) | `sort`, `reverse`                   | Copy the array by spread syntax first: `cons nextList = [...list] -> nextList.reverse()` |
 
 [_Unlike React, Vue is able to detect when a reactive array's mutation methods are called and trigger necessary updates._](https://vuejs.org/guide/essentials/list.html#array-change-detection)
 
@@ -282,7 +282,7 @@ function handleClick() {
 
 **Same component (`<section>`, `<p>`)+ Same position (`1st`, `2nd` element of the parent) &rarr; Preserves state.** It means the structure of your tree needs to “match up” from one render to another.
 
-![Preserving state](https://beta.reactjs.org/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fpreserving_state_diff_same_pt1.dark.png&w=828&q=75)
+![Preserving state](https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fpreserving_state_diff_same_pt1.dark.png&w=828&q=75)
 
 ```jsx
 // These 2 share the `count` state in the above image
