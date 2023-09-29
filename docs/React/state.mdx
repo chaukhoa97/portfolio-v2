@@ -75,7 +75,7 @@ export const useCart = () => {
   <TabItem value="_app" label="_app.js">
 
 ```tsx
-import { CartProvider } from '../components/cart/cartContext'
+import { CartProvider } from '../components/cart/CartContext'
 import Layout from '../components/layout'
 
 function MyApp({ Component, pageProps }) {
@@ -96,7 +96,7 @@ export default MyApp
   <TabItem value="SomeComponent" label="SomeComponent.tsx">
 
 ```js
-import { useCart } from '../cart/cartContext'
+import { useCart } from '../cart/CartContext'
 
 // B3: Use Context
 const { currency, setCurrency } = useCart()
