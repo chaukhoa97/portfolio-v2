@@ -43,8 +43,7 @@ export type CartContextProps =
     }
   | undefined
 
-// Init context with `undefined` is a must
-// to check if `useCart` is used within a `CartProvider` (see `useCart` below)
+// Init context with `undefined` is a must to check if `useCart` is used within a `CartProvider` (see `useCart` below)
 export const CartContext = createContext<CartContextProps>(undefined)
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
