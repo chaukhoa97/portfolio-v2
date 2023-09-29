@@ -36,16 +36,16 @@ import { createContext, useContext, useState, useMemo, ReactNode } from 'react'
 
 export type Currency = 'USD' | 'VND'
 
-export interface CartContextProps {
-  currency: Currency
-  setCurrency: (currency: Currency) => void
-}
+export type CartContextProps =
+  | {
+      currency: Currency
+      setCurrency: (currency: Currency) => void
+    }
+  | undefined
 
 // Init context with `undefined` is a must
 // to check if `useCart` is used within a `CartProvider` (see `useCart` below)
-export const CartContext = createContext<CartContextProps | undefined>(
-  undefined,
-)
+export const CartContext = createContext<CartContextProps>(undefined)
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   // To update context, you need to combine it with state
