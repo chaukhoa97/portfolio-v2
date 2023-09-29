@@ -67,19 +67,14 @@ const App = ({ type }) => {
 
 ## Conditional HTML tag
 
+An intrinsic element always begins with a lowercase letter, while a component always begins with an uppercase letter.
+
 ```jsx
-const MyButton = (props) => {
+const Button = ({ component: Component = 'button', children, ...props }) => {
   if (props.href) {
     return <a {...props} />
   }
-  return <button {...props} />
-}
-
-const UnsetComponent = ({ as, ...props }) => {
-  return <as />
-}
-const MyComponent = () => {
-  return <UnsetComponent as="div" />
+  return <Component {...props}>{children}</Component>
 }
 ```
 
