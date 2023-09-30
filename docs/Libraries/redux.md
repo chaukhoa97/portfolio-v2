@@ -20,16 +20,16 @@ Use (React-)Redux if you have **many** states or functions with **complex logic*
 
 React-Redux passes the **current Redux store instance** via Context. Components can subscribe to **specific** pieces of the store state, and only re-render when those values change.
 
-![One-way data flow](https://i.imgur.com/0yQz4vc.png)
-
 ## Steps
 
-1. The _Store_ provides all application states for the components to display on the UI (Single source of truth).
-2. Người dùng tương tác lên UI, e.g. click button.
-3. Component call `dispatch(Action obj)` hoặc `dispatch(Thunk)` - with `Thunk` is an async fn that also returns an _Action obj_.  
-   An _action obj_ typically has the following format: `{ type: "SHOW_NOTIFICATION", text }`:
+![One-way data flow](https://i.imgur.com/0yQz4vc.png)
+
+1. The **Store** provides all application states for the components to display on the UI (<u>Single source of truth</u>).
+2. User tương tác lên UI, e.g. click button.
+3. Component call `dispatch(Action obj)` hoặc `dispatch(Thunk)` - with `Thunk` is an async fn that also returns an `Action obj`.  
+   An `Action obj` typically has the following format: `{ type: "SHOW_NOTIFICATION", text:... }`:
 
    - Property `type` to tell the store which reducer should be called.
-   - Property `payload` (`payload.text`, `payload.value`...) as the arguments for the reducer.
+   - `payload` (`payload.text`, `payload.value`...) as the arguments for the reducer.
 
-4. Redux store dựa theo `type` của Action obj để gọi _reducerFn_ tương ứng và Update Store data dựa theo `storeState` & `payload`.
+4. Redux store dựa theo `type` của `Action obj` để gọi `reducerFn` tương ứng và Update Store data dựa theo `storeState` & `payload`.
