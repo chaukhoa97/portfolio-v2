@@ -5,9 +5,7 @@ title: 'Configs'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-## Core
-
-### Prettier
+## Prettier
 
 ```bash
 npm install --save-dev --save-exact prettier prettier-plugin-tailwindcss
@@ -34,7 +32,7 @@ npm install --save-dev --save-exact prettier prettier-plugin-tailwindcss
 }
 ```
 
-### Eslint
+## Eslint
 
 Ở `.eslintrc.js`: `extends` dùng các `config-name` dc lấy từ các `eslint-config-<config-name>` trong file `package.json`
 
@@ -54,10 +52,10 @@ npm init @eslint/config
 ```json
 {
   "devDependencies": {
-    "eslint-config-next": "latest",
-    "eslint-config-prettier": "latest",
     "eslint-plugin-react": "latest",
     "eslint-plugin-react-hooks": "latest",
+    "eslint-config-prettier": "latest",
+    "eslint-config-next": "latest",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest"
   }
@@ -170,7 +168,7 @@ module.exports = {
   </TabItem>
 </Tabs>
 
-### tsconfig.json
+## tsconfig.json
 
 ```json
 {
