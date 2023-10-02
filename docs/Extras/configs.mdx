@@ -7,24 +7,11 @@ import TabItem from '@theme/TabItem'
 
 ## Core
 
-### Install
+### Prettier
 
 ```bash
 npm install --save-dev --save-exact prettier prettier-plugin-tailwindcss
-
-npm install eslint --save-dev
-npm init @eslint/config
-
-npm install husky --save-dev
-npm set-script prepare "husky install"
-npm run prepare
-npx husky add .husky/pre-commit "npx --no-install lint-staged"
-git add .husky/pre-commit
-
-npm install --save-dev lint-staged
 ```
-
-### Prettier
 
 ```json title=".prettierrc"
 {
@@ -54,6 +41,14 @@ npm install --save-dev lint-staged
 [Sự khác nhau giữa `extends` và `plugins`](https://prateeksurana.me/blog/difference-between-eslint-extends-and-plugins/): `plugins` phải tự add rules vào, `extends` là tổng hợp các configs sẵn.
 
 <Tabs>
+  <TabItem value="install" label="Install" >
+
+```bash
+npm install eslint --save-dev
+npm init @eslint/config
+```
+
+  </TabItem>
   <TabItem value="package.json" label="package.json" >
 
 ```json
@@ -215,6 +210,19 @@ module.exports = {
 ## Husky & lint-staged
 
 <Tabs>
+  <TabItem value="install" label="Install">
+
+```bash
+npm install husky --save-dev
+npm set-script prepare "husky install"
+npm run prepare
+npx husky add .husky/pre-commit "npx --no-install lint-staged"
+git add .husky/pre-commit
+
+npm install --save-dev lint-staged
+```
+
+  </TabItem>
   <TabItem value="package.json" label="package.json">
 
 ```json
