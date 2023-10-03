@@ -103,10 +103,124 @@ const { currency, setCurrency } = useCart()
 ```
 
   </TabItem>
-  <TabItem value="I18nContext" label="Example: I18nContext.tsx"
+  <TabItem value="I18nContext" label="Example: I18nContext.tsx">
 
 ```tsx
-const bro = 10
+import { useEffect, useState } from 'react'
+import config from '../magnolia.config'
+import { getAPIBase, getLanguages } from './AppHelpers'
+import { EditablePage, EditorContextHelper } from '@magnolia/react-editor'
+import Navigation from '../components/Navigation'
+import { useTranslation } from './I18nContext'
+
+const pathname = window.location.pathname
+
+function PageLoader(props) {
+  const [pageLoaderProps, setPageLoaderProps] = useState(null)
+  const nodeName = process.env.REACT_APP_MGNL_APP_BASE
+
+  const { setLanguage, t } = useTranslation()
+
+  if (pathname.includes('/vi/')) {
+    setLanguage('vi')
+  } else {
+    setLanguage('en')
+  }
+
+  useEffect(() => {
+    async function loadPage(pathname) {
+      const config = { headers: {} }
+
+      const props: any = {}
+      props.nodeName = nodeName
+
+      const magnoliaContext = EditorContextHelper.getMagnoliaContext(
+        window.location.href,
+        nodeName,
+        getLanguages(),
+      )
+      props.magnoliaContext = magnoliaContext
+
+      // Check should fetch personalized content
+      const isPersonalizationPage = sessionStorage.getItem(
+        `personalized_${pathname.replace(/\//g, '_')}`,
+      )
+      const ageHeader = sessionStorage.getItem('mgnlAgeHeader')
+      if (isPersonalizationPage && ageHeader && !magnoliaContext.isMagnolia) {
+        config.headers['X-Mgnl-Age'] = ageHeader
+      }
+
+      const apiBase = getAPIBase()
+      // Fetching page content
+      const pagesRes = await fetch(
+        apiBase +
+          process.env.REACT_APP_MGNL_API_PAGES +
+          magnoliaContext.nodePath +
+          magnoliaContext.search,
+        config,
+      )
+      console.log(
+        apiBase +
+          process.env.REACT_APP_MGNL_API_PAGES +
+          magnoliaContext.nodePath +
+          magnoliaContext.search,
+      )
+      props.page = await pagesRes.json()
+
+      // Fetching page navigation
+      const pageMenuRes = await fetch(
+        apiBase + process.env.REACT_APP_MGNL_API_MENU + magnoliaContext.search,
+      )
+      props.pagemenu = await pageMenuRes.json()
+
+      // Fetch template annotations only inside Magnolia WYSIWYG
+      if (magnoliaContext.isMagnolia) {
+        const templateAnnotationsRes = await fetch(
+          apiBase +
+            process.env.REACT_APP_MGNL_API_TEMPLATES +
+            magnoliaContext.nodePath +
+            magnoliaContext.search,
+        )
+        props.templateAnnotations = await templateAnnotationsRes.json()
+      }
+      setPageLoaderProps(props)
+    }
+
+    loadPage(props.pathname)
+  }, [nodeName, props.pathname])
+
+  return (
+    <div
+      className={
+        pageLoaderProps?.magnoliaContext?.isMagnoliaEdit
+          ? 'disable-a-pointer-events'
+          : ''
+      }
+    >
+      <h1>{t('Welcome to React')}</h1>
+      <header>
+        {pageLoaderProps?.pagemenu && (
+          <Navigation
+            content={pageLoaderProps.pagemenu.results}
+            nodeName={nodeName}
+            currentLanguage={pageLoaderProps.magnoliaContext.currentLanguage}
+          />
+        )}
+      </header>
+      <div>
+        {pageLoaderProps?.page && (
+          <EditablePage
+            templateAnnotations={pageLoaderProps.templateAnnotations || {}}
+            content={pageLoaderProps.page}
+            config={config}
+          />
+        )}
+      </div>
+    </div>
+  )
+}
+
+export default PageLoader
 ```
 
   </TabItem>
