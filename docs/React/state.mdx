@@ -103,6 +103,82 @@ const { currency, setCurrency } = useCart()
 ```
 
   </TabItem>
+  <TabItem value="I18nContext" label="Example: I18nContext.tsx"
+
+```tsx
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useMemo,
+  type ReactNode,
+} from 'react'
+
+const translations = {
+  en: {
+    'Welcome to React': 'Welcome to React',
+  },
+  vi: {
+    'Welcome to React': 'Chào mừng đến với React',
+  },
+}
+
+export type Language = 'vi' | 'en'
+
+export type I18nContextProps =
+  | {
+      language: Language
+      setLanguage: (language: Language) => void
+      t: (key: string) => string
+    }
+  | undefined
+
+export const I18nContext = createContext<I18nContextProps>(undefined)
+
+export const I18nProvider = ({ children }: { children: ReactNode }) => {
+  const [language, setLanguage] = useState<Language>('vi')
+
+  const t = useCallback(
+    (key: string) => translations[language][key] || key,
+    [language],
+  )
+
+  const memoizedValue = useMemo(
+    () => ({
+      language,
+      setLanguage,
+      t,
+    }),
+    [language, setLanguage, t],
+  )
+
+  return (
+    <I18nContext.Provider value={memoizedValue}>
+      {children}
+    </I18nContext.Provider>
+  )
+}
+
+export const useTranslation = () => {
+  const context = useContext(I18nContext)
+  if (!context) {
+    throw new Error('useCart must be used within a CartProvider')
+  }
+  return context
+}
+```
+
+  </TabItem>
+  <TabItem value="I18n usage" label="I18n Usage: SomeComponent.tsx">
+
+```tsx
+const { t } = useTranslation()
+
+return <h1>{t('Welcome to React')}</h1>
+```
+
+  </TabItem>
 </Tabs>
 
 > **Read more**: [Kết hợp giữa `useReducer` và `Context` để manage **wide** sate](https://react.dev/learn/scaling-up-with-reducer-and-context)
