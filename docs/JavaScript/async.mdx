@@ -19,10 +19,12 @@ async function asyncCall() {
 }
 
 // Promise
+// Thông thường .then() chỉ cần 1 param - fn `resolve` là đủ
+// ko cần param thứ 2 - fn `reject`, trừ những lỗi phải dc xử lý ngay lập tức.
+// `resolveValue` ở đây là hàm `setTimeout` - xem bên dưới
 oneSec(2)
   .then(
-    // Thông thường .then() chỉ cần 1 param - hàm resolve là đủ, không cần param thứ 2 - hàm reject, trừ những lỗi phải dc xử lý ngay lập tức.
-    (resolveValue) => console.log(resolveValue), // resolveValue ở đây là giá trị resolve của Promise được gọi - ở đây là hàm `setTimeout`
+    (resolveValue) => console.log(resolveValue),
     // ,(rejectValue) => { doing something to deal with the error immediately }
   )
   .catch((err) => console.log(err.name, err.message))
