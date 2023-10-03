@@ -106,125 +106,73 @@ const { currency, setCurrency } = useCart()
   <TabItem value="I18nContext" label="Example: I18nContext.tsx">
 
 ```tsx
-import { useEffect, useState } from 'react'
-import config from '../magnolia.config'
-import { getAPIBase, getLanguages } from './AppHelpers'
-import { EditablePage, EditorContextHelper } from '@magnolia/react-editor'
-import Navigation from '../components/Navigation'
-import { useTranslation } from './I18nContext'
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useMemo,
+  type ReactNode,
+} from 'react'
 
-const pathname = window.location.pathname
+const translations = {
+  en: {
+    'Welcome to React': 'Welcome to React',
+  },
+  vi: {
+    'Welcome to React': 'Chào mừng đến với React',
+  },
+}
 
-function PageLoader(props) {
-  const [pageLoaderProps, setPageLoaderProps] = useState(null)
-  const nodeName = process.env.REACT_APP_MGNL_APP_BASE
+export type Language = 'vi' | 'en'
 
-  const { setLanguage, t } = useTranslation()
-
-  if (pathname.includes('/vi/')) {
-    setLanguage('vi')
-  } else {
-    setLanguage('en')
-  }
-
-  useEffect(() => {
-    async function loadPage(pathname) {
-      const config = { headers: {} }
-
-      const props: any = {}
-      props.nodeName = nodeName
-
-      const magnoliaContext = EditorContextHelper.getMagnoliaContext(
-        window.location.href,
-        nodeName,
-        getLanguages(),
-      )
-      props.magnoliaContext = magnoliaContext
-
-      // Check should fetch personalized content
-      const isPersonalizationPage = sessionStorage.getItem(
-        `personalized_${pathname.replace(/\//g, '_')}`,
-      )
-      const ageHeader = sessionStorage.getItem('mgnlAgeHeader')
-      if (isPersonalizationPage && ageHeader && !magnoliaContext.isMagnolia) {
-        config.headers['X-Mgnl-Age'] = ageHeader
-      }
-
-      const apiBase = getAPIBase()
-      // Fetching page content
-      const pagesRes = await fetch(
-        apiBase +
-          process.env.REACT_APP_MGNL_API_PAGES +
-          magnoliaContext.nodePath +
-          magnoliaContext.search,
-        config,
-      )
-      console.log(
-        apiBase +
-          process.env.REACT_APP_MGNL_API_PAGES +
-          magnoliaContext.nodePath +
-          magnoliaContext.search,
-      )
-      props.page = await pagesRes.json()
-
-      // Fetching page navigation
-      const pageMenuRes = await fetch(
-        apiBase + process.env.REACT_APP_MGNL_API_MENU + magnoliaContext.search,
-      )
-      props.pagemenu = await pageMenuRes.json()
-
-      // Fetch template annotations only inside Magnolia WYSIWYG
-      if (magnoliaContext.isMagnolia) {
-        const templateAnnotationsRes = await fetch(
-          apiBase +
-            process.env.REACT_APP_MGNL_API_TEMPLATES +
-            magnoliaContext.nodePath +
-            magnoliaContext.search,
-        )
-        props.templateAnnotations = await templateAnnotationsRes.json()
-      }
-      setPageLoaderProps(props)
+export type I18nContextProps =
+  | {
+      language: Language
+      setLanguage: (language: Language) => void
+      t: (key: string) => string
     }
+  | undefined
 
-    loadPage(props.pathname)
-  }, [nodeName, props.pathname])
+export const I18nContext = createContext<I18nContextProps>(undefined)
+
+export const I18nProvider = ({ children }: { children: ReactNode }) => {
+  const [language, setLanguage] = useState<Language>('vi')
+
+  const t = useCallback(
+    (key: string) => translations[language][key] || key,
+    [language],
+  )
+
+  const memoizedValue = useMemo(
+    () => ({
+      language,
+      setLanguage,
+      t,
+    }),
+    [language, setLanguage, t],
+  )
 
   return (
-    <div
-      className={
-        pageLoaderProps?.magnoliaContext?.isMagnoliaEdit
-          ? 'disable-a-pointer-events'
-          : ''
-      }
-    >
-      <h1>{t('Welcome to React')}</h1>
-      <header>
-        {pageLoaderProps?.pagemenu && (
-          <Navigation
-            content={pageLoaderProps.pagemenu.results}
-            nodeName={nodeName}
-            currentLanguage={pageLoaderProps.magnoliaContext.currentLanguage}
-          />
-        )}
-      </header>
-      <div>
-        {pageLoaderProps?.page && (
-          <EditablePage
-            templateAnnotations={pageLoaderProps.templateAnnotations || {}}
-            content={pageLoaderProps.page}
-            config={config}
-          />
-        )}
-      </div>
-    </div>
+    <I18nContext.Provider value={memoizedValue}>
+      {children}
+    </I18nContext.Provider>
   )
 }
 
-export default PageLoader
+export const useTranslation = () => {
+  const context = useContext(I18nContext)
+  if (!context) {
+    throw new Error('useCart must be used within a CartProvider')
+  }
+  return context
+}
 ```
 
   </TabItem>
   <TabItem value="I18n usage" label="I18n Usage: SomeComponent.tsx">
+
+The API is the same as [react-i18next](https://react.i18next.com/guides/quick-start)
 
 ```tsx
 const { t } = useTranslation()
