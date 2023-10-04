@@ -157,29 +157,47 @@ for (const i of obj) {
 
 ## var let const
 
-|         |      Scope       |  Hoisting + Init value   | Re-declare | Update |
-| :-----: | :--------------: | :----------------------: | :--------: | :----: |
-|  `var`  | Function/ Global |     ✅ (`undefined`)     |     ✅     |   ✅   |
-|  `let`  |      Block       |     ✅ (`undefined`)     |     ❌     |   ✅   |
-| `const` |      Block       | ✅ (MUST be initialized) |     ❌     |   ❌   |
+|         |      Scope       | Hoisting | Can be accessed before init |     Init value      |  Re-declare  | Update |
+| :-----: | :--------------: | :------: | :-------------------------: | :-----------------: | :----------: | :----: |
+|  `var`  | Function/ Global |    ✅    |   ✅ (return `undefined`)   |     `undefined`     | ✅ undefined |   ✅   |
+|  `let`  |      Block       |    ✅    |             ❌              |     `undefined`     |      ❌      |   ✅   |
+| `const` |      Block       |    ✅    |             ❌              | MUST be initialized |      ❌      |   ❌   |
 
-### `var` function scope
+### `var` deep dive
+
+`var` keyword are scoped to the function in which they are created, or if created outside of any function, to the global object.
 
 ```js
-function exampleVar() {
-  if (true) {
-    var x = 1
-  }
-  console.log(x) // Output: 1 (due to hoisting - x in the if block is hoisted to the function scope)
+function foo() {
+  // All variables are accessible within functions.
+  var bar = 'bar'
+  let baz = 'baz'
+
+  console.log(bar) // bar
+  console.log(baz) // baz
 }
+
+console.log(bar) // ReferenceError: bar is not defined
+console.log(baz) // ReferenceError: baz is not defined
+
+if (true) {
+  var bar = 'bar'
+  let baz = 'baz'
+}
+
+// var declared variables are accessible anywhere in the function scope.
+console.log(bar) // bar
+console.log(baz) // ReferenceError: baz is not defined
 ```
 
-### `var` global scope
+`let` and `const` are hoisted but not initialized. `var` allows this
 
 ```js
-var globalVar = 10
-// In browsers, you can also access it as a property of the global object (window)
-console.log(window.globalVar)
+console.log(bar) // undefined
+var bar = 'bar'
+
+console.log(baz) // ReferenceError: baz is not defined
+let baz = 'baz'
 ```
 
 ### `const` examples
