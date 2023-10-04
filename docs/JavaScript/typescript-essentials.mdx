@@ -52,9 +52,10 @@ function toNumber(x: unknown): number {
 
 ## Keywords
 
-### `in`
+### `in` & `is`
 
-Usage is the same with JS `object`
+- `in`: Usage is the same with JS `object`
+- `is`: Type predicates, in this case, it is `pet is Fish`
 
 ```ts
 type Fish = { swim: () => void }
@@ -63,6 +64,23 @@ type Bird = { fly: () => void }
 // `type Fish | Bird` is called "Union Types"
 function move(animal: Fish | Bird) {
   'swim' in animal ? animal.swim() : animal.fly()
+}
+
+// Any time isFish is called with some variable, TS will narrow that variable
+// to that specific type if the original type is compatible.
+function isFish(pet: Fish | Bird): pet is Fish {
+  return (pet as Fish).swim !== undefined
+}
+
+declare function getSmallPet(): Fish | Bird
+
+// Both calls to 'swim' and 'fly' are now okay.
+let pet = getSmallPet()
+if (isFish(pet)) {
+  pet.swim()
+} else {
+  // TS knows that here pet must be `Bird` because it's not `Fish`
+  pet.fly()
 }
 ```
 

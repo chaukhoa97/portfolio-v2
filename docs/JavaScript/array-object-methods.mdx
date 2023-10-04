@@ -37,7 +37,11 @@ numbers.find((value) => value > 2) // Returns the value of the FIRST element ok 
 numbers.findIndex((value) => value > 2) // Returns the index of the FIRST element ok with the callback
 
 // Set
-uniqueArray = [...new Set(array)]
+const newSet = new Set(someArray)
+const uniqueArray = [...new Set(someArray)] // For primitive values
+const uniqueArrayOfObjects = Array.from(new Set(arr.map(JSON.stringify))).map(
+  JSON.parse,
+)
 
 // Reduce
 // first call: previousValue = 15, currentValue = 16, currentIndex = 1

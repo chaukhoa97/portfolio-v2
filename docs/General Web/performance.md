@@ -27,6 +27,7 @@ title: 'Performance'
 ### Clean code
 
 - Separate logic and UI by using custom hooks (prefered) or [Container/ Presentational Pattern](https://www.patterns.dev/posts/presentational-container-pattern).
+- Things that change together should be located as close as possible but should still be still resonable.
 - SOLID, DRY
 - YAGNI (You Aren't Gonna Need It): Don't add code that you only think you **might** need in the future.
 - KISS (Keep It Simple, Stupid): The simpler the code, the easier it is to understand and maintain.
