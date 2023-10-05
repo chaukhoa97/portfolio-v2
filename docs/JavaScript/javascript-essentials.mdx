@@ -157,11 +157,11 @@ for (const i of obj) {
 
 ## var let const
 
-|         |      Scope       | Hoisting | Can be accessed before init |     Init value      |  Re-declare  | Update |
-| :-----: | :--------------: | :------: | :-------------------------: | :-----------------: | :----------: | :----: |
-|  `var`  | Function/ Global |    ✅    |   ✅ (return `undefined`)   |     `undefined`     | ✅ undefined |   ✅   |
-|  `let`  |      Block       |    ✅    |             ❌              |     `undefined`     |      ❌      |   ✅   |
-| `const` |      Block       |    ✅    |             ❌              | MUST be initialized |      ❌      |   ❌   |
+|         |      Scope       | Hoisting | Can be accessed before declaration |     Init value      |  Re-declare  | Update |
+| :-----: | :--------------: | :------: | :--------------------------------: | :-----------------: | :----------: | :----: |
+|  `var`  | Function/ Global |    ✅    |      ✅ (return `undefined`)       |     `undefined`     | ✅ undefined |   ✅   |
+|  `let`  |      Block       |    ✅    |        ❌ (ReferenceError)         |     `undefined`     |      ❌      |   ✅   |
+| `const` |      Block       |    ✅    |        ❌ (ReferenceError)         | MUST be initialized |      ❌      |   ❌   |
 
 ### `var` deep dive
 
