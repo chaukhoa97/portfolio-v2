@@ -2,10 +2,6 @@
 title: 'UI/UX Stuff'
 ---
 
-## Typical parts of a website
-
-![Typical parts of a website](https://imgur.com/MyJJ16E.png)
-
 ## Header-Content Font pairs
 
 <h2>Headlines</h2>
