@@ -144,11 +144,6 @@ export default function Form() {
 }
 ```
 
-## Events
-
-- [Events propagate upwards (children trước parent sau). Call `e.stopPropagation()` if you want to prevent an event from reaching parent components](https://react.dev/learn/responding-to-events#event-propagation).
-- [Events may have unwanted default browser behavior (Ex: The page reload when we submit a form). Call `e.preventDefault()` to prevent that](https://react.dev/learn/responding-to-events#preventing-default-behavior).
-
 ## HOC
 
 A Higher Order Component (HOC) contains certain logic that we want to apply to the another component that we pass as a parameter. After applying that logic, the HOC returns the element with the additional logic.  
