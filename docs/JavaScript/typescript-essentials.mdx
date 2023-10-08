@@ -481,7 +481,7 @@ Object.prototype.toString.call(document) //"[object HTMLDocument]"
 Object.prototype.toString.call(window) //"[object Window]
 ```
 
-With a little bit of string processing using a `regexp``, we can come up with the following solution that can account for all cases:
+With a little bit of string processing using a `regexp`, we can come up with the following solution that can account for all cases:
 
 ```js
 function getType(obj) {
