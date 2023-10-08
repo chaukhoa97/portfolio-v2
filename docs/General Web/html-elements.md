@@ -2,7 +2,7 @@
 title: 'HTML Elements'
 ---
 
-## `script` with `defer` & `async`
+## `script` with `defer` & `async` attribute
 
 ![script differences](https://www.josefzacek.cz/wp-content/uploads/2018/03/whats-the-difference-between-async-vs-defer-attributes.jpg)
 
