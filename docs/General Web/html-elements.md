@@ -47,17 +47,17 @@ Use `defer` when the script <u>relies on a fully-parsed DOM</u>, as it can ensur
 </html>
 ```
 
-### `meta robots`
+### `<meta name="robots`
 
 - `noindex`: To not show this page in search results. Omitting `noindex` will indicate the page can be indexed and shown in search results. In a website, u might not want to index certain pages. Common use cases include settings pages, internal search pages, policies, and more.
 
 - `nofollow`: To not follow links on this page. Omitting this will allow robots to crawl and follow links on this page. Links found on other pages may enable crawling, so if link `A` appears in pages `X` and `Y`, and `X` has a nofollow robots tag, but `Y` doesn't, Google may decide to crawl the link.
 
-### `meta googlebot`
+### `<meta name="googlebot"`
 
 Use this tag if you want to have a separate rule for Googlebot, and a general one for the rest of the search bots.
 
-### `canonical`
+### `<link rel="canonical"`
 
 Content của `example.com/products/phone` trùng với `example.com/phone` &rarr; Chọn link này để Google ko crawl trùng.
 

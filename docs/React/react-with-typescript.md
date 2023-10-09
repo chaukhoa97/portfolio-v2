@@ -56,6 +56,9 @@ export const ButtonWithIconElement = ({
 function SvgComponent(props: any) {
   return (
     <svg
+      {/* set the color inside the object */}
+      fill={props.isHovered ? 'currentColor' : 'red'}
+      {/* set the color of the line drawn around the object */}
       stroke={props.isHovered ? 'currentColor' : 'red'}
       width={24}
       height={24}

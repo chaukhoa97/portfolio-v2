@@ -83,17 +83,27 @@ p::before { content: '', color:... }
 
 ## Display
 
+- `inline`(`<span>`) vs `inline-block`(`button, select, input`):
+
+  - Same: Size depends on content, can be aligned with `vertical-align`.
+  - Difference: `inline` ignores `width` & `height`, accepts `margin` & `padding` but <u>only horizontally</u>. Vertical space it takes up depends on `line-height`.
+    ![inline-block](https://i0.wp.com/css-tricks.com/wp-content/uploads/2011/09/inline-block.png?w=526&ssl=1)
+
+- `block`(`div, h3, p`): Take up as much horizontal space as they can.
 - `flex`, `grid`, `none`
-- `inline`(span): ignore `width` & `height`, accept `margin` & `padding` but only push other elements horizontally away, not vertically.
-- `inline-block`(button, select, input): Similar to inline, but `width` & `height` are accepted.
-  ![inline-block](https://i0.wp.com/css-tricks.com/wp-content/uploads/2011/09/inline-block.png?w=526&ssl=1)
-- `block`(div, h3, p): Take up as much horizontal space as they can.
 
 ## Position
 
-- `fixed`, `sticky`(`relative` + `fixed`), `static`
-- `absolute`: The parent will behave like the `absolute` children is not there at all. Để children absolutely position theo parent thì parent phải có position là `relative` hoặc `absolute`.
-- `relative`: Ở chỗ cũ như `static`, nhưng khác với `static` là bây giờ `left/right/top/bottom/z-index` sẽ hoạt động.
+- `absolute`: The element is removed from the flow of the page and positioned at a specified position relative to its closest _positioned_ (elements which have a `position` value which is not `static`) ancestor if any, or otherwise relative to the initial containing block. These elements do not affect the position of other elements.
+- `fixed`: The element is removed from the flow of the page and positioned at a specified position relative to the viewport and doesn't move when scrolled.
+- `sticky`: Sticky positioning is a hybrid of `relative` and `fixed` positioning. The element is treated as `relative` positioned until it crosses a specified threshold, at which point it is treated as `fixed`-positioned.
+- `relative`: Ở chỗ cũ như `static`, but now can be adjusted relative to itself, without changing layout (and thus leaving a gap for the element where it would have been) e.g. we can use `left/right/top/bottom/z-index`.
+- `static`
+
+:::note
+
+Without any `z-index` value, elements stack in the order that they appear in the DOM (the lowest one down at the same hierarchy level appears on top)
+:::
 
 ## `transform` & `transistion`
 
