@@ -246,32 +246,30 @@ const obj = { key1: 'foo' } // ❌ error - re-declaring
 
 ```js
 const person = {
-  foo: ['a', 'b', 'c'],
+  foo: [0, 1],
 
   test() {
     // `this` of a METHOD will be the OBJECT/CLASS that contains the method
     console.log(this) // `person` obj
 
-    this.foo.map(function (item) {
-      // `this` of a regular fn will be the `window` object in the browser (or `global` object in Node)
-      console.log(this) // `window` obj
+    // `this` of a regular fn will be the JS `global` object
+    this.foo.forEach(function (item) {
+      console.log(this) // `window` (browser) or `global` (node)
     })
 
-    // the second arg of `map` - `thisArg` will be used as the `this` of the callback fn, in this case, `person` obj
-    this.foo.map(function (item) {
+    // the 2nd arg of `forEach` can be used as the `this` of the callback fn, in this case, `person` obj
+    this.foo.forEach(function (item) {
       console.log(this) // `person` obj
     }, this)
 
-    this.foo.map((item) => {
-      // `this` of a regular ARROW fn will be the OBJECT that contains the method
+    // `this` of a ARROW fn will be the OBJECT that contains the method
+    this.foo.forEach((item) => {
       console.log(this) // `person` obj
     })
   },
 }
 person.test()
 ```
-
-[CodeSandbox example](https://codesandbox.io/s/vanilla-js-ijfdx6?file=/src/this.js)
 
 ## `Object.freeze` vs `.seal` vs `.preventExtensions`
 
