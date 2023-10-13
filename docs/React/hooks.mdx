@@ -404,8 +404,8 @@ export default ReducerExample
 
 ## Custom Hook
 
-1. Let you share _stateful logic_ to React components but NOT the _state_ itself (Each component that uses the same Custom Hook will get its own isolated instance of state).
-2. Better project structure by implementing the logic in a custom hook, then using them in View (UI/ Presentational/ Dumb) Components.
+1. Better project structure by implementing the logic in a Custom Hook, then using them in _Presentational Components_, similar to [Container/ Presentational Pattern](https://www.patterns.dev/posts/presentational-container-pattern).
+2. Let you share _stateful logic_ to React components but NOT the _state_ itself (Each component that uses the same Custom Hook will get its own isolated instance of state).
 
 ```jsx
 // Custom hook MUST start with "use"

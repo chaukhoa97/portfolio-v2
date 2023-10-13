@@ -7,15 +7,15 @@ title: 'Performance'
 ### General (in order of familiarity)
 
 - Ship the smallest JS bundle possible by choosing packages carefully: Well maintained, small, and tree-shakeable.
-- Code Splitting (splitting JS bundle into smaller chunks so they can be loaded on demand e.g. route level or component level) -> Lazy/ Dynamic Loading:
-  - On visibility or user interaction
-  - Images (via `<img loading="lazy">`: only load when user scrolls near them, [already widely support](https://caniuse.com/loading-lazy-attr)), [Component](../React/react-snippets.mdx#lazy-load--component-maps), Fonts, Scripts, Static Assets
+- Code Splitting == Lazy/ Dynamic Loading: Splitting JS bundle into smaller chunks so they can be loaded on demand
+  - Flexible: Route level or Component level; On visibility or On user interaction.
+  - `<img loading="lazy">` (Only load when user scrolls near them, [already widely supported](https://caniuse.com/loading-lazy-attr)), [Component](../React/react-snippets.mdx#lazy-load--component-maps), Fonts, Scripts, Static Assets.
 - Analytics: Google Lighthouse/ Next.js built-in. Not always accurately reflects of true user experience. Sometimes the true experience when using the application is more reliable than the stats shown by any automated tool.
+- Responsive image with [`picture` + `source`](./image.md#picture) or [`srcset` + `sizes`](./image.md#srcset-and-sizes)
 - UX: Should have a specific level of UX knowledge to improve user experience without boosting performance.
 - Preload (`<link rel="preload">`, `next/script` with strategy prop as `beforeInteractive`, `next/image` with `priority` prop as `true`): Highest priority: Tell browser to fetch the resource ASAP, most likely to be used in the current page.
 - Prefetch (`<link rel="prefetch">`, `next/link` with `prefetch` prop as `true`, `next/router` with `prefetch` method): Utilizes browser idle time to fetch resources which the user might use in the near future. Lower priority compared to `preload`.
 - [CSS Sprites](https://spritegen.website-performance.org/): Combine multiple small images e.g. icons, into one single larger one and use CSS to display the desired image segment.
-- Responsive image with [`picture` + `source`](./image.md#picture) or [`srcset` + `sizes`](./image.md#srcset-and-sizes)
 - List Virtualization: Only render the items that are visible to the user. **I personally dislike this because it break Ctrl+F** although it can be fixed with our own search box.
 - Caching: By changing the `Cache-Control` header, you can control how long the browser caches a resource.
 - Metadata: For [SEO](./seo.md)
@@ -23,8 +23,8 @@ title: 'Performance'
 ### React
 
 - [Optimize hooks](../React/hooks.mdx#optimize)
-- React DevTools Profiler
 - [Next.js Built-in](https://nextjs.org/docs/app/building-your-application/optimizing): Images, Fonts, Scripts, Static Assets, Lazy/ Dynamic Loading, Analytics
+- React DevTools Profiler
 
 ## Clean code
 
