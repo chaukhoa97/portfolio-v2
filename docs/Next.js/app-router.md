@@ -9,10 +9,11 @@ Server Components never re-render or hydrate. They run *once* on the server to
 ### Pros
 
 - RSC code isn't included in the JS bundle, thus reduces the amount of JS -> improve *Page Interactive* (TTI). For example, there are some cases that we need to do a heavy task that require a huge size of JS in a component e.g. syntax highlighting. If we do it in a SC, none of the library code will be included in our JS bundle.
-- The layout system is intuitive and feels great to work with, similar to Remix.
 - Unlike tradional SSR where we have to call to the server mutiple times e.g. 1st Create HTML and 2nd Query the DB, In RSC we can perform multiple data fetches with single round-trip instead of multiple individual requests on the client.
+- Because RSC code only runs on the server, it helps keep sensitive data and logic on the server.
+- The layout system is intuitive and feels great to work with, similar to Remix.
 - All other [pre-rendering pros](pages-router.md#pre-rendering) (SEO, FCP, LCP) because they are similar in that they all create the HTML on the server **compared to CSR**.
-- **Use Cases**: Fetch data, keep sensitive data and logic on the server, better performance.
+- **Use Cases**: Better performance, Fetch data, Keep sensitive data and logic on the server.
 
 ### Vs Client Components
 
