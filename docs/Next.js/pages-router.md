@@ -1,11 +1,10 @@
 ---
-title: 'Page Rendering'
-sidebar_position: 1
+title: 'Pages Router Specific'
 ---
 
 ## Pre-rendering
 
-By default, Next.js pre-renders every page. It means when there's a request, Next.js will pre-render the HTML page with its static content, instead of letting client-side JS do all the work like CSR -> **Great for SEO**.  
+By default, Next.js pre-renders every page. It means when there's a request, Next.js will pre-render the HTML page with its static content, instead of letting client-side JS do all the work like CSR -> **Improvement in SEO, FCP, LCP** compared to CSR.
 Each generated HTML is also associated with minimal JavaScript code to make the page fully interactive after it is loaded by the browser (This process is called `hydration`).
 
 [SSG](#static-site-generation), [ISR](#incremental-static-regeneration), [SSR](#server-side-rendering) are 3 ways Next.js pre-renders pages.
@@ -21,7 +20,7 @@ Each generated HTML is also associated with minimal JavaScript code to make the 
 
 ![Static-site Generation](https://nextjs.org/static/images/learn/data-fetching/static-generation.png)
 
-### `next/link` with JSON
+### Prefetching with JSON file created by SSG and ISG
 
 SSG (and ISG) also generate a JSON file besides the HTML. It's used for **Client-side routing** (Page transitions are handled by JS, similar to a SPA) when users navigate by `next/link` to those **static** pages. The JSON is passed as the `props` for the `PageComponent`.  
 In addition, any `<Link />` **in the viewport** (initially or through scroll) to pages that haven't been pre-rendered will also be <u>generated & prefetched</u> by default.  
@@ -133,3 +132,130 @@ Nên kẹp chung với [TanStack Query](https://github.com/TanStack/query/releas
   &rarr; Dùng cho những page như: Dashboard, Cart, ...
 
 ![Client-side Rendering](https://nextjs.org/static/images/learn/data-fetching/client-side-rendering.png)
+
+## Data Fetching
+
+### `getStaticProps` + `getStaticPaths`
+
+These 2 functions only runs at build time on server.
+
+#### `getStaticProps`
+
+If you export a function called `getStaticProps` (Static Site Generation) from a page, **Next.js will pre-render this page at build time using the props returned by `getStaticProps`**.
+
+#### `getStaticPaths`
+
+If a page has [Dynamic Routes](https://nextjs.org/docs/routing/dynamic-routes) and uses `getStaticProps`, it needs to define a list of paths to be statically generated.
+
+When you export a function called `getStaticPaths` (Static Site Generation) from a page that uses dynamic routes, **Next.js will statically pre-render all the paths specified by `getStaticPaths`**.
+
+```jsx title='pages/[id].jsx'
+// [id].jsx -> các obj trong `paths[]` phải có dạng { params: { id: '1' } }
+export const getStaticPaths = async () => {
+  // Fetch or do something...
+  const paths = [{ params: { id: '1' } }, { params: { id: '2' } }]
+  return { paths, fallback: 'blocking' }
+}
+
+// `context` là object có nhiều property (đọc API của `getStaticProps`)
+// Trong đó quan trọng nhất là `params` - Route params for pages using Dynamic routes.
+// [id].jsx -> context = { params: { id: ... }, locales... }
+export const getStaticProps = async (context) => {
+  const {
+    params: { id },
+  } = context
+
+  // `paths` ở đây KHÔNG dùng để lựa các page để pre-render như `getStaticPaths`, mà chỉ để render các Link trong NavBar
+  const paths = [{ params: { id: '3' } }, { params: { id: '4' } }]
+
+  if (!id) {
+    return {
+      notFound: true,
+      // hoặc
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: { id, paths }, // `id`, `paths` will be passed to the Page component as props
+    revalidate: 60,
+  }
+}
+
+export default function Page({ id, paths }) {
+  return (
+    <div className="flex">
+      <div className="w-1/4">
+        {paths.map((path) => (
+          <Link href={path.params.id} key={path.params.id}>
+            <a className="mx-4 text-primary-400">Link {path.params.id}</a>
+          </Link>
+        ))}
+      </div>
+      <h3 className="w-3/4 text-3xl">ID: {id}</h3>
+    </div>
+  )
+}
+```
+
+### `getServerSideProps`
+
+Run on every request. Syntax giống hệt `getStaticProps`
+
+If you export a function called `getServerSideProps` (Server-Side Rendering) from a page, Next.js will pre-render this page on each request using the data returned by `getServerSideProps`.
+
+## Snippets
+
+### Hydration Error
+
+`useId` is a hook for generating unique IDs that are stable across the server and client, while avoiding hydration mismatches.
+
+```jsx
+const id = useId()
+
+const App = () => {
+  return <Element key={id} />
+}
+
+// Hoặc
+const [mounted, setMounted] = useState(false)
+
+useEffect(() => {
+  setMounted(true)
+}, [])
+
+const App = () => {
+  return mounted && <Element />
+}
+```
+
+### pages/document.js
+
+```jsx
+import { Html, Head, Main, NextScript } from 'next/document'
+
+export default function Document() {
+  return (
+    // Thêm vào `data-theme`
+    <Html data-theme="dracula">
+      <Head>
+        {/* Add font */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter&display=optional"
+          rel="stylesheet"
+        />
+      </Head>
+      {/* Thêm vào ` className="bg-dark" ` */}
+      <body className="bg-dark">
+        {/* Thêm vào <div> portal */}
+        <div id="portal" />
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  )
+}
+```
