@@ -290,8 +290,6 @@ export default function App() {
 | Value is <u>unique</u> for every instance of the Component |    ✅    |     ✅     |  ❌   |
 |                          Mutable                           |    ✅    |     ❌     |  ✅   |
 
-#### Kết luận
-
 - `useState`: Values used for rendering, có thể thay đổi và ~ thay đổi đó require a re-render.
 - `useRef`: Values <u>NOT</u> used for rendering, có thể thay đổi và ~ thay đổi đó do <u>NOT</u> require a re-render e.g. user's search box input, `timeoutId`.
 - `JS variable`: Values <u>NOT</u> used for rendering, constant, can be shared among mutliple instances of the component e.g. `env` values.
