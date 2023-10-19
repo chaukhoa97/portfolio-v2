@@ -15,9 +15,9 @@ title: 'Performance'
 | UX                                                        | Apply user experience (UX) knowledge to enhance user experience without even boosting performance.                                                                            | -                                                                                                                                                                                                                                     |
 | Preload                                                   | Tell browser to fetch the resource ASAP, most likely to be used in the current page. Highest priority.                                                                        | - `<link rel="preload">` <br /> - `next/script` with `strategy` prop as `beforeInteractive` <br /> - `next/image` with `priority` prop as `true`                                                                                      |
 | Prefetch                                                  | Utilizes browser idle time to fetch resources which the user might use in the near future. Lower priority compared to `preload`                                               | - `<link rel="prefetch">` <br /> - `next/link` with `prefetch` prop as `true` <br /> - `next/router` with `prefetch` method-                                                                                                          |
+| Debounce & Throttle                                       | Limiting the number of times a function is executed, especially heavy ones                                                                                                    | - Debounce: Executed only after a certain period of time has passed since the last event <br /> - Throttle: Limits the execution rate of a function to a specified time interval                                                      |
 | [CSS Sprites](https://spritegen.website-performance.org/) | Combine small images e.g. icons into a single larger one and use CSS to display the desired image segment.                                                                    | -                                                                                                                                                                                                                                     |
 | List Virtualization                                       | Only render the items that are visible to the user. **I personally dislike this because it break Ctrl+F** although it can be fixed with our own search box.                   | -                                                                                                                                                                                                                                     |
-| Debounce & Throttle                                       | Limiting the number of times a function is executed, especially heavy ones                                                                                                    | - Debounce: Executed only after a certain period of time has passed since the last event <br /> - Throttle: Limits the execution rate of a function to a specified time interval-                                                     |
 | Caching                                                   | By changing the `Cache-Control` header, you can control how long the browser caches a resource.                                                                               | -                                                                                                                                                                                                                                     |
 | Metadata                                                  | For [SEO](./seo.md)                                                                                                                                                           | -                                                                                                                                                                                                                                     |
 
@@ -26,17 +26,6 @@ title: 'Performance'
 - [Optimize hooks](../React/hooks.mdx#optimize)
 - [Next.js Built-in](https://nextjs.org/docs/app/building-your-application/optimizing): Images, Fonts, Scripts, Static Assets, Lazy/ Dynamic Loading, Analytics
 - React DevTools Profiler
-
-## Clean code
-
-- Separate logic and UI by using custom hooks (prefered) or [Container/ Presentational Pattern](https://www.patterns.dev/posts/presentational-container-pattern).
-- Things that change together should be located as close as possible but should still be still resonable.
-- SOLID, DRY
-- YAGNI (You Aren't Gonna Need It): Don't add code that you only think you **might** need in the future.
-- KISS (Keep It Simple, Stupid): The simpler the code, the easier it is to understand and maintain.
-- Meaningful Variable Names and Comments.
-- Avoid premature optimization.
-- "Any fool can write code that a computer can understand. Good programmers write code that humans can understand."
 
 ## Core Web Vitals
 
@@ -80,3 +69,13 @@ This will soon be replaced by [Interaction to Next Paint - INP](https://web.dev/
 **CLS** measure your site’s **overall layout stability**. To be specific, it measures how much elements have been shifted after initially being rendered by the DOM. Ex: A `button` is rendered after the `text block`, causing the `text` to shift downward.
 
 Improve **CLS** by: Skeleton & Placeholder. [Read more](https://web.dev/optimize-cls/)
+
+## Clean code
+
+- Separate logic and UI by using custom hooks (prefered) or [Container/ Presentational Pattern](https://www.patterns.dev/posts/presentational-container-pattern).
+- Things that change together should be located as close as possible but should still be still resonable.
+- SOLID, DRY
+- YAGNI (You Aren't Gonna Need It): Don't add code that you only think you **might** need in the future.
+- KISS (Keep It Simple, Stupid): The simpler the code, the easier it is to understand and maintain. "Any fool can write code that a computer can understand. Good programmers write code that humans can understand."
+- Meaningful Variable Names and Comments.
+- Avoid premature optimization.
