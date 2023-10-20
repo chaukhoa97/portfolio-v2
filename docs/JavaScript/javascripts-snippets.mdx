@@ -20,6 +20,20 @@ const a = {
 }
 ```
 
+## Round to `n` decimal places
+
+```js
+// Simple, with value = 1.50
+Math.round(value * 100) / 100 // number 1.5, for 3 decimal places use 1000, etc.
+value.toFixed(2) // string "1.50", use `parseFloat` to convert to number 1.5
+
+// More comprehensive
+function round(value, decimals) {
+  return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
+}
+round(1.005, 2) // 1.01
+```
+
 ## Measure function runtime
 
 ```js
@@ -33,15 +47,6 @@ const visibleTodos = getFilteredTodos(todos, filter)
 const end = performance.now()
 console.log('filter array took', end - start, 'ms')
 ```
-
-## Non-null Assertion vs Optional Chaining vs Nullish Coalescing
-
-- `!`: Non-null assertion - Only runs at _Compile time_, nói với compiler là cái này ko `null` dc &rarr; dùng khi biết chắc obj có value rồi để skip runtime check.
-- `?`: Optional chaining - Only runs at _Runtime_, nếu ko có thì trả về `undefined` &rarr; dùng khi ko biết chắc obj có value hay ko để tránh crash.
-- **Nullish Coalescing**: `??`: Tương tự `|`
-
-  - `[0/""/false/NaN] ?? expr` &rarr; `[0/""/false/NaN]`
-  - `null/undefined ?? expr` &rarr; expr
 
 ## Scroll to top
 
