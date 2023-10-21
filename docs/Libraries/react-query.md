@@ -2,24 +2,31 @@
 title: 'React Query'
 ---
 
-## [Basic Queries](https://tanstack.com/query/v5/docs/react/guides/queries)
+## [Basic Queries](https://tanstack.com/query/latest/docs/react/guides/queries)
 
 ```jsx
 // queryFn can be any function that **returns a promise** (should either resolve the data or throw an error)
-export const fetchData = ({ queryKey }) => {
+const axiosFetchData = ({ queryKey }) => {
   // Access the key, type and id variables in your query function
   const [_key, { type, id }] = queryKey
   return axios
     .get(`https://jsonplaceholder.typicode.com/${type}/${id}`)
     .then((res) => res.data)
-    .catch((error) => console.log(error))
-  // We can also skip the catch block because axios automatically throws an error, for `fetch` we need to check `res.ok`
+}
+
+// Query function with `fetch`: Must check for `ok` status because `fetch` doesn't throw errors
+const fetchData = async () => {
+  const res = await fetch('https://jsonplaceholder.typicode.com/posts')
+  if (!res.ok) {
+    throw new Error('Network response was not ok')
+  }
+  return res.json()
 }
 
 function Todos() {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['basic', { type: 'todos', id: 1 }] // `key, type, id` as above
-    queryFn: fetchData,
+    queryFn: axiosFetchData,
   })
 
   if (isPending) {
@@ -35,7 +42,7 @@ function Todos() {
 }
 ```
 
-## [Query Keys](https://tanstack.com/query/v5/docs/guides/query-keys)
+## [Query Keys](https://tanstack.com/query/latest/docs/guides/query-keys)
 
 ```js
 // A list of todos
@@ -81,7 +88,179 @@ Most of the time you only need to adjust `staleTime` (default is 0). The `gcTime
 - `queryClient.invalidateQueries(['posts'])` **_(preferred)_** will set the query to `stale`. It will only refetch if the component is on the screen.
 - `const { refetch } = useQuery(...)` will ALWAYS refetch even if the component hasn't mounted. Usually you don't have access to `refetch` because it is returned from `useQuery`.
 
-## React Query with Next.js Page Router
+## Snippet: Infinite Queries
+
+```jsx
+import { useInfiniteQuery } from '@tanstack/react-query'
+import axios from 'axios'
+
+const Infinited = () => {
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ['projects'],
+    queryFn: ({ pageParam }) =>
+      axios
+        .get(
+          `https://pokeapi.co/api/v2/pokemon/?offset=${
+            pageParam * 10
+          }&limit=10`,
+        )
+        .then((res) => res.data),
+    initialPageParam: 113,
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.next
+        ? lastPage.next.split('offset=')[1].split('&')[0] / 10
+        : null
+    },
+  })
+
+  return status === 'pending' ? (
+    <p>Loading...</p>
+  ) : status === 'error' ? (
+    <p>Error: {error.message}</p>
+  ) : (
+    <>
+      {data.pages.map((page, index) => (
+        <div key={index}>
+          {page.results.map((result, index) => (
+            <div key={index}>
+              {index}. {result.name}
+            </div>
+          ))}
+        </div>
+      ))}
+      <button
+        type="button"
+        className="btn btn-primary"
+        onClick={() => fetchNextPage()}
+        disabled={!hasNextPage}
+      >
+        {isFetchingNextPage
+          ? 'Loading more...'
+          : hasNextPage
+          ? 'Load More'
+          : 'Nothing more to load'}
+      </button>
+      <div>{isFetching && 'Fetching...'}</div>
+    </>
+  )
+}
+
+export default Infinited
+```
+
+## Snippet: Pagination Queries
+
+```jsx
+import { useEffect, useState } from 'react'
+import { useQueryClient, useQuery } from '@tanstack/react-query'
+import axios from 'axios'
+
+const sampleApiReturn = {
+  count: 1154,
+  next: 'https://pokeapi.co/api/v2/pokemon/?offset=1140&limit=10',
+  previous: 'https://pokeapi.co/api/v2/pokemon/?offset=1120&limit=10',
+  results: [
+    {
+      name: 'urshifu-single-strike-gmax',
+      url: 'https://pokeapi.co/api/v2/pokemon/10226/',
+    },
+    {
+      name: 'urshifu-rapid-strike-gmax',
+      url: 'https://pokeapi.co/api/v2/pokemon/10227/',
+    },
+  ],
+}
+
+const Paginated = () => {
+  const queryClient = useQueryClient()
+  const [page, setPage] = useState(0)
+  const { isPending, isError, error, data, isFetching, isPlaceholderData } =
+    useQuery({
+      queryKey: ['paginated', page],
+      queryFn: () =>
+        axios
+          .get(
+            `https://pokeapi.co/api/v2/pokemon/?offset=${page * 10}&limit=10`,
+          )
+          .then((res) => res.data),
+    })
+
+  useEffect(() => {
+    // Prefetch the next page when page changes
+    queryClient.prefetchQuery({
+      queryKey: ['paginated', page + 1],
+      queryFn: () =>
+        axios
+          .get(
+            `https://pokeapi.co/api/v2/pokemon/?offset=${
+              (page + 1) * 10
+            }&limit=10`,
+          )
+          .then((res) => res.data),
+    })
+  }, [page, queryClient])
+
+  if (isPending) {
+    return <div>Loading...</div>
+  }
+
+  if (isError) {
+    return <div>Error: {error.message}</div>
+  }
+
+  return (
+    <>
+      <h1 className="text-3xl text-red-500">{page}</h1>
+      {data.results.map((result) => (
+        <div
+          key={result.id}
+          className={isPlaceholderData ? 'text-gray-500' : 'text-white'}
+        >
+          {result.name}
+        </div>
+      ))}
+      <div>
+        <button
+          type="button"
+          className="btn btn-primary"
+          disabled={!data.previous}
+          onClick={() => {
+            setPage((p) => Math.max(p - 1, 0))
+          }}
+        >
+          Previous
+        </button>
+        <button
+          type="button"
+          className="btn btn-primary"
+          // Disable if the current page data is still being fetched or if there is no next page (from `sampleApiReturn` above)
+          disabled={isPlaceholderData || !data.next}
+          onClick={() => {
+            setPage((p) => p + 1)
+          }}
+        >
+          Next
+        </button>
+        {isFetching ? (
+          <span> The current page data is being fetched...</span>
+        ) : null}
+      </div>
+    </>
+  )
+}
+
+export default Paginated
+```
+
+## Snippet: React Query with Next.js Page Router
 
 ```jsx
 import { useQuery } from '@tanstack/react-query'
