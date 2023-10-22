@@ -9,6 +9,16 @@ import s from '../Nav.module.scss'
 return <h1 className={`${s['active-nav']} ${s.red}`}>Hello</h1>
 ```
 
+## Get uncontrolled form values
+
+```js
+function handleSubmit(e) {
+  e.preventDefault()
+  const formData = new FormData(e.target)
+  const data = Object.fromEntries(formData.entries()) // { name: 'John', age: '30' }
+}
+```
+
 ## [Reduce re-rendering](https://www.zhenghao.io/art/blog/react-rerender/flowchart.jpeg)
 
 ### Lift ur component up and pass it down as a prop
@@ -199,16 +209,6 @@ if (typeof document !== 'undefined') {
   // running in a browser environment
 } else {
   // running in a server environment
-}
-```
-
-## Get form values
-
-```js
-function handleSubmit(e) {
-  e.preventDefault()
-  const formData = new FormData(e.target)
-  const data = Object.fromEntries(formData.entries()) // { name: 'John', age: '30' }
 }
 ```
 
