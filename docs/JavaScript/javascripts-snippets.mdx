@@ -113,9 +113,8 @@ const {
 ## Date Time
 
 ```js
-const now = new Date().getTime() // 1637078255000. Useful for comparing date values. `Date.now()` is the same.
-
 const eventTime = new Date() // Tue Nov 16 2021 23:37:35 GMT+0700 (Indochina Time)
+const now = eventTime.getTime() // 1637078255000. Useful for comparing date values. `Date.now()` is the same.
 eventTime.toLocaleString() // 11/16/2021, 11:37:35 PM
 eventTime.toLocaleDateString() // 11/16/2021
 eventTime.toLocaleTimeString() // 11:37:35 PM
