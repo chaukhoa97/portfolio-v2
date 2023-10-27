@@ -52,40 +52,19 @@ function App({ id }) {
 ```
 
   </TabItem>
-  <TabItem value="setTimeout" label="Delay a value" >
-
-```jsx
-function useDelayedValue(value, delay) {
-  const [delayedValue, setDelayedValue] = useState(value)
-
-  // useEffect, setTimeout, setInterval đều có 1st param là callback
-  useEffect(() => {
-    setTimeout(() => {
-      setDelayedValue(value)
-    }, delay)
-  }, [value, delay])
-
-  return delayedValue
-}
-```
-
-  </TabItem>
-  <TabItem value="setInterval" label="setInterval for third party API" >
+  <TabItem value="setInterval" label="setInterval" >
 
 ```jsx
 function useInterval() {
-  const [externalData, setExternalData] = useState()
+  const [timeState, setTimeState] = useState()
 
   useEffect(() => {
-    const tagalysInterval = setInterval(() => {
-      if (window.Tagalys) {
-        clearInterval(tagalysInterval)
-        setExternalData(Tagalys.getData())
-      }
-    }, 100)
+    // useEffect, setTimeout, setInterval đều có 1st param là callback
+    const timeInterval = setInterval(() => setTimeState(new Date()), 1000)
+    return () => clearInterval(timeInterval)
   }, [])
 
-  return externalData
+  return timeState
 }
 ```
 

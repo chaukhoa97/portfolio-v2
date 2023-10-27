@@ -1,5 +1,5 @@
 ---
-title: 'React with TypeScript'
+title: 'TypeScript in React'
 ---
 
 ## Get type of an element's props
