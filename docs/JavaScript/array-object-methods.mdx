@@ -16,9 +16,9 @@ const newNumbers = arr.map((element, index) => {
   element += index
 })
 
-// .concat & .slice
-const cc = [1, 2].concat([3, 4]) // [1, 2, 3, 4]
-const sl = cc.slice(1, -1) // Index 1 2 3 (ko lấy last index); cũng có thể dùng .slice() để shallow copy
+const cc = [1, 2].concat([3, 4]) // [1, 2, 3, 4]. No mutate
+
+const sl = cc.slice(1, -1) // [2, 3] (ko lấy end index); cũng có thể dùng .slice() để shallow copy
 
 // Filters, every, some - Same arguments: .filter((value, index, array)=>{...})
 const f = numbers.filter((n) => n > 5) // Returns new array
