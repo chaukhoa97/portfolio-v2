@@ -350,7 +350,7 @@ const infoReducer = (state, action) => {
     case 'success':
       return { ...action, loading: false }
     default:
-      throw Error('Unknown action: ' + action.type)
+      throw new Error('Unknown action: ' + action.type)
   }
 }
 
