@@ -105,32 +105,6 @@ p::before { content: '', color:... }
 Without any `z-index` value, elements stack in the order that they appear in the DOM (the lowest one down at the same hierarchy level appears on top)
 :::
 
-## `transform` & `transistion`
-
-```css
-div {
-  transform: translateX(100px);
-  transistion: width 2s, transform 1s ease;
-}
-```
-
-## Animation
-
-```css
-@keyframes show {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-div {
-  animation: show 1s infinite;
-}
-```
-
 ## Box model
 
 - `box-sizing: content-box` : Size = `Content` &rarr; `Padding` & `Border` làm width to hơn so với ý muốn.
