@@ -29,6 +29,6 @@ div {
 }
 
 div {
-  animation: show 1s ease-in-out infinite;
+  animation: show 3s linear infinite;
 }
 ```
