@@ -5,31 +5,6 @@ title: 'Async'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-## Basics
-
-```js
-// Await
-async function asyncCall() {
-  try {
-    const result = await oneSec(1)
-    console.log(result)
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-// Promise
-// Thông thường .then() chỉ cần 1 param - fn `resolve` là đủ
-// ko cần param thứ 2 - fn `reject`, trừ những lỗi phải dc xử lý ngay lập tức.
-// `resolveValue` ở đây là hàm `setTimeout` - xem bên dưới
-oneSec(2)
-  .then(
-    (resolveValue) => console.log(resolveValue),
-    // ,(rejectValue) => { doing something to deal with the error immediately }
-  )
-  .catch((err) => console.log(err.name, err.message))
-```
-
 ## `Promise` explain
 
 ```js
@@ -41,13 +16,46 @@ function foo2() {
   return Promise.resolve(1)
 }
 
-function oneSec(a) {
+// We don't need `async` here because the fn returns a promise
+function oneSec(duration) {
   return new Promise((resolve, reject) => {
-    // `resolve`/ `reject` is called when it was succesful/failed
-    if (a === 1) setTimeout(() => resolve('Ok bro'), 1000)
-    else reject(new RangeError('Lỗi: a !== 1'))
+    if (duration === 1000)
+      setTimeout(
+        // Resolve with `json` method to simulate typical `fetch` response
+        () => resolve({ json: () => `{ "id": 1, "title": "vip" }` }),
+        1000,
+      )
+    else reject(new RangeError('Error: duration !== 1000'))
   })
 }
+```
+
+## Syntaxes for `async await` and `Promise + then`
+
+```js
+// Await
+async function asyncCall() {
+  try {
+    const res = await oneSec(1000)
+    const data = await res.json()
+    console.log(data)
+  } catch (err) {
+    throw err
+  }
+}
+
+// Promise with `then`
+// Thông thường .then() chỉ cần 1 param cho `resolve` là đủ
+// ko cần param thứ 2 cho `reject`, trừ những lỗi phải dc xử lý ngay lập tức.
+oneSec(2000)
+  .then(
+    (res) => res.json(),
+    // ,(rejectValue) => { doing something to deal with the error immediately }
+  )
+  .then((data) => console.log(data))
+  .catch((err) => {
+    throw err
+  })
 ```
 
 ## `Promise` methods
