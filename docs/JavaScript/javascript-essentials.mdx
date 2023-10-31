@@ -242,33 +242,41 @@ const obj = { key1: 'foo' } // ❌ error - re-declaring
 
 ## `this` keyword
 
-`this` refers to the object that is calling it. An exception is for arrow function, as it refers to its enclosing scope at the time the function is created.
+`this` refers to **the object that is calling it**. An exception is for _arrow function_, as it refers to its **enclosing scope** at the time the function is created.
 
 ```js
 const person = {
   foo: [0, 1],
-
-  test() {
-    // `this` of a METHOD will be the OBJECT/CLASS that contains the method
+  fn1() {
     console.log(this) // `person` obj
-
-    // `this` of a regular fn will be the JS `global` object
+    console.log(this.foo) // [0, 1]
+  },
+  // `this` of the arrow fn `() => {...}` refers to its enclosing scope,
+  // in this case is the JS global object -> `window` (browser) or `global` (node)
+  fn2: () => {
+    console.log(this) // `window` (browser) or `global` (node)
+    console.log(this.foo) // undefined
+  },
+  fn3() {
+    // `function (item)` is called by JS global object
     this.foo.forEach(function (item) {
       console.log(this) // `window` (browser) or `global` (node)
     })
 
-    // the 2nd arg of `forEach` can be used as the `this` of the callback fn, in this case, `person` obj
     this.foo.forEach(function (item) {
       console.log(this) // `person` obj
-    }, this)
+    }, this) // the 2nd arg of `forEach` can be used as the `this` of the callback fn, in this case is `person` obj
 
-    // `this` of a ARROW fn will be the OBJECT that contains the method
+    // `this` of the arrow callback fn `(item) => {...}` refers to its enclosing scope,
+    // in this case is `fn3` -> `person` obj
     this.foo.forEach((item) => {
       console.log(this) // `person` obj
     })
   },
 }
-person.test()
+person.fn1()
+person.fn2()
+person.fn3()
 ```
 
 ## Non-null Assertion vs Optional Chaining vs Nullish Coalescing
