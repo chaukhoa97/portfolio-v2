@@ -87,7 +87,7 @@ Read more: <https://nextjs.org/docs/app/building-your-application/routing/linkin
 
 ### `fetch` API
 
-Next.js extends the native `fetch` Web API to allow you to configure the caching and revalidating behavior for each fetch request on the server. You can use `fetch` whenever you need the data without worrying about the performance implications of making multiple requests for the same data. This is possible because fetch requests are automatically memoized.
+Next.js extends (**actually override**) the native `fetch` Web API to allow you to configure the caching and revalidating behavior for each fetch request on the server. You can use `fetch` whenever you need the data without worrying about the performance implications of making multiple requests for the same data. This is possible because fetch requests are automatically memoized.
 
 ### Parallel and Sequential Data Fetching
 
