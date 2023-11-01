@@ -1,8 +1,36 @@
 ---
-title: 'History API'
+title: 'Window Methods'
 ---
 
-## Vanilla React client-side routing
+## Dialogs
+
+```js
+window.alert('hello')
+
+if (window.confirm('Are you sure you want to delete the task?')) {
+  doSomething()
+}
+
+let userResponse = window.prompt('Please enter your name', 'Harry Potter')
+console.log(userResponse) // Default is "Harry Potter"
+```
+
+## Scroll to top
+
+```js
+window.scrollTo({ top: 0, behavior: 'smooth' })
+```
+
+## Open and Close Window
+
+```js
+let newWindow = window.open('https://www.example.com', '_blank')
+setTimeout(() => newWindow.close(), 2000)
+```
+
+## History APIs
+
+### Vanilla React client-side routing
 
 ```js
 function handleClick(e) {
@@ -13,15 +41,15 @@ function handleClick(e) {
 }
 ```
 
-## `window.history.pushState` vs `window.history.replaceState`
+### `window.history.pushState` vs `window.history.replaceState`
 
-### Key differences
+#### Key differences
 
 - `pushState` adds a new entry to the history stack, allowing users to navigate forward and backward through the browser's history, while `replaceState` replaces the current entry in the history stack.
 
 - When using `pushState`, if a user navigates to the new URL and then presses the back button, they will go back to the previous URL. With `replaceState`, if a user navigates to the new URL and presses the back button, they won't go back to the replaced URL; instead, they will go back to the URL before the replacement.
 
-### Common use cases
+#### Common use cases
 
 - `pushState` is typically used when you want to implement client-side routing in a single-page application (SPA). It allows you to create the illusion of navigation within the SPA without triggering full page reloads.
 
