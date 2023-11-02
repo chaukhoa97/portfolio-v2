@@ -15,17 +15,33 @@ setSearchParams({ [name]: id })
 ## Date Time
 
 ```js
-const eventTime = new Date() // Tue Nov 16 2021 23:37:35 GMT+0700 (Indochina Time)
-const now = eventTime.getTime() // 1637078255000. Useful for comparing date values. `Date.now()` is the same.
+const eventTime = new Date() // Mon Nov 15 2021 09:37:35 GMT+0700 (GMT+07:00)
+const now = eventTime.getTime() // 1636943855000. Useful for comparing date values. `Date.now()` is the same.
 
-const day = eventTime.getDay() // 2 (0 is Sunday, 1 is Monday, ...)
-const date = eventTime.getDate() // 16
+eventTime.toLocaleString() // 11/15/2021, 9:37:35 AM
+eventTime.toLocalString('en-US', {
+  // Shortcut, can't be used with other options (e.g. weekday, hour, month, etc.).
+  dateStyle: 'full', // full, long, medium, short
+  timeStyle: 'short', // full, long, medium, short
+})
+
+eventTime.toLocaleDateString() // 11/15/2021
+// If not specify locale, use the browser's default locale
+eventTime.toLocaleTimeString(undefined, {
+  minimumIntegerDigits: 2,
+  timeStyle: 'medium',
+  hour12: false,
+}) // 09:37:35
+
+const hour = eventTime.getHours() // 9
+const minute = eventTime.getMinutes() // 37
+const second = eventTime.getSeconds() // 35
+const millisecond = eventTime.getMilliseconds() // 0
+
+const day = eventTime.getDay() // 1 (0 is Sunday, 1 is Monday, ...)
+const date = eventTime.getDate() // 15
 const month = eventTime.getMonth() // 10 (0 is January, 1 is February, ...)
 const year = eventTime.getFullYear() // 2021
-
-eventTime.toLocaleString() // 11/16/2021, 11:37:35 PM
-eventTime.toLocaleDateString() // 11/16/2021
-eventTime.toLocaleTimeString() // 11:37:35 PM
 ```
 
 ## Conditional object prop
