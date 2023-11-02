@@ -52,19 +52,22 @@ function App({ id }) {
 ```
 
   </TabItem>
-  <TabItem value="setInterval" label="setInterval" >
+  <TabItem value="setInterval" label="Using setInterval for time state" >
 
 ```jsx
 function useInterval() {
-  const [timeState, setTimeState] = useState()
+  // Set initial value of `time` state here will make the component impure...
+  const [time, setTime] = useState(0)
 
   useEffect(() => {
+    // ...so we need to set initial value of `time` state in useEffect instead
+    setTime(new Date().getTime())
     // useEffect, setTimeout, setInterval đều có 1st param là callback
-    const timeInterval = setInterval(() => setTimeState(new Date()), 1000)
+    const timeInterval = setInterval(() => setTime(new Date().getTime()), 1000)
     return () => clearInterval(timeInterval)
   }, [])
 
-  return timeState
+  return time
 }
 ```
 
