@@ -33,6 +33,11 @@ eventTime.toLocaleTimeString(undefined, {
   hour12: false,
 }) // 09:37:35
 
+// For `dateTime` attribute of <time> element
+const isoString = eventTime.toISOString() // <time dateTime={isoString}>...</time>
+const isoDateString = eventTime.toISOString().split('T')[0]
+const isoTimeString = eventTime.toISOString().split('T')[1].slice(0, -1)
+
 const hour = eventTime.getHours() // 9
 const minute = eventTime.getMinutes() // 37
 const second = eventTime.getSeconds() // 35
