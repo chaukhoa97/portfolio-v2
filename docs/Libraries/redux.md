@@ -10,7 +10,7 @@ NOT a stage management. This is because it’s a form of _dependency injection_,
 
 Use context if you have **some** states or functions that **don't** change often and need to be accessed through part of the app, and you don't want to pass them as props all the way down. It **doesn't** include any mechanism for side effects - it's purely for rendering components.
 
-Context + `useReducer` relies on passing the **current state value** via Context That means that when `useReducer` produces a new state value, all components that are subscribed to that context will be forced to re-render, even if they only care about **part** of the data.
+Context + `useReducer` relies on passing the **current state value** via `Context`. This means when `useReducer` produces a new state value, all components that are subscribed to that context will be forced to re-render, even if they only care about **part** of the data.
 
 ### Redux
 
