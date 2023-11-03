@@ -27,10 +27,12 @@ _All belows can be executed with the same result at any branch._
 
 Cả 3 đều integrate changes from one branch into another branch.
 
-- `git checkout feature` + `git merge main`
+- `git checkout feature` + `git merge dev`
   - **Nếu hủy**: `git merge --abort`
   - **Fix conflict** &rarr; add. &rarr; `git merge --continue` &rarr; Sửa message ở màn hình _interactive_ &rarr; :wq
-- `git rebase` syntax giống hệt: **CHỈ** sử dụng trên nhánh **feature**, không dùng ở nhánh **master**.
+  - Nên dùng ở các nhánh phụ `feature` vì ít cần quan tâm đến lịch sử commit.
+- `git checkout feature` + `git rebase dev`, next steps are similar
+  - **KHÔNG** dùng ở nhánh chính `dev`, chỉ sử dụng trên các nhánh phụ **feature** để tránh conflict (it put all commits of **feature** behind the last commit of **dev**).
 
 ![Merge, Rebase](https://i.imgur.com/9A4MKGu.png)
 
