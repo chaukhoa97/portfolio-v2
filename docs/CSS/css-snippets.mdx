@@ -29,7 +29,7 @@ Cùi hơn thì dùng flexbox hoặc `mx-auto` (chỉ dùng dc cho ~ element có 
 ### Grid Basic
 
 <iframe
-  src="https://codesandbox.io/embed/css-grid-1iewhe?fontsize=12&hidenavigation=1&module=%2Fsrc%2Fstyles.css&theme=dark"
+  src="<https://codesandbox.io/embed/css-grid-1iewhe?fontsize=12&hidenavigation=1&module=%2Fsrc%2Fstyles.css&theme=dark>"
   style={{
     width: '100%',
     height: 500,
@@ -53,6 +53,21 @@ Cùi hơn thì dùng flexbox hoặc `mx-auto` (chỉ dùng dc cho ~ element có 
   grid-template-columns: 1fr
 }
 ```
+
+### Width: `min-content` vs `max-content` vs `fit-content`
+
+```css
+.box {
+  width: fit-content;
+
+  /* ... is the same as ... */
+  width: auto;
+  min-width: min-content;
+  max-width: max-content;
+}
+```
+
+![Example](https://i.imgur.com/jemIV5A.png)
 
 ### Aspect ratio
 
