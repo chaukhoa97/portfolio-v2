@@ -30,9 +30,9 @@ Cả 3 đều integrate changes from one branch into another branch.
 - `git checkout feature` + `git merge dev`
   - **Nếu hủy**: `git merge --abort`
   - **Fix conflict** &rarr; add. &rarr; `git merge --continue` &rarr; Sửa message ở màn hình _interactive_ &rarr; :wq
-  - Nên dùng ở các nhánh phụ `feature` vì ít cần quan tâm đến lịch sử commit.
+  - Nên dùng khi merge các nhánh `feature` với nhau vì ít cần quan tâm đến lịch sử commit, hoặc khi merge các nhánh `feature` đã được `rebase` vào nhánh `dev` (đọc ở dưới).
 - `git checkout feature` + `git rebase dev`, next steps are similar
-  - **KHÔNG** dùng ở nhánh chính `dev`, chỉ sử dụng trên các nhánh phụ **feature** để tránh conflict (it put all commits of **feature** behind the last commit of **dev**).
+  - **KHÔNG** dùng ở nhánh chính `dev`, chỉ sử dụng trên các nhánh phụ `feature` trước khi merge vào `dev` because it put all `feature`'s commits behind the last commit of`dev` -> Easy to resolve conflicts.
 
 ![Merge, Rebase](https://i.imgur.com/9A4MKGu.png)
 
