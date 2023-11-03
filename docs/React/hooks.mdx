@@ -317,7 +317,7 @@ Use [`useContext`](./state#context) or [Redux](../Libraries/redux.md) for _Wide 
 
 ### `useState`
 
-A state variable’s value never changes within a render, even if its event handler’s code is asynchronous
+A state variable’s value never changes within a render, even if a event handler affecting it is asynchronous
 
 ```jsx
 function Counter() {
@@ -325,7 +325,7 @@ function Counter() {
   const [count, setCount] = useState(() => computeExpensiveValue(a, b))
 
   const handleClick = () => {
-    // Update dựa theo prev state, convention là letter đầu tiên (count -> c)
+    // Callback from: Update dựa theo prev state, convention là letter đầu tiên (count -> c)
     setCount((c) => c + 5)
     // Alert 0 instead of 5 even though `count` changed to 5
     // Because `handleClick` function is a closure - it can only see the values of variables as they existed when the function was defined
