@@ -214,7 +214,7 @@ if (typeof document !== 'undefined') {
 
 ## Icon
 
-```jsx title='ChevronRight.tsx'
+```jsx
 const ChevronRight = ({ ...props }) => {
   return (
     <svg width="24" height="24" {...props}>
@@ -223,7 +223,11 @@ const ChevronRight = ({ ...props }) => {
   )
 }
 
-export default ChevronRight
+// Alternative lighter syntax
+const icon from './icon.svg';
+function Icon(props) {
+  return <img src={icon} {...props} />
+}
 ```
 
 ## Portal
