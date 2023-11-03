@@ -5,6 +5,13 @@ title: 'JavaScript Snippets'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
+## Conditional prop (for React components & Objects)
+
+```jsx
+const o = { ...(condition && { b: 5 }) }
+<button id='1' {...(condition && { b: 5 })} />
+```
+
 ## Dynamic object key
 
 ```js
@@ -47,14 +54,6 @@ const day = eventTime.getDay() // 1 (0 is Sunday, 1 is Monday, ...)
 const date = eventTime.getDate() // 15
 const month = eventTime.getMonth() // 10 (0 is January, 1 is February, ...)
 const year = eventTime.getFullYear() // 2021
-```
-
-## Conditional object prop
-
-```js
-const a = {
-  ...(someCondition && { b: 5 }),
-}
 ```
 
 ## Round to `n` decimal places
