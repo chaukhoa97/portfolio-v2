@@ -78,24 +78,16 @@ function oneSec(duration) {
 ## `Promise` methods
 
 ```js
-// All must fullfill
-Promise.all([oneSec, twoSecs]).then((messages) => {
-  console.log(messages) // ["oneSec", "twoSecs"]
-})
+const fetchDetails = async () => {
+  const promises = ids.map((id) => fetch(getJobDetailURL(id)))
+  const responses = await Promise.all(promises)
+  const data = await Promise.all(responses.map(async (res) => await res.json()))
+}
 
-// All must settle (fulfilled or rejected)
-// [{ status: "fulfilled", value: "oneSec" }, { status: "fulfilled", value: "twoSecs" }]
-Promise.allSettled([oneSec, twoSecs]).then((messages) => {
-  console.log(messages)
-})
-
-Promise.race([oneSec, twoSecs]).then((message) => {
-  console.log(message) // oneSec - whatever settles first
-})
-
-Promise.any([oneSec, twoSecs]).then((firstMessage) => {
-  console.log(firstMessage) // oneSec - whatever fulfills first
-})
+// .all -> All must fullfill
+// .allSettled -> All must settle (fulfilled or rejected)
+//. any -> Return the first fulfilled promise
+//. race -> Return the first settled promise
 ```
 
 ## Axios vs Fetch
