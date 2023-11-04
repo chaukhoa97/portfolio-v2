@@ -5,6 +5,51 @@ title: 'Async'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
+## Syntaxes for `async await`, `Promise + then`, and handle errors properly
+
+```js
+// Await
+async function asyncCall() {
+  try {
+    const res = await oneSec(1000)
+    // a good practice to check res.ok as soon as you receive the response from a fetch call,
+    // bc the `res` body might be invalid JSON, and below `res.json()` will lead to an error
+    if (!res.ok) throw new Error(res.status) // res.status -> 404, res.statusText -> "Not Found"
+    const data = await res.json()
+    console.log(data)
+  } catch (err) {
+    // The above Error will be caught here
+    // Here we can handle it appropriately, DON'T THROW AGAIN
+    reportError({ message: getErrorMessage(error) })
+  }
+}
+
+// Promise with `then`
+// Thường ko cần param thứ 2 `err`, trừ những lỗi phải dc xử lý ngay lập tức.
+oneSec(2000)
+  .then(
+    (res) => {
+      if (!res.ok) throw new Error(res.status)
+      return res.json()
+    },
+    // (err) => 'deal with the error immediately',
+  )
+  .then((data) => console.log(data))
+  .catch((err) => {
+    reportError({ message: getErrorMessage(error) })
+  })
+
+function getErrorMessage(error: unknown) {
+  // `Error` is a built-in type: { name: string; message: string; stack?: string }
+  if (error instanceof Error) return error.message
+  return `${error}`
+}
+
+const reportError = ({ message }: { message: string }) => {
+  // send the error to our logging service...
+}
+```
+
 ## `Promise` explain
 
 ```js
@@ -28,34 +73,6 @@ function oneSec(duration) {
     else reject(new RangeError('Error: duration !== 1000'))
   })
 }
-```
-
-## Syntaxes for `async await` and `Promise + then`
-
-```js
-// Await
-async function asyncCall() {
-  try {
-    const res = await oneSec(1000)
-    const data = await res.json()
-    console.log(data)
-  } catch (err) {
-    throw err
-  }
-}
-
-// Promise with `then`
-// Thông thường .then() chỉ cần 1 param cho `resolve` là đủ
-// ko cần param thứ 2 cho `reject`, trừ những lỗi phải dc xử lý ngay lập tức.
-oneSec(2000)
-  .then(
-    (res) => res.json(),
-    // ,(rejectValue) => { doing something to deal with the error immediately }
-  )
-  .then((data) => console.log(data))
-  .catch((err) => {
-    throw err
-  })
 ```
 
 ## `Promise` methods

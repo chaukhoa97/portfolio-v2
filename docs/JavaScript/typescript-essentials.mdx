@@ -420,7 +420,7 @@ interface Customer2 extends Identity, Contact {
 }
 ```
 
-## JavaScript Data Types Check Comparison
+## How to check Type of Data
 
 ### `typeof`
 
@@ -437,7 +437,7 @@ typeof new Date() // "object"
 
 ### `instanceof`
 
-In JS, the `instanceof` operator checks for the constructor of an object. In other words, it tests which class created a given value. Because of this, it can correctly determine types for objects, but not for primitive types.
+In JS, the `instanceof` operator checks for the constructor of an object. In other words, it tests which class created a given value. Because of this, it can **correctly determine types for objects**, but **NOT** for primitive types.
 In TS, it can be also be used for narrowing types.
 
 ```ts
