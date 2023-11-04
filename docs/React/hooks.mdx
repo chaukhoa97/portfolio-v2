@@ -350,8 +350,10 @@ const infoReducer = (state, action) => {
   switch (action.type) {
     case 'loading':
       return { loading: true }
+      break
     case 'success':
       return { ...action, loading: false }
+      break
     default:
       throw new Error('Unknown action: ' + action.type)
   }

@@ -222,24 +222,6 @@ obj = { key1: 'foo' } // ❌ error - re-assigning
 const obj = { key1: 'foo' } // ❌ error - re-declaring
 ```
 
-## Types
-
-### Primitive
-
-- string; number (`NaN` _vẫn_ đc tính là number, Infinity, -Infinity); boolean; undefined(`typeof undefined === "undefined"`).
-- null (`typeof null === “object”`): Mặc dù behavior giống _primitive_ nhưng lại là _object_.
-- Ít dùng: symbol; bigint.
-
-### Reference
-
-- `typeof === “object”`: Object; Array; Set
-- `typeof === “function"`: Function
-- Ít dùng: date; regexp; error; map; weakmap; weakset.
-
-### Falsy values
-
-`0, “”, false, null, undefined, NaN`
-
 ## `this` keyword
 
 `this` refers to **the object that is calling it**. An exception is for _arrow function_, as it refers to its **enclosing scope** at the time the function is created.
@@ -278,6 +260,83 @@ person.fn1()
 person.fn2()
 person.fn3()
 ```
+
+## `switch`
+
+```js
+const foo = 0
+switch (foo) {
+  case 0:
+    console.log(0)
+  // Forgotten break! Execution falls through
+  case 1: // no break statement in 'case 0:' so this case will run as well
+    console.log(1)
+    break // Break encountered; will not continue into 'case 2:'
+  case 2:
+    console.log(2)
+    break
+  default:
+    console.log('default') // Without `break`, all cases including `default` will run
+}
+// Logs 0 and 1
+```
+
+### Lexical scope
+
+```js
+const action = 'say_hello'
+switch (action) {
+  case 'say_hello':
+    const message = 'hello'
+    console.log(message)
+    break
+  case 'say_hi':
+    const message = 'hi'
+    console.log(message) // ❌ SyntaxError: Identifier 'message' has already been declared
+    break
+  default:
+    console.log('Empty action received.')
+}
+```
+
+Error due to both `const` declarations being within a same `switch` block. To fix, whenever you need to use `let` or `const` declarations in a case clause, wrap it in a block.
+
+```js
+const action = 'say_hello'
+switch (action) {
+  case 'say_hello': {
+    const message = 'hello'
+    console.log(message)
+    break
+  }
+  case 'say_hi': {
+    const message = 'hi'
+    console.log(message)
+    break
+  }
+  default: {
+    console.log('Empty action received.')
+  }
+}
+```
+
+## Types
+
+### Primitive
+
+- string; number (`NaN` _vẫn_ đc tính là number, Infinity, -Infinity); boolean; undefined(`typeof undefined === "undefined"`).
+- null (`typeof null === “object”`): Mặc dù behavior giống _primitive_ nhưng lại là _object_.
+- Ít dùng: symbol; bigint.
+
+### Reference
+
+- `typeof === “object”`: Object; Array; Set
+- `typeof === “function"`: Function
+- Ít dùng: date; regexp; error; map; weakmap; weakset.
+
+### Falsy values
+
+`0, “”, false, null, undefined, NaN`
 
 ## Non-null Assertion vs Optional Chaining vs Nullish Coalescing
 
