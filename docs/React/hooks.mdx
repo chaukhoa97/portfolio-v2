@@ -28,7 +28,7 @@ In React, effects are handled by `useEffect` hook. It let you run some code **af
 ### Snippets
 
 <Tabs>
-  <TabItem value="Fetch & Use external value" label="Fetch & Use external value" >
+  <TabItem value="Fetch" label="Fetch & Use external value" >
 
 ```jsx
 function App({ id }) {
@@ -69,6 +69,33 @@ function useInterval() {
 
   return time
 }
+```
+
+  </TabItem>
+  <TabItem value="run twice" label="Handle the Effect firing twice in dev" >
+
+```jsx
+useEffect(() => {
+  let ignore = false
+
+  async function getData() {
+    const json = await fetchTodos(userId)
+    // 2. Here `ignore` is already set to `true` from the cleanup function, so `setTodos` won't be called,...
+    // 2b. which is good as the `setTodos` will run on the 2nd time Effect run in dev
+    // 4. But this time because the cleanup function is not called, here `ignore` is still `false`, so `setTodos` will be called
+    if (!ignore) {
+      setTodos(json)
+    }
+  }
+
+  // 3. On the 2nd time Effect run in dev, `getData` is called again...
+  getData()
+
+  // 1. Cleanup function doesn't wait for async fn (getData) to finish...
+  return () => {
+    ignore = true
+  }
+}, [userId])
 ```
 
   </TabItem>
