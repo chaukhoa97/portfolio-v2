@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem'
 ## Conditional prop (for React components & Objects)
 
 ```jsx
-const o = { ...(condition && { b: 5 }) }
+const o = { id: 1, ...(condition && { b: 5 }) }
 <button id='1' {...(condition && { b: 5 })} />
 ```
 
