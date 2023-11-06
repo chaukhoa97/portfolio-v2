@@ -100,7 +100,6 @@ export default function Form() {
     message: '',
   })
   const handleChange = (e) => {
-    // onChange -> `formData` dc update -> Value của <form> update theo
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
   const handleSubmit = (e) => {
@@ -108,16 +107,11 @@ export default function Form() {
     console.log(formData)
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <input name="name" onChange={handleChange} value={formData.name} />
-      <textarea
-        name="message"
-        onChange={handleChange}
-        value={formData.message}
-      />
+    <form onSubmit={handleSubmit} value={formData} onChange={handleChange}>
+      <input name="name" />
+      <textarea name="message" />
       <button>Submit</button> {/* Or <input type='submit' /> */}
-      {/* Nếu k có type="button" thì sẽ mặc định là type="submit" -> submit */}
-      <button type="button">Do other stuff</button>
+      <button type="button">Do other stuff (not submit)</button>
     </form>
   )
 }
@@ -126,11 +120,12 @@ export default function Form() {
 ```jsx title='Uncontrolled.jsx'
 // State của <form> là internal state
 export default function Form() {
-  // `formRef.current` is binded to the <form> -> Có thể gọi hàm ví dụ như `formRef.current.focus()`
+  // Optional: Using `ref`` for `form`` -> Có thể gọi hàm ví dụ như `formRef.current.focus()`
   const formRef = useRef()
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    const { name, message } = e.target.elements // Các child của <form>, ở đây là <input> & <textarea>
+    const { name, message } = e.target.elements
     console.log(name.value, message.value)
   }
 
