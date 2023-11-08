@@ -90,55 +90,6 @@ function Panel({ title, children, isActive, onShow }) {
 }
 ```
 
-## Controlled vs Uncontrolled Form
-
-```jsx title='Controlled.jsx'
-// State của <form> do React quản lý
-export default function Form() {
-  const [formData, setFormData] = useState({
-    name: '',
-    message: '',
-  })
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(formData)
-  }
-  return (
-    <form onSubmit={handleSubmit} value={formData} onChange={handleChange}>
-      <input name="name" />
-      <textarea name="message" />
-      <button>Submit</button> {/* Or <input type='submit' /> */}
-      <button type="button">Do other stuff (not submit)</button>
-    </form>
-  )
-}
-```
-
-```jsx title='Uncontrolled.jsx'
-// State của <form> là internal state
-export default function Form() {
-  // Optional: Using `ref`` for `form`` -> Có thể gọi hàm ví dụ như `formRef.current.focus()`
-  const formRef = useRef()
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const { name, message } = e.target.elements
-    console.log(name.value, message.value)
-  }
-
-  return (
-    <form ref={formRef} onSubmit={handleSubmit}>
-      <input name="name" />
-      <textarea name="message" />
-      <button>Submit</button>
-    </form>
-  )
-}
-```
-
 ## HOC
 
 A Higher Order Component (HOC) contains certain logic that we want to apply to the another component that we pass as a parameter. After applying that logic, the HOC returns the element with the additional logic.  
