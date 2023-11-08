@@ -2,37 +2,39 @@
 title: 'Image'
 ---
 
-## `srcset` and `sizes`
+## `sizes` & `srcset`
 
 ```jsx
 <img
   src="default.jpg"
+  // If the viewport is at least 1024px wide, the image width should be *above and close* to 50vw (512px)...
+  sizes="(min-width: 768px) 35vw, (min-width: 1024px) 50vw, 100vw"
+  // So it will choose `medium.jpg` because it's 800px wide, which is above and close to 512px
   srcset="small.jpg 400w, medium.jpg 800w, large.jpg 1200w"
-  // If the viewport is at least 768px wide, the image width will be 50vw.
-  sizes="(min-width: 768px) 50vw, (min-width: 1024px) 66vw, 100vw"
 />
 ```
 
-### `srcset`
-
-The following calculations are made:
-
-- 400/320 = 1.25
-- 800/320 = 2.5
-- 1200/320 = 3.75
-
-For a device width of 320px and pixel density of 1, the browser will use 1.25 because it is the closest -> `400w` image.
-For a device width of 320px and pixel density of 2, the browser will use the <u>closet resolution above the minimum</u> -> 2.5 -> `800w` image.
-
-## `picture`
+## `picture` with `media`
 
 ```html
 <picture>
-  <source srcset="large.jpg, large2x.jpg 2x" media="(min-width: 1000px)" />
+  <!-- `srcset` tương tự như trên -->
+  <source srcset="large.jpg, ultra.jpg 2x" media="(min-width: 1000px)" />
   <source srcset="medium.jpg" media="(min-width: 600px)" />
   <img src="small.jpg" alt="Baby Sleeping" />
 </picture>
 ```
+
+## `srcset="small.jpg 400w, medium.jpg 800w, large.jpg 1200w"` deep dive
+
+For a device width of 320px, the following calculations are made, and the browser will aim for the <u>above and close to the minimum density</u>.
+
+- `400w / 320px = 1.25`
+- `800w / 320px = 2.5`
+- `1200w / 320px = 3.75`
+
+If the pixel density is `1`, the browser will use `400w` image because `1.25` is close and larger to `1`.
+If the pixel density is `2`, the browser will use `800w` image because `2.5` is close and larger to `2`...
 
 ## Retina
 
