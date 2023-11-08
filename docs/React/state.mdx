@@ -43,19 +43,19 @@ export type CartContextProps =
     }
   | undefined
 
-// Init context with `undefined` is a must to check if `useCart` is used within a `CartProvider` (see `useCart` below)
-export const CartContext = createContext<CartContextProps>(undefined)
+// Init context with `null` is a must to check if `useCart` is used within a `CartProvider` (see `useCart` below)
+const CartContext = createContext<CartContextProps>(null)
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   // To update context, you need to combine it with state
   const [currency, setCurrency] = useState<Currency>('USD')
   // When `CartProvider` re-render, components consuming the Context also re-render
-  // Memoizing the value which is passed as prop to `Provider` will reduce unnecessary re-render
+  // Memoizing the value which is passed as prop to `Provider` will reduce unnecessary re-render if it's NOT a top-level component
+  // Being at the top-level means it has no other parent components that can trigger re-rendering to it...
+  // It only gets re-rendered when `setCurrency` is called from its children to change the `currency`, so `useMemo` do nothing here
   const memoizedValue = useMemo(() => ({ currency, setCurrency }), [currency])
 
   return (
-    // Use `children` so that the whole tree below `children` doesn't render all the time when you update the context value
-    // Read more "Lift ur component up and pass it down as a prop"
     <CartContext.Provider value={memoizedValue}>
       {children}
     </CartContext.Provider>
