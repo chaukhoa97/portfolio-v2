@@ -324,15 +324,16 @@ switch (action) {
 
 ### Primitive
 
-- string; number (`NaN` _vẫn_ đc tính là number, Infinity, -Infinity); boolean; undefined(`typeof undefined === "undefined"`).
-- null (`typeof null === “object”`): Mặc dù behavior giống _primitive_ nhưng lại là _object_.
-- Ít dùng: symbol; bigint.
+- `string`; `number` (`NaN`, `Infinity`, `-Infinity`); `boolean`
+- `undefined`(`typeof undefined === "undefined"`).
+- `null` (`typeof null === “object”`): Mặc dù behavior giống _primitive_ nhưng lại là _object_.
+- `symbol`; `bigint`
 
 ### Reference
 
-- `typeof === “object”`: Object; Array; Set
-- `typeof === “function"`: Function
-- Ít dùng: date; regexp; error; map; weakmap; weakset.
+- Array ~ Set; Object ~ Map: `typeof === “object”`
+- Function: `typeof === “function"`
+- `date; regexp; error; weakmap; weakset`
 
 ### Falsy values
 
