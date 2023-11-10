@@ -222,7 +222,7 @@ obj = { key1: 'foo' } // ❌ error - re-assigning
 const obj = { key1: 'foo' } // ❌ error - re-declaring
 ```
 
-## `this` keyword
+## `this`, `bind`, `call`, `apply`
 
 `this` refers to **the object that is calling it**. An exception is for _arrow function_, as it refers to its **enclosing scope** at the time the function is created.
 
@@ -257,8 +257,17 @@ const person = {
   },
 }
 person.fn1()
-person.fn2()
-person.fn3()
+
+const unboundFn = person.fn1 // using `fn2` here is the same
+unboundFn() // The function gets invoked at the global scope -> Here `this` is global object
+const boundFn = unboundFn.bind(person) // `bind` returns a new function with `this` set to `person`
+boundFn() // Here `this` is `person` obj
+
+// `call` and `apply` are similar to `bind` but they invoke the function immediately
+// `call` takes the `this` context as the 1st argument and the rest of the arguments are passed to the function
+unboundFn.call(person, 1, 2, 3) // Here `this` is `person` obj
+// `apply` is similar to `call` but it takes the arguments as an array
+unboundFn.apply(person, [1, 2, 3]) // Here `this` is `person` obj
 ```
 
 ## `switch`
