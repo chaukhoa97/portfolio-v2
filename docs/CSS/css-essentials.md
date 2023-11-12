@@ -109,3 +109,16 @@ Without any `z-index` value, elements stack in the order that they appear in the
 
 - `box-sizing: content-box` : Size = `Content` &rarr; `Padding` & `Border` làm width to hơn so với ý muốn.
 - `box-sizing: border-box` : Size = `Content` + `Padding` + `Border`.
+
+### `border` vs `outline`
+
+`outline` is not a part of the box model. It is drawn outside the element's border. It doesn't take up space, so the element's width and height are not affected. Use cases:
+
+- `outline: none` to remove the focus ring
+- Overflow detect:
+
+  ```css title='main.css'
+  * {
+    outline: 1px solid #f00 !important;
+  }
+  ```
