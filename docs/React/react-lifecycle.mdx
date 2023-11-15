@@ -14,8 +14,9 @@ import TabItem from '@theme/TabItem'
 1. "Calling" a component to get the JSX tree
 2. "Reconciling" the old and new virtual DOM
 3. "Committing" the changes to the real DOM
-4. `useLayoutEffect` to avoid flashes (i.e. position popups)
-5. `useEffect` after to release the thread before effects
+4. (Minor) `useLayoutEffect` to avoid flashes or flickers
+5. [Browser repaint the screen](#epilogue-browser-paint)
+6. `useEffect` after to release the thread before effects
 
 ### Step 1: Render phase
 
