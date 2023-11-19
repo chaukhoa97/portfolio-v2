@@ -72,6 +72,21 @@ p::before { content: '', color:... }
 - `order: -1`: Default `0`. Số nhỏ xếp trước.
 - `align-self`: Override `align-items` của flex container.
 
+### Width: `min-content` vs `max-content` vs `fit-content`
+
+```css
+.box {
+  width: fit-content;
+
+  /* ... is the same as ... */
+  width: auto;
+  min-width: min-content;
+  max-width: max-content;
+}
+```
+
+![Example](https://i.imgur.com/jemIV5A.png)
+
 ## `clientWidth`, `offsetWidth`, `scrollWidth`
 
 ![clientWidth, offsetWidth, scrollWidth](https://i.stack.imgur.com/5AAyW.png)
