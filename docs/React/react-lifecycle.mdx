@@ -11,12 +11,12 @@ import TabItem from '@theme/TabItem'
 
 ### TLDR with [CodeSandbox example](https://codesandbox.io/s/react-lifecycle-djj04t)
 
-1. "Calling" a component to get the JSX tree
-2. "Reconciling" the old and new virtual DOM
-3. "Committing" the changes to the real DOM
-4. (Minor) `useLayoutEffect` to avoid flashes or flickers
-5. [Browser repaint the screen](#epilogue-browser-paint)
-6. `useEffect` after to release the thread before effects
+1. React triggers a Component rendering i.e. calling your Component function [when...](#step-1-render-phase)
+1. "Reconciling" (diffing & calculating) the old and new virtual DOM
+1. "Committing" the changes to the DOM
+1. (Minor) `useLayoutEffect` to avoid flashes or flickers
+1. [Browser repaint the screen](#epilogue-browser-paint)
+1. `useEffect` to synchronize your React components with external systems
 
 ### Step 1: Render phase
 
