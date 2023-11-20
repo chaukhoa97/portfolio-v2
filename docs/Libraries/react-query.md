@@ -66,7 +66,7 @@ Let's say we have a parent that has many children, 2 of them need the same data 
 - Having the data fetching in them via `useEffect` will have the same fetch called two times.
 - But lifting the state up by having the data fetching at the parent level (which later can be passed to the 2 children via `props`) might cause all other children, who don't care about the data, rerender whenever the parent update its state from the data fetching result.
 
-React Query **caches** the data, so we don't need to have concern about fetching the same data in mutiple components.
+React Query **caches** the data, so we don't need to have concern about fetching the same data in mutiple components. It also gives you a lot of features like retries, placeholder data, prefetching, optimistic updates...
 
 ## `status` vs `fetchStatus`
 
