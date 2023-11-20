@@ -36,12 +36,12 @@ The metrics that make up **Core Web Vitals** will **evolve over time**. The curr
 | ------------------------------------------------------------------------------------- | :---------------------------------------------: |
 | [Time to First Byte (TTFB)](https://web.dev/ttfb/)                                    |     [Link](https://web.dev/optimize-ttfb/)      |
 | [First Contentful Paint (FCP)](https://web.dev/fcp/)                                  | [Link](https://web.dev/fcp/#how-to-improve-fcp) |
-| CWA: [Largest Contentful Paint (LCP)](https://web.dev/lcp/)                           |      [Link](https://web.dev/optimize-lcp/)      |
-| CWA: [First Input Delay (FID)](https://web.dev/fid/) - will soon be replaced with INP |      [Link](https://web.dev/optimize-fid/)      |
+| CWV: [Largest Contentful Paint (LCP)](https://web.dev/lcp/)                           |      [Link](https://web.dev/optimize-lcp/)      |
+| CWV: [First Input Delay (FID)](https://web.dev/fid/) - will soon be replaced with INP |      [Link](https://web.dev/optimize-fid/)      |
 | [Time to Interactive (TTI)](https://web.dev/tti/)                                     | [Link](https://web.dev/tti/#how-to-improve-tti) |
 | [Total Blocking Time (TBT)](https://web.dev/tbt/)                                     | [Link](https://web.dev/tbt/#how-to-improve-tbt) |
-| CWA: [Cumulative Layout Shift (CLS)](https://web.dev/cls/)                            |      [Link](https://web.dev/optimize-cls/)      |
-| CWA: [Interaction to Next Paint (INP)](https://web.dev/inp/) - will soon replace FID  |      [Link](https://web.dev/optimize-inp/)      |
+| CWV: [Cumulative Layout Shift (CLS)](https://web.dev/cls/)                            |      [Link](https://web.dev/optimize-cls/)      |
+| CWV: [Interaction to Next Paint (INP)](https://web.dev/inp/) - will soon replace FID  |      [Link](https://web.dev/optimize-inp/)      |
 
 ### [Largest Contentful Paint (LCP)](https://web.dev/lcp/)
 
