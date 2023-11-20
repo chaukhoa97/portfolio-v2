@@ -5,13 +5,14 @@ title: 'Window Methods'
 ## Dialogs
 
 ```js
-window.alert('hello')
+// Either alert('hello') or `window.alert('hello')` works, similar to all other methods below
+alert('hello')
 
-if (window.confirm('Are you sure you want to delete the task?')) {
+if (confirm('Are you sure you want to delete the task?')) {
   doSomething()
 }
 
-let userResponse = window.prompt('Please enter your name', 'Harry Potter')
+let userResponse = prompt('Please enter your name', 'Harry Potter')
 console.log(userResponse) // Default is "Harry Potter"
 ```
 
