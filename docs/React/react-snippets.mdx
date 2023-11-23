@@ -2,13 +2,6 @@
 title: 'React Snippets'
 ---
 
-## Module CSS
-
-```jsx
-import s from '../Nav.module.scss'
-return <h1 className={`${s['active-nav']} ${s.red}`}>Hello</h1>
-```
-
 ## Get uncontrolled form values
 
 ```js
@@ -17,6 +10,58 @@ function handleSubmit(e) {
   const formData = new FormData(e.target)
   const data = Object.fromEntries(formData.entries()) // { name: 'John', age: '30' }
 }
+```
+
+## Conditional HTML tag
+
+An intrinsic element always begins with a lowercase letter, while a component always begins with an uppercase letter. The API is similar to [Mantine](https://mantine.dev/core/button/#polymorphic-component)'s and [MUI](https://mui.com/material-ui/react-button/#file-upload)'s button.
+
+```jsx
+const Button = ({ component: Component = 'button', children, ...props }) => {
+  if (props.href) {
+    return <a {...props} />
+  }
+  return <Component {...props}>{children}</Component>
+}
+```
+
+## Lazy load & Component Maps
+
+```jsx
+import { lazy } from 'react'
+
+const COMPONENTS = {
+  day: DayPicker,
+  week: lazy(() => import('./week-picker')), // only worth for heavy components
+}
+
+const App = ({ type }) => {
+  const SelectedPicker = COMPONENTS[type]
+
+  return <SelectedPicker />
+}
+```
+
+## Infinite scroll
+
+```jsx
+useEffect(() => {
+  const observer = new IntersectionObserver((entries) => {
+    // `entries` is an array of observed DOM nodes, in this case we only track one element (the last job card)
+    // "interseting" means the element is PARTIALLY visible in the viewport, which can be configured by `threshold` option
+    if (entries[0].isIntersecting) {
+      loadMore()
+    }
+  })
+
+  // Assume that the last element have a class of `job-card`
+  const lastElement = document.querySelector('.job-card:last-of-type')
+  if (lastElement) observer.observe(lastElement)
+
+  return () => {
+    if (lastElement) observer.unobserve(lastElement)
+  }
+}, [])
 ```
 
 ## [Reduce re-rendering](https://www.zhenghao.io/art/blog/react-rerender/flowchart.jpeg)
@@ -55,36 +100,6 @@ function ChildB() {
 
 function ChildC() {
   return <div className="childC"></div>;
-}
-```
-
-## Lazy load & Component Maps
-
-```jsx
-import { lazy } from 'react'
-
-const COMPONENTS = {
-  day: DayPicker,
-  week: lazy(() => import('./week-picker')), // only worth for heavy components
-}
-
-const App = ({ type }) => {
-  const SelectedPicker = COMPONENTS[type]
-
-  return <SelectedPicker />
-}
-```
-
-## Conditional HTML tag
-
-An intrinsic element always begins with a lowercase letter, while a component always begins with an uppercase letter. The API is similar to [Mantine](https://mantine.dev/core/button/#polymorphic-component)'s and [MUI](https://mui.com/material-ui/react-button/#file-upload)'s button.
-
-```jsx
-const Button = ({ component: Component = 'button', children, ...props }) => {
-  if (props.href) {
-    return <a {...props} />
-  }
-  return <Component {...props}>{children}</Component>
 }
 ```
 
@@ -193,6 +208,13 @@ function MyComponent() {
     // ... return initial JSX on the server ...
   }
 }
+```
+
+## Module CSS
+
+```jsx
+import s from '../Nav.module.scss'
+return <h1 className={`${s['active-nav']} ${s.red}`}>Hello</h1>
 ```
 
 ## Show JS `obj` ra page

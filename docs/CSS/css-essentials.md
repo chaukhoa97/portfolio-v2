@@ -41,6 +41,12 @@ p::before { content: '', color:... }
 - `.sentence + p`: MỘT `p` **duy nhất liền sau** kết thúc của class "sentence".
 - `.sentence ~ p`: TẤT CẢ các `p` **liền sau** kết thúc của class "sentence"
 
+## `inherit` vs `initial` vs `unset`
+
+- `inherit`: kế thừa thuộc tính của các phần tử cha gần nó nhất.
+- `initial`: sử dụng style mặc định của trình duyệt.
+- `unset`: `parentHasStyle ? inherit : initial`
+
 ## Flexbox
 
 ### `flex`
