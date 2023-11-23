@@ -21,6 +21,12 @@ setTimeout(function () {
 }
 ```
 
+### Change text freely
+
+```js
+document.designMode = 'on'
+```
+
 ## JS Debug
 
 **Breakpoint**: Debugger temporarily pause execution there so you can decide what to do:
