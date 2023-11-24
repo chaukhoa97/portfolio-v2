@@ -126,6 +126,13 @@ p::before { content: '', color:... }
 Without any `z-index` value, elements stack in the order that they appear in the DOM (the lowest one down at the same hierarchy level appears on top)
 :::
 
+### `transform: translate(1px)` vs `left/right/top/bottom`
+
+- `transform: translate(1px)`: Move the element without affecting the position of other elements.
+- `left/right/top/bottom`: Move the element and affect the position of other elements if:
+  - The element is `relative` positioned (not `absolute` or `fixed` as these remove the element from the normal flow of the page).
+  - Other elements are positioned based on the `relative` element.
+
 ## Box model
 
 - `box-sizing: content-box` : Size = `Content` &rarr; `Padding` & `Border` làm width to hơn so với ý muốn.
