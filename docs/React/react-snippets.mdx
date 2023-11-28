@@ -2,16 +2,6 @@
 title: 'React Snippets'
 ---
 
-## Get uncontrolled form values
-
-```js
-function handleSubmit(e) {
-  e.preventDefault()
-  const formData = new FormData(e.target)
-  const data = Object.fromEntries(formData.entries()) // { name: 'John', age: '30' }
-}
-```
-
 ## Conditional HTML tag
 
 An intrinsic element always begins with a lowercase letter, while a component always begins with an uppercase letter. The API is similar to [Mantine](https://mantine.dev/core/button/#polymorphic-component)'s and [MUI](https://mui.com/material-ui/react-button/#file-upload)'s button.
