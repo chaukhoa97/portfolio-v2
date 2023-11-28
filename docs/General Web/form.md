@@ -10,7 +10,7 @@ export default function Form() {
   const handleChange = (e) => setChecked(e.target.checked)
 
   return (
-    <div>
+    <form>
       <label>
         Nest the `input` inside a `label` will make clicking the label focus the
         input without using `htmlFor` and `id`
@@ -35,7 +35,7 @@ export default function Form() {
       <label for="option1">Option 1</label>
       <input type="checkbox" id="option2" name="option" value="2" />
       <label for="option2">Option 2</label>
-    </div>
+    </form>
   )
 }
 ```
@@ -73,12 +73,13 @@ export default function Form() {
 ```jsx title='Uncontrolled.jsx'
 // State của <form> là internal state
 export default function Form() {
-  // Optional: Using `ref`` for `form`` -> Có thể gọi hàm ví dụ như `formRef.current.focus()`
+  // Optional: Using `ref` for form -> Có thể gọi hàm e.g. clear the form via `formRef.current.reset()`
   const formRef = useRef()
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const { name, message } = e.target.elements
+    formRef.current.reset()
     console.log(name.value, message.value)
   }
 
