@@ -18,7 +18,7 @@ const Button = ({ component: Component = 'button', children, ...props }) => {
 ## Lazy load & Component Maps
 
 ```jsx
-import { lazy } from 'react'
+import { lazy, Suspense } from 'react'
 
 const COMPONENTS = {
   day: DayPicker,
@@ -28,7 +28,11 @@ const COMPONENTS = {
 const App = ({ type }) => {
   const SelectedPicker = COMPONENTS[type]
 
-  return <SelectedPicker />
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SelectedPicker />
+    </Suspense>
+  )
 }
 ```
 
