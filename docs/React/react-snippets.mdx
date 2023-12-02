@@ -22,7 +22,7 @@ import { lazy, Suspense } from 'react'
 
 const COMPONENTS = {
   day: DayPicker,
-  week: lazy(() => import('./week-picker')), // only worth for heavy components
+  week: lazy(() => import('./week-picker')), // this won't be included in the main bundle
 }
 
 const App = ({ type }) => {
