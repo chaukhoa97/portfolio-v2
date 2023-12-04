@@ -55,43 +55,64 @@ export default function Form() {
 }
 ```
 
-## Checkbox
+## Checkbox and Radio
 
 ```jsx
 export default function Form() {
-  const [checked, setChecked] = useState(false)
-  const handleChange = (e) => setChecked(e.target.checked)
+  const [state, setState] = useState({
+    item1: true,
+    item2: false,
+    option: 'option2',
+  })
+
+  const handleChange = (event) => {
+    const value =
+      event.target.type === 'checkbox'
+        ? event.target.checked
+        : event.target.value
+    setState({
+      ...state,
+      [event.target.name]: value,
+    })
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    alert(JSON.stringify(state))
+  }
 
   return (
-    <form>
+    <form onSubmit={handleSubmit} onChange={handleChange}>
       <label>
-        Nest the `input` inside a `label` will make clicking the label focus the
-        input without using `htmlFor` and `id`
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={handleChange}
-          name="subscribe"
-          value="newsletter"
-        />
-        Subscribe to newsletter
+        <input type="checkbox" checked={state.item1} name="item1" />
+        Item 1
       </label>
-      `defaultChecked` and `defaultValue` specify the initial value (CONTROLLED),
-      but leave subsequent updates UNCONTROLLED
-      <input
-        type="checkbox"
-        id="option1"
-        name="option"
-        value="1"
-        defaultChecked
-      />
-      <label for="option1">Option 1</label>
-      <input type="checkbox" id="option2" name="option" value="2" />
-      <label for="option2">Option 2</label>
+      <label>
+        <input type="checkbox" checked={state.item2} name="item2" />
+        Item 2
+      </label>
+      <label>
+        <input
+          type="radio"
+          checked={state.option === 'option1'}
+          value="option1"
+          name="option"
+        />
+        Option 1
+      </label>
+      <label>
+        <input
+          type="radio"
+          checked={state.option === 'option2'}
+          value="option2"
+          name="option"
+        />
+        Option 2
+      </label>
+      <button>Submit</button>
     </form>
   )
 }
 ```
 
-- If the 1st checkbox is checked when the form is submitted, the form data will include `subscribe=newsletter`. Otherwise, the form data will not include a `subscribe` field.
-- For the 2nd and 3rd checkboxes, using `Object.fromEntries` will only have the last checked value (`option=2`). Instead, we can use `formData.getAll('option')` to get all the checked values (`['1', '2']`).
+- We can add `value` attribute to checkbox e.g. if adding `value='ok'` and change `event.target.checked` to `event.target.value` we will have `item1: ok` instead of `item1: true`.
