@@ -2,7 +2,7 @@
 title: 'Git'
 ---
 
-## Terms
+## Jargons
 
 - **HEAD**: Khi làm việc với Git, chỉ một branch có thể check out tại một thời điểm - và đây được gọi là nhánh **HEAD**. Thông thường, đây còn được gọi là nhánh `active` hoặc `current`.
 - **Detached HEAD**: When a specific commit is checked out instead of a branch.
@@ -64,7 +64,7 @@ Cả 3 đều integrate changes from one branch into another branch.
 - `git status (<file-name>)`: Xem status (local, staging or committed) cả nhánh (hoặc `file-name`).
 - `reset` vs `revert`: `revert` chỉ undo riêng 1 commit `X`, còn `reset` back về luôn commit đó luôn (undo hết ~ commit sau `X`). `revert` cũng sẽ tạo ra 1 commit mới, còn `reset` thì ko.
 
-## Config
+## Config User
 
 - `git config --list --show-origin`
 - `git config --global user.email jonhkane00@gmail.com`
@@ -86,5 +86,5 @@ Cả 3 đều integrate changes from one branch into another branch.
 
 ## ETC
 
-- **Xóa file**: `git rm *.ts (--cached)` &rarr; Xóa file (khỏi stage).
+- **Xóa file**: `git rm .vscode/settings.json (--cached)` &rarr; Xóa file (`--cached` chỉ xóa trong git ko xóa thật, dùng khi .gitignore k hoạt động).
 - **Vim**: `ESC : W Q` &rarr; Save & Quit.
