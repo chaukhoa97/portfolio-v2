@@ -205,95 +205,35 @@ module.exports = {
 }
 ```
 
-## VSCode
+## tailwind.config.js
 
-<Tabs>
-  <TabItem value="Monolisa" label="Monolisa" >
-
-```json
-{
-  ,"editor.fontFamily": "monolisa",
-  "editor.fontWeight": "400",
-  "editor.fontSize": 12,
-  "editor.lineHeight": 1.4
-}
-```
-
-  </TabItem>
-  <TabItem value="tasks" label=".vscode/tasks.json" >
-
-```json
-{
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "git add .",
-      "type": "shell",
-      "command": "git add ."
+```js
+module.exports = {
+  theme: {
+    extend: {
+      screens: {
+        '2xl': '1440px', // Replace the value of `2xl`
+        '3xl': '1600px', // Adds a new `3xl:` screen variant
+      },
+      // These values are inherited by the padding, margin, width, height, maxHeight, flex-basis, gap, inset, space, translate, scrollMargin, scrollPadding, and textIndent core plugins.
+      spacing: {
+        px: '1px',
+        18: '4.5rem',
+      },
     },
-    {
-      "label": "git commit --amend --no-edit",
-      "type": "shell",
-      "command": "git commit --amend --no-edit",
-      "dependsOn": ["git add ."],
-      "dependsOrder": "sequence"
+    // Replaces all of the default `colors` values
+    colors: {
+      primary: {
+        500: '#F47920',
+        900: '#FEE6D3',
+      },
     },
-    {
-      "label": "Amend",
-      "type": "shell",
-      "command": "git push --force",
-      "dependsOn": ["git commit --amend --no-edit"],
-      "dependsOrder": "sequence"
-    }
-  ]
+  },
 }
 ```
 
-  </TabItem>
-
-</Tabs>
-
-### Node version manager
-
-```shell
-nvm install 14
-nvm use 14.19.3
-nvm list
-nvm use newest
-node -v
-```
-
-### Update all dependencies
-
-```shell
-npm i -g npm-check-updates
-ncu -i --format group --target minor
-
-# "react-..."
-ncu -i --format group react-*
-```
-
-### Install beta (or alpha, rc) version
-
-```shell
-npm view package-name dist-tags // { latest: '1.0.0', beta: '1.0.1-beta.0',... }
-```
-
-```json title="package.json"
-{
-  "dependencies": {
-    "package-name": "beta"
-  }
-}
-```
-
-### npm, npx, yarn
-
-- package.json: ~1.2.3 < 1.3.0 || ^1.2.3 < 2.0.0
-- `npm i` / `npm i -g`: Project Dependencies / Global Dependencies.
-- `npm i [--save-dev / -D]`: Development Only (`devDependencies`) &rarr; Không có trong Production.
-- `npx`: Chỉ execute chứ ko cài &rarr; Dùng cho các lib chỉ chạy 1 lần trong vòng đời dự án như `create-react-app`.
-- `yarn`: Chạy song song + cached so với Chạy tuần tự + ko cached của `npm`.
+`extend`: Add/ replace new classes beside Tailwind's existing ones. If not using `extend`
+all default configuration for that key will be overwritten.
 
 ## VSCode
 
