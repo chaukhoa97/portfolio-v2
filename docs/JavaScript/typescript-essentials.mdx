@@ -405,21 +405,6 @@ try {
 }
 ```
 
-## Intersection (Extended interface or type)
-
-```ts
-type Identity = {
-  name: string
-}
-interface Contact {
-  email: string
-}
-type Customer = Identity & Contact & { gender: string } // type cũng có thể dc tạo từ 2 interface intersection
-interface Customer2 extends Identity, Contact {
-  gender: string
-}
-```
-
 ## How to check Type of Data
 
 ### `typeof`
@@ -508,9 +493,25 @@ getType(new Map()) // "map"
 getType(new Set()) // "set"
 ```
 
+## Intersection (Extended interface or type)
+
+```ts
+type Identity = {
+  name: string
+}
+interface Contact {
+  email: string
+}
+type Customer = Identity & Contact & { gender: string } // type can also be extended with interfaces
+interface Customer2 extends Identity, Contact {
+  gender: string
+}
+```
+
 ## Use Interface until You Need Type
 
-`type` ko declare thêm vào dc, còn `interface` thì có &rarr; dùng `interface` cho public API để người dùng tự thêm vào. Cân nhắc dùng `type` cho `props` hay `state` vì nó nhất quán và ràng buộc hơn.
+- `type` ko declare thêm vào dc, còn `interface` thì có &rarr; dùng `interface` cho public API để người dùng tự thêm vào.
+- Performance của `interface` cao hơn `type`, especially between intersections (`&` vs `extends`)
 
 <Tabs>
   <TabItem value="Interface" label="Interface" default>
