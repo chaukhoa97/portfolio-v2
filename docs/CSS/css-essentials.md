@@ -49,14 +49,19 @@ p::before { content: '', color:... }
 
 ## Flexbox
 
-### `flex`
+### [Aligning Flex Items along the Main/ Cross Axis](https://stackoverflow.com/a/33856609/13255516)
 
-- `flex: initial` = `flex: 0 1 auto`
-- `flex: auto` = `flex: 1 1 auto`
-- `flex: none` = `flex: 0 0 auto`
-- `flex: 1` = `flex: 1 1 0%`
+#### Main Axis
 
-### Details
+`justify-content` and `auto` margins
+
+#### Cross Axis
+
+- `align-items`: Align flex items along the cross axis.
+- `align-self`: Override `align-items` of the flex container.
+- [`align-content`](https://tailwindcss.com/docs/align-content): Control how rows are positioned in multi-row flex and grid containers
+
+### `flex` property details
 
 1. `flex-grow` - MAX: Chỉ định tỷ lệ kích thước to nhất mà phần tử nên có so với các phần tử còn lại.
 
@@ -73,12 +78,7 @@ p::before { content: '', color:... }
    - `auto` (**Default**): Dc tính toán theo nội dung và các phần tử khác.
    - `1000px`: Trình duyệt sẽ hiểu là "Hãy cố gắng dành ra `1000px` cho phần tử này". Cái này còn phụ thuộc vào nội dung của những phần tử khác - Nếu nội dung mấy phần tử khác mà to quá thì cũng chịu.
 
-### Other properties
-
-- `order: -1`: Default `0`. Số nhỏ xếp trước.
-- `align-self`: Override `align-items` của flex container.
-
-### Width: `min-content` vs `max-content` vs `fit-content`
+## Width: `min-content` vs `max-content` vs `fit-content`
 
 ```css
 .box {
