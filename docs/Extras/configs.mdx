@@ -42,24 +42,11 @@ npm install --save-dev --save-exact prettier prettier-plugin-tailwindcss
   <TabItem value="install" label="Install" >
 
 ```bash
-npm install eslint --save-dev
+npm i eslint eslint-plugin-react eslint-plugin-react-hooks eslint-config-prettier -D
 npm init @eslint/config
-```
 
-  </TabItem>
-  <TabItem value="package.json" label="package.json" >
-
-```json
-{
-  "devDependencies": {
-    "eslint-plugin-react": "latest",
-    "eslint-plugin-react-hooks": "latest",
-    "eslint-config-prettier": "latest",
-    "eslint-config-next": "latest",
-    "@typescript-eslint/eslint-plugin": "latest",
-    "@typescript-eslint/parser": "latest"
-  }
-}
+npm i @typescript-eslint/eslint-plugin @typescript-eslint/parser -D
+npm i eslint-config-next -D
 ```
 
   </TabItem>
@@ -78,8 +65,8 @@ module.exports = {
     'plugin:react/recommended', // from eslint-plugin-react
     'plugin:react/jsx-runtime', // from eslint-plugin-react
     'plugin:react-hooks/recommended', // from eslint-plugin-react-hooks
-    'next', // from eslint-config-next
     'plugin:@typescript-eslint/recommended', // only for ts
+    'next', // from eslint-config-next
     'prettier', // put this last so it can override other configs
   ],
   rules: {
