@@ -193,7 +193,9 @@ module.exports = {
 }
 ```
 
-## tailwind.config.js
+## Tailwind
+
+### tailwind.config.js
 
 ```js
 module.exports = {
@@ -208,8 +210,11 @@ module.exports = {
         px: '1px',
         18: '4.5rem',
       },
+      fontSize: {
+        base: ['16px', '20px'], // font size & line height
+      },
     },
-    // Replaces all of the default `colors` values
+    // No `extend`: All default configuration for that key will be overwritten, e.g. in this case no more `text-red-500`...
     colors: {
       primary: {
         500: '#F47920',
@@ -220,8 +225,33 @@ module.exports = {
 }
 ```
 
-`extend`: Add/ replace new classes beside Tailwind's existing ones. If not using `extend`
-all default configuration for that key will be overwritten.
+### index.css
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1,
+  .h1 {
+    @apply text-[40px] -tracking-[0.03em] lg:text-[64px] lg:leading-[72px];
+  }
+}
+
+@layer utilities {
+  .content-auto {
+    content-visibility: auto;
+  }
+}
+
+.our-layout {
+  padding-left: max(24px, calc((100vw - 1152px) / 2));
+  padding-right: max(24px, calc((100vw - 1152px) / 2));
+}
+```
+
+Order: `base` &rarr; `components` &rarr; `utilities` &rarr; Our custom CSS. Things inside `@layer` can also be used modifiers e.g. `dark:content-auto`
 
 ## VSCode
 
