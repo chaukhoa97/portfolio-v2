@@ -21,6 +21,7 @@ npm install --save-dev --save-exact prettier prettier-plugin-tailwindcss
   "bracketSpacing": true,
   "printWidth": 80,
   "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindFunctions": ["clsx", "cn", "cva"],
   "overrides": [
     {
       "files": ["framework/saleor/**/*"],
@@ -42,24 +43,11 @@ npm install --save-dev --save-exact prettier prettier-plugin-tailwindcss
   <TabItem value="install" label="Install" >
 
 ```bash
-npm install eslint --save-dev
+npm i eslint eslint-plugin-react eslint-plugin-react-hooks eslint-config-prettier -D
 npm init @eslint/config
-```
 
-  </TabItem>
-  <TabItem value="package.json" label="package.json" >
-
-```json
-{
-  "devDependencies": {
-    "eslint-plugin-react": "latest",
-    "eslint-plugin-react-hooks": "latest",
-    "eslint-config-prettier": "latest",
-    "eslint-config-next": "latest",
-    "@typescript-eslint/eslint-plugin": "latest",
-    "@typescript-eslint/parser": "latest"
-  }
-}
+npm i @typescript-eslint/eslint-plugin @typescript-eslint/parser -D
+npm i eslint-config-next -D
 ```
 
   </TabItem>
@@ -78,8 +66,8 @@ module.exports = {
     'plugin:react/recommended', // from eslint-plugin-react
     'plugin:react/jsx-runtime', // from eslint-plugin-react
     'plugin:react-hooks/recommended', // from eslint-plugin-react-hooks
-    'next', // from eslint-config-next
     'plugin:@typescript-eslint/recommended', // only for ts
+    'next', // from eslint-config-next
     'prettier', // put this last so it can override other configs
   ],
   rules: {
@@ -205,7 +193,9 @@ module.exports = {
 }
 ```
 
-## tailwind.config.js
+## Tailwind
+
+### tailwind.config.js
 
 ```js
 module.exports = {
@@ -220,8 +210,11 @@ module.exports = {
         px: '1px',
         18: '4.5rem',
       },
+      fontSize: {
+        base: ['16px', '20px'], // font size & line height
+      },
     },
-    // Replaces all of the default `colors` values
+    // No `extend`: All default configuration for that key will be overwritten, e.g. in this case no more `text-red-500`...
     colors: {
       primary: {
         500: '#F47920',
@@ -232,8 +225,33 @@ module.exports = {
 }
 ```
 
-`extend`: Add/ replace new classes beside Tailwind's existing ones. If not using `extend`
-all default configuration for that key will be overwritten.
+### index.css
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1,
+  .h1 {
+    @apply text-[40px] -tracking-[0.03em] lg:text-[64px] lg:leading-[72px];
+  }
+}
+
+@layer utilities {
+  .content-auto {
+    content-visibility: auto;
+  }
+}
+
+.our-layout {
+  padding-left: max(24px, calc((100vw - 1152px) / 2));
+  padding-right: max(24px, calc((100vw - 1152px) / 2));
+}
+```
+
+Order: `base` &rarr; `components` &rarr; `utilities` &rarr; Our custom CSS. Things inside `@layer` can also be used modifiers e.g. `dark:content-auto`
 
 ## VSCode
 
