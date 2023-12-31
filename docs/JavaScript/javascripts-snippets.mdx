@@ -101,11 +101,13 @@ array.push(array.splice(array.indexOf(element), 1)[0]) // If you don't have the 
 ## Shallow Copy vs Deep Copy (with Lodash)
 
 ```js
-var obj = [{ a: 1 }, { b: 2 }]
-var shallow = _.clone(obj)
-console.log(shallow[0] === obj[0]) // => true
-var deep = _.cloneDeep(obj)
-console.log(deep[0] === obj[0]) // => false
+const obj = [{ a: 1 }, { b: 2 }]
+const shallow = _.clone(obj)
+shallow[0] === obj[0] // true
+const deep = _.cloneDeep(obj)
+deep[0] === obj[0] // => false
+const newDeep = structuredClone(obj)
+newDeep[0] === obj[0] // => false
 ```
 
 ## Delete Reference value
