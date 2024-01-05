@@ -5,24 +5,10 @@ title: 'React Router'
 ## Basic
 
 ```jsx
-import React from 'react'
 import { Routes, Route, Outlet, Link, useParams } from 'react-router-dom'
 
-function Home() {
-  return <h2>Home Page</h2>
-}
-
-function About() {
-  return <h2>About Page</h2>
-}
-
-function Contact() {
-  return <h2>Contact Page</h2>
-}
-
-function NotFound() {
-  return <h2>Page Not Found</h2>
-}
+const Home = () => <h2>Home Page</h2>
+const NotFound = () => <h2>Page Not Found</h2>
 
 function Services() {
   return (
@@ -44,13 +30,9 @@ function App() {
   return (
     <div>
       <Link to="/">Home</Link>
-      <Link to="/about">About</Link>
-      <Link to="/contact">Contact</Link>
       <Link to="/services">Services</Link>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
         <Route path="/services" element={<Services />}>
           <Route index element={<h3>Choose a service</h3>} />
           <Route path=":serviceId" element={<ServiceDetail />} />
