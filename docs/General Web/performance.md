@@ -2,21 +2,16 @@
 title: 'Performance'
 ---
 
-## PRPL Pattern
+## Actions
 
-- **Push (Pre-load)**: Prioritize critical resources (HTML CSS JS) as early as possible. Example: `<link rel="preload">`, `next/script` with `strategy` prop as `beforeInteractive`, `next/image` with `priority` prop as `true`.
-- **Render**: Start rendering the web page as soon as the critical resources are received, even if some non-critical resources are still being downloaded e.g. [`script` with `defer` or `async` attribute](../General%20Web/html-elements.md#script-with-defer--async-attribute).
-- **Pre-cache (Pre-fetch)**: Pre-cache non-critical resources in the background so that they are available when needed. Example: `<link rel="prefetch">`, `next/link` with `prefetch` prop as `true`, `next/router` with `prefetch` method.
-- **Lazy-load**: Defer the loading of non-critical resources until they are needed, such as when the user scrolls to them or interacts with them.
+### PRPL Pattern
 
-## RAIL Model
+- **Push (Pre-load)** critical resources (HTML CSS JS) as early as possible. Example: `<link rel="preload">`, `next/script` with `strategy` prop as `beforeInteractive`, `next/image` with `priority` prop as `true`.
+- **Render** the web page as soon as the critical resources are received, even if some non-critical resources are still being downloaded e.g. [`script` with `defer` or `async` attribute](../General%20Web/html-elements.md#script-with-defer--async-attribute).
+- **Pre-cache (Pre-fetch)** non-critical resources in the background so that they are available when needed. Example: `<link rel="prefetch">`, `next/link` with `prefetch` prop as `true`, `next/router` with `prefetch` method.
+- **Lazy-load** non-critical resources until they are needed, such as when the user scrolls to them or interacts with them.
 
-- **Response**: Respond to user input in under 100ms and they will feel like the result is immediate. If longer always provide feedback e.g. loading spinner.
-- **Animation**: Keep animations smooth (60fps = 16ms per frame = 10ms per frame + time for browser to paint)
-- **Idle**: Take advantage of idle time to perform non-critical tasks.
-- **Load**: The time it takes to execute a task _e.g. loading pages or changing views_ should be under 1 second.
-
-## General (in order of familiarity)
+### General (in order of familiarity)
 
 - **Ship the smallest JS bundle possible**: Use right tools for the job e.g. _Astro_ and _RSC_ for static sites. Choose well-maintained, small, and tree-shakeable packages.
 - **Lazy/ Dynamic Loading (Code Splitting)**: Split JS bundles into smaller chunks to load on demand.
@@ -30,13 +25,32 @@ title: 'Performance'
 - **Caching**: By changing the `Cache-Control` header, you can control how long the browser caches a resource.
 - **Metadata**: For [SEO](./seo.md).
 
-## React
+### React and Next.js
 
 - [Optimize hooks](../React/hooks.mdx#optimize)
 - [Next.js Built-in](https://nextjs.org/docs/app/building-your-application/optimizing): Images, Fonts, Scripts, Static Assets, Lazy/ Dynamic Loading, Analytics
 - React DevTools Profiler
 
-## Core Web Vitals
+## Clean code
+
+- Separate logic and UI by using custom hooks (prefered) or [Container/ Presentational Pattern](https://www.patterns.dev/posts/presentational-container-pattern).
+- Things that change together should be located as close as possible but should still be still resonable.
+- SOLID, DRY
+- YAGNI (You Aren't Gonna Need It): Don't add code that you only think you **might** need in the future.
+- KISS (Keep It Simple, Stupid): The simpler the code, the easier it is to understand and maintain. "Any fool can write code that a computer can understand. Good programmers write code that humans can understand."
+- Meaningful Variable Names and Comments.
+- Avoid premature optimization.
+
+## Targets
+
+### RAIL Model
+
+- **Response**: Respond to user input in under 100ms and they will feel like the result is immediate. If longer always provide feedback e.g. loading spinner.
+- **Animation**: Keep animations smooth (60fps = 16ms per frame = 10ms per frame + time for browser to paint)
+- **Idle**: Take advantage of idle time to perform non-critical tasks.
+- **Load**: The time it takes to execute a task _e.g. loading pages or changing views_ should be under 1 second.
+
+### Core Web Vitals
 
 **[Core Web Vitals](https://web.dev/learn-core-web-vitals/)** are a **subset** of **[Performance Metrics](https://web.dev/metrics/)**, defined by Google, aim to provide unified guidance for quality signals that are essential to delivering a <u>great user experience</u> on the web, while **Performance Metrics** evaluate <u>many different aspects</u> like server-side performance, resource optimization, and JavaScript execution time.
 
@@ -78,13 +92,3 @@ This will soon be replaced by [Interaction to Next Paint - INP](https://web.dev/
 **CLS** measure your site’s **overall layout stability**. To be specific, it measures how much elements have been shifted after initially being rendered by the DOM. Ex: A `button` is rendered after the `text block`, causing the `text` to shift downward.
 
 Improve **CLS** by: Skeleton & Placeholder. [Read more](https://web.dev/optimize-cls/)
-
-## Clean code
-
-- Separate logic and UI by using custom hooks (prefered) or [Container/ Presentational Pattern](https://www.patterns.dev/posts/presentational-container-pattern).
-- Things that change together should be located as close as possible but should still be still resonable.
-- SOLID, DRY
-- YAGNI (You Aren't Gonna Need It): Don't add code that you only think you **might** need in the future.
-- KISS (Keep It Simple, Stupid): The simpler the code, the easier it is to understand and maintain. "Any fool can write code that a computer can understand. Good programmers write code that humans can understand."
-- Meaningful Variable Names and Comments.
-- Avoid premature optimization.

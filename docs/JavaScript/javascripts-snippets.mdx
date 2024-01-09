@@ -22,30 +22,30 @@ setSearchParams({ [name]: id })
 ## Date Time
 
 ```js
-const eventTime = new Date() // Mon Nov 15 2021 09:37:35 GMT+0700 (GMT+07:00)
-eventTime.toLocaleString() // 11/15/2021, 9:37:35 AM
-eventTime.toLocaleDateString() // 11/15/2021
-eventTime.toLocaleTimeString() // 9:37:35 AM
-eventTime.getHours() // getMinutes(), getSeconds(), getMilliseconds()
+const eventDate = new Date() // Mon Nov 15 2021 09:37:35 GMT+0700 (GMT+07:00)
+eventDate.toLocaleString() // 11/15/2021, 9:37:35 AM
+eventDate.toLocaleDateString() // 11/15/2021
+eventDate.toLocaleTimeString() // 9:37:35 AM
+eventDate.getHours() // getMinutes(), getSeconds(), getMilliseconds()
 
-const day = eventTime.getDay() // 1 (0 is Sunday, 1 is Monday, ...)
-const date = eventTime.getDate() // 15
-const month = eventTime.getMonth() // 10 (0 is January, 1 is February, ...)
-const year = eventTime.getFullYear() // 2021. `getYear()` is deprecated
+const day = eventDate.getDay() // 1 (0 is Sunday, 1 is Monday, ...)
+const date = eventDate.getDate() // 15
+const month = eventDate.getMonth() // 10 (0 is January, 1 is February, ...)
+const year = eventDate.getFullYear() // 2021. `getYear()` is deprecated
 
-const now = eventTime.getTime() // 1636943855000. Useful for comparing date values. `Date.now()` is the same.
+const eventDateInMs = eventDate.getTime() // 1636943855000. Useful for comparing date values. `Date.now()` is the same.
 
 // If not specify locale (`undefined` instead of `en-US`), use the browser's default locale
-eventTime.toLocaleString('en-US', {
+eventDate.toLocaleString('en-US', {
   // Shortcut, CAN'T be used with other options (e.g. weekday, hour, month, etc.).
   dateStyle: 'full', // full, long, medium, short
   timeStyle: 'short', // full, long, medium, short
 }) // Saturday, November 4, 2023 at 10:36 AM
 
 // For `dateTime` attribute of <time> element: <time dateTime={isoString}>...</time>
-const isoString = eventTime.toISOString()
-const isoDateString = eventTime.toISOString().split('T')[0]
-const isoTimeString = eventTime.toISOString().split('T')[1].slice(0, -1)
+const eventIsoString = eventDate.toISOString()
+const eventIsoDateString = eventDate.toISOString().split('T')[0]
+const eventIsoTimeString = eventDate.toISOString().split('T')[1].slice(0, -1)
 ```
 
 ## Round to `n` decimal places
