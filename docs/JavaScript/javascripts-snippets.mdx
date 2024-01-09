@@ -22,30 +22,30 @@ setSearchParams({ [name]: id })
 ## Date Time
 
 ```js
-const timestamp = new Date() // Mon Nov 15 2021 09:37:35 GMT+0700 (GMT+07:00)
-timestamp.toLocaleString() // 11/15/2021, 9:37:35 AM
-timestamp.toLocaleDateString() // 11/15/2021
-timestamp.toLocaleTimeString() // 9:37:35 AM
-timestamp.getHours() // getMinutes(), getSeconds(), getMilliseconds()
+const timeStamp = new Date() // Mon Nov 15 2021 09:37:35 GMT+0700 (GMT+07:00)
+timeStamp.toLocaleString() // 11/15/2021, 9:37:35 AM
+timeStamp.toLocaleDateString() // 11/15/2021
+timeStamp.toLocaleTimeString() // 9:37:35 AM
+timeStamp.getHours() // getMinutes(), getSeconds(), getMilliseconds()
 
-const day = timestamp.getDay() // 1 (0 is Sunday, 1 is Monday, ...)
-const date = timestamp.getDate() // 15
-const month = timestamp.getMonth() // 10 (0 is January, 1 is February, ...)
-const year = timestamp.getFullYear() // 2021. `getYear()` is deprecated
+const day = timeStamp.getDay() // 1 (0 is Sunday, 1 is Monday, ...)
+const date = timeStamp.getDate() // 15
+const month = timeStamp.getMonth() // 10 (0 is January, 1 is February, ...)
+const year = timeStamp.getFullYear() // 2021. `getYear()` is deprecated
 
-const timestampInMs = timestamp.getTime() // 1636943855000. Useful for comparing date values. `Date.now()` is the same.
+const timeStampInMs = timeStamp.getTime() // 1636943855000. Useful for comparing date values. `Date.now()` is the same.
 
 // If not specify locale (`undefined` instead of `en-US`), use the browser's default locale
-timestamp.toLocaleString('en-US', {
+timeStamp.toLocaleString('en-US', {
   // Shortcut, CAN'T be used with other options (e.g. weekday, hour, month, etc.).
   dateStyle: 'full', // full, long, medium, short
   timeStyle: 'short', // full, long, medium, short
 }) // Saturday, November 4, 2023 at 10:36 AM
 
 // For `dateTime` attribute of <time> element: <time dateTime={isoString}>...</time>
-const isoString = timestamp.toISOString()
-const isoDateString = timestamp.toISOString().split('T')[0]
-const isoTimeString = timestamp.toISOString().split('T')[1].slice(0, -1)
+const isoString = timeStamp.toISOString()
+const isoDateString = timeStamp.toISOString().split('T')[0]
+const isoTimeString = timeStamp.toISOString().split('T')[1].slice(0, -1)
 ```
 
 ## Round to `n` decimal places
