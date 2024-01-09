@@ -23,37 +23,29 @@ setSearchParams({ [name]: id })
 
 ```js
 const eventTime = new Date() // Mon Nov 15 2021 09:37:35 GMT+0700 (GMT+07:00)
-const now = eventTime.getTime() // 1636943855000. Useful for comparing date values. `Date.now()` is the same.
-
 eventTime.toLocaleString() // 11/15/2021, 9:37:35 AM
-eventTime.toLocaleString('en-US', {
-  // Shortcut, can't be used with other options (e.g. weekday, hour, month, etc.).
-  dateStyle: 'full', // full, long, medium, short
-  timeStyle: 'short', // full, long, medium, short
-}) // Saturday, November 4, 2023 at 10:36 AM
-
 eventTime.toLocaleDateString() // 11/15/2021
-// If not specify locale, use the browser's default locale
-eventTime.toLocaleTimeString(undefined, {
-  minimumIntegerDigits: 2,
-  timeStyle: 'medium',
-  hour12: false,
-}) // 09:37:35
-
-// For `dateTime` attribute of <time> element
-const isoString = eventTime.toISOString() // <time dateTime={isoString}>...</time>
-const isoDateString = eventTime.toISOString().split('T')[0]
-const isoTimeString = eventTime.toISOString().split('T')[1].slice(0, -1)
-
-const hour = eventTime.getHours() // 9
-const minute = eventTime.getMinutes() // 37
-const second = eventTime.getSeconds() // 35
-const millisecond = eventTime.getMilliseconds() // 0
+eventTime.toLocaleTimeString() // 9:37:35 AM
+eventTime.getHours() // getMinutes(), getSeconds(), getMilliseconds()
 
 const day = eventTime.getDay() // 1 (0 is Sunday, 1 is Monday, ...)
 const date = eventTime.getDate() // 15
 const month = eventTime.getMonth() // 10 (0 is January, 1 is February, ...)
-const year = eventTime.getFullYear() // 2021
+const year = eventTime.getFullYear() // 2021. `getYear()` is deprecated
+
+const now = eventTime.getTime() // 1636943855000. Useful for comparing date values. `Date.now()` is the same.
+
+// If not specify locale (`undefined` instead of `en-US`), use the browser's default locale
+eventTime.toLocaleString('en-US', {
+  // Shortcut, CAN'T be used with other options (e.g. weekday, hour, month, etc.).
+  dateStyle: 'full', // full, long, medium, short
+  timeStyle: 'short', // full, long, medium, short
+}) // Saturday, November 4, 2023 at 10:36 AM
+
+// For `dateTime` attribute of <time> element: <time dateTime={isoString}>...</time>
+const isoString = eventTime.toISOString()
+const isoDateString = eventTime.toISOString().split('T')[0]
+const isoTimeString = eventTime.toISOString().split('T')[1].slice(0, -1)
 ```
 
 ## Round to `n` decimal places
