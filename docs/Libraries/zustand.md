@@ -24,6 +24,7 @@ function BearCounter() {
 
 function Controls() {
   const { increasePopulation, removeAllBears } = useStore() // can also use destructuring
+  const signedIn = useAuth((state) => !!state.user.username) // Correct way for computed values
   return (
     <div>
       <button onClick={increasePopulation}>one up</button>
