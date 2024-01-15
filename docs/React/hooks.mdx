@@ -348,8 +348,10 @@ A state variable’s value never changes within a render, even if a event handle
 
 ```jsx
 function Counter() {
-  // Lazy init: `computeExpensiveValue` chỉ chạy ở lần render đầu tiên để tạo ra giá trị init cho `count` state
-  const [count, setCount] = useState(() => computeExpensiveValue(a, b))
+  // `compute` only run once when initializing the state
+  const [count, setCount] = useState(() => compute())
+  // `compute` will run every time Counter re-render, but its return value is ignored because the state has already been initialized.
+  const [count2, setCount2] = useState(compute())
 
   const handleClick = () => {
     // Callback from: Update dựa theo prev state, convention là letter đầu tiên (count -> c)
