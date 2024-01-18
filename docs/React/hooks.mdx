@@ -239,50 +239,64 @@ Lets you reference a value that’s **NOT** needed for rendering. You should onl
 
 - Communicate with external APIs - often a browser API that won’t impact the appearance of the component (`focus`, `scrollIntoView`) &rarr; Storing and manipulating DOM elements.
 - Storing and persisting other values that only needed by event handlers and changing it doesn’t require a re-render (it's NOT necessary for calculating the JSX), e.g. `timeoutId`, user input.
-- Example: Focus on an input or trigger an animation when it appears on the screen.
+- Example: Focus on an input or trigger an animation when it appears on the screen, infinite loading.
 
-```jsx title="useViewport.js"
+<Tabs>
+  <TabItem value="infinite" label="Infinite Loading">
+
+```jsx
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    async (entries) => {
+      // `entries` is an array of observed DOM nodes, in this case we only track one element (the last job card)
+      // "intersecting" means the element is PARTIALLY visible in the viewport, which can be configured by `threshold` option
+      entries[0].isIntersecting && loadMore()
+    },
+    {
+      threshold: 0.2,
+    },
+  )
+
+  // Assume that every element have a class of `job-card`
+  const lastElement = document.querySelector('.job-card:last-of-type')
+  if (lastElement) observer.observe(lastElement)
+
+  return () => {
+    if (lastElement) observer.unobserve(lastElement)
+  }
+}, [isLoading, loadMore])
+```
+
+  </TabItem>
+  <TabItem value='animation' label="Animation">
+
+```jsx
 import { useState, useEffect, useRef } from 'react'
 
-export const useViewport = (isOneTime = true) => {
+export const useViewport = () => {
   const [isVisible, setIsVisible] = useState(false)
   const ref = useRef()
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        } else if (!isOneTime) {
-          setIsVisible(false)
-        }
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      },
-    )
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(entry.isIntersecting)
+        observer.unobserve(entry.target) // If animation is one-time
+      }
+    })
 
-    const observer2 = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(
-              'animate-in',
-              'slide-in-from-bottom',
-              'opacity-100',
-            )
-            entry.target.classList.remove('opacity-0')
-          }
-        })
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2,
-      },
-    )
+    const observer2 = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add(
+            'animate-in',
+            'slide-in-from-bottom',
+            'opacity-100',
+          )
+          entry.target.classList.remove('opacity-0')
+        }
+      })
+    })
 
     const current = ref.current
     if (current) {
@@ -294,11 +308,14 @@ export const useViewport = (isOneTime = true) => {
         observer.unobserve(current)
       }
     }
-  }, [isOneTime])
+  }, [])
 
   return [ref, isVisible]
 }
 ```
+
+  </TabItem>
+</Tabs>
 
 ### Do not write or read `ref.current` during rendering
 
