@@ -2,7 +2,9 @@
 title: 'React Router'
 ---
 
-## Basic
+## (TODO) Using `createBrowserRouter`
+
+## (Legacy) Using `<BrowserRouter>`
 
 ```jsx
 import { Routes, Route, Outlet, Link, useParams } from 'react-router-dom'
