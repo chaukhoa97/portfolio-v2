@@ -238,8 +238,67 @@ export default React.memo(Children)
 Lets you reference a value that’s **NOT** needed for rendering. You should only use them when you have to “step outside React"
 
 - Communicate with external APIs - often a browser API that won’t impact the appearance of the component (`focus`, `scrollIntoView`) &rarr; Storing and manipulating DOM elements.
-
 - Storing and persisting other values that only needed by event handlers and changing it doesn’t require a re-render (it's NOT necessary for calculating the JSX), e.g. `timeoutId`, user input.
+- Example: Focus on an input or trigger an animation when it appears on the screen.
+
+```jsx title="useViewport.js"
+import { useState, useEffect, useRef } from 'react'
+
+export const useViewport = (isOneTime = true) => {
+  const [isVisible, setIsVisible] = useState(false)
+  const ref = useRef()
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        } else if (!isOneTime) {
+          setIsVisible(false)
+        }
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2,
+      },
+    )
+
+    const observer2 = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(
+              'animate-in',
+              'slide-in-from-bottom',
+              'opacity-100',
+            )
+            entry.target.classList.remove('opacity-0')
+          }
+        })
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2,
+      },
+    )
+
+    const current = ref.current
+    if (current) {
+      observer.observe(current)
+    }
+
+    return () => {
+      if (current) {
+        observer.unobserve(current)
+      }
+    }
+  }, [isOneTime])
+
+  return [ref, isVisible]
+}
+```
 
 ### Do not write or read `ref.current` during rendering
 
