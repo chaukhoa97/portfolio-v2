@@ -5,27 +5,22 @@ sidebar_position: 1
 
 ## Image Properties
 
-|                                                             | Preserve aspect ratio | Fill the container | Note        |
-| ----------------------------------------------------------- | --------------------- | ------------------ | ----------- |
-| `object-fit: fill`(**default**) == `background-size: cover` | ❌ (stretch)          | ✅                 |             |
-| `object-fit: cover` != `background-size: cover`             | ✅                    | ✅ (cropped)       |             |
-| `object-fit: contain` == `background-size: contain`         | ✅                    | ❌ (empty space)   | Letterboxed |
+|                                                             | Preserve aspect ratio | Fill the container |
+| ----------------------------------------------------------- | --------------------- | ------------------ |
+| `object-fit: fill`(**default**) == `background-size: cover` | ❌ (stretch)          | ✅                 |
+| `object-fit: cover` != `background-size: cover`             | ✅                    | ✅ (cropped)       |
+| `object-fit: contain` == `background-size: contain`         | ✅                    | ❌ (empty space)   |
 
 ## Element height
 
-Thường không nên chỉnh độ cao của element. Nhưng nếu có thì nên dùng `min-height`. Vì nếu viewport nhỏ lại thì element cũng sẽ tự cao ra cho vừa với content, còn nếu chỉ dùng `height` mà nhỏ quá thì bị overflow.  
-`min-height` PHẢI là _absolute unit_ (px, rem,...). Nếu `min-height` là % thì `height` của container phải là _absolute unit_ (Không được là % hết)
-
-:::note
-Khi dùng `background-image`, set `width` cho container không có tác dụng, chỉ khi set `height` mới có tác dụng.
-:::
+Usually shouldn't change the `height` nhưng nếu có thì nên dùng `min-height`. Vì nếu viewport nhỏ lại thì element cũng sẽ tự cao ra cho vừa với content.
 
 ## Selector
 
 ### [Pseudo-class](https://www.w3schools.com/css/css_pseudo_classes.asp)`:` Define a special state of an element
 
-- `article p:nth-child(2)`: Select every `<p>` that is the second child of its parent (ở đây là `<article>`).
-- `article p:nth-of-type(2)`: Select every `<p>` that is the second `<p>` of its parent.
+- `article p:nth-child(2)`: Select every `<p>` that is the 2nd child of its parent.
+- `article p:nth-of-type(2)`: Select every `<p>` that is the 2nd `<p>` of its parent.
 - `button:active`: Select the button when it is clicked.
 
 ### [Pseudo-element](https://www.w3schools.com/css/css_pseudo_elements.asp)`::` Style specified parts of an element

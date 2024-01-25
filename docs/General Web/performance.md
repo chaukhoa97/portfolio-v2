@@ -4,13 +4,6 @@ title: 'Performance'
 
 ## Actions
 
-### PRPL Pattern
-
-- **Push (Pre-load)** critical resources (HTML CSS JS) as early as possible. Example: `<link rel="preload">`, `next/script` with `strategy` prop as `beforeInteractive`, `next/image` with `priority` prop as `true`.
-- **Render** the web page as soon as the critical resources are received, even if some non-critical resources are still being downloaded e.g. [`script` with `defer` or `async` attribute](../General%20Web/html-elements.md#script-with-defer--async-attribute).
-- **Pre-cache (Pre-fetch)** non-critical resources in the background so that they are available when needed. Example: `<link rel="prefetch">`, `next/link` with `prefetch` prop as `true`, `next/router` with `prefetch` method.
-- **Lazy-load** non-critical resources until they are needed, such as when the user scrolls to them or interacts with them.
-
 ### General (in order of familiarity)
 
 - **Ship the smallest JS bundle possible**: Use right tools for the job e.g. _Astro_ and _RSC_ for static sites. Choose well-maintained, small, and tree-shakeable packages.
@@ -24,6 +17,13 @@ title: 'Performance'
 - **List Virtualization**: Only render the items that are visible to the user. **I personally dislike this because it break Ctrl+F** although it can be fixed with our own search box.
 - **Caching**: By changing the `Cache-Control` header, you can control how long the browser caches a resource.
 - **Metadata**: For [SEO](./seo.md).
+
+### PRPL Pattern
+
+- **Push (Pre-load)** critical resources (HTML CSS JS) as early as possible. Example: `<link rel="preload">`, `next/script` with `strategy` prop as `beforeInteractive`, `next/image` with `priority` prop as `true`.
+- **Render** the web page as soon as the critical resources are received, even if some non-critical resources are still being downloaded e.g. [`script` with `defer` or `async` attribute](../General%20Web/html-elements.md#script-with-defer--async-attribute).
+- **Pre-cache (Pre-fetch)** non-critical resources in the background so that they are available when needed. Example: `<link rel="prefetch">`, `next/link` with `prefetch` prop as `true`, `next/router` with `prefetch` method.
+- **Lazy-load** non-critical resources until they are needed, such as when the user scrolls to them or interacts with them.
 
 ### React and Next.js
 

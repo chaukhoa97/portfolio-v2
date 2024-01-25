@@ -224,39 +224,37 @@ const obj = { key1: 'foo' } // ❌ error - re-declaring
 
 ## `this`, `bind`, `call`, `apply`
 
-`this` refers to **the object that is calling it**. An exception is for _arrow function_, as it refers to its **enclosing scope** at the time the function is created.
+`this` refers to **the object that is calling it**. An exception is for `arrow function`, as it refers to its **enclosing scope** at the time the function is created - `window` (browser) or `global` (node)
 
 ```js
 const person = {
-  foo: [0, 1],
-  fn1() {
-    console.log(this) // `person` obj
-    console.log(this.foo) // [0, 1]
+  fn1: () => {
+    console.log(this) // `window`
   },
-  // `this` of the arrow fn `() => {...}` refers to its enclosing scope,
-  // in this case is the JS global object -> `window` (browser) or `global` (node)
-  fn2: () => {
-    console.log(this) // `window` (browser) or `global` (node)
-    console.log(this.foo) // undefined
+  fn2() {
+    console.log(this) // `person`
   },
   fn3() {
     // `function (item)` is called by JS global object
     this.foo.forEach(function (item) {
-      console.log(this) // `window` (browser) or `global` (node)
+      console.log(this) // `window`
     })
 
     this.foo.forEach(function (item) {
-      console.log(this) // `person` obj
-    }, this) // the 2nd arg of `forEach` can be used as the `this` of the callback fn, in this case is `person` obj
+      console.log(this) // `person`
+    }, this) // the 2nd arg of `forEach` can be used as the `this` for the callback `function (item)`
 
-    // `this` of the arrow callback fn `(item) => {...}` refers to its enclosing scope,
-    // in this case is `fn3` -> `person` obj
+    // the enclosing scope of the arrow callback `(item) => {...}` is `fn3`
     this.foo.forEach((item) => {
-      console.log(this) // `person` obj
+      console.log(this) // `person`
     })
   },
 }
-person.fn1()
+
+// `apply` takes the the 1st argument as the `this` context, the rest arguments are passed as an array
+unboundFn.apply(person, [1, 2, 3]) // Here `this` is `person` obj
+// `call` are similar but the rest arguments are passed normally to the function
+unboundFn.call(person, 1, 2, 3) // Here `this` is `person` obj
 
 const unboundFn = person.fn1 // using `fn2` here is the same
 unboundFn() // The function gets invoked at the global scope -> Here `this` is global object
@@ -264,10 +262,6 @@ const boundFn = unboundFn.bind(person) // `bind` returns a new function with `th
 boundFn() // Here `this` is `person` obj
 
 // `call` and `apply` are similar to `bind` but they invoke the function immediately
-// `call` takes the `this` context as the 1st argument and the rest of the arguments are passed to the function
-unboundFn.call(person, 1, 2, 3) // Here `this` is `person` obj
-// `apply` is similar to `call` but it takes the arguments as an array
-unboundFn.apply(person, [1, 2, 3]) // Here `this` is `person` obj
 ```
 
 ## `switch`

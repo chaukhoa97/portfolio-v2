@@ -77,32 +77,6 @@ Cùi hơn thì dùng flexbox hoặc `mx-auto` (chỉ dùng dc cho ~ element có 
 }
 ```
 
-### Hidden & Visible element
-
-```css
-div {
-  display: none;
-  transition: opacity 1s ease-out;
-  opacity: 0;
-}
-div.active {
-  opacity: 1;
-  display: block;
-}
-```
-
-### Margin best practice for Component
-
-```jsx
-// Hardcode margin in component
-const Bad = ({ children }) => <div className="mb-2">{children}</div>
-
-// Have a `className` prop so that we can dynamic change the margin
-const Good = ({ children, className }) => (
-  <div className={className}>{children}</div>
-)
-```
-
 ### `:not(:last-of-type)` for list item
 
 ```css
