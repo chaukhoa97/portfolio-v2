@@ -12,8 +12,8 @@ title: 'Performance'
   - Example: `<img loading="lazy">` (Only load when user scrolls near them, [already widely supported](https://caniuse.com/loading-lazy-attr)), [React component with `lazy` and `Suspense`](../React/react-snippets.mdx#lazy-load--component-maps), Fonts, Scripts, Static Assets.
 - **Static Assets Optimization**: [Responsive Image](./image.md), [CSS Sprites](https://spritegen.website-performance.org/), compress and choose the right format for images and videos.
 - **Debounce & Throttle**: Limiting the number of times a function is executed, especially heavy ones. Example: _Debounce_: Executed only after a certain period of time has passed since the last event. _Throttle_: Limits the execution rate of a function to a specified time interval.
-- **Analytics**: Not always accurately reflects of true user experience. Sometimes the true experience when using the application is more reliable than the stats shown by any automated tool. Example: Google Lighthouse, WebPageTest.org.
-- **UX**: Finally, UX knowledge can be applied to enhance user experience without even boosting performance.
+- **Analytics**: Not always accurately reflect true user experience. Sometimes the true experience when using the application is more reliable than the stats shown by any automated tool. Example: Google Lighthouse, WebPageTest.org.
+- **UX**: Finally, FE devs should have a decent level of UX because BRDs can't cover everything, especially minor UI behaviors, so a good FE developer can increase the user's perception of performance even without boosting it.
 - **List Virtualization**: Only render the items that are visible to the user. **I personally dislike this because it break Ctrl+F** although it can be fixed with our own search box.
 - **Caching**: By changing the `Cache-Control` header, you can control how long the browser caches a resource.
 - **Metadata**: For [SEO](./seo.md).
@@ -33,8 +33,8 @@ title: 'Performance'
 
 ## Clean code
 
-- Separate logic and UI by using custom hooks (prefered) or [Container/ Presentational Pattern](https://www.patterns.dev/posts/presentational-container-pattern).
-- Things that change together should be located as close as possible but should still be still resonable.
+- Separate logic and UI by using custom hooks (preferred) or [Container/ Presentational Pattern](https://www.patterns.dev/posts/presentational-container-pattern).
+- Things that change together should be located as close as possible but should still be reasonable.
 - SOLID, DRY
 - YAGNI (You Aren't Gonna Need It): Don't add code that you only think you **might** need in the future.
 - KISS (Keep It Simple, Stupid): The simpler the code, the easier it is to understand and maintain. "Any fool can write code that a computer can understand. Good programmers write code that humans can understand."
