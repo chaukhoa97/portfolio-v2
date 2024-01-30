@@ -54,10 +54,7 @@ title: 'Performance'
 
 *[Core Web Vitals](https://web.dev/learn-core-web-vitals/)* are a **subset** of *[Performance Metrics](https://web.dev/metrics/)* defined by Google. They are essential to delivering a great user experience on the web, while **Performance Metrics** evaluate <u>many different aspects</u> like server-side performance, resource optimization, and JavaScript execution time.
 
-The metrics that make up **Core Web Vitals** will **evolve over time**. Read [how the Performance score is weighted](https://web.dev/performance-scoring). Typically, they focus on three aspects:
-1. Loading (LCP)
-2. Interactivity (FID -> INP)
-3. Visual stability (CLS)
+The metrics that make up **Core Web Vitals** will **evolve over time**. Read [how the Performance score is weighted](https://web.dev/performance-scoring). Typically, they focus on three aspects: Loading (LCP), Interactivity (FID -> INP), Visual stability (CLS)
 
 | Metrics                                                                               |                 How to improve                  |
 | ------------------------------------------------------------------------------------- | :---------------------------------------------: |
