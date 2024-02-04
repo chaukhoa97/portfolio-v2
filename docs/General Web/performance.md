@@ -69,9 +69,9 @@ The metrics that make up **Core Web Vitals** will **evolve over time**. The curr
 
 ### [Largest Contentful Paint (LCP)](https://web.dev/lcp/)
 
-**LCP** measures the **loading performance** of a web page. To be specific, it measures the time it takes to get the largest element on the page visible within the viewport. This could be a large text block, video, or image that takes up the primary real estate on the page.
+**LCP** measures the **loading performance**. It measures the time it takes to get the largest element on the page visible within the viewport. This could be a large text block, video, or image that takes up the primary real estate on the page.
 
-Improve **LCP** by: Optimized image component or even before delivered, lazy loading. [Read more](https://web.dev/optimize-lcp/)
+Improve **LCP** by: [Optimized images](./image.md), lazy loading. [Read more](https://web.dev/optimize-lcp/)
 
 :::caution
 This is not **First Contentful Paint (FCP)**, which measures the time from when the page begins to load to when the first element is rendered on screen.
@@ -79,16 +79,16 @@ This is not **First Contentful Paint (FCP)**, which measures the time from when 
 
 ### [First Input Delay (FID)](https://web.dev/fid/) ~~ Total Blocking Time (TBT)
 
-**FID** measures the **interactivity** of a web page. To be specific, it measures how much is the delay users experience between initiating an interaction (e.g. clicking a button) and the browser responding to that interaction.
+**FID** measures the **interactivity**. It measures how much is the delay users experience between initiating an interaction (e.g. clicking a button) and the browser responding to that interaction.
 
 Improve **FID** by: Reduce the amount of JavaScript executed on page load by using code splitting, removing unused code, and deferring non-critical JavaScript. [Read more](https://web.dev/optimize-fid/)
 
-:::info
-This will soon be replaced by [Interaction to Next Paint - INP](https://web.dev/inp/)
-:::
+### [Interaction to Next Paint (INP)](https://web.dev/inp/)
+
+**INP** measures the **interactivity**. It observes the latency of all interactions a user has made with the page and reports a single value which all (or nearly all) interactions were below. A low INP is **better** as the page was consistently able to respond quickly to all—or the vast majority—of user interactions.
 
 ### [Cumulative Layout Shift (CLS)](https://web.dev/cls/)
 
-**CLS** measure your site’s **overall layout stability**. To be specific, it measures how much elements have been shifted after initially being rendered by the DOM. Ex: A `button` is rendered after the `text block`, causing the `text` to shift downward.
+**CLS** measure **overall layout stability**. It measures how much elements have been shifted after initially being rendered by the DOM. Ex: A `button` is rendered after the `text block`, causing the `text` to shift downward.
 
 Improve **CLS** by: Skeleton & Placeholder. [Read more](https://web.dev/optimize-cls/)

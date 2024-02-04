@@ -14,13 +14,13 @@ async function asyncCall() {
     const res = await oneSec(1000)
     // a good practice to check res.ok as soon as you receive the response from a fetch call,
     // bc the `res` body might be invalid JSON, and below `res.json()` will lead to an error
-    if (!res.ok) throw new Error(res.status) // res.status -> 404, res.statusText -> "Not Found"
+    if (!res.ok) throw new Error(res.status) // e.g. res = { ok: false, status: 404, statusText: "Not Found"}
     const data = await res.json()
     console.log(data)
   } catch (err) {
     // The above Error will be caught here
     // Here we can handle it appropriately, DON'T THROW AGAIN
-    reportError({ message: getErrorMessage(error) })
+    reportError({ message: getErrorMessage(err) })
   }
 }
 
@@ -36,7 +36,7 @@ oneSec(2000)
   )
   .then((data) => console.log(data))
   .catch((err) => {
-    reportError({ message: getErrorMessage(error) })
+    reportError({ message: getErrorMessage(err) })
   })
 
 function getErrorMessage(error: unknown) {
