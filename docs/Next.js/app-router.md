@@ -4,22 +4,20 @@ title: 'App Router Specific'
 
 ## React Server Components
 
-Server Components never re-render or hydrate. They run *once* on the server to generate the UI. The rendered value is sent to the client and locked in place. As far as React is concerned, this output is immutable, and will never change.
+Server Components never re-render or hydrate. They run *once* on the server to generate the UI. The rendered value is sent to the client and locked in place. As far as React is concerned, this output is immutable, and will never change. They are suitable for components that fetch data from server and do not have interactivity (`useState`, `onClick`) or Browser-only APIs (`localtSorage`).
 
 ### Pros
 
-- RSC code isn't included in the JS bundle, thus reduces the amount of JS -> improve *Page Interactive* (TTI). For example, there are some cases that we need to do a heavy task that require a huge size of JS in a component e.g. syntax highlighting. If we do it in a SC, none of the library code will be included in our JS bundle.
-- Unlike tradional SSR where we have to call to the server mutiple times e.g. 1st Create HTML and 2nd Query the DB, In RSC we can perform multiple data fetches with single round-trip instead of multiple individual requests on the client.
+- RSC code isn't included in the JS bundle, thus reducing the amount of JS -> improve **Page Interactive** (TTI). For example, there are some cases in which we need to do a heavy task that requires a huge size of JS in a component e.g. syntax highlighting. If we do it in a SC, none of the library code will be included in our JS bundle.
+- Unlike traditional SSR where we have to call the server multiple times e.g. 1st Prerender HTML and 2nd Get data, in RSC we can perform all of them in a single call to the server.
 - Because RSC code only runs on the server, it helps keep sensitive data and logic on the server.
-- The layout system is intuitive and feels great to work with, similar to Remix.
 - All other [pre-rendering pros](pages-router.md#pre-rendering) (SEO, FCP, LCP) because they are similar in that they all create the HTML on the server **compared to CSR**.
-- **Use Cases**: Better performance, Fetch data, Keep sensitive data and logic on the server.
+- The layout system is intuitive and feels great to work with, similar to Remix.
 
 ### Vs Client Components
 
-- In the React Server Components paradigm, all components are SC by default unless explicitly write `'use client'` to specify Client components so that they are included in our JS bundles and can rerender on the client.
+- In the RSC paradigm, all components are SC by default unless we explicitly write `'use client'` to specify Client components.
 - In Next.js App Router, client components are still pre-rendered similar to [Pages Router’s SSR](pages-router.md#server-side-rendering)
-- **Use Cases**: Interactivity (`useState`, `onClick`), Browser-only APIs (Local Storage)
 
 :::note
 
