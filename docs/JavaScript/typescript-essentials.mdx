@@ -17,24 +17,22 @@ A _type_ is a set of possible values. For example, `string` type represents an i
 ## Function
 
 ```ts
-//1 Function Type expression:
-//2. Cách 1: Truyền trực tiếp
+// Function Type expression
+// Cách 1: Truyền trực tiếp
 const greeter = (a: string): void => {
   console.log(a)
 }
 function greeter1(a: string) {
   console.log(a) // return type dc infer là void
 }
-//2 Cách 2: Khai báo qua `type`
+// Cách 2: Khai báo qua `type`
 type GreetFunction = (a: string, b?: number) => void
 const greeter2: GreetFunction = (a) => {
   console.log(a)
 }
 
-//1 Utility Types
-//2 `Parameter`
+// Utility Types
 type GreeterParams = Parameters<typeof greeter2>
-//2 `ReturnType`
 type GreeterReturn = ReturnType<GreetFunction>
 ```
 

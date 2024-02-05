@@ -2,10 +2,21 @@
 title: 'TypeScript in React'
 ---
 
-## Get type of an element's props
+## Get the type of the `props` of a component
 
-```ts
-type Props = React.ComponentProps<typeof MyComponent> // e.g. <"button">
+```tsx
+const MyComponent = ({ name, age }: { name: string; age: number }) => {
+  return <div>{`My name is ${name} and I am ${age} years old.`}</div>
+}
+
+type NewProps = React.ComponentProps<typeof MyComponent> // NewProps is equivalent to MyComponentProps
+type ButtonProps = React.ComponentProps<'button'> // == React.ButtonHTMLAttributes<HTMLButtonElement>
+```
+
+Avoid getting the type directly from a component via `type NewProps = React.ComponentProps<typeof MyComponent>`, because it will directly depends on the `MyComponent` implementation. This violates _Dependency Inversion Principle_. Instead, we should extract the `props` type to a separate type and reuse it
+
+```tsx
+export type MyComponentProps = { name: string; age: number } // reuse this, no need to have `NewProps` type
 ```
 
 ## Default `props`, `children`, `style`, and `rest`
@@ -72,12 +83,18 @@ function App() {
 }
 ```
 
-## DOM Events' types
+## Event and Event Handler types
 
 ```tsx
 const MyComponent = () => {
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => null
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => null
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => null
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => null
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => null
+  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => null
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => null
 
   return (
     <>
