@@ -7,12 +7,12 @@ import TabItem from '@theme/TabItem'
 
 ## What is a `type`?
 
-A _type_ is a set of possible values. For example, `string` type represents an infinite set of possible strings ->
+A _type_ is a set of possible values. For example, `string` type represents an infinite set of possible strings
 
-- `&` is an <i>intersection (phép giao)</i>, so `false & true` = `never`
-- `|` is a <i>union (phép hợp)</i>, so `true | never` = `true`
-- `never` type is an empty set of values. Using `&` with `never` always results in `never`. Using `|` with `never` always results in the other type.
-- `unknown` is the set of all JS values. `any` is a paradoxical set that includes everything, but _might_ also be empty.
+- `&` is an <i>intersection (phép giao)</i>, e.g. `false & true` = `never`
+- `|` is a <i>union (phép hợp)</i>, e.g. `true | never` = `true`
+- `never` is an empty set of values. `never & T` always results in `never`. `never | T` always results in `T`.
+- `any` is the set of all JS values as it ignore TS. `unknown` is the same (set of all JS values) but it's [safe to use](#unknown)
 
 ## Function
 
@@ -36,19 +36,96 @@ type GreeterParams = Parameters<typeof greeter2>
 type GreeterReturn = ReturnType<GreetFunction>
 ```
 
-## Type Narrowing by Downcasting
+## Index Signature
 
 ```ts
-function toNumber(x: unknown): number {
-  if (typeof x === 'number') return x
-  if (typeof x === 'string') return parseInt(x, 10)
+interface JD {
+  // An index signature property type must be either ‘string’ or ‘number’
+  [index: string]: any //* JD can have any number of properties with `any` type
+  1: string // `typeof jd[1] = string`
+}
+```
 
-  return NaN // Method 1
-  throw new Error('Error: x is neither a number nor a string') // Method 2
+## Use Interface until You Need Type
+
+- `interface` is more flexible as it allows adding new props to an existing `interface`.
+- Performance of _intersections_ (Extended `interface` or `type`) in `interface - &` is higher than `type - extends`
+
+```ts
+type Identity = {
+  name: string
+}
+type Identity = {
+  age: number // ❌ Error: Duplicate identifier 'Identity'
+}
+
+interface Contact {
+  email: string
+}
+interface Contact {
+  phone: string // ✅: Có thể extend Interface
+}
+
+type Customer = Identity & Contact & { gender: string } // `type` can also be extended with `interfaces`...
+interface Customer2 extends Identity, Contact {
+  gender: string // ...and vice versa
 }
 ```
 
 ## Keywords
+
+### `keyof` & Mapped Types (looping through object keys)
+
+```ts
+interface Person {
+  name: string
+  age: number
+}
+
+type PersonKey = keyof Person // "name" | "age"
+
+type OptionsFlags<Type> = {
+  // Can understand `P` as "property" to remember
+  [P in keyof Type]: boolean
+}
+type FeatureFlags = {
+  f1: () => void
+  f2: () => void
+}
+type FeatureOptions = OptionsFlags<FeatureFlags> // f1: boolean, f2: boolean
+
+// This removes all `readonly`` attributes since we used the `-` sign. If you removed the `-`, all fields would be read-only.
+type Mutable<Type> = {
+  -readonly [P in keyof Type]: Type[P]
+}
+```
+
+### `as` (Type Assertion)
+
+Assert the type-system that `e` can be assigned to `Error`. Only be used to more or less specific type (ko thể có ~ chuyển đổi vô lý như `"hello" as number`)
+
+```ts
+try {
+  failed && throw new Error('Failure!')
+  doSomething()
+} catch (e) {
+  console.error((e as Error).message)
+}
+```
+
+### `as const` (Const Assertion)
+
+- No literal types in that expression should be widened (e.g. no going from `"hello"` to `string`)
+- Object literals get `readonly` properties (no assign to object `props`)
+- Array literals get `readonly` tuples (no assign to array `value`)
+
+```ts
+interface Home {
+  name: string
+}
+const noMutateHome = { name: 'home' } as const
+noMutateHome.name = 'bro' // ❌: Cannot assign to 'home' because it is a read-only property.
+```
 
 ### `in` & `is`
 
@@ -82,72 +159,7 @@ if (isFish(pet)) {
 }
 ```
 
-### `readonly` & `as const` (Const Assertion)
-
-`as const`:
-
-- No literal types in that expression should be widened (e.g. no going from `"hello"` to `string`)
-- Object literals get `readonly` properties (no assign to object `props`)
-- Array literals get `readonly` tuples (no assign to array `value`)
-
-```ts
-interface Home {
-  name: string
-}
-const noMutateHome1 = { name: 'home' } as const
-const noMutateHome2: Readonly<Home> = { name: 'home' }
-noMutateHome1.name = 'bro' // ❌: Cannot assign to 'home' because it is a read-only property.
-```
-
-### `keyof` & Mapped Types (looping through object keys)
-
-```ts
-interface Person {
-  name: string
-  age: number
-}
-
-type PersonKey = keyof Person // "name" | "age"
-
-type OptionsFlags<Type> = {
-  // Can understand `P` as "property" to remember
-  [P in keyof Type]: boolean
-}
-type FeatureFlags = {
-  f1: () => void
-  f2: () => void
-}
-type FeatureOptions = OptionsFlags<FeatureFlags> // f1: boolean, f2: boolean
-
-// This removes all `readonly`` attributes since we used the `-` sign. If you removed the `-`, all fields would be read-only.
-type Mutable<Type> = {
-  -readonly [P in keyof Type]: Type[P]
-}
-```
-
 ## Types
-
-### Enums
-
-```ts
-//2 Number enum
-enum Status {
-  Pending, // 0
-  Approved, // 1
-  Rejected = 10,
-}
-console.log(Status.Rejected) // 10
-console.log(Status[10]) // `Reverse mapping` -> Rejected
-
-//2 String enum: KHÔNG REVERSE MAPPING như Number Enum dc
-enum Status2 {
-  Pending = 'Đang chờ',
-  Approved = 'Thành công',
-}
-type ResponseTypes = keyof typeof Status2 // "Pending" | "Approved"
-const ss = Status2.Pending // "Đang chờ"
-const bb = Status2[0] // undefined
-```
 
 ### Tuple
 
@@ -179,32 +191,26 @@ anyFoo.method() //* Ok; anything goes with `any`
 unknownBar.method() //! Not ok; we don't know anything about this variable
 ```
 
-### Index Signature
+### Enums
 
 ```ts
-interface JD {
-  // An index signature property type must be either ‘string’ or ‘number’
-  [index: string]: any //* JD can have any number of properties with `any` type
-  1: string // `typeof jd[1] = string`
+//2 Number enum
+enum Status {
+  Pending, // 0
+  Approved, // 1
+  Rejected = 10,
 }
-```
+console.log(Status.Rejected) // 10
+console.log(Status[10]) // `Reverse mapping` -> Rejected
 
-### Indexed Access Types
-
-```ts
-const MyArray = [
-  { name: 'Alice', age: 15 },
-  { name: 'Bob', age: 23 },
-]
-type Person = typeof MyArray[0]
-type Name = typeof MyArray[0]['name']
-```
-
-### Template Literals
-
-```ts
-type Lang = 'en' | 'ja' | 'pt'
-type LocaleMessageIDs = `${Lang}_bro`
+//2 String enum: KHÔNG REVERSE MAPPING như Number Enum dc
+enum Status2 {
+  Pending = 'Đang chờ',
+  Approved = 'Thành công',
+}
+type ResponseTypes = keyof typeof Status2 // "Pending" | "Approved"
+const ss = Status2.Pending // "Đang chờ"
+const bb = Status2[0] // undefined
 ```
 
 ## Utility Types
@@ -390,19 +396,6 @@ type DogMessageContents = MessageOf<Dog> // never
   </TabItem>
 </Tabs>
 
-## Type Assertion with `Error` Type
-
-Assert the type-system that `e` can be assigned to `Error`. Only be used to more or less specific type (ko thể có ~ chuyển đổi vô lý như `"hello" as number`)
-
-```ts
-try {
-  failed && throw new Error('Failure!')
-  doSomething()
-} catch (e) {
-  console.error((e as Error).message)
-}
-```
-
 ## How to check Type of Data
 
 ### `typeof`
@@ -491,56 +484,17 @@ getType(new Map()) // "map"
 getType(new Set()) // "set"
 ```
 
-## Intersection (Extended interface or type)
+## Type Narrowing by Downcasting
 
 ```ts
-type Identity = {
-  name: string
-}
-interface Contact {
-  email: string
-}
-type Customer = Identity & Contact & { gender: string } // type can also be extended with interfaces
-interface Customer2 extends Identity, Contact {
-  gender: string
+function toNumber(x: unknown): number {
+  if (typeof x === 'number') return x
+  if (typeof x === 'string') return parseInt(x, 10)
+
+  return NaN // Method 1
+  throw new Error('Error: x is neither a number nor a string') // Method 2
 }
 ```
-
-## Use Interface until You Need Type
-
-- `type` ko declare thêm vào dc, còn `interface` thì có &rarr; dùng `interface` cho public API để người dùng tự thêm vào.
-- Performance của `interface` cao hơn `type`, especially between intersections (`&` vs `extends`)
-
-<Tabs>
-  <TabItem value="Interface" label="Interface" default>
-
-```ts
-interface Person {
-  // Có 2 cách để định nghĩa một method trong một interface
-  log1?(message: string): void // Method declaration
-  log2?: (message: string) => void // Function in Property declaration
-}
-interface Person {
-  log1?(message: number): void // ✅: Có thể override Interface's method
-  log2?: (message: number) => void // ❌: Nhưng ko thể override Interface's property
-  anotherProp: string
-}
-```
-
-  </TabItem>
-  <TabItem value="Type" label="Type">
-
-```ts
-type Customer = {
-  id: number
-}
-type Customer = {
-  name: string // ❌ Error: Duplicate identifier 'Customer'
-}
-```
-
-  </TabItem>
-</Tabs>
 
 ## [Type Assign Table](https://www.typescriptlang.org/docs/handbook/type-compatibility.html#any-unknown-object-void-undefined-null-and-never-assignability)
 

@@ -19,28 +19,32 @@ Avoid getting the type directly from a component via `type NewProps = React.Comp
 export type MyComponentProps = { name: string; age: number } // reuse this, no need to have `NewProps` type
 ```
 
-## Default `props`, `children`, `style`, and `rest`
+## Event and Event Handler types
 
 ```tsx
-type ButtonProps = {
-  children: React.ReactNode // Widest, can be ReactElement, ReactFragment, string...
-  disabled?: boolean
-  style?: React.CSSProperties
-}
+const MyComponent = () => {
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => null
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => null
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => null
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => null
+  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => null
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => null
 
-const Button = ({ disabled = false, children, ...rest }: ButtonProps) => (
-  <button disabled={disabled} style={{ color: 'red' }} {...rest}>
-    {children}
-  </button>
-)
+  return (
+    <>
+      <button onClick={handleClick}>Click me</button>
+      <input onChange={handleInputChange} />
+    </>
+  )
+}
 ```
 
-## [React component as `props`](https://codesandbox.io/p/sandbox/react-component-as-prop-icon-l6y3p8?file=/src/App.tsx:16,18)
+## [Type of a React component passed as `props`](https://codesandbox.io/p/sandbox/react-component-as-prop-icon-l6y3p8?file=/src/App.tsx:16,18)
 
 ```tsx
-type ButtonProps = {
-  icon: ReactElement<IconProps> // JSX element
-}
+type ButtonProps = { icon: ReactElement<IconProps> }
 
 export const ButtonWithIconElement = ({
   icon = <DefaultIcon />,
@@ -83,26 +87,20 @@ function App() {
 }
 ```
 
-## Event and Event Handler types
+## Default `props`, `children`, `style`, and `rest`
 
 ```tsx
-const MyComponent = () => {
-  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => null
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => null
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => null
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => null
-  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => null
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => null
-
-  return (
-    <>
-      <button onClick={handleClick}>Click me</button>
-      <input onChange={handleInputChange} />
-    </>
-  )
+type ButtonProps = {
+  children: React.ReactNode // Widest, can be ReactElement, ReactFragment, string...
+  disabled?: boolean
+  style?: React.CSSProperties
 }
+
+const Button = ({ disabled = false, children, ...rest }: ButtonProps) => (
+  <button disabled={disabled} style={{ color: 'red' }} {...rest}>
+    {children}
+  </button>
+)
 ```
 
 ## Hooks
@@ -112,7 +110,16 @@ const MyComponent = () => {
 Spec the type **specifically** to help TS infer the type of the state.
 
 ```tsx
-const [user, setUser] = useState<number[]>([1, 2, 3])
+// Enums with `useState`
+enum Status {
+  Pending = 'Đang chờ',
+  Success = 'Thành công',
+}
+
+const [status, setStatus] = useState<Status>(Status.Pending)
+
+<button onClick={() => setStatus(Status.Success)}> Meo </button>
+<p>{status}</p> // Thành công
 ```
 
 ### `useEffect`
@@ -126,17 +133,4 @@ Ko dc return gì về ngoại trừ `void` / `Destructor`
 // For example, `HTMLDivElement` is better than `HTMLElement` and way better than `Element`.
 const divRef = useRef<HTMLDivElement>(null)
 return <div ref={divRef}>etc</div>
-```
-
-## Enums with `useState`
-
-```tsx
-enum Status {
-  Pending = 'Đang chờ',
-  Success = 'Thành công',
-}
-
-const [status, setStatus] = useState<Status>(Status.Pending)
-<button onClick={() => setStatus(Status.Success)}> Meo </button>
-<p>{status}</p> // Thành công
 ```

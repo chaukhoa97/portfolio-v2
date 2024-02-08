@@ -41,7 +41,7 @@ Vue still uses Virtual Dom partially but Evan You want to take the _template_ an
 
 ## Data Flow
 
-### Moving State down
+### Passing State down
 
 ```jsx
 const Parent = () => {
@@ -52,28 +52,21 @@ const Parent = () => {
 
 ### Lifting State up
 
-> Passing down the **event handler** allows the child to change the parent’s state.
+If we want to sync components, we can declare states in their closest common ancestor and pass down the _event handler_ to coordinate the children components.
 
-Ở đây, ta đã move state `isActive` của 2 Child (`Panel`) lên Parent (`Accordion`) để có thể phối hợp 2 `Panel` với nhau (chỉ có 1 `Panel` được _active_ tại một thời điểm - thằng này mở thì thằng kia phải đóng).
+Here in `Accordion` we use the `activeId` state and pass down `handleShow` event handler so it can coordinate the `Panel` components.
 
 ```jsx
 export default function Accordion() {
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [activeId, setActiveId] = useState(0)
+  const handleShow = (id) => setActiveId(id)
+
   return (
     <>
-      <h2>Almaty, Kazakhstan</h2>
-      <Panel
-        title="About"
-        isActive={activeIndex === 0}
-        onShow={() => setActiveIndex(0)}
-      >
+      <Panel onShow={handleShow} title="About" isActive={activeId === 0}>
         Bla bla
       </Panel>
-      <Panel
-        title="Etymology"
-        isActive={activeIndex === 1}
-        onShow={() => setActiveIndex(1)}
-      >
+      <Panel onShow={handleShow} title="Etymology" isActive={activeId === 1}>
         Bla bla
       </Panel>
     </>
