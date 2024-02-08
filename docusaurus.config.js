@@ -97,7 +97,7 @@ const config = {
         apiKey: '93a7092910a1fb5f8f00d212643c04f6',
         indexName: 'finnchau',
         contextualSearch: true,
-        schedule: 'every 1 day at 3:00 pm',
+        schedule: 'every 9 day at 3:00 pm',
       },
     }),
 }
