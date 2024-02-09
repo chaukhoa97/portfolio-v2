@@ -2,7 +2,7 @@
 title: 'React Query'
 ---
 
-## [Basic Queries](https://tanstack.com/query/latest/docs/react/guides/queries)
+## Basic Queries
 
 ```jsx
 // queryFn can be any function that **returns a promise** (should either resolve the data or throw an error)
@@ -47,7 +47,7 @@ function Todos() {
 ```js
 // A list of todos
 useQuery({ queryKey: ['todos'], ... })
-// An individual todo in a "preview" format
+// A single todo with "preview" prop
 useQuery({ queryKey: ['todo', 5, { preview: true }], ...})
 // These 2 are the same, object key order doesn't matter
 useQuery({ queryKey: ['todos', { status, page }], ... })
@@ -55,7 +55,7 @@ useQuery({ queryKey: ['todos', { page, status }], ...})
 // But These 2 are different
 useQuery({ queryKey: ['todos', status, page], ... })
 useQuery({ queryKey: ['todos', page, status], ...})
-// Variable depends
+// If your query fn depends on a variable, include it in your query key
 useQuery({queryKey: ['todos', todoId], queryFn: () => fetchTodoById(todoId)})
 ```
 
