@@ -33,22 +33,47 @@ function Icon(props) {
 }
 ```
 
-## Lazy load & Component Maps
+### Debounce
+
+```jsx
+const timeoutRef = useRef(null)
+
+useEffect(() => {
+  clearTimeout(timeoutRef.current)
+  timeoutRef.current = setTimeout(() => fetch(value), 1000)
+}, [value])
+```
+
+### Throttle
+
+```jsx
+const [shouldThrottle, setShouldThrottle] = useState(false)
+
+useEffect(() => {
+  const fetchData = async () => {
+    if (shouldThrottle) return
+    setShouldThrottle(true)
+    setTimeout(() => setShouldThrottle(false), 2000)
+
+    fetch(value)
+  }
+
+  fetchData()
+}, [value])
+```
+
+## Lazy load with `lazy` & `Suspense`
 
 ```jsx
 import { lazy, Suspense } from 'react'
 
-const COMPONENTS = {
-  day: DayPicker,
-  week: lazy(() => import('./week-picker')), // this won't be included in the main bundle
-}
+// this won't be included in the main bundle
+const WeekPicker = lazy(() => import('./week-picker'))
 
-const App = ({ type }) => {
-  const SelectedPicker = COMPONENTS[type]
-
+const App = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <SelectedPicker />
+    <Suspense fallback={<Loading />}>
+      <WeekPicker />
     </Suspense>
   )
 }

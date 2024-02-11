@@ -9,7 +9,7 @@ title: 'Performance'
 - **Ship the smallest JS bundle possible**: Use right tools for the job e.g. _Astro_ and _RSC_ for static sites. Choose well-maintained, small, and tree-shakeable packages.
 - **Lazy/ Dynamic Loading (Code Splitting)**: Split JS bundles into smaller chunks to load on demand.
   - Flexible: Route level or Component level; On visibility or On user interaction.
-  - Example: `<img loading="lazy">` (Only load when user scrolls near them, [already widely supported](https://caniuse.com/loading-lazy-attr)), [React component with `lazy` and `Suspense`](../React/react-snippets.mdx#lazy-load--component-maps), Fonts, Scripts, Static Assets.
+  - Example: `<img loading="lazy">` (Only load when user scrolls near them, [already widely supported](https://caniuse.com/loading-lazy-attr)), [React component with `lazy` and `Suspense`](../React/react-snippets.mdx#lazy-load-with-lazy--suspense), Fonts, Scripts, Static Assets.
 - **Static Assets Optimization**: [Responsive Image](./image.md), [CSS Sprites](https://spritegen.website-performance.org/), compress and choose the right format for images and videos.
 - **Debounce & Throttle**: Limiting the number of times a function is executed, especially heavy ones. Example: _Debounce_: Executed only after a certain period of time has passed since the last event. _Throttle_: Limits the execution rate of a function to a specified time interval.
 - **Analytics**: Not always accurately reflect true user experience. Sometimes the true experience when using the application is more reliable than the stats shown by any automated tool. Example: Google Lighthouse, WebPageTest.org.
@@ -52,7 +52,7 @@ title: 'Performance'
 
 ### Core Web Vitals
 
-*[Core Web Vitals](https://web.dev/learn-core-web-vitals/)* are a **subset** of *[Performance Metrics](https://web.dev/metrics/)* defined by Google. They are essential to delivering a great user experience on the web, while **Performance Metrics** evaluate <u>many different aspects</u> like server-side performance, resource optimization, and JavaScript execution time.
+_[Core Web Vitals](https://web.dev/learn-core-web-vitals/)_ are a **subset** of _[Performance Metrics](https://web.dev/metrics/)_ defined by Google. They are essential to delivering a great user experience on the web, while **Performance Metrics** evaluate <u>many different aspects</u> like server-side performance, resource optimization, and JavaScript execution time.
 
 The metrics that make up **Core Web Vitals** will **evolve over time**. Read [how the Performance score is weighted](https://web.dev/performance-scoring). Typically, they focus on three aspects: Loading (LCP), Interactivity (FID -> INP), Visual stability (CLS)
 

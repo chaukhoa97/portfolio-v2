@@ -379,17 +379,6 @@ export default function App() {
 - `useRef`: Values <u>NOT</u> used for rendering, có thể thay đổi và ~ thay đổi đó do <u>NOT</u> require a re-render e.g. user's search box input, `timeoutId`.
 - `JS variable`: Values <u>NOT</u> used for rendering, constant, can be shared among mutliple instances of the component e.g. `env` values.
 
-### Snippet: Debounce button
-
-```jsx
-const timeoutRef = useRef(null);
-
-<button onClick={() => {
-  clearTimeout(timeoutRef.current);
-  timeoutRef.current = setTimeout(() => {}, 1000);
-}}>
-```
-
 ### Snippet: One `ref` for a list of elements
 
 ```jsx
