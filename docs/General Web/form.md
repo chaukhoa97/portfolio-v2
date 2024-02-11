@@ -2,6 +2,68 @@
 title: 'Form'
 ---
 
+## Checkbox, Radio, Select
+
+```jsx
+export default function Form() {
+  const [state, setState] = useState({
+    check1: true,
+    check2: false,
+    select: 'apple',
+    radio: 'radio1',
+  })
+
+  const handleChange = (event) => {
+    let value
+    if (event.target.type === 'checkbox') {
+      // We can add `value` attribute to checkbox e.g.
+      // if adding `value='ok'` and change `event.target.checked` to `event.target.value`
+      // we will have `check1: 'ok'` instead of `check1: true`.
+      value = event.target.checked
+    } else {
+      value = event.target.value // Select and Radio
+    }
+
+    setState({ ...state, [event.target.name]: value })
+  }
+
+  return (
+    <form onChange={handleChange}>
+      <label>
+        <input type="checkbox" checked={state.check1} name="check1" />
+        Check 1
+      </label>
+      <label>
+        <input type="checkbox" checked={state.check2} name="check2" />
+        Check 2
+      </label>
+      <select name="select" value={state.select}>
+        <option value="apple">Apple</option>
+        <option value="banana">Banana</option>
+      </select>
+      <label>
+        <input
+          type="radio"
+          checked={state.radio === 'radio1'}
+          value="radio1"
+          name="radio"
+        />
+        Radio 1
+      </label>
+      <label>
+        <input
+          type="radio"
+          checked={state.radio === 'radio2'}
+          value="radio2"
+          name="radio"
+        />
+        Radio 2
+      </label>
+    </form>
+  )
+}
+```
+
 ## Controlled vs Uncontrolled Form in React
 
 ```jsx title='Controlled.jsx'
@@ -54,65 +116,3 @@ export default function Form() {
   )
 }
 ```
-
-## Checkbox and Radio
-
-```jsx
-export default function Form() {
-  const [state, setState] = useState({
-    item1: true,
-    item2: false,
-    option: 'option2',
-  })
-
-  const handleChange = (event) => {
-    const value =
-      event.target.type === 'checkbox'
-        ? event.target.checked
-        : event.target.value
-    setState({
-      ...state,
-      [event.target.name]: value,
-    })
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    alert(JSON.stringify(state))
-  }
-
-  return (
-    <form onSubmit={handleSubmit} onChange={handleChange}>
-      <label>
-        <input type="checkbox" checked={state.item1} name="item1" />
-        Item 1
-      </label>
-      <label>
-        <input type="checkbox" checked={state.item2} name="item2" />
-        Item 2
-      </label>
-      <label>
-        <input
-          type="radio"
-          checked={state.option === 'option1'}
-          value="option1"
-          name="option"
-        />
-        Option 1
-      </label>
-      <label>
-        <input
-          type="radio"
-          checked={state.option === 'option2'}
-          value="option2"
-          name="option"
-        />
-        Option 2
-      </label>
-      <button>Submit</button>
-    </form>
-  )
-}
-```
-
-- We can add `value` attribute to checkbox e.g. if adding `value='ok'` and change `event.target.checked` to `event.target.value` we will have `item1: ok` instead of `item1: true`.
