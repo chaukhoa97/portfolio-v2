@@ -42,6 +42,18 @@ p::before { content: '', color:... }
 - `initial`: sử dụng style mặc định của trình duyệt.
 - `unset`: `parentHasStyle ? inherit : initial`
 
+## `z-index`
+
+- Root
+  - DIV #1
+  - DIV #2
+  - DIV #3
+    - DIV #4
+    - DIV #5
+    - DIV #6
+
+![z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_positioned_layout/Understanding_z-index/Stacking_context/understanding_zindex_04.png)
+
 ## Flexbox
 
 ### [Aligning Flex Items along the Main/ Cross Axis](https://stackoverflow.com/a/33856609/13255516)
