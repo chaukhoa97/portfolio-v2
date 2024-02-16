@@ -40,26 +40,27 @@ const timeoutRef = useRef(null)
 
 useEffect(() => {
   clearTimeout(timeoutRef.current)
-  timeoutRef.current = setTimeout(() => fetch(value), 1000)
-}, [value])
+  timeoutRef.current = setTimeout(() => getData(id), 1000)
+}, [id])
 ```
 
 ### Throttle
 
 ```jsx
-const [shouldThrottle, setShouldThrottle] = useState(false)
+// We don't use useState here because this value shouldn't trigger a re-render (NOT necessary for calculating the JSX)
+const shouldThrottleRef = useRef(false)
 
 useEffect(() => {
-  const fetchData = async () => {
-    if (shouldThrottle) return
-    setShouldThrottle(true)
-    setTimeout(() => setShouldThrottle(false), 2000)
+  const getData = async () => {
+    if (shouldThrottleRef.current) return
+    shouldThrottleRef.current = true
+    setTimeout(() => (shouldThrottleRef.current = false), 1000)
 
-    fetch(value)
+    getData(id)
   }
 
-  fetchData()
-}, [value])
+  getData()
+}, [id])
 ```
 
 ## Lazy load with `lazy` & `Suspense`

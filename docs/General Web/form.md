@@ -8,7 +8,7 @@ title: 'Form'
 export default function Form() {
   const [state, setState] = useState({
     check1: true,
-    check2: false,
+    check2: 'bruh',
     select: 'apple',
     radio: 'radio1',
   })
@@ -30,8 +30,14 @@ export default function Form() {
   return (
     <form onChange={handleChange}>
       <label>
-        <input type="checkbox" checked={state.check1} name="check1" />
-        Check 1
+        <input
+          type="checkbox"
+          checked={state.check1}
+          name="check1"
+          // align-top; inline-block; w-3: For aligning checkbox with text
+          className="align-top"
+        />
+        <span className="inline-block w-3">Check 1</span>
       </label>
       <label>
         <input type="checkbox" checked={state.check2} name="check2" />

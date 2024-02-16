@@ -237,9 +237,8 @@ export default React.memo(Children)
 
 Lets you reference a value that’s **NOT** needed for rendering. You should only use them when you have to “step outside React"
 
-- Communicate with external APIs - often a browser API that won’t impact the appearance of the component (`focus`, `scrollIntoView`) &rarr; Storing and manipulating DOM elements.
-- Storing and persisting other values that only needed by event handlers and changing it doesn’t require a re-render (it's NOT necessary for calculating the JSX), e.g. `timeoutId`, user input.
-- Example: Focus on an input or trigger an animation when it appears on the screen, infinite loading.
+- Communicate with external APIs - often to store DOM elements and control them with browser APIs that doesn't impact the appearance of the component (`focus`, `scrollIntoView`)
+- Storing data that isn't used when calculating the JSX (changing them doesn’t require a re-render), e.g. `timeoutId`, user input, `shouldThrottleRef`,...
 
 <Tabs>
   <TabItem value="infinite" label="Infinite Loading">
