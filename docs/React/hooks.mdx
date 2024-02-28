@@ -417,8 +417,13 @@ function Counter() {
   // `compute` will run every time Counter re-render, but its return value is ignored because the state has already been initialized.
   const [count2, setCount2] = useState(compute())
 
+  const handleDelete = (id) => {
+    // Updater function: Update dựa theo prev state, convention là letter đầu tiên (e.g. count -> c)
+    // Useful in cases we don't want to directly modify the state which are reference types (object, array)
+    setListItems((prev) => prev.filter((item) => item.id !== id))
+  }
+
   const handleClick = () => {
-    // Callback from: Update dựa theo prev state, convention là letter đầu tiên (count -> c)
     setCount((c) => c + 5)
     // Alert 0 instead of 5 even though `count` changed to 5
     // Because `handleClick` function is a closure - it can only see the values of variables as they existed when the function was defined
