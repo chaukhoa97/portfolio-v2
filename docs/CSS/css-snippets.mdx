@@ -26,6 +26,49 @@ Cùi hơn thì dùng flexbox hoặc `mx-auto` (chỉ dùng dc cho ~ element có 
 }
 ```
 
+### Grid 2 columns
+
+```css
+.grid {
+  /* ❌ Equal minmax(auto, 1fr) -> the grid item can't be smaller than the content */
+  grid-template-columns: repeat(2, 1fr)
+
+  /* min-width = 0, max-width = 1fr -> the grid item is allowed to resize to 0 */
+  grid-template-columns: repeat(2, minmax(0, 1fr))
+}
+```
+
+### Grid 3 rows
+
+```css
+.grid {
+  grid-template-rows: 50px 75px auto;
+}
+```
+
+### Grid item position and area
+
+```css
+.grid-item {
+  /* Start at the 2nd column line and span across 2 columns */
+  grid-column: 2 / span 2; /* == 2 / 4 */
+  /* Start at the 1st row line and span across 3 rows */
+  grid-row: 1 / span 3; /* == 1 / 4 */
+}
+```
+
+### Grid align items
+
+```css
+/* Both default are `stretch`, can also be center, start, end */
+.grid-container {
+  /*  Row */
+  justify-items: center;
+  /* Column */
+  align-items: start;
+}
+```
+
 ### Grid Basic
 
 <iframe
@@ -41,18 +84,6 @@ Cùi hơn thì dùng flexbox hoặc `mx-auto` (chỉ dùng dc cho ~ element có 
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 />
-
-### Grid 2 columns
-
-```css
-.grid {
-  /* min-width = 0, max-width = 1fr, Similar to Tailwind */
-  grid-template-columns: repeat(2, minmax(0, 1fr))
-
-  /* ❌ Wrong, == minmax(auto, 1fr), so the grid item is free to resize to 0 */
-  grid-template-columns: 1fr
-}
-```
 
 ### Aspect ratio
 

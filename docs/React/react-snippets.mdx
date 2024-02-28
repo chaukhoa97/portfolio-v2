@@ -33,9 +33,17 @@ function Icon(props) {
 }
 ```
 
-### Debounce
+## Debounce
 
 ```jsx
+// Pseudo code
+let timeoutId = null
+const debouncedFn = () => {
+  clearTimeout(timeoutId)
+  timeoutId = setTimeout(() => run(), 1000)
+}
+
+// Real React code
 const timeoutRef = useRef(null)
 
 useEffect(() => {
@@ -44,22 +52,33 @@ useEffect(() => {
 }, [id])
 ```
 
-### Throttle
+## Throttle
 
 ```jsx
+// Pseudo code
+let shouldThrottle = false
+const throttledFn = () => {
+  if (shouldThrottle) return
+  shouldThrottle = true
+  setTimeout(() => (shouldThrottle = false), 1000)
+
+  run()
+}
+
+// Real React code
 // We don't use useState here because this value shouldn't trigger a re-render (NOT necessary for calculating the JSX)
 const shouldThrottleRef = useRef(false)
 
 useEffect(() => {
-  const getData = async () => {
+  const getData = async (id) => {
     if (shouldThrottleRef.current) return
     shouldThrottleRef.current = true
     setTimeout(() => (shouldThrottleRef.current = false), 1000)
 
-    getData(id)
+    run()
   }
 
-  getData()
+  getData(id)
 }, [id])
 ```
 
