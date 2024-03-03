@@ -76,14 +76,14 @@ function useInterval() {
 
 ```jsx
 useEffect(() => {
-  let ignore = false
+  let shouldIgnore = false
 
   async function getData() {
     const data = await fetchTodos(userId)
     // 1st Run.3: Here `ignore` is already set to `true` from the cleanup function, so `setTodos` won't be called,...
     // 1st Run.3b: which is good as the `setTodos` will run on the 2nd time Effect run in dev
     // 2nd Run.2: But this time because the cleanup function is not called, here `ignore` is still `false`, so `setTodos` will be called
-    if (!ignore) setTodos(data)
+    if (!shouldIgnore) setTodos(data)
   }
 
   // 1st Run.1: `getData` is called
@@ -91,7 +91,7 @@ useEffect(() => {
   getData()
 
   // 1st Run.2: Cleanup function doesn't wait for async fn (getData) to finish...
-  return () => (ignore = true)
+  return () => (shouldIgnore = true)
 }, [userId])
 ```
 

@@ -11,7 +11,7 @@ Read more: <https://nextjs.org/docs/app/building-your-application/routing/linkin
 
 ### `<Link>` vs `router.push`
 
-Cả 2 đều là _Client-side route transitions_, tuy nhiên `router.push` không tạo ra `<a>` tag &rarr; **Your links won't be detected by crawlers**.
+Cả 2 đều là _Client-side navigation_, but `router.push` doesn't create `<a>` tags (it navigate programmatically) &rarr; **Your links won't be detected by crawlers**.
 
 ## Prefetching
 
