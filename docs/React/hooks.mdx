@@ -79,12 +79,12 @@ useEffect(() => {
   let ignore = false
 
   async function getData() {
-    const json = await fetchTodos(userId)
+    const data = await fetchTodos(userId)
     // 2. Here `ignore` is already set to `true` from the cleanup function, so `setTodos` won't be called,...
     // 2b. which is good as the `setTodos` will run on the 2nd time Effect run in dev
     // 4. But this time because the cleanup function is not called, here `ignore` is still `false`, so `setTodos` will be called
     if (!ignore) {
-      setTodos(json)
+      setTodos(data)
     }
   }
 

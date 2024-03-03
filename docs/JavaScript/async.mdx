@@ -81,7 +81,8 @@ function oneSec(duration) {
 const fetchDetails = async () => {
   const promises = ids.map((id) => fetch(getJobDetailURL(id)))
   const responses = await Promise.all(promises)
-  const data = await Promise.all(responses.map(async (res) => await res.json()))
+  const jsonPromises = responses.map((res) => res.json())
+  const data = await Promise.all(jsonPromises)
 }
 
 // .all -> All must fullfill
