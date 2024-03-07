@@ -25,6 +25,7 @@ window.scrollTo({ top: 0, behavior: 'smooth' })
 ## Open and Close Window
 
 ```js
+// All current versions of major browsers now automatically use the behavior of rel="noopener" for any target="_blank" link
 let newWindow = window.open('https://www.example.com', '_blank')
 setTimeout(() => newWindow.close(), 2000)
 ```
