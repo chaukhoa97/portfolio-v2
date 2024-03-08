@@ -79,8 +79,8 @@ function oneSec(duration) {
 
 ```js
 const fetchDetails = async () => {
-  const promises = ids.map((id) => fetch(getJobDetailURL(id)))
-  const responses = await Promise.all(promises)
+  const fetchPromises = ids.map((id) => fetch(getJobDetailURL(id)))
+  const responses = await Promise.all(fetchPromises)
   const jsonPromises = responses.map((res) => res.json())
   const data = await Promise.all(jsonPromises)
 }

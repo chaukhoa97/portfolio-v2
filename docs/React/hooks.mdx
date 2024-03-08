@@ -52,7 +52,7 @@ function App({ id }) {
 ```
 
   </TabItem>
-  <TabItem value="setInterval" label="Using setInterval for time state" >
+  <TabItem value="time" label="Handle setTimeout in Effect firing twice in dev" >
 
 ```jsx
 function useInterval() {
@@ -62,9 +62,14 @@ function useInterval() {
   useEffect(() => {
     // ...so we need to set initial value of `time` state in useEffect instead
     setTime(new Date().getTime())
-    // useEffect, setTimeout, setInterval đều có 1st param là callback
-    const timeInterval = setInterval(() => setTime(new Date().getTime()), 1000)
-    return () => clearInterval(timeInterval)
+
+    let timeoutId
+    timeoutId = setTimeout(() => {
+      setTime((prev) => prev + 1000)
+    }, 1000)
+
+    // If we don't clean up the timeout, there will be 2 timeouts because Effects run twice in dev
+    return () => clearTimeout(timeoutId)
   }, [])
 
   return time
@@ -72,7 +77,7 @@ function useInterval() {
 ```
 
   </TabItem>
-  <TabItem value="run twice" label="Handle the Effect firing twice in dev" >
+  <TabItem value="run twice" label="Handle fetchs in Effect firing twice in dev" >
 
 ```jsx
 useEffect(() => {

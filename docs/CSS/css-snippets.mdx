@@ -2,7 +2,58 @@
 title: 'CSS Snippets'
 ---
 
-### Center hoàn toàn
+## Center a `div`
+
+The easiest way is with **Flexbox**
+
+### With auto margins
+
+First, we need to **constrain** the element's width; by default, elements in Flow layout will expand horizontally to fill the available space, and we can't really center something that is full-width.
+
+```css
+.element {
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+```
+
+### Within the viewport
+
+`inset-0` applies `top: 0, right: 0, bottom: 0, left: 0` and make a positioned element (here `fixed`) stretch to cover the whole viewport.  
+With only these 2 properties, the element would stretch to fill the entire viewport, growing so that it's 0px from each edge. We need to constrain the size of the element to make it a box that can be centered.
+
+```css
+.element {
+  /* Positioned */
+  position: fixed;
+  /* Stretch */
+  inset: 0px;
+  /* Constrain */
+  width: 12rem;
+  height: 5rem;
+  max-width: 100vw;
+  max-height: 100dvh;
+  /* Auto margins */
+  margin: auto;
+}
+```
+
+We can use the same trick to center something in a single direction. For example, we can build a cookie banner that is horizontally centered, but anchored near the bottom of the viewport.
+
+```css
+.cookie-banner {
+  position: fixed;
+  /* Omit `top: 0px` so that auto margin will push it to the bottom */
+  left: 0px;
+  right: 0px;
+  bottom: 8px;
+  max-width: 30rem;
+  margin: auto;
+}
+```
+
+### Precisely
 
 ```scss
 .item {
@@ -15,9 +66,7 @@ title: 'CSS Snippets'
 }
 ```
 
-Cùi hơn thì dùng flexbox hoặc `mx-auto` (chỉ dùng dc cho ~ element có declared width)
-
-### Image scale with Container width
+## Image scale with Container width
 
 ```css
 .img-fluid {
@@ -25,6 +74,8 @@ Cùi hơn thì dùng flexbox hoặc `mx-auto` (chỉ dùng dc cho ~ element có 
   height: auto;
 }
 ```
+
+## Grid
 
 ### Grid 2 columns
 
@@ -85,7 +136,7 @@ Cùi hơn thì dùng flexbox hoặc `mx-auto` (chỉ dùng dc cho ~ element có 
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 />
 
-### Aspect ratio
+## Aspect ratio
 
 ```css
 .product-image {
@@ -108,7 +159,7 @@ Cùi hơn thì dùng flexbox hoặc `mx-auto` (chỉ dùng dc cho ~ element có 
 }
 ```
 
-### `:not(:last-of-type)` for list item
+## `:not(:last-of-type)` for list item
 
 ```css
 li:not(:last-of-type) {
@@ -116,7 +167,7 @@ li:not(:last-of-type) {
 }
 ```
 
-### Hover cho `after/before`: pseudo class đứng trước pseudo element
+## Hover cho `after/before`: pseudo class đứng trước pseudo element
 
 ```css
 .alo:hover::before {

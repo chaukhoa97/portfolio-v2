@@ -11,10 +11,6 @@ sidebar_position: 1
 | `object-fit: cover` != `background-size: cover`             | ✅                    | ✅ (cropped)       |
 | `object-fit: contain` == `background-size: contain`         | ✅                    | ❌ (empty space)   |
 
-## Element height
-
-Usually shouldn't change the `height` nhưng nếu có thì nên dùng `min-height`. Vì nếu viewport nhỏ lại thì element cũng sẽ tự cao ra cho vừa với content.
-
 ## Selector
 
 ### [Pseudo-class](https://www.w3schools.com/css/css_pseudo_classes.asp)`:` Define a special state of an element
@@ -90,7 +86,6 @@ p::before { content: '', color:... }
 ```css
 .box {
   width: fit-content;
-
   /* ... is the same as ... */
   width: auto;
   min-width: min-content;
