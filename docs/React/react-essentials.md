@@ -33,7 +33,8 @@ Using Virtual DOM also opens up possibilities to decouple rendering logic from t
 ### Recent frameworks compiler
 
 React, Vue, Angular ship JS code to the browser to make ur code work at the **runtime**. More recent frameworks have their own **compiler** that knows at **Build time** how things could change in your app, rather than waiting to do the work at **Runtime**.  
-It compiles your _declarative_ code into _efficient imperative_ code that works with **native browser APIs**, so the Virtual Dom can do less work &rarr; High performance and small package.
+It compiles your _declarative_ code into _efficient imperative_ code that works with **native browser APIs**, so the Virtual Dom can do less work &rarr; High performance and small package.  
+React soon will has its own compiler so we don't need to use `useCallback`, `useMemo`, `forwardRef`... anymore
 
 ### Virtual DOM in Vue
 
