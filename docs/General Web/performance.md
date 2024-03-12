@@ -71,7 +71,7 @@ The metrics that make up **Core Web Vitals** will **evolve over time**. Read [ho
 
 **LCP** measures the **loading performance**. It measures the time it takes to get the largest element on the page visible within the viewport. This could be a large text block, video, or image that takes up the primary real estate on the page.
 
-Improve **LCP** by: [Optimized images](./image.md), lazy loading. [Read more](https://web.dev/optimize-lcp/)
+Improve **LCP** by: [Optimized images](./image.md), Prioritizing critical resources, Caching. [Read more](https://web.dev/optimize-lcp/)
 
 :::caution
 This is not **First Contentful Paint (FCP)**, which measures the time from when the page begins to load to when the first element is rendered on screen.
@@ -81,7 +81,7 @@ This is not **First Contentful Paint (FCP)**, which measures the time from when 
 
 **FID** measures the **interactivity**. It measures how much is the delay users experience between initiating an interaction (e.g. clicking a button) and the browser responding to that interaction.
 
-Improve **FID** by: Reduce the amount of JavaScript executed on page load by using code splitting, removing unused code, and deferring non-critical JavaScript. [Read more](https://web.dev/optimize-fid/)
+Improve **FID** by: Reduce the amount of JavaScript executed on page load by using code splitting, removing unused code, Prioritizing critical resources. [Read more](https://web.dev/optimize-fid/)
 
 ### [Interaction to Next Paint (INP)](https://web.dev/inp/)
 

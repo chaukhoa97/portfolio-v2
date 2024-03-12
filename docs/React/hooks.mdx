@@ -421,7 +421,7 @@ function Counter() {
 
   const handleDelete = (id) => {
     // Updater function: Update dựa theo prev state, convention là letter đầu tiên (e.g. count -> c)
-    // Useful in cases we don't want to directly modify the state which are reference types (object, array)
+    // Useful in cases where the new state depends on the old state
     setListItems((prev) => prev.filter((item) => item.id !== id))
   }
 

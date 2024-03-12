@@ -28,11 +28,12 @@ Prop drilling can make your app hard to maintain. If you want to add or remove a
 :::
 
 <Tabs>
-  <TabItem value="CartContext" label="components/cart/CartContext.tsx" >
+  <TabItem value="CartContext" label="Full Example" >
 
 ```tsx
 // Make sure the file extension is `.tsx`
 import { createContext, useContext, useState, useMemo, ReactNode } from 'react'
+import Layout from '../components/layout'
 
 export type Currency = 'USD' | 'VND'
 
@@ -43,16 +44,17 @@ export type CartContextProps =
     }
   | undefined
 
-// Init context with `null` is a must to check if `useCart` is used within a `CartProvider` (see `useCart` below)
-const CartContext = createContext<CartContextProps>(null)
+// Init context with no arg (default to `undefined`) or `null` is a must to check if `useCart` is used within a `CartProvider` (see `useCart` below)
+const CartContext = createContext<CartContextProps>()
 
+// B1: Create Provider
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   // To update context, you need to combine it with state
   const [currency, setCurrency] = useState<Currency>('USD')
   // When `CartProvider` re-render, components consuming the Context also re-render
-  // Memoizing the value which is passed as prop to `Provider` will reduce unnecessary re-render if it's NOT a top-level component
-  // Being at the top-level means it has no other parent components that can trigger re-rendering to it...
-  // It only gets re-rendered when `setCurrency` is called from its children to change the `currency`, so `useMemo` do nothing here
+  // Memoizing the value passed to `Provider` will reduce unnecessary re-renders if CartProvider is NOT a top-level component...
+  // Being at the top-level means it has no parent components that can trigger re-rendering to it...
+  // It only gets re-rendered when `setCurrency` is called from a `child` in the Context, so `useMemo` do nothing here
   const memoizedValue = useMemo(() => ({ currency, setCurrency }), [currency])
 
   return (
@@ -63,20 +65,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 }
 
 export const useCart = () => {
-  const context = useContext(CartContext)
-  if (!context) {
-    throw new Error('useCart must be used within a CartProvider')
-  }
-  return context
+  const ctx = useContext(CartContext)
+  if (!ctx) throw new Error('useCart must be used within a CartProvider')
+
+  return ctx
 }
-```
-
-  </TabItem>
-  <TabItem value="_app" label="_app.js">
-
-```jsx
-import { CartProvider } from '../components/cart/CartContext'
-import Layout from '../components/layout'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -89,17 +82,11 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-export default MyApp
-```
-
-  </TabItem>
-  <TabItem value="SomeComponent" label="SomeComponent.tsx">
-
-```js
-import { useCart } from '../cart/CartContext'
-
-// B3: Use Context
-const { currency, setCurrency } = useCart()
+function SomeChildComponent() {
+  // B3: Use Context
+  const { currency, setCurrency } = useCart()
+  ...
+}
 ```
 
   </TabItem>
@@ -260,7 +247,7 @@ function WelcomeMessage({ user }) {
 </Tabs>
 
 :::note
-This usually only works in simple app because it can make higher-level components more complicated and forces the lower-level components to be more felxible than you may want. For larger and more complex app, Context is a better option.
+This usually only works in simple app because it can make higher-level components more complicated and forces the lower-level components to be more flexible than you may want. For larger and more complex app, Context is a better option.
 :::
 
 ### Local mutation
