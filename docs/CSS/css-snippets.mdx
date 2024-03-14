@@ -8,10 +8,12 @@ The easiest way is with **Flexbox**. Use `align-self`/ `justify-self` or auto `m
 
 ### With auto margins
 
-First, we need to **constrain** the element's width; by default, elements in Flow layout will expand horizontally to fill the available space, and we can't really center something that is full-width.
+First, we need to **constrain** the element's width; by default, `block` elements in Flow layout will expand horizontally to fill the available space, and we can't really center something that is full-width. This doesn't apply to `inline` or `inline-block` bc they don't take up the full width of their parent container by default.
 
 ```css
-.element {
+button {
+  /* `inline` or `inline-block` won't work */
+  display: block;
   max-width: fit-content;
   margin-left: auto;
   margin-right: auto;
