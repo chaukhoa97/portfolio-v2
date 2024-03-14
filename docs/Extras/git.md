@@ -67,7 +67,7 @@ Cả 3 đều integrate changes from one branch into another branch.
 ## Config User
 
 - `git config --list --show-origin`
-- `git config --global user.email jonhkane00@gmail.com`
+- `git config --global user.email cdkhoa97@gmail.com`
 - `git config --global user.name "Finn Chau"`
 
 ## Stash
