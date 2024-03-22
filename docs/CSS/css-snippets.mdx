@@ -140,17 +140,19 @@ We can use the same trick to center something in a single direction. For example
 
 ## Aspect ratio
 
+At least one of the box's sizes needs to be automatic in order for `aspect-ratio` to have any effect. If neither the width nor height is an automatic size, then the provided aspect ratio has no effect on the box's preferred sizes. -> Put the `aspect-ratio` on the container won't work.
+
 ```css
-.product-image {
+.image-container img {
   aspect-ratio: 1/1;
 }
 /* Or */
-.product-image {
+.image-container {
   /* 1:1 Aspect Ratio, e.g 16:9 will have the padding-top at 56.25%  */
   padding-top: 100%;
   position: relative;
 }
-.product-image > img {
+.image-container img {
   position: absolute;
   top: 0;
   left: 0;

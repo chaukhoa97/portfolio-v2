@@ -16,7 +16,7 @@ title: 'Git'
 ## Push & Pull
 
 _All belows can be executed with the same result at any branch._  
-`git push <remote_URL/remote_name> <local-branch>:<remote-branch>`
+`git push <remote_URL/remote_name> <local-branch>:<remote-branch>` e.g. `git pull origin develop:develop`
 
 - Local & remote `origin` has the same name: `git push origin t1` (Push **local** `t1` lên **origin** `t1`)
 - Local & remote `origin` has different names: `git push origin t1:newT1` (Push **local** `t1` lên **origin** `newT1`)

@@ -84,6 +84,24 @@ function Panel({ title, children, isActive, onShow }) {
 }
 ```
 
+## Differences between rendering via a function and a component
+
+Rendering via a function **cannot have lifecycle, state or hooks**, might be a bit faster than rendering via a component.
+
+```jsx
+const renderViaFunction = () => <div>Function</div>
+const RenderViaComponent = () => <div>Component</div>
+
+const App = () => {
+  return (
+    <>
+      {renderViaFunction()} {/* Function */}
+      <RenderViaComponent /> {/* Component */}
+    </>
+  )
+}
+```
+
 ## HOC
 
 A Higher Order Component (HOC) contains certain logic that we want to apply to the another component that we pass as a parameter. After applying that logic, the HOC returns the element with the additional logic.  

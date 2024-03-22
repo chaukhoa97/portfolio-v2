@@ -43,6 +43,16 @@ const MyComponent = () => {
 
 ## [Type of a React component passed as `props`](https://codesandbox.io/p/sandbox/react-component-as-prop-icon-l6y3p8?file=/src/App.tsx:16,18)
 
+In React and TypeScript, ReactElement, ReactNode, and JSX.Element are types used to describe what a component can return or what can be passed as props. Here are the differences:
+
+ReactElement: This is an object with a type and props, which is the typical output of JSX expressions. It's the most specific type among the three. A ReactElement is essentially an object representation of a React component or a DOM element.
+
+ReactNode: This is a more general type that includes ReactElement but also other things a component can return: strings, numbers, fragments, portals, null, and booleans. This is typically used in the context of children, where children can be a wide variety of things.
+
+JSX.Element: This is similar to ReactElement, but it's provided by TypeScript's JSX typings. It's what you get when you create a JSX element (<div />, <MyComponent />, etc.). In most React applications, JSX.Element and ReactElement can be used interchangeably.
+
+In summary, if you're typing a prop that's going to be a JSX element or a component, you can use ReactElement or JSX.Element. If you're typing children or something that could be a wider variety of outputs, use ReactNode.
+
 ```tsx
 type ButtonProps = { icon: ReactElement<IconProps> }
 
