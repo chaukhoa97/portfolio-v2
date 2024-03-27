@@ -38,7 +38,13 @@ p::before { content: '', color:... }
 - `initial`: sử dụng style mặc định của trình duyệt.
 - `unset`: `parentHasStyle ? inherit : initial`
 
+## Layout modes
+
+Flow, Positioned (e.g. `position: absolute`), Flex, Grid, Table, Multi-column, Float
+
 ## `z-index`
+
+Only works in positioned elements, Flexbox, Grid, and Multi-column elements.
 
 - Root
   - DIV #1

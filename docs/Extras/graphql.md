@@ -5,14 +5,13 @@ title: 'GraphQL'
 ## Schema
 
 ```graphql title="schema.graphql"
-#1 Interface & Inline fragments
+#1 Interface
 interface Node {
-  # "!" -> non null
-  id: ID!
+  id: ID! # "!" -> non null
 }
 
 type Product implements Node {
-  # Product phải có `id` vì implements từ `Node`
+  # type `Product` phải có `id` vì implements từ interface `Node`
   id: ID!
   title: String!
   vendor: String!
@@ -61,34 +60,34 @@ mutation createReviewForEpisode($ep: Episode!, $rv: ReviewInput!) {
   }
 }
 
-#1. Variables, Fragment & Aliases
-query collectionComparison($first: Int! = 3) {
-  c1: node(id: "collection-1") {
-    ...collectionProducts
-  }
-  c2: node(id: "collection-2") {
-    ...collectionProducts
-  }
-}
-
-# Các field ở trong fragment `collectionProducts` phải có trong type Collection
-fragment collectionProducts on Collection {
+# Fragment `CollectionProducts`: Its field must available in the `Collection` type
+fragment CollectionProducts on Collection {
   # fragment có thể access variable trong query dùng nó.
-  # Ở đây `first` ở fragment dc lấy từ variable `first` trong query `collectionComparison` ở trên
+  # Here `first` ở fragment dc lấy từ variable `first` in the `collectionComparison` query below
   products(first: $first) {
     title
     vendor
   }
 }
 
-#1 Inline fragment: Dùng khi query (ở đây là `node`) có field trả về là `interface` hoặc `union`
+query collectionComparison($first: Int! = 3) {
+  # Alias: Dùng khi muốn trả về nhiều field giống nhau từ nhiều `node` khác nhau
+  c1: node(id: "collection-1") {
+    ...CollectionProducts
+  }
+  c2: node(id: "collection-2") {
+    ...CollectionProducts
+  }
+}
+
 query getProductsFromCollection($categoryId: ID!, $first: Int = 250) {
   #1 query `node` có arg là `id`, khi ta truyền vào có thể là bất kỳ `id` nào (productId, collectionId, ...)
   node(id: $categoryId) {
     #2 query `node` trả về `Node` nên chắc chắn sẽ có id...
     id
-    #3. ... và vì `Product` và `Colllection` all IMPLEMENTs `Node` -> Dùng `inline fragment` để trả về thêm các field khác nhau tuỳ trường hợp (Product thì trả về `title`, còn Collection thì trả về `products`).
-    #4 Lý do là vì ở Collection ko có field `title` nên ko thể lấy dc, tương tự như Product ko có field `products`
+    #3. ... và vì `Product` và `Colllection` all IMPLEMENTs `Node`
+    #4. -> Dùng `inline fragment` (Relay called this `type refinement`) để trả về thêm các field khác nhau tuỳ trường hợp (Product thì trả về `title`, còn Collection thì trả về `products`).
+    #5 Lý do là vì ở Collection ko có field `title` nên ko thể lấy dc, tương tự như Product ko có field `products`
     ... on Product {
       title
     }
