@@ -228,6 +228,9 @@ module.exports = {
 
 ### index.css
 
+Order: `base` &rarr; `components` &rarr; `utilities` &rarr; Our custom CSS.  
+The reason to use `@layer` is that we can use modifiers e.g. `dark`, responsive like `lg`, `hover`,...
+
 ```css
 @tailwind base;
 @tailwind components;
@@ -240,9 +243,15 @@ module.exports = {
   }
 }
 
+@layer components {
+  .btn-primary {
+    @apply bg-blue-500 hover:bg-blue-700 dark:bg-blue-400 dark:hover:bg-blue-600;
+  }
+}
+
 @layer utilities {
-  .content-auto {
-    content-visibility: auto;
+  .filter-none {
+    filter: none;
   }
 }
 
@@ -251,8 +260,6 @@ module.exports = {
   padding-right: max(24px, calc((100vw - 1152px) / 2));
 }
 ```
-
-Order: `base` &rarr; `components` &rarr; `utilities` &rarr; Our custom CSS. Things inside `@layer` can also be used modifiers e.g. `dark:content-auto`
 
 ## VSCode
 
