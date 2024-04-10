@@ -33,13 +33,15 @@ title: 'Performance'
 
 ## Clean code
 
+- Avoid premature optimization.
+- Meaningful Variable Names and Comments.
+  - Name `Boolean`s with an **[affirmative phrase](https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/names-of-type-members?redirectedfrom=MSDN)** (`CanSeek` instead of `CantSeek`).
+  - `Boolean` should be prefixed with `is`, `has`, `should`, `can` ([Code Complete](https://en.wikipedia.org/wiki/Code_Complete)); `are`, `was`, `will`, `did`, `must`,... e.g. `isFetching`, `hasError`, `shouldShow`, `canSubmit`, `areEqual`, `wasClicked`, `willLoad`, `didMount`, `mustUpdate`.
 - Separate logic and UI by using custom hooks (preferred) or [Container/ Presentational Pattern](https://www.patterns.dev/posts/presentational-container-pattern).
 - Things that change together should be located as close as possible but should still be reasonable.
 - SOLID, DRY
 - YAGNI (You Aren't Gonna Need It): Don't add code that you only think you **might** need in the future.
 - KISS (Keep It Simple, Stupid): The simpler the code, the easier it is to understand and maintain. "Any fool can write code that a computer can understand. Good programmers write code that humans can understand."
-- Meaningful Variable Names and Comments.
-- Avoid premature optimization.
 
 ## Targets
 
