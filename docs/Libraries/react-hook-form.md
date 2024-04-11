@@ -4,17 +4,24 @@ title: 'React Hook Form'
 
 ## v7
 
-```jsx
+```tsx
 export default function SignUpForm() {
+  type FormData = {
+    acceptTerms: boolean
+    confirmPassword: string
+  }
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
     control,
-  } = useForm()
+  } = useForm<FormData>()
 
-  const onSubmit = () => console.log('submit')
+  console.log(watch('acceptTerms')) // watch input value by passing the name of it
+
+  const onSubmit: SubmitHandler<FormData> = (data) => console.log(data)
 
   return (
     // Form basic 1: `handleSubmit` will validate your inputs before invoking `onSubmit`
@@ -46,7 +53,6 @@ export default function SignUpForm() {
           />
         )}
       />
-      {errors.confirmPassword && <span>Ko trùng với mật khẩu ở trên</span>}
     </form>
   )
 }
