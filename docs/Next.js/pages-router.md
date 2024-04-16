@@ -12,7 +12,7 @@ Each generated HTML is also associated with minimal JavaScript code to make the 
 ![Pre-rendering](https://nextjs.org/static/images/learn/data-fetching/pre-rendering.png)
 ![No Pre-rendering](https://nextjs.org/static/images/learn/data-fetching/no-pre-rendering.png)
 
-## [Static-site Generation](https://nextjs.org/docs/basic-features/pages#static-generation-recommended)
+## [Static-site Generation](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props)
 
 > **SSG** generates the HTML at build time. The pre-rendered HTML is then reused on each request.
 
