@@ -18,18 +18,19 @@ const useStore = create((set) => ({
 }))
 
 function BearCounter() {
-  const bears = useStore((state) => state.bears)
-  return <h1>{bears} around here...</h1>
-}
+  // ❌ This will cause the component to update on every state change!
+  const { bears } = useStore()
 
-function Controls() {
-  const { increasePopulation, removeAllBears } = useStore() // can also use destructuring
-  const signedIn = useAuth((state) => !!state.user.username) // Correct way for computed values
+  // ✅ Correct way is to use selectors
+  const bears = useStore((state) => state.bears)
+
+  // ✅ And if we want to compute something, continue from a selector
+  const doubleBears = useStore((state) => state.bears * 2)
+
   return (
-    <div>
-      <button onClick={increasePopulation}>one up</button>
-      <button onClick={removeAllBears}>remove all</button>
-    </div>
+    <h1>
+      {bears} here..., {doubleBears} there...
+    </h1>
   )
 }
 ```
@@ -49,12 +50,4 @@ const useFishStore = create((set) => ({
   deleteEverything: () => set({}, true), // clears the entire store, actions included
   deleteTuna: () => set((state) => omit(state, ['tuna']), true),
 }))
-```
-
-## [Fetching Everything](https://github.com/pmndrs/zustand#fetching-everything)
-
-You can, but bear in mind that it will cause the component to update on every state change!
-
-```js
-const state = useBearStore()
 ```
