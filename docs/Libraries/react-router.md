@@ -2,20 +2,31 @@
 title: 'React Router'
 ---
 
-## (TODO) Using `createBrowserRouter`
+## (Old) Using `<BrowserRouter>`
 
-## (Legacy) Using `<BrowserRouter>`
+```jsx title=main.jsx
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Outlet,
+  Link,
+  useParams,
+} from 'react-router-dom'
+import { createRoot } from 'react-dom/client'
 
-```jsx
-import { Routes, Route, Outlet, Link, useParams } from 'react-router-dom'
+const root = createRoot(document.getElementById('root'))
 
-const Home = () => <h2>Home Page</h2>
-const NotFound = () => <h2>Page Not Found</h2>
+root.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+)
 
 function Services() {
   return (
     <div>
-      <h2>Services Page</h2>
+      <h1>Services Page</h1>
       <Link to="A">Service A</Link>
       <Link to="B">Service B</Link>
       <Outlet />
@@ -25,7 +36,7 @@ function Services() {
 
 function ServiceDetail() {
   let { serviceId } = useParams()
-  return <h3>Service {serviceId}</h3>
+  return <h1>Service {serviceId}</h1>
 }
 
 function App() {
@@ -34,18 +45,50 @@ function App() {
       <Link to="/">Home</Link>
       <Link to="/services">Services</Link>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<h1>Home Page</h1>} />
         <Route path="/services" element={<Services />}>
-          <Route index element={<h3>Choose a service</h3>} />
+          <Route index element={<h1>Choose a service</h1>} />
           <Route path=":serviceId" element={<ServiceDetail />} />
         </Route>
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
     </div>
   )
 }
 
 export default App
+```
+
+## (New) Using `createBrowserRouter`
+
+```jsx
+import {
+  createBrowserRouter,
+  Routes,
+  Route,
+  Outlet,
+  Link,
+  useParams,
+} from 'react-router-dom'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      { index: true, element: <Home /> },
+      {
+        path: '/courses',
+        element: <Courses />,
+        children: [
+          { index: true, element: <CoursesIndex /> },
+          { path: '/courses/:id', element: <Course /> },
+        ],
+      },
+      { path: '*', element: <NotFound /> },
+    ],
+  },
+])
 ```
 
 [![Edit React Router 6 Outlet playground (forked)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-router-6-outlet-playground-forked-5f6kqk?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=dark)
