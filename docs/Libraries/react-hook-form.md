@@ -16,10 +16,12 @@ export default function SignUpForm() {
     handleSubmit,
     formState: { errors },
     watch,
+    getValues,
     control,
   } = useForm<FormData>()
 
-  console.log(watch('acceptTerms')) // watch input value by passing the name of it
+  console.log(watch('acceptTerms')) // subscribe to an input value, omit the argument to watch all inputs
+  console.log(getValues()) // similar to `watch` but NOT subscribe to input changes or trigger re-renders
 
   const onSubmit: SubmitHandler<FormData> = (data) => console.log(data)
 
