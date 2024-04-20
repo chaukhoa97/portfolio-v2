@@ -40,11 +40,26 @@ p::before { content: '', color:... }
 
 ## Layout modes
 
-Flow, Positioned (e.g. `position: absolute`), Flex, Grid, Table, Multi-column, Float
+Flow (Default), Positioned (e.g. `position: absolute`), Flex, Grid, Table, Multi-column, Float
 
 ## `z-index`
 
-Only works in positioned elements, Flexbox, Grid, and Multi-column elements.
+Only works in positioned elements, Flexbox, Grid, and Multi-column elements.  
+Note that the default `z-index` is `auto` which means a child element having `z-index` larger than 0 can mess up the stacking order of its parent with other siblings. To ensure the stacking order, set `z-index` of the parents to numbers rather than `auto`.
+
+<iframe
+  src="https://codesandbox.io/embed/zk6psg?fontsize=12&view=Editor+%2B+Preview&module=%2Fsrc%2Fstyles.css"
+  style={{
+    width: "100%",
+    height: 500,
+    border: 0,
+    borderRadius: 4,
+    overflow: "hidden"
+  }}
+  title="z-index"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+/>
 
 - Root
   - DIV #1
