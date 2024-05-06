@@ -5,10 +5,11 @@ title: 'React Hook Form'
 ## v7
 
 ```tsx
+import { useForm, SubmitHandler } from 'react-hook-form'
 export default function SignUpForm() {
   type FormData = {
-    acceptTerms: boolean
     confirmPassword: string
+    date: string
   }
 
   const {
@@ -20,7 +21,7 @@ export default function SignUpForm() {
     control,
   } = useForm<FormData>()
 
-  console.log(watch('acceptTerms')) // subscribe to an input value, omit the argument to watch all inputs
+  console.log(watch('confirmPassword')) // subscribe to an input value, `watch()` to watch all inputs
   console.log(getValues()) // similar to `watch` but NOT subscribe to input changes or trigger re-renders
 
   const onSubmit: SubmitHandler<FormData> = (data) => console.log(data)
@@ -29,29 +30,29 @@ export default function SignUpForm() {
     // Form basic 1: `handleSubmit` will validate your inputs before invoking `onSubmit`
     <form onSubmit={handleSubmit(onSubmit)}>
       <input
-        type="checkbox"
-        id="acceptTerms"
-        // Form basic 2: UNIQUE `name` ("acceptTerms") for RHF doing its work, `options obj`: https://react-hook-form.com/api/useform/register
-        {...register('acceptTerms', { required: true })}
+        id="confirmPassword"
+        // Form basic 2: UNIQUE `name` ("confirmPassword") for RHF doing its work
+        // `options obj`: https://react-hook-form.com/api/useform/register
+        {...register('confirmPassword', {
+          required: true,
+          validate: (value) => value === watch('password'),
+        })}
       />
-      {/* Form basic 3: errors.`inputUniqueName` */}
-      {errors.acceptTerms && <span>Bro chưa accept kìa</span>}
+      {/* Form basic 3: errors.`uniqueName` */}
+      {errors.confirmPassword && <span>Not match</span>}
       {/* Form Controller: Dùng để control các external UI components: MUI, Ant Design...: https://react-hook-form.com/docs/usecontroller/controller  */}
       <Controller
         // Form Controller 1: UNIQUE `name` ("email") and `rules` are similar to `Form basic 2`
-        name="confirmPassword"
-        rules={{
-          required: true,
-          // watch('password') -> Theo dõi value của input có name là "password"
-          validate: (value) => value === watch('password'),
-        }}
+        name="date"
         //Form Controller 2: `control = {control}` is a must, Optional when using `FormProvider`
         control={control}
-        render={({ field }) => (
-          <Input
-            {...field}
-            // Form Controller 3: Customize input value trước khi RHF xử lý.
-            onChange={(e) => field.onChange(parseInt(e.target.value))}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <ReactDatePicker
+            // Form Controller 3.1: This `onBlur` sends the input's `onBlur` event to the library...
+            onBlur={onBlur}
+            // Form Controller 3.2: ... we can also customize input value before sending, if not need `onChange = {onChange}` is fine
+            onChange={(e) => onChange(parseInt(e.target.value))}
+            selected={!!value}
           />
         )}
       />
