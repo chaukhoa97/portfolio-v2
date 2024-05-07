@@ -8,12 +8,13 @@ import TabItem from '@theme/TabItem'
 
 ## Event loop
 
-1. Synchronously execute the script until the **Call Stack** (LIFO) is empty. Các hàm **async** vào **Call stack** thì dc di chuyển qua **Web api**. Ở **Web api** chạy async xong thì push callback vào **Task Queue**/ **Microtask Queue**.
+1. Synchronously execute the script until the **Call Stack** (LIFO) is empty. There are couple things that will not be added directly to the **Call Stack** but be handled by **Web APIs**. When done in **Web APIs**, the callbacks will be pushed into the **Task Queue** (for _Callback-based APIs_ e.g. `setTimeout`, `DOM` APIs, `geolocation`,...) or **Microtask Queue** (for _Promise-based APIs_ e.g. `Promise`, `MutationObserver`,...)
 
-2. Select the **oldest** callback from **Microtask Queue** (was added in ES6 to handle `Promise`) to push into **Call Stack** and execute it. Repeat until the **Microtask Queue** is empty. This is the **Event Loop**.
+2. Select the **oldest** callback from **Microtask Queue**, push it into the **Call Stack** and execute it. Repeat until the **Microtask Queue** is empty.
 
-3. Do the same like step 2 with **Task Queue** (`setTimeout`).
+3. Do the same like step 2 for the **Task Queue**. Note that if there is a new callback added to the **Microtask Queue** while executing the **Task Queue**, the **Microtask Queue** will still be executed first.
 
+![alt text](image.png)
 ![Event loop](https://i.imgur.com/E1AuR7A.png)
 
 ### Example: Test this snippet [here](https://www.jsv9000.app/)
