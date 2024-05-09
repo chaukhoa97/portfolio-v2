@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem'
 
 ## Event loop
 
-1. Synchronously execute the script until the **Call Stack** (LIFO) is empty. There are couple things that will not be added directly to the **Call Stack** but be handled by **Web APIs**. When done in **Web APIs**, the callbacks will be pushed into the **Task Queue** (for _Callback-based APIs_ e.g. `setTimeout`, `DOM` APIs, `geolocation`,...) or **Microtask Queue** (for _Promise-based APIs_ e.g. `Promise`, `MutationObserver`,...)
+1. Synchronously execute the script until the **Call Stack** (LIFO) is empty. **Async** tasks (anything off the main thread) will not be added directly to the **Call Stack** but be handled by **Web APIs**. When done in **Web APIs**, the callbacks will be pushed into the **Task Queue** (for _Callback-based APIs_ e.g. `setTimeout`, `DOM` APIs, `geolocation`,...) or **Microtask Queue** (for _Promise-based APIs_ e.g. `Promise`, `MutationObserver`,...)
 
 2. Select the **oldest** callback from **Microtask Queue**, push it into the **Call Stack** and execute it. Repeat until the **Microtask Queue** is empty.
 

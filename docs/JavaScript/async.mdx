@@ -53,6 +53,13 @@ const reportError = ({ message }: { message: string }) => {
 ## `Promise` explain
 
 ```js
+// Log 1 3 2
+new Promise((resolve) => {
+  console.log(1)
+  resolve(2)
+}).then((result) => console.log(result))
+console.log(3)
+
 // Async function always return a promise. If not, it will be wrapped in a Promise
 async function foo() {
   return 1
