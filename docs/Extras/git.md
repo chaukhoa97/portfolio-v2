@@ -10,18 +10,10 @@ title: 'Git'
 ## Remote
 
 - `git remote -v`: Show những remote repo mà local repo này liên kết, mặc định của Github là `origin`
-- `git fetch origin`: Cập nhật data từ remote `origin`
-- `git merge origin/master`: Merge nhánh `master` của remote `origin` vào local HEAD
-
-## Push & Pull
-
-_All belows can be executed with the same result at any branch._  
-`git push <remote_URL/remote_name> <local-branch>:<remote-branch>` e.g. `git pull origin develop:develop`
-
-- Local & remote `origin` has the same name: `git push origin t1` (Push **local** `t1` lên **origin** `t1`)
-- Local & remote `origin` has different names: `git push origin t1:newT1` (Push **local** `t1` lên **origin** `newT1`)
-- Between local branches: `git push origin t1:t2` (Push **local** `t1` sang **local** `t2`)
-- `git pull origin main`: Pull **origin** `main` về **local** `HEAD`.
+- `git fetch origin`: Cập nhật data từ remote `origin` -> `git fetch origin main`: Cập nhật data nhánh `main` từ remote `origin`
+- `git merge origin/main`: Merge **origin** `main` vào local `HEAD`
+- `git pull origin main` = `git fetch origin main` + `git merge origin/main`: Pull **origin** `main` về **local** `HEAD`
+- `git push origin t1:newT1`: Push **local** `t1` lên **origin** `newT1` (đổi name)
 
 ## Merge, Rebase & Cherry-Pick
 
