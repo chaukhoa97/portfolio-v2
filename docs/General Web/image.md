@@ -36,6 +36,13 @@ For a device width of 320px, the following calculations are made, and the browse
 If the pixel density is `1`, the browser will use `400w` image because `1.25` is close and larger to `1`.
 If the pixel density is `2`, the browser will use `800w` image because `2.5` is close and larger to `2`...
 
+## Formats in order of size
+
+- **PNG**: Lossless compression.
+- **JPEG**: Lossy compression.
+- **WebP**: Board browser support ([96.8% at 2024-05-25](https://caniuse.com/?search=webp))
+- **AVIF**: Better compression than WebP, but less browser support ([93.4% at 2024-05-25](https://caniuse.com/?search=avif))
+
 ## Retina
 
 _Retina_ is a marketing term from Apple, refers to a display with a pixel density bigger than 1 (2x or 3x). Nowadays all mobile devices also have a pixel density bigger than 1.
